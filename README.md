@@ -1,36 +1,31 @@
 # ReportGPS 🔍
 
-**AI-powered research paper validator** — checks your academic PDF for grammar, reference, figure/table, and structural issues, then delivers a downloadable annotated PDF with every issue marked at its exact location.
-
----
+AI-powered research paper validator for PDF manuscripts. Upload a paper, run language, metadata, disclosure, reference, and figure/table checks, then download the annotated PDF with issue locations marked in the document.
 
 ## Architecture
 
-```
+```text
 d:\reportgps\
-├── frontend/          React 18 + Vite + Redux + pdfjs-dist
-├── backend/           Express.js orchestration server (port 5000)
-└── services/
-    ├── regex-checker/       FastAPI :8001 — language, grammar, regex checks
-    ├── reference-analyser/  FastAPI :8002 — BibTeX field/consistency checks
-    └── figure-analyser/     FastAPI :8003 — pdffigures2 caption placement
+├── frontend/              React 19 + Vite + Redux Toolkit + pdfjs-dist
+├── backend/               Express orchestration API (port 5000)
+├── services/
+│   ├── regex-checker/     FastAPI :8001 - language, regex, structure, annotation
+│   ├── reference-analyser/   FastAPI :8002 - BibTeX consistency and reference QA
+│   └── figure-analyser/   FastAPI :8003 - pdffigures2 caption placement checks
+└── research-papers/       Local sample PDFs used for testing and demos
 ```
 
-External: **GROBID** (HF Space) — reference extraction (BibTeX + coordinates)
-
----
+External dependency: GROBID is used for reference extraction and coordinates, currently pointed at the HF Space configured in `backend/.env.example`.
 
 ## Prerequisites
 
 | Tool | Version | Notes |
 |------|---------|-------|
-| Node.js | v18+ | v22 confirmed working |
-| Python | 3.10+ | For microservices |
-| Java | 11+ | Required by LanguageTool + pdffigures2 |
+| Node.js | 18+ | The app has been tested with Node 22 |
+| Python | 3.10+ | Required for the FastAPI services |
+| Java | 11+ | Required by LanguageTool and pdffigures2 |
 
----
-
-## Setup & Running
+## Setup
 
 ### 1. Install backend dependencies
 
@@ -39,105 +34,143 @@ cd d:\reportgps\backend
 npm install
 ```
 
-### 2. Install Python service dependencies
-
-Run each in a separate terminal:
-
-```powershell
-# Service 1: Regex + Language Checker
-cd d:\reportgps\services\regex-checker
-pip install -r requirements.txt
-python app.py   # starts on :8001
-```
-
-```powershell
-# Service 2: Reference Analyser
-cd d:\reportgps\services\reference-analyser
-pip install -r requirements.txt
-python app.py   # starts on :8002
-```
-
-```powershell
-# Service 3: Figure/Table Analyser (requires Java 11)
-cd d:\reportgps\services\figure-analyser
-pip install -r requirements.txt
-python app.py   # starts on :8003
-```
-
-### 3. Start the backend
-
-```powershell
-cd d:\reportgps\backend
-npm run dev   # starts on :5000
-```
-
-### 4. Start the frontend
+### 2. Install frontend dependencies
 
 ```powershell
 cd d:\reportgps\frontend
-npm run dev   # starts on :3000
+npm install
 ```
 
-Open **http://localhost:3000**
+### 3. Configure environment files
 
----
+Copy the templates and adjust them only if you need custom endpoints:
 
-## API Overview
+```powershell
+Copy-Item backend\.env.example backend\.env
+Copy-Item frontend\.env.example frontend\.env
+```
+
+### 4. Install Python service dependencies
+
+Run each service in its own terminal:
+
+```powershell
+cd d:\reportgps\services\regex-checker
+pip install -r requirements.txt
+python app.py
+```
+
+```powershell
+cd d:\reportgps\services\reference-analyser
+pip install -r requirements.txt
+python app.py
+```
+
+```powershell
+cd d:\reportgps\services\figure-analyser
+pip install -r requirements.txt
+python app.py
+```
+
+### 5. Place the pdffigures2 JAR
+
+The figure analyser requires `pdffigures2.jar` to be copied into `services/figure-analyser/` before it can run:
+
+```powershell
+Copy-Item pdffigures2.jar -Destination services\figure-analyser\pdffigures2.jar
+```
+
+### 6. Start the backend
+
+```powershell
+cd d:\reportgps\backend
+npm run dev
+```
+
+The API runs on `http://localhost:5000`.
+
+### 7. Start the frontend
+
+```powershell
+cd d:\reportgps\frontend
+npm run dev
+```
+
+The Vite dev server runs on `http://localhost:3000` and proxies `/api` requests to the backend.
+
+## API
 
 ### `POST /api/documents/upload`
-Upload a PDF for full analysis.
 
-**Request:** `multipart/form-data` with field `document` (PDF file)
+Uploads a PDF and runs the full analysis pipeline.
 
-**Response:**
+Request: `multipart/form-data` with a `document` field containing the PDF.
+
+Response shape:
+
 ```json
 {
-  "issues": [...],
-  "regex_issues": { "metadata": {...}, "disclosures": {...}, ... },
-  "llm_issues": [...],
+  "issues": [],
+  "regex_issues": {},
+  "llm_issues": [],
   "annotated_pdf": "/api/documents/annotated/annotated_<filename>.pdf",
-  "meta": { "total_issues": 42, "processed_at": "..." }
+  "meta": {
+    "filename": "paper.pdf",
+    "total_issues": 12,
+    "processed_at": "2026-06-08T12:00:00.000Z"
+  }
 }
 ```
 
 ### `GET /api/documents/annotated/:filename`
-Download the annotated PDF with all issues highlighted.
 
----
+Downloads the generated annotated PDF.
+
+### Health checks
+
+Backend: `GET /health`
+
+Services:
+- `http://localhost:8001/health`
+- `http://localhost:8002/health`
+- `http://localhost:8003/health`
 
 ## What Gets Checked
 
-| Category | How |
-|----------|-----|
-| Grammar & Spelling | LanguageTool (Java) |
-| Formatting | Regex: space-before-bracket, etc. |
-| Reference Fields | GROBID → BibTeX → ConsistencyHandler |
-| Reference Order | Regex on citation numbers |
-| Figure Caption Placement | pdffigures2.jar (Java) |
-| Disclosures | Keyword search (conflict of interest, funding, etc.) |
-| IMRAD Structure | Section heading detection |
-| Metadata | Email, keywords, author list regex |
+| Category | Implementation |
+|----------|----------------|
+| Grammar and spelling | LanguageTool, filtered to prose text only |
+| Metadata | Author email, author list, keyword presence, word count |
+| Disclosures | Conflict of interest, ethics, funding, data access, and author contribution statements |
+| Structure | IMRAD section detection, abstract, conclusion, and references presence |
+| Reference extraction | GROBID BibTeX and reference coordinates |
+| Reference quality | Ordering, DOI, journal casing, completeness, and BibTeX consistency |
+| Figure/table checks | pdffigures2 caption placement plus figure/table summary checks |
 
----
+## UI Workflow
 
-## Issue Color Coding (in PDF viewer)
+1. Drag and drop a PDF or click the upload card.
+2. The viewer renders the document immediately from the in-memory file data.
+3. Analysis runs in the background while issues populate the sidebar.
+4. Clicking an issue jumps to the matching page and overlay.
+5. Download the annotated PDF once processing completes.
+
+## Issue Colors
 
 | Color | Category |
 |-------|----------|
-| 🔴 Red | Spelling/Typos |
-| 🟢 Green | Grammar |
-| 🔵 Blue | Typography |
-| 🟠 Orange | Formatting |
-| 🔵 Cyan | References |
-| 🟣 Purple | Figure/Table captions |
+| Red | Spelling |
+| Green | Grammar |
+| Blue | Typography |
+| Orange | Formatting |
+| Cyan | References |
+| Purple | Figures and tables |
 
----
+## Environment Variables
 
-## Environment Variables (backend)
+Backend: see `backend/.env.example`
 
-See `backend/.env.example`:
-
-```
+```env
 PORT=5000
 REGEX_SERVICE_URL=http://localhost:8001
 REFERENCE_SERVICE_URL=http://localhost:8002
@@ -146,19 +179,21 @@ GROBID_URL=https://tmkc-100bar-extraction-engine.hf.space
 UPLOADS_DIR=./uploads
 ```
 
----
+Frontend: see `frontend/.env.example`
+
+```env
+VITE_API_BASE_URL=http://localhost:5000/api
+```
 
 ## Notes
 
-- The `regex-checker` service also handles **annotated PDF generation** via `POST /annotate`
-- GROBID calls are made in parallel with other analysis for faster total time
-- Each service fails gracefully — one failure won't crash the entire pipeline
-- Annotated PDFs are stored in `backend/uploads/anonymous/` and served on demand
-
----
+- The regex-checker service also handles annotated PDF generation through `POST /annotate`.
+- The backend runs the regex, GROBID, and figure services in parallel where possible.
+- Annotated PDFs are written to `backend/uploads/anonymous/` and served on demand.
+- `backend/test-grobid.mjs` can be used to validate the external GROBID endpoints with a local PDF.
 
 ## Extending Checks
 
-All new regex/language rules go in `services/regex-checker/checker.py`.
-New reference field requirements go in `services/reference-analyser/analyser.py`.
-Publisher-specific rule configs will live in `publisher-rules/` (planned).
+- Add new regex or language rules in `services/regex-checker/checker.py`.
+- Add new BibTeX or reference rules in `services/reference-analyser/analyser.py`.
+- Add new figure/table rules in `services/figure-analyser/analyser.py`.

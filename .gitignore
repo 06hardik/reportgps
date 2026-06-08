@@ -1,0 +1,47 @@
+# Dependency and build output
+node_modules/
+dist/
+frontend/dist/
+frontend/.vite/
+coverage/
+*.tsbuildinfo
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+**/.env
+**/.env.local
+**/.env.development.local
+**/.env.test.local
+**/.env.production.local
+
+# Generated uploads and local test artifacts
+uploads/
+backend/uploads/
+backend/test_sample.pdf
+research-papers/
+*.jar
+
+# Python caches
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+
+# OS and editor noise
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+
