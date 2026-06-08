@@ -1,0 +1,89 @@
+/* ChecksPanel */
+.checks-panel {
+  background: var(--color-surface);
+  border-left: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.checks-panel-header {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.checks-panel-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.check-section {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.check-section-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-alt);
+}
+
+.check-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  transition: background var(--transition-fast);
+}
+
+.check-row:last-child { border-bottom: none; }
+
+.check-row:hover { background: var(--color-bg-alt); }
+
+.check-row-label {
+  font-size: 0.8125rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.check-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.check-indicator.pass  { color: var(--color-success); }
+.check-indicator.fail  { color: var(--color-error); }
+.check-indicator.warn  { color: var(--color-warning); }
+.check-indicator.info  { color: var(--color-info); }
+
+.check-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.check-dot.pass { background: var(--color-success); }
+.check-dot.fail { background: var(--color-error); }
+.check-dot.warn { background: var(--color-warning); }
+.check-dot.info { background: var(--color-info); }
