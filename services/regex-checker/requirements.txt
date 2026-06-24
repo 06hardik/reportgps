@@ -1,8 +1,0 @@
-fastapi
-uvicorn[standard]
-python-multipart
-pymupdf4llm
-pymupdf
-markdown-it-py
-mdit-plain
-language-tool-python
