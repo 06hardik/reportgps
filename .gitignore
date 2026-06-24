@@ -44,4 +44,8 @@ Thumbs.db
 .vscode/
 .idea/
 
+# Large test assets and outputs
+*.pdf
+/out.json
+
 

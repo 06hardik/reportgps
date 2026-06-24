@@ -36,6 +36,15 @@ _DOTNUM_REF = re.compile(
     re.MULTILINE,
 )
 
+# Matches APA/Author-Year style: Lastname, F. M. (Year). ...
+_APA_REF = re.compile(
+    r'^\s*([A-Z][^(\n]{2,120}\(((?:19|20)\d{2})\)\s*\..+)',
+    re.MULTILINE,
+)
+_APA_START = re.compile(
+    r'^\s*[A-Z][^(\n]{2,120}\(((?:19|20)\d{2})\)\s*\.',
+)
+
 # DOI pattern inside a reference string
 _DOI = re.compile(
     r'(?:doi:|https?://doi\.org/)(\S+)',
@@ -60,80 +69,129 @@ def extract_references(full_text: str) -> List[Dict[str, Any]]:
     Returns a list of dicts with keys:
         raw_string, number, year, doi, url
     """
-    refs: List[Dict[str, Any]] = []
-    seen: set = set()
-
-    # Locate bibliography section start to avoid matching citations in body text
-    headers = ["references", "bibliography", "literature cited"]
+    # Locate bibliography section start using a robust line-based search
+    headers_regex = re.compile(
+        r'^\s*(references|bibliography|literature cited|reference)\s*$', 
+        re.IGNORECASE | re.MULTILINE
+    )
+    
+    header_matches = list(headers_regex.finditer(full_text))
     start_pos = 0
-    for h in headers:
-        pos = full_text.lower().rfind(h)
-        if pos > start_pos:
-            if pos == 0 or not full_text[pos - 1].isalnum():
-                start_pos = pos
+    if header_matches:
+        best_match = header_matches[-1]
+        for m in reversed(header_matches):
+            if m.start() > len(full_text) * 0.5:
+                best_match = m
+                break
+        start_pos = best_match.start()
+    else:
+        # Fallback to substring rfind search
+        headers = ["references", "bibliography", "literature cited"]
+        for h in headers:
+            pos = full_text.lower().rfind(h)
+            if pos > start_pos:
+                if pos == 0 or not full_text[pos - 1].isalnum():
+                    start_pos = pos
 
     ref_text = full_text[start_pos:] if start_pos > 0 else full_text
 
-    # Try numbered-bracket style first  [1] ...
+    # Extract using three different styles
+    
+    # ── Style A: Numbered brackets [1] ────────────────────────────────────────
+    refs_a: List[Dict[str, Any]] = []
+    seen_a: set = set()
     for m in _NUMBERED_REF.finditer(ref_text):
         num = int(m.group(1))
         raw = m.group(0).strip()
-        body = m.group(2).strip()
-
-        # Collect continuation lines (non-blank lines without a new [N] marker)
         raw = _collect_continuation(ref_text, m.end(), raw)
-
         key = raw[:80].lower()
-        if key in seen:
-            continue
-        seen.add(key)
-
-        refs.append({
-            "raw_string":  raw,
-            "number":      num,
-            "year":        _find_year(raw),
-            "doi":         _find_doi(raw),
-            "url":         _find_url(raw),
-            "entry_type":  None,
-        })
-
-    if refs:
-        return sorted(refs, key=lambda r: r["number"] or 0)
-
-    # Fallback: dot-number style  1. ...
+        if key not in seen_a:
+            seen_a.add(key)
+            refs_a.append({
+                "raw_string":  raw,
+                "number":      num,
+                "year":        _find_year(raw),
+                "doi":         _find_doi(raw),
+                "url":         _find_url(raw),
+                "entry_type":  None,
+            })
+            
+    # ── Style B: Dotted numbers 1. ────────────────────────────────────────────
+    refs_b: List[Dict[str, Any]] = []
+    seen_b: set = set()
     for m in _DOTNUM_REF.finditer(ref_text):
         num = int(m.group(1))
         raw = m.group(0).strip()
         raw = _collect_continuation(ref_text, m.end(), raw)
-
         key = raw[:80].lower()
-        if key in seen:
-            continue
-        seen.add(key)
+        if key not in seen_b:
+            seen_b.add(key)
+            refs_b.append({
+                "raw_string":  raw,
+                "number":      num,
+                "year":        _find_year(raw),
+                "doi":         _find_doi(raw),
+                "url":         _find_url(raw),
+                "entry_type":  None,
+            })
+            
+    # ── Style C: APA Author-Year (un-numbered) ────────────────────────────────
+    refs_c: List[Dict[str, Any]] = []
+    seen_c: set = set()
+    for m in _APA_REF.finditer(ref_text):
+        raw = m.group(0).strip()
+        raw = _collect_continuation(ref_text, m.end(), raw)
+        key = raw[:80].lower()
+        if key not in seen_c:
+            seen_c.add(key)
+            refs_c.append({
+                "raw_string":  raw,
+                "number":      None,
+                "year":        _find_year(raw),
+                "doi":         _find_doi(raw),
+                "url":         _find_url(raw),
+                "entry_type":  None,
+            })
 
-        refs.append({
-            "raw_string":  raw,
-            "number":      num,
-            "year":        _find_year(raw),
-            "doi":         _find_doi(raw),
-            "url":         _find_url(raw),
-            "entry_type":  None,
-        })
+    # Select the method that extracted the maximum number of references
+    candidates = [
+        ("numbered-bracket", refs_a),
+        ("dot-number", refs_b),
+        ("apa-style", refs_c)
+    ]
+    candidates.sort(key=lambda item: len(item[1]), reverse=True)
+    best_style, best_refs = candidates[0]
+    
+    print(f"[RegexExtractor] Selected reference style: {best_style} (found {len(best_refs)} references)")
+    print(f"  - numbered-bracket: {len(refs_a)}")
+    print(f"  - dot-number:       {len(refs_b)}")
+    print(f"  - apa-style:        {len(refs_c)}")
 
-    return sorted(refs, key=lambda r: r["number"] or 0)
+    if best_style == "numbered-bracket" or best_style == "dot-number":
+        return sorted(best_refs, key=lambda r: r["number"] or 0)
+    else:
+        return best_refs
 
 
 def _collect_continuation(text: str, start: int, current: str) -> str:
     """
     Read continuation lines after a reference opening line.
-    Stop at blank lines or a new numbered reference marker.
+    Stop at blank lines, new reference starting markers, or noise tables.
     """
-    lines = text[start:start + 600].splitlines()
+    remainder = text[start:start + 600]
+    if remainder.startswith('\n'):
+        remainder = remainder[1:]
+    elif remainder.startswith('\r\n'):
+        remainder = remainder[2:]
+
+    lines = remainder.splitlines()
     for line in lines[:6]:
         stripped = line.strip()
         if not stripped:
             break
-        if _NUMBERED_REF.match(line) or _DOTNUM_REF.match(line):
+        if _NUMBERED_REF.match(line) or _DOTNUM_REF.match(line) or _APA_START.match(line):
+            break
+        if "ACCEPTED MANUSCRIPT" in stripped or re.match(r'^(Table|Figure|Fig\.)\s+\d+', stripped, re.IGNORECASE):
             break
         current += " " + stripped
     return current.strip()

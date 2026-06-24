@@ -137,8 +137,41 @@ def extract_document(pdf_path: str) -> dict:
     t4 = time.monotonic()
     print("[Orchestrator] Step 4/4 — NuExtract page-by-page extraction …")
 
+    import concurrent.futures
+
+    # Scan first 5 pages to dynamically locate the page containing the abstract
+    metadata_page = 1
+    for chunk in page_chunks[:5]:
+        if re.search(r'\babstract\b', chunk.plain_text, re.IGNORECASE):
+            metadata_page = chunk.page_number
+            print(f"[Orchestrator] Dynamic metadata page detected: Page {metadata_page}")
+            break
+
     page_results: List[Tuple[int, ExtractionMode, Optional[dict], Optional[str]]] = []
     extraction_errors: List[dict] = []
+
+    def extract_page_task(chunk, idx, llm_client):
+        page_num = chunk.page_number
+        is_metadata = (page_num == metadata_page)
+        mode = ExtractionMode.METADATA if is_metadata else ExtractionMode.BODY
+
+        cap = MAX_CHARS_METADATA if is_metadata else MAX_CHARS_BODY
+        # Replace newlines with spaces for NuExtract to avoid line-broken equation/section issues
+        llm_input = chunk.plain_text.replace('\n', ' ').replace('\r', ' ')
+        llm_input = re.sub(r'\s+', ' ', llm_input).strip()
+        page_text = _trim_text(llm_input, cap)
+
+        if len(page_text.strip()) < MIN_CHARS_FOR_LLM:
+            print(f"[Orchestrator] p{page_num}: skipping (blank/image).")
+            return (page_num, mode, {}, None)
+
+        print(
+            f"[Orchestrator] p{page_num}/{len(page_texts)} "
+            f"[{mode.value}] ({len(page_text)} chars) → NuExtract …"
+        )
+
+        result, error = llm_client.extract(page_text, mode=mode, page_number=page_num)
+        return (page_num, mode, result, error)
 
     try:
         with NuExtractClient() as llm:
@@ -146,39 +179,27 @@ def extract_document(pdf_path: str) -> dict:
             if not alive:
                 print("[Orchestrator] WARNING: NuExtract server not responding.")
 
-            for idx, chunk in enumerate(page_chunks):
-                page_num = chunk.page_number
-                is_first = (page_num == 1)
-                mode     = ExtractionMode.METADATA if is_first else ExtractionMode.BODY
-
-                cap = MAX_CHARS_METADATA if is_first else MAX_CHARS_BODY
-                # Replace newlines with spaces for NuExtract to avoid line-broken equation/section issues
-                llm_input = chunk.plain_text.replace('\n', ' ').replace('\r', ' ')
-                llm_input = re.sub(r'\s+', ' ', llm_input).strip()
-                page_text = _trim_text(llm_input, cap)
-
-                if len(page_text.strip()) < MIN_CHARS_FOR_LLM:
-                    print(f"[Orchestrator] p{page_num}: skipping (blank/image).")
-                    page_results.append((page_num, mode, {}, None))
-                    continue
-
-                print(
-                    f"[Orchestrator] p{page_num}/{len(page_texts)} "
-                    f"[{mode.value}] ({len(page_text)} chars) → NuExtract …"
-                )
-
-                result, error = llm.extract(page_text, mode=mode, page_number=page_num)
-
-                if error:
-                    print(f"[Orchestrator] p{page_num}: failed ({error}).")
-                    extraction_errors.append({"page": page_num, "reason": error})
-                    page_results.append((page_num, mode, None, error))
-                else:
-                    page_results.append((page_num, mode, result, None))
+            # Concurrently extract pages using a pool size of 1
+            with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+                futures = {
+                    executor.submit(extract_page_task, chunk, idx, llm): chunk
+                    for idx, chunk in enumerate(page_chunks)
+                }
+                for future in concurrent.futures.as_completed(futures):
+                    page_num, mode, result, error = future.result()
+                    if error:
+                        print(f"[Orchestrator] p{page_num}: failed ({error}).")
+                        extraction_errors.append({"page": page_num, "reason": error})
+                        page_results.append((page_num, mode, None, error))
+                    else:
+                        page_results.append((page_num, mode, result, None))
 
     except Exception as exc:
         traceback.print_exc()
         print(f"[Orchestrator] NuExtract session error: {exc}")
+
+    # Ensure results are sorted in ascending page number order
+    page_results.sort(key=lambda r: r[0])
 
     timings["nuextract_s"] = round(time.monotonic() - t4, 2)
 
