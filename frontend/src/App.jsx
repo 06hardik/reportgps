@@ -1,138 +1,189 @@
-import React, { useRef, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Provider } from 'react-redux';
-import { store } from './store/index';
-import { FileProvider, useFileContext } from './context/FileContext';
-import { resetDocument } from './store/documentSlice';
-import { resetIssues, setActiveIssue } from './store/issuesSlice';
-import {
-  selectIsLoading, selectIssues, selectLlmIssues,
-  selectActiveIssueId, selectFileName, selectRegexChecks,
-} from './store/selectors/issueSelectors';
+import React, { useState, useRef } from 'react';
+import axios from 'axios';
+import { UploadCloud, FileText, CheckCircle, AlertCircle, Play } from 'lucide-react';
+import './index.css';
 
-import Header from './components/Layout/Header';
-import DocumentUpload from './components/DocumentUpload/DocumentUpload';
-import PDFViewer from './components/PDFViewer/PDFViewer';
-import IssuesSidebar from './components/IssuesSidebar/IssuesSidebar';
+function App() {
+  const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [results, setResults] = useState(null);
+  const [error, setError] = useState(null);
+  const [dragActive, setDragActive] = useState(false);
+  const fileInputRef = useRef(null);
 
-import './components/Layout/Layout.css';
-import './App.css';
+  const handleDrag = function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true);
+    } else if (e.type === "dragleave") {
+      setDragActive(false);
+    }
+  };
 
-const FEATURES = [
-  { icon: '📝', label: 'Grammar & Spelling'   },
-  { icon: '📚', label: 'Reference Validation' },
-  { icon: '📊', label: 'Figure / Table Checks'},
-  { icon: '🏗️', label: 'Structure Analysis'   },
-  { icon: '📄', label: 'Annotated PDF Export' },
-  { icon: '⚡', label: 'Instant Results'      },
-];
+  const handleDrop = function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      handleFileSelection(e.dataTransfer.files[0]);
+    }
+  };
 
-const AppContent = () => {
-  const dispatch = useDispatch();
-  const { fileData, clearFileData } = useFileContext();
+  const handleChange = function(e) {
+    e.preventDefault();
+    if (e.target.files && e.target.files[0]) {
+      handleFileSelection(e.target.files[0]);
+    }
+  };
 
-  const isLoading    = useSelector(selectIsLoading);
-  const issues       = useSelector(selectIssues);
-  const llmIssues    = useSelector(selectLlmIssues);
-  const activeIssueId= useSelector(selectActiveIssueId);
-  const regexChecks  = useSelector(selectRegexChecks);
+  const handleFileSelection = (selectedFile) => {
+    if (selectedFile.type !== 'application/pdf') {
+      setError('Please upload a PDF file.');
+      return;
+    }
+    setFile(selectedFile);
+    setError(null);
+    setResults(null);
+  };
 
-  const pdfViewerRef = useRef(null);
+  const onButtonClick = () => {
+    fileInputRef.current.click();
+  };
 
-  // Show workspace as soon as fileData exists (bytes are in memory),
-  // regardless of whether analysis has started / completed.
-  const inWorkspace = !!fileData;
+  const processFile = async () => {
+    if (!file) return;
 
-  const handleReset = useCallback(() => {
-    clearFileData();
-    dispatch(resetDocument());
-    dispatch(resetIssues());
-  }, [clearFileData, dispatch]);
+    setLoading(true);
+    setError(null);
 
-  const handleIssueClick = useCallback((issueId) => {
-    dispatch(setActiveIssue(issueId));
-    pdfViewerRef.current?.scrollToIssue?.(issueId);
-  }, [dispatch]);
+    const formData = new FormData();
+    formData.append('file', file);
 
-  const handleAnnotationClick = useCallback((issueId) => {
-    dispatch(setActiveIssue(issueId));
-  }, [dispatch]);
+    try {
+      // Using the proxy configured in vite.config.js
+      const response = await axios.post('/api/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      setResults(response.data);
+    } catch (err) {
+      console.error(err);
+      setError(err.response?.data?.error || err.message || 'An error occurred during processing.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="app-layout">
-      <Header onReset={handleReset} />
+    <div className="app-container">
+      <header className="header">
+        <FileText size={28} color="#8b5cf6" />
+        <h1>ReportGPS</h1>
+      </header>
 
-      <main className="app-main">
-        {!inWorkspace ? (
-          /* ═══════ LANDING — shown until a file is selected ═══════ */
-          <div className="landing">
-            <div className="landing-hero animate-fade-in">
-              <h1>Validate Your Research Paper</h1>
-              <p>
-                ReportGPS automatically checks your academic PDF for language errors,
-                reference issues, figure / table problems and structural compliance —
-                then delivers an annotated PDF with every issue highlighted.
-              </p>
-            </div>
-
-            <DocumentUpload />
-
-            <div className="landing-features animate-fade-in" style={{ animationDelay: '0.15s' }}>
-              {FEATURES.map((f) => (
-                <div className="feature-chip" key={f.label}>
-                  <span className="feature-chip-icon">{f.icon}</span>
-                  <span className="feature-chip-text">{f.label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        ) : (
-          /* ═══════ WORKSPACE ═══════ */
-          <div className="workspace">
-
-            {/* ── Center: live PDF viewer ── */}
-            <div className="workspace-viewer">
-              {/* Thin top banner while backend is running */}
-              {isLoading && (
-                <div className="workspace-analysing">
-                  <div className="upload-loading-spinner"
-                    style={{ width: 18, height: 18, borderWidth: 2 }} />
-                  Analysing document — this may take a few minutes…
+      <main className="main-content">
+        {!loading && !results && (
+          <div>
+            <div 
+              className={`upload-card ${dragActive ? "drag-active" : ""}`}
+              onDragEnter={handleDrag}
+              onDragLeave={handleDrag}
+              onDragOver={handleDrag}
+              onDrop={handleDrop}
+              onClick={onButtonClick}
+            >
+              <input
+                ref={fileInputRef}
+                type="file"
+                className="file-input"
+                accept="application/pdf"
+                onChange={handleChange}
+              />
+              <UploadCloud size={48} className="upload-icon" />
+              <p className="upload-text">Drag and drop your PDF here</p>
+              <p className="upload-subtext">or click to browse</p>
+              
+              {file && (
+                <div style={{ marginTop: '1.5rem', color: '#10b981', fontWeight: 600 }}>
+                  <CheckCircle size={20} style={{ verticalAlign: 'middle', marginRight: '0.5rem' }} />
+                  {file.name} selected
                 </div>
               )}
-
-              <PDFViewer
-                ref={pdfViewerRef}
-                fileData={fileData}
-                issues={issues}
-                llmIssues={llmIssues}
-                activeIssue={activeIssueId}
-                onAnnotationClick={handleAnnotationClick}
-              />
             </div>
 
-            {/* ── Right: tabbed sidebar ── */}
-            <div className="workspace-sidebar">
-              <IssuesSidebar
-                onIssueClick={handleIssueClick}
-                regexChecks={regexChecks}
-                isAnalysing={isLoading}
-              />
-            </div>
+            {error && (
+              <div className="error-message">
+                <AlertCircle size={20} style={{ verticalAlign: 'middle', marginRight: '0.5rem' }} />
+                {error}
+              </div>
+            )}
 
+            {file && (
+              <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+                <button 
+                  onClick={(e) => { e.stopPropagation(); processFile(); }}
+                  style={{
+                    background: 'var(--primary-gradient)',
+                    color: 'white',
+                    border: 'none',
+                    padding: '0.75rem 2rem',
+                    fontSize: '1.1rem',
+                    fontWeight: 600,
+                    borderRadius: '2rem',
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    boxShadow: '0 4px 6px -1px rgba(99, 102, 241, 0.4)'
+                  }}
+                >
+                  <Play size={20} /> Process Document
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {loading && (
+          <div className="loading-container">
+            <div className="spinner"></div>
+            <h2 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>Processing Document</h2>
+            <p style={{ color: 'var(--text-secondary)' }}>
+              Extracting structured data using the hybrid pipeline.<br/>
+              This may take a few minutes depending on the document length.
+            </p>
+          </div>
+        )}
+
+        {results && !loading && (
+          <div className="results-container">
+            <div className="results-header">
+              <h2>Extraction Results</h2>
+              <button 
+                onClick={() => { setResults(null); setFile(null); }}
+                style={{
+                  background: 'transparent',
+                  border: '1px solid var(--border-color)',
+                  padding: '0.5rem 1rem',
+                  borderRadius: '0.5rem',
+                  cursor: 'pointer',
+                  fontWeight: 500
+                }}
+              >
+                Upload Another
+              </button>
+            </div>
+            
+            <pre className="json-view">
+              {JSON.stringify(results, null, 2)}
+            </pre>
           </div>
         )}
       </main>
     </div>
   );
-};
-
-const App = () => (
-  <Provider store={store}>
-    <FileProvider>
-      <AppContent />
-    </FileProvider>
-  </Provider>
-);
+}
 
 export default App;
