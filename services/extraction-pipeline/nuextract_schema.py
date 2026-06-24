@@ -44,7 +44,6 @@ SCHEMA_METADATA: dict = {
             "heading_text": "",       # VERBATIM
             "heading_number": "",     # "3.1" or ""
             "heading_level": 1,       # 1=top 2=sub 3=sub-sub
-            "body_text": "",          # ALL paragraph text under this heading — VERBATIM
             "page_number": 0
         }
     ],
@@ -93,7 +92,6 @@ SCHEMA_BODY: dict = {
             "heading_text": "",       # VERBATIM
             "heading_number": "",     # "3.1" or ""
             "heading_level": 1,       # 1=top 2=sub 3=sub-sub
-            "body_text": "",          # ALL paragraph text under this heading — VERBATIM
             "page_number": 0
         }
     ],
@@ -155,8 +153,6 @@ RULES:
 6. authors: list ALL authors in order with their affiliations.
 7. sections: extract EVERY numbered section heading on this page (e.g. "1. Introduction").
    heading_number must be the number prefix (e.g. "1").
-   body_text: include ALL paragraph text under the heading until the next heading. VERBATIM.
-   body_text MUST be a string, never an array.
 8. equations: ONLY extract mathematical equations that have an explicit numbered label
    like (1), (2), etc. printed at the right margin or end of the equation on this page.
 9. figures/tables/acronyms: extract captions/acronyms if any exist on this page.
@@ -168,8 +164,6 @@ RULES:
 1. VERBATIM ONLY. Do NOT correct, paraphrase, or summarise anything.
 2. sections: extract EVERY numbered section heading on this page (e.g. "1. Introduction",
    "3.1 Limitations"). heading_number must be the number prefix (e.g. "3.1").
-   body_text: include ALL paragraph text under the heading until the next heading. VERBATIM.
-   body_text MUST be a string, never an array.
 3. equations: ONLY extract mathematical equations that have an explicit numbered label
    like (1), (2), (14) etc. printed at the right margin or end of the equation.
    - number: the integer N from the (N) label.

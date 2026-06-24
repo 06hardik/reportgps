@@ -15,19 +15,19 @@
     "authors": [
       {
         "name": "Shahrzad Saremi",
-        "affiliation": "School of Information and Communication Technology, Gri\ufb03th University, Nathan, Brisbane, QLD 4111, Australia",
+        "affiliation": "a School of Information and Communication Technology, Gri\ufb03th University, Nathan, Brisbane, QLD 4111, Australia b Gri\ufb03th College, Mt Gravatt, Brisbane, QLD 4122, Australia",
         "email": null,
         "is_corresponding": false
       },
       {
         "name": "Seyedali Mirjalili",
-        "affiliation": "School of Information and Communication Technology, Gri\ufb03th University, Nathan, Brisbane, QLD 4111, Australia",
+        "affiliation": "a School of Information and Communication Technology, Gri\ufb03th University, Nathan, Brisbane, QLD 4111, Australia b Gri\ufb03th College, Mt Gravatt, Brisbane, QLD 4122, Australia",
         "email": "seyedali.mirjalili@gri\ufb03thuni.edu.au",
         "is_corresponding": true
       },
       {
         "name": "Andrew Lewis",
-        "affiliation": "School of Information and Communication Technology, Gri\ufb03th University, Nathan, Brisbane, QLD 4111, Australia",
+        "affiliation": "a School of Information and Communication Technology, Gri\ufb03th University, Nathan, Brisbane, QLD 4111, Australia",
         "email": null,
         "is_corresponding": false
       }
@@ -45,8 +45,8 @@
       "heading_text": "Introduction",
       "heading_number": "1",
       "heading_level": 1,
-      "body_text": "The process of \ufb01nding the best values for the variables of a particular problem to minimise or maximise an objective func- tion is called optimisation. Optimisation problems exist in different \ufb01elds of studies. To solve an optimisation problem, different steps need to be taken. Firstly, the parameters of the problem should be identi\ufb01ed. Based on the nature of the parameters, problems may be classi\ufb01ed as continuous or discrete. Secondly, the con- straints that are applied to the parameters have to be recognised [1] . Constraints divide the optimisation problems into constrained and unconstrained. Thirdly, the objectives of the given problem should be investigated and considered. In this case, optimisation problems are classi\ufb01ed into single-objective versus multi-objective problems [2] . Finally, based on the identi\ufb01ed types of parameters, constraints, and number of objectives a suitable optimiser should be chosen and employed to solve the problem. Mathematical optimisation mainly relies on gradient-based in- formation of the involved functions in order to \ufb01nd the optimal solution. Although such techniques are still being used by different researchers, they have some disadvantages. Mathematical optimi- sation approaches suffer from local optima entrapment. This refers to an algorithm assuming a local solution is the global solution, thus failing to obtain the global optimum. They are also often inef- fective for problems with unknown or computationally expensive \u2217Corresponding author. E-mail address: seyedali.mirjalili@gri\ufb03thuni.edu.au (S. Mirjalili). URL: http://www.alimirjalili.com (S. Mirjalili) derivation [3] . Another type of optimisation algorithm that allevi- ates these two drawbacks is stochastic optimisation [4] . Stochastic methods rely on random operators that allow them to avoid local optima. They all start optimisation process by creat- ing one or a set of random solutions for a given problem. In con- trast to mathematical optimisation techniques, they do not need to calculate the gradient of a solution, just evaluating the solutions using the objective function(s). Decisions as to how to improve the solutions are made based on the calculated objective values. There- fore, the problem is considered as a black box, which is a very use- ful mechanism when solving real problems with unknown search spaces. Due to these advantages, stochastic optimisation techniques have become very popular over the past two decades [5] . Among stochastic optimisation approaches, nature-inspired, population-based algorithms are the most popular [6] . Such tech- niques mimic natural problems-solving methods, often those used by creatures. Survival is the main goal for all creatures. To achieve this goal, they have been evolving and adapting in different ways. Therefore, it is wise to seek inspiration from nature as the best and oldest optimiser on the planet. Such algorithms are classi\ufb01ed into two main groups: single-solutions-based and multi-solution- based. In the former class, a single random solution is generated and improved for a particular problem. In the latter class, how- ever, multiple solutions are generated and enhanced for a given problem. Multi-solution-based algorithms are more popular than single-solution-based methods, as the literature shows [7] . Multi-solution-based algorithms intrinsically have higher lo- cal optima avoidance due to improving multiple solutions dur- ing optimisation. In this case, a trapped solution in a local opti- mum can be assisted by other solutions to jump out of the local",
       "page_number": 1,
+      "body_text": "",
       "bbox": {
         "page": 1,
         "x0": 43.23899841308594,
@@ -60,8 +60,8 @@
       "heading_text": "Grasshopper Optimisation Algorithm (GOA)",
       "heading_number": "2",
       "heading_level": 1,
-      "body_text": "Grasshopper are insects. They are considered a pest due to their damage to crop production and agriculture. The life cycle of grasshoppers is shown in Fig. 1 . Although grasshoppers are usually seen individually in nature, they join in one of the largest swarm of all creatures [37] . The size of the swarm may be of continen- tal scale and a nightmare for farmers. The unique aspect of the grasshopper swarm is that the swarming behaviour is found in both nymph and adulthood [38] . Millions of nymph grasshoppers jump and move like rolling cylinders. In their path, they eat almost all vegetation. After this behaviour, when they become adult, they form a swarm in the air. This is how grasshoppers migrate over large distances. The main characteristic of the swarm in the larval phase is slow movement and small steps of the grasshoppers. In contrast, long- range and abrupt movement is the essential feature of the swarm in adulthood. Food source seeking is another important character- istic of the swarming of grasshoppers. As discussed in the intro- duction, nature-inspired algorithms logically divide the search pro- cess into two tendencies: exploration and exploitation. In explo- ration, the search agents are encouraged to move abruptly, while they tend to move locally during exploitation. These two functions, as well as target seeking, are performed by grasshoppers natu- rally. Therefore, if we \ufb01nd a way to mathematically model this be- haviour, we can design a new nature-inspired algorithm.",
       "page_number": 2,
+      "body_text": "",
       "bbox": {
         "page": 2,
         "x0": 322.5,
@@ -72,41 +72,11 @@
       "coordinate_found": true
     },
     {
-      "heading_text": "Comfort zone",
-      "heading_number": "3.1",
-      "heading_level": 2,
-      "body_text": "the distance of grasshoppers in the interval of [1,4] . The shape of the function s in this interval is shown in Fig. 2 (right). The G component in Eq. (2.1) is calculated as follows:",
-      "page_number": 4,
-      "bbox": {
-        "page": 4,
-        "x0": 44.849998474121094,
-        "y0": 62.8797607421875,
-        "x1": 84.6478042602539,
-        "y1": 71.78706359863281
-      },
-      "coordinate_found": true
-    },
-    {
-      "heading_text": "Attraction force Repulsion force",
-      "heading_number": "3.2",
-      "heading_level": 2,
-      "body_text": "where g is the gravitational constant and e g shows a unity vector towards the centre of earth. The A component in Eq. (2.1) is calculated as follows:",
-      "page_number": 4,
-      "bbox": {
-        "page": 4,
-        "x0": 211.16000366210938,
-        "y0": 62.6756591796875,
-        "x1": 257.3621520996094,
-        "y1": 71.58296203613281
-      },
-      "coordinate_found": true
-    },
-    {
       "heading_text": "Results",
       "heading_number": "3",
       "heading_level": 1,
-      "body_text": "This section first presents the test bed problems and performance metrics that are used to benchmark the performance of the proposed GOA algorithm. The experimental results are then provided and analysed in detail.",
       "page_number": 7,
+      "body_text": ", including convergence curves, trajectory of grasshoppers,\nsearch history, and average \ufb01tness of population have been illus-\ntrated and analysed in the following subsection.\nFor veri\ufb01cation of results, seven algorithms were employed\nfrom the literature including well-known and recent ones: PSO,\nSMS [25,26] , BA [22] , FPA [27] , CS [23,24] , FA [20,21] , GA, DE, and\nGravitational Search Algorithm (GSA) [44] . The initial controlling\nparameters of all algorithms are shown in Table 1 .\n3.2. Qualitative results and discussion\nThe \ufb01rst experiment was performed on the 2D version of some\nof the test functions using only 5 arti\ufb01cial grasshoppers. The main\nobjective for this experiment was to observe the behaviour of the\nGOA qualitatively. Five diagrams have been drawn for each of the\ntest functions in Fig. 10 in addition to the shape of test functions.\nThese diagrams are:\n\u2022 Search history: this diagram shows the location history of the\narti\ufb01cial grasshoppers during optimisation.\n\u2022 Attraction/repulsion rates: this diagram shows the number of\ntimes that all arti\ufb01cial grasshoppers attracted or repelled each\nother during optimisation.\n\u2022 Trajectory of the \ufb01rst grasshopper in the \ufb01rst dimension: this\ndiagram shows the value of the \ufb01rst variable of the \ufb01rst\ngrasshopper in each iteration.\n\u2022 Average \ufb01tness: this diagram indicates the average objective\nvalue of all grasshoppers in each iteration.\n\u2022 Convergence curve: this diagram shows the objective value of\nthe best solutions obtained so far (target) in each iteration.\nAs per the results in Fig. 10 , grasshoppers tend to explore\nthe promising regions of the search space and cluster around the\nglobal optima eventually. This pattern can be observed in uni-\nmodal, multimodal, and composite test functions. These results\nshow that the GOA algorithm bene\ufb01cially balances exploration and\nexploitation to drive the grasshoppers towards the global optimum.\nThe rates of attraction and repulsion in the pie charts show that\nthe grasshoppers interact differently on the test functions. They\nseem to attract each other more often on the unimodal test func-\ntions. This can clearly be observed in the pie charts for F1 and F4.\nThis behaviour is fruitful because unimodal functions do not have\nlocal optima, so grasshopper can better determine the global opti-\nmum by moving towards the best solution obtained so far.\nAnother interesting pattern in the pie charts is the high re-\npulsion rate between grasshoppers when solving multi-modal and\ncomposite test functions. This can be observed in the pie charts\nS. Saremi et al. / Advances in Engineering Software 105 (2017) 30\u201347\n37\nF1\nF9\nF13\nFig. 9. An example of unimodal, multi-modal, and composite test functions.\nTable 1\nInitial values for the controlling parameters of algorithms.\nAlgorithm\nParameter\nValue\nPSO\nTopology\nFully connected\nCognitive and social constants\n1.5, 1.5\nInertial weight\nLinearly decreases from 0.6 to 0.3\nGA\nType\nReal coded\nSelection\nRoulette wheel\nCrossover\nSingle point (probability = 1)\nMutation\nUniform (probability = 0.01)\nDE\nCrossover probability\n0.9\nDifferential weight\n0.5\nGSA\nRnorm, Rpower, alpha, and G 0\n2, 1, 20, 100\nBA\nLoudness ( A ), pulse rate ( r )\n0.5, 0.5\nFrequency min and max\n0, 2\nFPA\nprobability switch( p )\n0.4\nSMS\nBeta\n[0.9, 0.5, 0.1]\nAlpha\n[0.3, 0.05, 0]\nH\n[0.9, 0.2, 0]\nPhases\n[0.5, 0.1, \u22120.1]\nFA\nAlpha, beta, and gamma\n0.2, 1, 1\nof F9, F14 and F18. This is due to the fact that repulsion is a key\nmechanism to avoid local solutions in the GOA algorithm and these\nresults show that this algorithm prevents grasshoppers from local\noptima stagnation by high repulsion rates. It is worth mentioning\nhere that the results show that the high repulsion rate does not\nnegatively impact on the convergence. This is due to the adap-\ntive parameter of GOA, which shrinks the repulsion area propor-\ntional to the number of iterations. Therefore, grasshoppers avoid\nlocal valleys in the initial steps of iteration and cluster around the\nglobal optimum in the \ufb01nal stages of optimisation. For the test\nfunctions with both unimodal and multi modal regions (F10 for\ninstance), Fig. 10 shows that the repulsion rate is lower. These re-\nsults again demonstrate that GOA e\ufb03ciently balances exploration\nand exploitation to approximate the global optimum.\nThe trajectory curves in Fig. 10 show that the grasshoppers ex-\nhibit large, abrupt changes in the initial steps of optimisation. This\nis due to the high repulsion rate which causes exploration of the\nsearch space by GOA. It also can be seen that the \ufb02uctuation de-\ncreased gradually during optimisation, which is due to the adap-\ntive comfort zone and attraction forces between the grasshoppers.\nThis guarantees that the proposed GOA algorithm explores and\nexploits the search space and converges towards a point eventu-\nally. To con\ufb01rm that this behaviour results in improving the \ufb01tness\nof grasshoppers, average \ufb01tness of grasshoppers and convergence\ncurves are provided in Fig. 10 . The curves clearly show descending\nbehaviour on all of the test functions. This proves that GOA en-\nhances the initial random population on the test functions and de-\nsirably improves the accuracy of the approximated optimum over\nthe course of iterations.\n3.3. Quantitative results and discussion\nThe above discussed results qualitatively demonstrated that\nthe GOA is able to solve optimisation problems. However, the\ntest functions were of 2 variables and qualitative results can-\nnot tell us how much better this algorithm is compared to cur-\nrent ones. In order to show the merits of GOA quantitatively,\nthis subsection solved the test functions with 30 dimensions and\npresents/discusses the results quantitatively. The experimental re-\nsults are provided in Tables 2 , 3 , and 4 for unimodal, multi-modal,\nand composite test functions. Note that the results are normalised\nbetween 0 and 1 for all the test functions due to the different do-\nmain/range of test functions. This assist us in conveniently com-\nparing the results on different test functions as well.\nAs per the results in Table 2 , the GOA algorithm shows the best\nresults when solving unimodal test functions. The results of this\nalgorithm are substantially better in more than half of the uni-\nmodal test functions, showing the high performance of this algo-\nrithm. Unimodal test functions have only one global optimum, so\nthe results clearly show that the GOA algorithm bene\ufb01ts from high\nexploitation ability.\nThe results in Table 3 are consistent with those in Table 2 , in\nwhich the GOA algorithm tends to signi\ufb01cantly outperform others\nin both of the performance metrics. The results of this algorithm\nare again remarkably superior in the majority of multi-modal test\nfunctions. Since the multi-modal test functions have a signi\ufb01cant\nnumber of local solutions, these results quantitatively show the ef-\nfectiveness of the proposed algorithm in avoiding local solutions\nduring optimisation.\nThe results of the algorithms on composite test functions are\npresented in Table 4 . These results show that the GOA algo-\nrithm provides very competitive results compared to other algo-\nrithms. Composite test functions are even more challenging than\nthe multi-modal ones and require a proper balance between ex-\nploration and exploitation. Therefore, it can be stated that the GOA\nis able to balance exploration and exploitation properly for solving\nsuch challenging problems.\nComparing algorithms based on average and standard devia-\ntion over 30 independent runs does not compare each of the\nruns. Therefore, it is still possible that the superiority occurs by\nchance despite its low probability in 30 runs. In order to com-\npare the results of each run and decide on the signi\ufb01cance of\nthe results, the Wilcoxon statistical test was performed at 5% sig-\nni\ufb01cance level and the p-values are reported in Table 5 . For the\nstatistical test, the best algorithm in each test function is chosen\nand compared with other algorithms independently. For example,\nif the best algorithm is GOA, a pairwise comparison is done be-\ntween GOA/PSO, GOA/GSA , GOA/BA , and so on. Note that since\nthe best algorithm cannot be compared with itself, N/A has been\n38\nS. Saremi et al. / Advances in Engineering Software 105 (2017) 30\u201347\nFig. 10. Behaviour of GOA on the 2D benchmark problems.\nwritten for the best algorithm in each function which stands for\nNot Applicable.\nAs per the results in this table, p-values are mostly less than\n0.05 for the GOA, which demonstrates that the superiority of this\nalgorithm is statistically signi\ufb01cant. For the F3 function the results\nshow the FPA is not signi\ufb01cantly superior to GOA. Overall, these\nresults show that GOA is able to outperform other algorithms in\nthe literature. According to the NFL theorem, therefore, it has the\npotential to solve problems (of the types tested) that cannot be\nsolved e\ufb03ciently by other algorithms.\nS. Saremi et al. / Advances in Engineering Software 105 (2017) 30\u201347\n39\nTable 2\nResults of unimodal benchmark functions.\nF\nGOA\nPSO\nGSA\nBA\nAve\nstd\nave\nstd\nave\nstd\nave\nstd\nF1\n0.0 0 0 0\n0.0 0 0 0\n0.2391\n0.5622\n0.0 0 02\n0.0012\n0.9882\n1.0 0 0 0\nF2\n0.0020\n0.0010\n0.0097\n0.0013\n0.0 0 0 0\n0.0 0 0 0\n1.0 0 0 0\n1.0 0 0 0\nF3\n0.0010\n0.0203\n0.2613\n0.3547\n0.0328\n0.0395\n1.0 0 0 0\n1.0 0 0 0\nF4\n0.0 0 0 0\n0.0 0 0 0\n0.4767\n0.4730\n0.3244\n0.5119\n0.9148\n1.0 0 0 0\nF5\n0.0 0 0 0\n0.0 0 0 0\n0.0386\n0.0944\n0.0 0 0 0\n0.0 0 0 0\n1.0 0 0 0\n1.0 0 0 0\nF6\n0.0 0 0 0\n0.0 0 0 0\n0.7786\n0.4808\n0.3825\n0.2231\n1.0 0 0 0\n1.0 0 0 0\nF7\n0.0 0 0 0\n0.0 0 0 0\n0.1349\n0.1648\n0.0226\n0.0763\n1.0 0 0 0\n1.0 0 0 0\nF\nFPA\nSMS\nFA\nGA\nave\nstd\nave\nstd\nave\nstd\nave\nstd\nF1\n0.0329\n0.0784\n1.0 0 0 0\n0.4478\n0.1581\n0.0748\n0.4121\n0.5202\nF2\n0.0131\n0.0 0 07\n0.0157\n0.0 0 08\n0.0076\n0.0 0 01\n0.0100\n0.0 0 03\nF3\n0.0 0 0 0\n0.0 0 0 0\n0.3486\n0.0651\n0.0617\n0.0160\n0.2022\n0.0710\nF4\n0.3219\n0.4215\n1.0 0 0 0\n0.7232\n0.3796\n0.2116\n0.7245\n0.2384\nF5\n0.0060\n0.0345\n0.3901\n0.4781\n0.0068\n0.0068\n0.0746\n0.0931\nF6\n0.0088\n0.0189\n0.7025\n0.5891\n0.0414\n0.0190\n0.1933\n0.1932\nF7\n0.0386\n0.0459\n0.0036\n0.0022\n0.0590\n0.0194\n0.4416\n0.2028\nTable 3\nResults of multimodal benchmark functions.\nF\nGOA\nPSO\nGSA\nBA\nave\nstd\nave\nstd\nave\nstd\nave\nstd\nF8\n1.0 0 0 0\n0.0 0 02\n0.7425\n0.0016\n0.8473\n0.0020\n0.0148\n1.0 0 0 0\nF9\n0.0 0 0 0\n0.0 0 07\n0.6520\n1.0 0 0 0\n0.1361\n0.2722\n0.7022\n0.7517\nF10\n0.0975\n1.0 0 0 0\n0.6140\n0.2426\n0.0 0 0 0\n0.0 0 0 0\n0.9665\n0.1155\nF11\n0.0 0 0 0\n0.0 0 0 0\n0.8184\n0.3512\n1.0 0 0 0\n0.5790\n0.9912\n1.0 0 0 0\nF12\n0.0 0 0 0\n0.0 0 07\n0.4689\n0.8147\n0.0577\n0.4246\n0.6892\n0.9635\nF13\n0.0 0 0 0\n0.0 0 0 0\n0.0973\n0.1647\n0.1603\n0.0890\n1.0 0 0 0\n1.0 0 0 0\nF\nFPA\nSMS\nFA\nGA\nave\nstd\nave\nstd\nave\nstd\nave\nstd\nF8\n0.0381\n0.0 0 06\n0.5613\n0.0049\n0.6140\n0.0 0 0 0\n0.0 0 0 0\n0.0 0 06\nF9\n0.6568\n0.4179\n0.8628\n0.2633\n0.8377\n0.0329\n1.0 0 0 0\n0.0 0 0 0\nF10\n0.7170\n0.3848\n1.0 0 0 0\n0.0666\n0.7078\n0.0410\n0.8628\n0.1415\nF11\n0.0124\n0.0058\n0.6746\n0.7789\n0.0548\n0.0070\n0.1941\n0.2865\nF12\n0.0237\n0.1907\n0.1140\n0.0 0 0 0\n0.2442\n1.0 0 0 0\n1.0 0 0 0\n0.4363\nF13\n0.3766\n0.1566\n0.9609\n0.2394\n0.1119\n0.1510\n0.4 4 46\n0.0798\nTable 4\nResults of composite benchmark functions.\nF\nGOA\nPSO\nGSA\nBA\nAve\nstd\nave\nstd\nave\nstd\nave\nstd\nF14\n0.0 0 0 0\n0.3386\n0.6083\n1.0 0 0 0\n0.0840\n0.2977\n1.0 0 0 0\n0.5714\nF15\n0.4892\n0.7182\n0.4236\n0.7929\n0.0672\n0.5226\n1.0 0 0 0\n1.0 0 0 0\nF16\n0.0 0 0 0\n0.0 0 0 0\n0.4651\n0.6805\n0.4799\n0.8414\n1.0 0 0 0\n1.0 0 0 0\nF17\n0.8169\n1.0 0 0 0\n0.3241\n0.2970\n0.0 0 0 0\n0.6439\n1.0 0 0 0\n0.6905\nF18\n0.0 0 0 0\n0.0064\n0.3122\n1.0 0 0 0\n0.0581\n0.2503\n1.0 0 0 0\n0.8953\nF19\n0.7863\n0.9355\n1.0 0 0 0\n0.0 0 0 0\n0.9391\n0.3063\n0.9097\n0.4190\nF\nFPA\nSMS\nFA\nGA\nave\nstd\nave\nstd\nave\nstd\nave\nstd\nF14\n0.0 0 08\n0.0570\n0.5604\n0.4830\n0.5035\n0.6008\n0.3799\n0.0 0 0 0\nF15\n0.0 0 0 0\n0.4822\n0.5097\n0.5559\n0.5730\n0.9765\n0.1338\n0.0 0 0 0\nF16\n0.3381\n0.0759\n0.8914\n0.5077\n0.4921\n0.0922\n0.6820\n0.1783\nF17\n0.1395\n0.0348\n0.6594\n0.0383\n0.3264\n0.4911\n0.3660\n0.0 0 0 0\nF18\n0.3249\n0.9194\n0.3144\n0.4097\n0.3160\n0.3885\n0.1347\n0.0 0 0 0\nF19\n0.0 0 0 0\n0.0702\n0.4257\n0.8595\n0.7068\n1.0 0 0 0\n0.0211\n0.1720\nTo further show the effectiveness of the proposed GOA algo-\nrithm, we have solved more challenging test functions and com-\npared the results with the most popular algorithms in the liter-\nature. The test functions are 25 taken from the CEC2005 special\nsession [45] . These test functions are the most challenging test\nfunctions in the literature and can be found in the appendix. The\nresults are compared to PSO, GA, DE, GSA, BA, FPA, and FA as\nthe most well-known and recent algorithms in the literature. The\nresults are again normalised in [0,1] and presented in Tables 6\nand 7 .\nInspecting the results in Table 6 , it is evident that the pro-\nposed GOA algorithm outperforms other algorithms on the major-\nity of the CEC2005 test functions. The p-values in Table 7 show\nthat the superiority of GOA is statistically signi\ufb01cant. Comparison\n40\nS. Saremi et al. / Advances in Engineering Software 105 (2017) 30\u201347\nTable 5\nP-values obtained from the Wilcoxon ranksum test.\nTP\nGOA\nPSO\nGSA\nBA\nFPA\nSMS\nFA\nGA\nF1\nN/A\n0.0 0 0183\nN/A\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\nF2\n0.002827\n0.0 0 0183\nN/A\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\nF3\n0.140465\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\nN/A\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\nF4\nN/A\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\nF5\nN/A\n0.0 0 0183\n0.241322\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\nF6\nN/A\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\nF7\nN/A\n0.0 0 0183\n0.0 0 033\n0.0 0 0183\n0.0 0 0183\n0.0 0 0583\n0.0 0 0183\n0.0 0 0183\nF8\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\nN/A\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\nF9\nN/A\n0.0 0 0183\n0.01133\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\nF10\n0.0 0 0183\n0.0 0 0183\nN/A\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\nF11\nN/A\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n0.001315\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\nF12\nN/A\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n6.39e-5\n0.0 0 0183\n0.0 0 0183\nF13\nN/A\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n6.39e-5\n0.0 0 0183\n0.0 0 0183\nF14\nN/A\n0.001315\n0.009108\n0.0 0 0246\n0.025748\n0.001706\n0.001315\n0.002827\nF15\n0.0 010 08\n0.004586\n0.791337\n0.0 0 0246\nN/A\n0.0 010 08\n0.0 0 0769\n0.002827\nF16\nN/A\n0.0 0 0246\n0.0 0 044\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\nF17\n0.0 010 08\n0.002827\nN/A\n0.0 010 08\n0.002827\n0.002827\n0.002202\n0.002827\nF18\nN/A\n0.01133\n0.472676\n0.0 0 0183\n0.025748\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\nF19\n0.025748\n0.0 0 0183\n0.0 0 0183\n0.0 0 0183\nN/A\n0.0 0 033\n0.0 0 044\n0.021134\nwith some of the algorithms provide p-values greater than 0.05 oc-\ncasionally. This shows that the GOA algorithm is not signi\ufb01cantly\nbetter on those functions. Also, GOA provides very competitive re-\nsults on the F12_CEC20 05, F16_CEC20 05, and F24_CEC20 05 test\nfunctions, since the high p-values show GSA was not signi\ufb01cantly\nbetter. Since CEC test functions are very challenging and mimic\ndifferent di\ufb03culties of a real search space, these results strongly\ndemonstrate the merits of the proposed GOA algorithm compared\nto other algorithms in the literature.\nTo sum up, the discussions and \ufb01ndings of this section clearly\ndemonstrate the quality of exploration, local optima avoidance, ex-\nploitation, and convergence of the GOA algorithm. The high ex-\nploration and local optima avoidance of this algorithm originates\nfrom the high repulsion rate between grasshoppers. The repulsive\nforce requires grasshoppers to avoid each other and explore the\nsearch space extensively. This is the main reason for high local\noptima avoidance of GOA as well. Exploitation and convergence\nare encouraged by the attraction forces between the grasshop-\npers, and the adaptive comfort zone. High attractive forces be-\ntween grasshoppers drive them quickly towards the best solution\nobtained so far. The adaptive comfort zone coe\ufb03cient decreases\nproportional to the number of iterations, generating smaller repul-\nsion forces and emphasising exploitation. The adaptive behaviour\nof the comfort zone coe\ufb03cient also results in a proper balance be-\ntween exploration and exploitation.\nAlthough these \ufb01ndings strongly suggest that GOA is able to\nsolve real problems, in the following section we use three real\nproblems in the \ufb01eld of structural design to demonstrate and con-\n\ufb01rm the applicability of this algorithm in solving real problems\nwith unknown search spaces.\n4. Real applications\nSolving structural design problems using stochastic optimisa-\ntion techniques has been a popular research direction in the liter-\nature [46\u201354] . This section solves three of the conventional struc-\ntural design problems using the proposed GOA algorithm.\n4.1. Three-bar truss design problem\nThis structural design problem is one of the most widely-used\ncase studies in the literature [55,56] . This problem is formulated as\nfollows:\nConsider\n\u20d7\nx = [ x 1 x 2 ] = [ A 1 A 2 ] ,\nMinimise\nf ( \u20d7\nx ) = \ufffd\n2\n\u221a\n2 x 1 + x 2\n\ufffd\n\u2217l ,\nSubject to\ng 1 ( \u20d7\nx ) =\n\u221a\n2 x 1 + x 2\n\u221a\n2 x 2\n1 + 2 x 1 x 2\nP \u2212\u03c3 \u22640 ,\ng 2 ( \u20d7\nx ) =\nx 2\n\u221a\n2 x 2\n1 + 2 x 1 x 2\nP \u2212\u03c3 \u22640 ,\ng 3 ( \u20d7\nx ) =\n1\n\u221a\n2 x 2 + x 1\nP \u2212\u03c3 \u22640 ,\nVariable range\n0 \u2264x 1 , x 2 \u22641 ,\nwhere\nl = 100 cm , P = 2 KN / c m 2 , \u03c3 = 2 KN / c m 2\nFig. 11 shows the shape of this truss and the forces applied. As\nthis \ufb01gure and the problem formulation show, there are two struc-\ntural parameters: the area of bars 1 and 3 and area of bar 2. The\nobjective is to minimise the weight of the truss. This problem is\nsubject to several constraints as well: stress, de\ufb02ection, and buck-\nling constraints.\nThe proposed GOA with 20 search agents and 650 iterations\nwas employed on this problem. Since this problem is a constrained\nproblem, a constraint handling method needed to be integrated\nwith GOA. For the sake of simplicity, a death penalty has been\nutilised. It penalises the search agents that violate any of the con-\nstraints at any level with a large objective value. For veri\ufb01cation,\nthe results are compared to ALO, DEDS, PSO-DE, MBA, Ray and\nSain, and Tsa methods and presented in Table 8 . This table shows\nthe optimal values for both variables and weight.\nInspecting the results of algorithms on this problem, it is ev-\nident that GOA managed to show very competitive results com-\npared to ALO, DEDS, PSO-DE, and MBA with a better maximum\nfunction evaluation. Also, this algorithm outperforms the rest of\nthe algorithms signi\ufb01cantly. These results show that the GOA al-\ngorithm is able to handle the di\ufb03culties of a constrained search\nspace e\ufb03ciently.\n4.2. Cantilever beam design problem\nThis is another popular structural design problem in the litera-\nture formulated as follows:\nConsider\n\u20d7\nx = [ x 1 x 2 x 3 x 4 x 5 ]\nMinimise\nf ( \u20d7\nx ) = 0 . 6224 ( x 1 + x 2 + x 3 + x 4 + x 5 ) ,\nSubject to\ng ( \u20d7\nx ) = 61\nx 3\n1\n+ 27\nx 3\n2\n+ 19\nx 3\n3\n+ 7\nx 3\n4\n+ 1\nx 3\n5\n\u22121 \u22640 ,\nS. Saremi et al. / Advances in Engineering Software 105 (2017) 30\u201347\n41\nTable 6\nResults on CEC benchmark functions.\nF\nGOA\nPSO\nGA\nDE\nAve\nstd\nave\nstd\nave\nstd\nave\nstd\nF1_CEC2005\n0.0 0 0 0\n0.0 0 0 0\n0.6040\n1.0 0 0 0\n0.4972\n0.8825\n0.0424\n0.0950\nF2_CEC2005\n0.0 0 0 0\n0.0 0 0 0\n0.3341\n0.1579\n0.4860\n0.1481\n0.3483\n0.1134\nF3_CEC2005\n0.0037\n0.0057\n0.2299\n0.2852\n0.3130\n0.0441\n0.1311\n0.0801\nF4_CEC2005\n0.0 0 0 0\n0.0127\n0.4569\n0.3523\n0.4807\n0.0958\n0.3726\n0.0473\nF5_CEC2005\n0.0 0 0 0\n0.0602\n0.7003\n0.4740\n0.4788\n0.0 0 0 0\n0.2737\n0.0513\nF6_CEC2005\n0.0 0 0 0\n0.0 0 0 0\n0.3078\n0.1878\n0.2109\n0.2577\n0.0037\n0.0016\nF7_CEC2005\n0.0 0 0 0\n0.0 0 0 0\n0.8524\n0.6681\n0.3416\n0.3029\n0.0759\n0.0806\nF8_CEC2005\n0.5505\n0.7277\n1.0 0 0 0\n0.0 0 0 0\n0.9702\n0.1651\n0.9816\n0.4399\nF9_CEC2005\n0.0 0 0 0\n0.0356\n0.5743\n0.8935\n1.0 0 0 0\n0.3927\n0.6055\n0.1518\nF10_CEC2005\n0.0 0 0 0\n0.0 0 0 0\n0.5391\n1.0 0 0 0\n0.7874\n0.0628\n0.4904\n0.1780\nF11_CEC2005\n0.7570\n1.0 0 0 0\n0.6283\n0.8342\n0.9965\n0.3326\n1.0 0 0 0\n0.0 0 0 0\nF12_CEC2005\n0.1087\n0.3460\n0.3531\n1.0 0 0 0\n1.0 0 0 0\n0.4454\n0.6698\n0.2908\nF13_CEC2005\n0.0 0 0 0\n0.0046\n0.1030\n0.0580\n0.4551\n0.0808\n0.1484\n0.0091\nF14_CEC2005\n0.0154\n0.0855\n0.0 0 0 0\n0.9627\n0.6053\n0.2766\n0.5800\n0.0083\nF15_CEC2005\n0.3527\n1.0 0 0 0\n0.5065\n0.8562\n0.6289\n0.2734\n0.4217\n0.3437\nF16_CEC2005\n0.1520\n0.8379\n0.3316\n0.7594\n0.3718\n0.0825\n0.1878\n0.0 0 0 0\nF17_CEC2005\n0.0 0 0 0\n0.7666\n0.4744\n1.0 0 0 0\n0.2712\n0.0249\n0.1401\n0.0 0 0 0\nF18_CEC2005\n0.0 0 0 0\n0.0 0 0 0\n0.3981\n0.7095\n0.5096\n0.2305\n0.2369\n0.2265\nF19_CEC2005\n0.0 0 0 0\n0.0 0 0 0\n0.3494\n0.3857\n0.4993\n0.2066\n0.2122\n0.0501\nF20_CEC2005\n0.0 0 0 0\n0.0 0 0 0\n0.4166\n0.8314\n0.6018\n0.3811\n0.2662\n0.0663\nF21_CEC2005\n0.0 0 0 0\n0.0416\n0.7469\n0.0314\n0.8364\n0.0467\n0.4840\n0.3295\nF22_CEC2005\n0.0 0 0 0\n0.0 0 0 0\n0.40 0 0\n0.7118\n0.6116\n0.2260\n0.3587\n0.1408\nF23_CEC2005\n1.0 0 0 0\n0.3113\n0.0 0 0 0\n0.6942\n0.0608\n0.7502\n0.2773\n0.4302\nF24_CEC2005\n1.0 0 0 0\n0.0724\n0.0 0 0 0\n0.7804\n0.0458\n0.7228\n0.1298\n0.2603\nF25_CEC2005\n0.3449\n0.0075\n0.8530\n0.0765\n0.8299\n0.0035\n0.4108\n0.0442\nF\nGSA\nBA\nFPA\nFA\nave\nstd\nave\nstd\nave\nstd\nave\nstd\nF1_CEC2005\n0.4318\n0.5622\n1.0 0 0 0\n0.8805\n0.1184\n0.3697\n0.1076\n0.1120\nF2_CEC2005\n0.2614\n0.0257\n1.0 0 0 0\n1.0 0 0 0\n0.0615\n0.0320\n0.1705\n0.0191\nF3_CEC2005\n0.1419\n0.1081\n1.0 0 0 0\n1.0 0 0 0\n0.0 0 0 0\n0.0 0 0 0\n0.0620\n0.0640\nF4_CEC2005\n0.8724\n0.4499\n1.0 0 0 0\n1.0 0 0 0\n0.0651\n0.0685\n0.0661\n0.0 0 0 0\nF5_CEC2005\n0.8225\n0.0534\n1.0 0 0 0\n1.0 0 0 0\n0.2707\n0.3970\n0.1041\n0.0675\nF6_CEC2005\n0.1270\n0.0762\n1.0 0 0 0\n1.0 0 0 0\n0.0149\n0.0323\n0.0104\n0.0067\nF7_CEC2005\n0.9108\n0.5975\n1.0 0 0 0\n1.0 0 0 0\n0.0708\n0.1859\n0.0725\n0.0476\nF8_CEC2005\n0.2817\n1.0 0 0 0\n0.0 0 0 0\n0.1382\n0.9719\n0.0924\n0.9866\n0.1094\nF9_CEC2005\n0.4704\n1\n0.7013\n0.3595\n0.6643\n0.3360\n0.7155\n0.0 0 0 0\nF10_CEC2005\n0.2536\n0.7690\n1.0 0 0 0\n0.8251\n0.5307\n0.9560\n0.4252\n0.0945\nF11_CEC2005\n0.0 0 0 0\n0.4116\n0.9638\n0.2210\n0.7825\n0.0509\n0.9867\n0.0856\nF12_CEC2005\n0.0 0 0 0\n0.1006\n0.1440\n0.6132\n0.2963\n0.0 0 0 0\n0.4474\n0.4266\nF13_CEC2005\n0.0516\n0.0331\n1.0 0 0 0\n1.0 0 0 0\n0.0824\n0.0 0 0 0\n0.1328\n0.0061\nF14_CEC2005\n1.0 0 0 0\n0.1088\n0.7244\n1.0 0 0 0\n0.4733\n0.0 0 0 0\n0.4933\n0.0425\nF15_CEC2005\n0.0 0 0 0\n0.0 0 0 0\n1.0 0 0 0\n0.8301\n0.3127\n0.1340\n0.4956\n0.8700\nF16_CEC2005\n0.0 0 0 0\n1.0 0 0 0\n1.0 0 0 0\n0.9453\n0.1872\n0.1099\n0.1364\n0.0588\nF17_CEC2005\n0.1055\n0.5209\n1.0 0 0 0\n0.6007\n0.0966\n0.1335\n0.1530\n0.4022\nF18_CEC2005\n0.0306\n0.0997\n1.0 0 0 0\n1.0 0 0 0\n0.1485\n0.4907\n0.1162\n0.0744\nF19_CEC2005\n0.023\n0.0478\n1.0 0 0 0\n1.0 0 0 0\n0.1259\n0.1073\n0.0975\n0.0111\nF20_CEC2005\n0.056\n0.3519\n1.0 0 0 0\n1.0 0 0 0\n0.1484\n0.1490\n0.1075\n0.0089\nF21_CEC2005\n0.2677\n1\n1.0 0 0 0\n0.1528\n0.6712\n0.0793\n0.5613\n0.0 0 0 0\nF22_CEC2005\n0.1514\n0.4313\n1.0 0 0 0\n1.0 0 0 0\n0.2646\n0.2646\n0.2352\n0.0618\nF23_CEC2005\n0.9926\n0.0 0 0 0\n0.4327\n1.0 0 0 0\n0.3589\n0.5613\n0.0206\n0.4696\nF24_CEC2005\n0.5784\n0.0 0 0 0\n0.0691\n1.0 0 0 0\n0.3426\n0.1616\n0.0254\n0.1246\nF25_CEC2005\n0.0 0 0 0\n1.0 0 0 0\n1.0 0 0 0\n0.0 0 0 0\n0.3751\n0.0623\n0.2689\n0.0595\nVariable range\n0 . 01 \u2264x 1 , x 2 , x 3 , x 4 , x 5 \u2264100 ,\nFig. 12 shows that the cantilever beam is built using \ufb01ve, hol-\nlow, square-section, box girders, and the lengths of those girders\nare the design parameters for this problem. There is also one con-\nstraint for this problem. The GOA algorithm with 20 search agents\nand a maximum of 650 iterations is employed to determine the\noptimum for this problem. The results are presented and com-\npared to ALO, MMA, GCA_I, GCA-II, CS, and SOS for veri\ufb01cation in\nTable 9 .\nThe results in Table 9 show that GOA \ufb01nds the second best op-\ntimal weight. However, this algorithm provides the lowest number\nmaximum function evaluation.\n4.3. 52-bar truss design\nIn this problem, the objective is to minimise the weight of a\ntruss with 52 bars and 20 nodes. As shown in Fig. 13 , four of\nthe nodes are \ufb01xed and the bars are classi\ufb01ed in 12 groups as\nfollows, which are the main parameters to be optimised for this\nproblem:\n\u2022 Group 1: A 1 , A 2 , A 3 , A 4\n\u2022 Group 2: A 5 , A 6 , A 7 , A 8 , A 9 , A 10\n\u2022 Group 3: A 11 , A 12 , A 13\n\u2022 Group 4: A 14 , A 15 , A 16 , A 17\n\u2022 Group 5: A 18 , A 19 , A 20 , A 21 , A 22 , A 23\n\u2022 Group 6: A 24 , A 25 , A 26\n\u2022 Group 7: A 27 , A 28 , A 29 , A 30\n42\nS. Saremi et al. / Advances in Engineering Software 105 (2017) 30\u201347\nTable 7\nP-values obtained from the Wilcoxon ranksum test.\nTP\nGOA\nPSO\nGA\nDE\nGSA\nBA\nFPA\nFA\nF1_CEC2005\nN/A\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\nF2_CEC2005\nN/A\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\n0.0159\n0.0079\nF3_CEC2005\n0.2222\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\n1.0 0 0 0\n0.0079\nF4_CEC2005\nN/A\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\n0.0952\n0.0317\nF5_CEC2005\nN/A\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\nF6_CEC2005\nN/A\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\nF7_CEC2005\nN/A\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\nF8_CEC2005\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\n1.0 0 0 0\n0.0079\n0.0079\nF9_CEC2005\nN/A\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\nF10_CEC2005\nN/A\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\nF11_CEC2005\n0.0079\n0.0079\n0.0079\n0.0079\nN/A\n0.0079\n0.0079\n0.0079\nF12_CEC2005\n0.0556\n0.0079\n0.0079\n0.0079\nN/A\n0.0556\n0.0079\n0.0079\nF13_CEC2005\nN/A\n0.0079\n0.0079\n0.0079\n0.0159\n0.0079\n0.0079\n0.0079\nF14_CEC2005\n0.6905\nN/A\n0.0556\n0.0952\n0.0079\n0.0317\n0.1508\n0.1508\nF15_CEC2005\n0.0079\n0.0079\n0.0079\n0.0079\nN/A\n0.0079\n0.0079\n0.0079\nF16_CEC2005\n0.2222\n0.0952\n0.0079\n0.6905\nN/A\n0.0079\n0.6905\n0.6905\nF17_CEC2005\nN/A\n0.1508\n0.1508\n0.8413\n0.3095\n0.0079\n1.0 0 0 0\n0.4206\nF18_CEC2005\nN/A\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\nF19_CEC2005\nN/A\n0.0079\n0.0079\n0.0079\n0.0159\n0.0079\n0.0079\n0.0079\nF20_CEC2005\nN/A\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\nF21_CEC2005\nN/A\n0.0079\n0.0079\n0.0079\n0.0952\n0.0079\n0.0079\n0.0079\nF22_CEC2005\nN/A\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\n0.0079\nF23_CEC2005\n0.0317\n0.0079\n0.0079\n0.0079\nN/A\n0.0079\n0.0079\n0.0079\nF24_CEC2005\n0.4206\n0.0079\n0.0079\n0.0079\nN/A\n0.0079\n0.0079\n0.0079\nF25_CEC2005\n0.0079\n0.0079\n0.0079\n0.0079\nN/A\n0.0079\n0.0079\n0.4206\nFig. 11. Three-bar truss design problem.\n\u2022 Group 8: A 31 , A 32 , A 33 , A 34 , A 35 , A 36\n\u2022 Group 9: A 37 , A 38 , A 39\n\u2022 Group 10: A 40 , A 41 , A 42 , A 43\n\u2022 Group 11: A 44 , A 45 , A 46 , A 47 , A 48 , A 49\n\u2022 Group 12: A 50 , A 51 , A 52\nThe following list presents other parameters involved in this\nproblem:\n\u2022 \u03c1 =7860.0 kg / m 3\n\u2022 E = 2.07 e 5 MPa\n\u2022 Stress limitation = 180 MPa\n\u2022 Maximum stress = 179.7652 MPa\n\u2022 Design variabe set are chosen from Table 18\n\u2022 P k = 100 kN , P y = 200 kN\nThis is a discrete problem, in which the values for the 12\nparameters should be chosen from the 64 values available in\nTable 10 . To make GOA discrete, we simply round the search\nagents to the nearest integer. This problem is solved using 30\nsearch agents and 500 iterations, and the results are presented in\nTable 11 . Inspecting the results of this table, it is evident that the\nGOA \ufb01nds the best optimal value for this problem with the least\nnumber of function evaluations. This highlights the performance\nof GOA in solving real problems with more variables.\nThese results clearly demonstrate the merits of the GOA algo-\nrithm in solving real problems with unknown search spaces. The\nsuccess of the GOA algorithm is due to several reasons. The ex-\nploration ability of GOA is high in the initial steps of optimisa-\ntion, which is due to the large repulsion rate between grasshop-\npers. This assists GOA to explore the search space broadly and dis-\ncover its promising regions. Then exploitation is high in the last\nsteps of optimisation, which is due to the larger attraction forces\nbetween the grasshoppers. This behaviour causes local search and\nTable 8\nComparison results of the three-bar truss design problem.\nAlgorithm\nOptimal values for variables\nOptimal weight\nMax. Eval.\nx 1\nx 2\nGOA\n0.788897555578973\n0.407619570115153\n263.895881496069\n13,0 0 0\nALO [57]\n0.7886628160 0 0317\n0.408283133832901\n263.8958434\n14,0 0 0\nDEDS [58]\n0.78867513\n0.40824828\n263.8958434\n15,0 0 0\nPSO-DE [59]\n0.7886751\n0.4082482\n263.8958433\n17,600\nMBA [56]\n0.7885650\n0.4085597\n263.8958522\n20,0 0 0\nRay and Sain [60]\n0.795\n0.395\n264.3\nN/A\nTsa [61]\n0.788\n0.408\n263.68\nN/A\nCS [55]\n0.78867\n0.40902\n263.9716\n15,0 0 0\nS. Saremi et al. / Advances in Engineering Software 105 (2017) 30\u201347\n43\nFig. 12. Cantilever beam design problem.\nTable 9\nComparison results for cantilever design problem.\nAlgorithm\nOptimal values for variables\nOptimal Max.\nx 1\nx 2\nx 3\nx 4\nx 5\nweight\nEval.\nGOA\n6.011674 5.31297 4.48307 3.50279 2.16333\n1.33996 13,0 0 0\nALO [57]\n6.01812 5.31142 4.48836 3.49751 2.158329 1.33995 14,0 0 0\nMMA [62]\n6.0100\n5.30 0 0\n4.4900\n3.4900\n2.1500\n1.3400\nN/A\nGCA_I [62] 6.0100\n5.30 0 0\n4.4900\n3.4900\n2.1500\n1.3400\nN/A\nGCA_II [62] 6.0100\n5.30 0 0\n4.4900\n3.4900\n2.1500\n1.3400\nN/A\nCS [55]\n6.0089\n5.3049\n4.5023\n3.5077\n2.1504\n1.33999 2500\nSOS [63]\n6.01878 5.30344 4.49587 3.49896 2.15564\n1.33996 15,0 0 0\nimproving the accuracy of the solution(s) obtained in the explo-\nration phase. The algorithm smoothly balances exploration and ex-\nploitation, initially emphasising local optima avoidance and then\nconvergence. This behaviour is due to the proposal of the adaptive\ncomfort zone coe\ufb03cient. The gradual decrementing of this compo-\nnent brings the grasshopper closer to the target proportional to the\nnumber of iterations. Finally, the proposed target chasing mecha-\nnism requires GOA to save the best solution obtained so far as the\ntarget and drive the grasshoppers towards it with the hope of im-\nproving its accuracy or \ufb01nding a better one in the search space.\nConsidering the simulations, results, discussion, and analyses of\nthis paper, we believe that GOA is able to solve many optimisa-\ntion problems effectively. GOA considers a given optimisation prob-\nlem as a black box, so it does not need gradient information of\nthe search space. Therefore, this algorithm can be applied to any\noptimisation problem in different \ufb01elds subject to proper problem\nformulation.\n5. Conclusion\nThis work proposed an optimisation algorithm called the\nGrasshopper Optimisation Algorithm. The proposed algorithm\nmathematically modelled and mimicked the swarming behaviour\nof grasshoppers in nature for solving optimisation problems. A\nmathematical model was proposed to simulate repulsion and at-\ntraction forces between the grasshoppers. Repulsion forces allow\ngrasshoppers to explore the search space, whereas attraction forces\nencouraged them to exploit promising regions. To balance between\nexploration and exploitation, GOA was equipped with a coe\ufb03cient\nthat adaptively decreases the comfort zone of the grasshoppers. Fi-\nnally, the best solution obtained so far by the swarm was consid-\nered as a target to be chased and improved by the grasshoppers.\nIn order to benchmark the performance of the proposed algo-\nrithm, a series of tests was conducted. Firstly, a set of 2D test func-\ntions was solved by the GOA to observe its performance qualita-\ntively. This experiment and relevant discussions support the fol-\nlowing conclusions:\n\u2022 Grasshoppers effectively discover the promising regions of a\ngiven search space.\nB\nA=3 m\nB=2 m\n1\n2\n3\n4\n5\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n6\n7\n8\nB\nB\nA\nA\nA\nA\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\nFig. 13. Structure of a 52-bar truss.\n\u2022 Grasshoppers face abrupt, large-scale changes in the initial\nsteps of optimisation, which assist them to search globally.\n\u2022 Grasshoppers tend to move locally in the \ufb01nal steps of optimi-\nsation, which allows them to exploit the search space.\n44\nS. Saremi et al. / Advances in Engineering Software 105 (2017) 30\u201347\nTable 10\nAvailable cross-section areas of the AISC norm (valid values for the parameters).\nNo.\nin. 2\nmm 2\nNo.\nin. 2\nmm 2\n1\n0.111\n71 .613\n33\n3 .84\n2477.414\n2\n0.141\n90 .968\n34\n3 .87\n2496.769\n3\n0.196\n126 .451\n35\n3 .88\n2503.221\n4\n0.25\n161 .29\n36\n4 .18\n2696.769\n5\n0.307\n198 .064\n37\n4 .22\n2722.575\n6\n0.391\n252 .258\n38\n4 .49\n2896.768\n7\n0.442\n285 .161\n39\n4 .59\n2961.284\n8\n0.563\n363 .225\n40\n4 .8\n3096.768\n9\n0.602\n388 .386\n41\n4 .97\n3206.445\n10\n0.766\n494 .193\n42\n5 .12\n3303.219\n11\n0.785\n506 .451\n43\n5 .74\n3703.218\n12\n0.994\n641 .289\n44\n7 .22\n4658.055\n13\n1\n645 .16\n45\n7 .97\n5141.925\n14\n1.228\n792 .256\n46\n8 .53\n5503.215\n15\n1.266\n816 .773\n47\n9 .3\n5999.988\n16\n1.457\n939 .998\n48\n10 .85\n6999.986\n17\n1.563\n1008 .385\n49\n11 .5\n7419.34\n18\n1.62\n1045 .159\n50\n13 .5\n8709.66\n19\n1.8\n1161 .288\n51\n13 .9\n8967.724\n20\n1.99\n1283 .868\n52\n14 .2\n9161.272\n21\n2.13\n1374 .191\n53\n15 .5\n9999.98\n22\n2.38\n1535 .481\n54\n16\n10,322.56\n23\n2.62\n1690 .319\n55\n16 .9\n10,903.2\n24\n2.63\n1696 .771\n56\n18 .8\n12,129.01\n25\n2.88\n1858 .061\n57\n19 .9\n12,838.68\n26\n2.93\n1890 .319\n58\n22\n14,193.52\n27\n3.09\n1993 .544\n59\n22 .9\n14,774.16\n28\n3.13\n2019 .351\n60\n24 .5\n15,806.42\n29\n3.38\n2180 .641\n61\n26 .5\n17,096.74\n30\n3.47\n2238 .705\n62\n28\n18,064.48\n31\n3.55\n2290 .318\n63\n30\n19,354.8\n32\n3.63\n2341 .931\n64\n33 .5\n21,612.86\n\u2022 The varying comfort zone coe\ufb03cient requires grasshoppers to\ngradually balance exploration and exploitation, which helps\nGOA not to become trapped in local optima and \ufb01nd an accu-\nrate approximation of the global optimum.\n\u2022 The GOA algorithm enhances the average \ufb01tness of grasshop-\npers, which shows that this algorithm is able to effectively im-\nprove the initial random population of grasshoppers.\n\u2022 The \ufb01tness of target is improved over the course of iterations,\nwhich shows that the approximation of the global optimum be-\ncomes more accurate proportional to the number of iterations.\nAfter the \ufb01rst experiment, four sets of challenging test func-\ntions were employed. The test functions were unimodal, multi-\nmodal, composite, and CEC2005. The GOA algorithm managed\nto outperform several algorithms in the literature. The \ufb01ndings\nand discussions of the second experiment support the following",
       "bbox": {
         "page": 7,
         "x0": 43.698001861572266,
@@ -120,8 +90,8 @@
       "heading_text": "Experimental setup",
       "heading_number": "3.1",
       "heading_level": 2,
-      "body_text": "In the field of stochastic optimisation, it is common to employ a set of mathematical test functions with known optima. Thus, the performance of different algorithms can be measured quantitatively. However, the characteristics of the test functions should be diverse to be able to draw a mature conclusion. In this work, three sets of test functions with different features are employed to confidently benchmark the performance of the proposed algorithm. The test functions are unimodal, multimodal, and composite [40\u201343]. The mathematical formulation of these test functions are available in the appendix. As shown in Fig. 9, a unimodal test function has no local solutions and there is only one global optimum. The entire search space favours the global optima, so the convergence speed and exploitation of an algorithm can be benchmarked. Fig. 9 also shows that multi-modal and composite test functions have many local optima which make them highly suitable for benchmarking the performance of an algorithm in terms of local optima avoidance and exploration. Composite tests functions are usually more challenging than the multi-modal test functions and better mimic real search spaces. Therefore, the potential performance of an algorithm solving real problems may be inferred from such benchmarks. For solving the test functions, 30 search agents and 500 iterations were employed. Each of the test functions was solved 30 times to generate the statistical results. Different performance indicators were utilised to quantitatively compare the algorithms: average and standard deviation of the best solutions obtained in the last iterations. Obviously, the lower the value of average and standard deviation, the greater the ability of an algorithm in avoiding local solutions and determining the global optimum. Qualitative results, including convergence curves, trajectory of grasshoppers, search history, and average fitness of population have been illustrated and analysed in the following subsection. For verification of results, seven algorithms were employed from the literature including well-known and recent ones: PSO, SMS [25,26], BA [22], FPA [27], CS [23,24], FA [20,21], GA, DE, and Gravitational Search Algorithm (GSA) [44]. The initial controlling parameters of all algorithms are shown in Table 1.",
       "page_number": 7,
+      "body_text": "",
       "bbox": {
         "page": 7,
         "x0": 48.24209976196289,
@@ -135,8 +105,8 @@
       "heading_text": "Qualitative results and discussion",
       "heading_number": "3.2",
       "heading_level": 2,
-      "body_text": "The first experiment was performed on the 2D version of some of the test functions using only 5 artificial grasshoppers. The main objective for this experiment was to observe the behaviour of the GOA qualitatively. Five diagrams have been drawn for each of the test functions in Fig. 10 in addition to the shape of test functions. These diagrams are: \u2022 Search history: this diagram shows the location history of the artificial grasshoppers during optimisation. \u2022 Attraction/repulsion rates: this diagram shows the number of times that all artificial grasshoppers attracted or repelled each other during optimisation. \u2022 Trajectory of the first grasshopper in the first dimension: this diagram shows the value of the first variable of the first grasshopper in each iteration. \u2022 Average fitness: this diagram indicates the average objective value of all grasshoppers in each iteration. \u2022 Convergence curve: this diagram shows the objective value of the best solutions obtained so far (target) in each iteration. As per the results in Fig. 10, grasshoppers tend to explore the promising regions of the search space and cluster around the global optima eventually. This pattern can be observed in unimodal, multimodal, and composite test functions. These results show that the GOA algorithm beneficially balances exploration and exploitation to drive the grasshoppers towards the global optimum. The rates of attraction and repulsion in the pie charts show that the grasshoppers interact differently on the test functions. They seem to attract each other more often on the unimodal test func- tions. This can clearly be observed in the pie charts for F1 and F4. This behaviour is fruitful because unimodal functions do not have local optima, so grasshopper can better determine the global opti- mum by moving towards the best solution obtained so far. Another interesting pattern in the pie charts is the high re- pulsion rate between grasshoppers when solving multi-modal and composite test functions. This can be observed in the pie charts",
       "page_number": 7,
+      "body_text": "",
       "bbox": {
         "page": 7,
         "x0": 318.4761047363281,
@@ -149,9 +119,9 @@
     {
       "heading_text": "Quantitative results and discussion",
       "heading_number": "3.3",
-      "heading_level": 1,
-      "body_text": "The above discussed results qualitatively demonstrated that the GOA is able to solve optimisation problems. However, the test functions were of 2 variables and qualitative results can- not tell us how much better this algorithm is compared to cur- rent ones. In order to show the merits of GOA quantitatively, this subsection solved the test functions with 30 dimensions and presents/discusses the results quantitatively. The experimental re- sults are provided in Tables 2 , 3 , and 4 for unimodal, multi-modal, and composite test functions. Note that the results are normalised between 0 and 1 for all the test functions due to the different do- main/range of test functions. This assist us in conveniently com- paring the results on different test functions as well. As per the results in Table 2 , the GOA algorithm shows the best results when solving unimodal test functions. The results of this algorithm are substantially better in more than half of the uni- modal test functions, showing the high performance of this algo- rithm. Unimodal test functions have only one global optimum, so the results clearly show that the GOA algorithm bene\ufb01ts from high exploitation ability. The results in Table 3 are consistent with those in Table 2 , in which the GOA algorithm tends to signi\ufb01cantly outperform others in both of the performance metrics. The results of this algorithm are again remarkably superior in the majority of multi-modal test functions. Since the multi-modal test functions have a signi\ufb01cant number of local solutions, these results quantitatively show the ef- fectiveness of the proposed algorithm in avoiding local solutions during optimisation. The results of the algorithms on composite test functions are presented in Table 4 . These results show that the GOA algo- rithm provides very competitive results compared to other algo- rithms. Composite test functions are even more challenging than the multi-modal ones and require a proper balance between ex- ploration and exploitation. Therefore, it can be stated that the GOA is able to balance exploration and exploitation properly for solving such challenging problems. Comparing algorithms based on average and standard devia- tion over 30 independent runs does not compare each of the runs. Therefore, it is still possible that the superiority occurs by chance despite its low probability in 30 runs. In order to com- pare the results of each run and decide on the signi\ufb01cance of the results, the Wilcoxon statistical test was performed at 5% sig- ni\ufb01cance level and the p-values are reported in Table 5 . For the statistical test, the best algorithm in each test function is chosen and compared with other algorithms independently. For example, if the best algorithm is GOA, a pairwise comparison is done be- tween GOA/PSO, GOA/GSA , GOA/BA , and so on. Note that since the best algorithm cannot be compared with itself, N/A has been",
+      "heading_level": 2,
       "page_number": 8,
+      "body_text": "",
       "bbox": {
         "page": 8,
         "x0": 328.2861022949219,
@@ -165,8 +135,8 @@
       "heading_text": "Real applications",
       "heading_number": "4",
       "heading_level": 1,
-      "body_text": "Solving structural design problems using stochastic optimisa- tion techniques has been a popular research direction in the liter- ature [46\u201354] . This section solves three of the conventional struc- tural design problems using the proposed GOA algorithm.",
       "page_number": 11,
+      "body_text": "",
       "bbox": {
         "page": 11,
         "x0": 43.698001861572266,
@@ -180,8 +150,8 @@
       "heading_text": "Three-bar truss design problem",
       "heading_number": "4.1",
       "heading_level": 2,
-      "body_text": "This structural design problem is one of the most widely-used case studies in the literature [55,56] . This problem is formulated as follows: Consider \u20d7 x = [ x 1 x 2 ] = [ A 1 A 2 ] , Minimise f ( \u20d7 x ) = \ufffd 2 \u221a 2 x 1 + x 2 \ufffd \u2217l , Subject to g 1 ( \u20d7 x ) = \u221a 2 x 1 + x 2 \u221a 2 x 2 1 + 2 x 1 x 2 P \u2212\u03c3 \u22640 , g 2 ( \u20d7 x ) = x 2 \u221a 2 x 2 1 + 2 x 1 x 2 P \u2212\u03c3 \u22640 , g 3 ( \u20d7 x ) = 1 \u221a 2 x 2 + x 1 P \u2212\u03c3 \u22640 , Variable range 0 \u2264x 1 , x 2 \u22641 , where l = 100 cm , P = 2 KN / c m 2 , \u03c3 = 2 KN / c m 2 Fig. 11 shows the shape of this truss and the forces applied. As this \ufb01gure and the problem formulation show, there are two struc- tural parameters: the area of bars 1 and 3 and area of bar 2. The objective is to minimise the weight of the truss. This problem is subject to several constraints as well: stress, de\ufb02ection, and buck- ling constraints. The proposed GOA with 20 search agents and 650 iterations was employed on this problem. Since this problem is a constrained problem, a constraint handling method needed to be integrated with GOA. For the sake of simplicity, a death penalty has been utilised. It penalises the search agents that violate any of the con- straints at any level with a large objective value. For veri\ufb01cation, the results are compared to ALO, DEDS, PSO-DE, MBA, Ray and Sain, and Tsa methods and presented in Table 8 . This table shows the optimal values for both variables and weight. Inspecting the results of algorithms on this problem, it is ev- ident that GOA managed to show very competitive results com- pared to ALO, DEDS, PSO-DE, and MBA with a better maximum function evaluation. Also, this algorithm outperforms the rest of the algorithms signi\ufb01cantly. These results show that the GOA al- gorithm is able to handle the di\ufb03culties of a constrained search space e\ufb03ciently.",
       "page_number": 11,
+      "body_text": "",
       "bbox": {
         "page": 11,
         "x0": 48.24209976196289,
@@ -195,8 +165,8 @@
       "heading_text": "Cantilever beam design problem",
       "heading_number": "4.2",
       "heading_level": 2,
-      "body_text": "This is another popular structural design problem in the litera- ture formulated as follows: Consider \u20d7 x = [ x 1 x 2 x 3 x 4 x 5 ] Minimise f ( \u20d7 x ) = 0 . 6224 ( x 1 + x 2 + x 3 + x 4 + x 5 ) , Subject to g ( \u20d7 x ) = 61 x 3 1 + 27 x 3 2 + 19 x 3 3 + 7 x 3 4 + 1 x 3 5 \u22121 \u22640 ,",
       "page_number": 11,
+      "body_text": "",
       "bbox": {
         "page": 11,
         "x0": 318.4761047363281,
@@ -210,8 +180,8 @@
       "heading_text": "52-bar truss design",
       "heading_number": "4.3",
       "heading_level": 1,
-      "body_text": "In this problem, the objective is to minimise the weight of a truss with 52 bars and 20 nodes. As shown in Fig. 13 , four of the nodes are \ufb01xed and the bars are classi\ufb01ed in 12 groups as follows, which are the main parameters to be optimised for this problem: \u2022 Group 1: A 1 , A 2 , A 3 , A 4 \u2022 Group 2: A 5 , A 6 , A 7 , A 8 , A 9 , A 10 \u2022 Group 3: A 11 , A 12 , A 13 \u2022 Group 4: A 14 , A 15 , A 16 , A 17 \u2022 Group 5: A 18 , A 19 , A 20 , A 21 , A 22 , A 23 \u2022 Group 6: A 24 , A 25 , A 26 \u2022 Group 7: A 27 , A 28 , A 29 , A 30",
       "page_number": 12,
+      "body_text": "",
       "bbox": {
         "page": 12,
         "x0": 328.2861022949219,
@@ -225,14 +195,29 @@
       "heading_text": "Conclusion",
       "heading_number": "5",
       "heading_level": 1,
-      "body_text": "This work proposed an optimisation algorithm called the Grasshopper Optimisation Algorithm. The proposed algorithm mathematically modelled and mimicked the swarming behaviour of grasshoppers in nature for solving optimisation problems. A mathematical model was proposed to simulate repulsion and attraction forces between the grasshoppers. Repulsion forces allow grasshoppers to explore the search space, whereas attraction forces encouraged them to exploit promising regions. To balance between exploration and exploitation, GOA was equipped with a coefficient that adaptively decreases the comfort zone of the grasshoppers. Finally, the best solution obtained so far by the swarm was considered as a target to be chased and improved by the grasshoppers. In order to benchmark the performance of the proposed algorithm, a series of tests was conducted. Firstly, a set of 2D test functions was solved by the GOA to observe its performance qualitatively. This experiment and relevant discussions support the following conclusions:",
       "page_number": 14,
+      "body_text": "s:\n\u2022 Exploitation of the GOA is satisfactory on problems involving\nunimodal test functions.\n\u2022 Exploration of the GOA is intrinsically high for multi-modal test\nfunctions.\n\u2022 GOA properly balances exploration and exploitation when solv-\ning challenging problems involving composite test functions.\n\u2022 GOA has the potential to signi\ufb01cantly outperform several cur-\nrent algorithms when solving a range of current or new opti-\nmisation problems.\nThe last experiment was performed on three real problems in\nthe \ufb01eld of structural design. All the problems were successfully\nsolved, which demonstrates the practical merits of the proposed\nalgorithm. From the results, \ufb01ndings, and discussions of the real\napplications, the following conclusions can be drawn:\n\u2022 GOA is able to improve the initial random population for a real\nproblem.\n\u2022 The target is improved over the course of iterations, so the ap-\nproximation of the global optimum become more accurate pro-\nportional to the number of iterations.\n\u2022 GOA is able to solve real problems with unknown search\nspaces.\nGOA is only able to solve single-objective problems with con-\ntentious variables. For future work, binary and multi-objective ver-\nsions of this algorithm may be developed to solve discrete and\nmulti-objective problems. The comfort zone parameter is an impor-\ntant coe\ufb03cient in GOA, so it is worth investigating the impacts of\ndifferent comfort zone functions on the performance of the algo-\nrithm. Solving optimisation problems in different \ufb01elds could also\nbe a valuable contribution. Tuning the main controlling parameters\nof GOA may also be bene\ufb01cial.",
       "bbox": {
         "page": 14,
         "x0": 53.507999420166016,
         "y0": 521.1279907226562,
         "x1": 96.33055877685547,
         "y1": 529.2256469726562
+      },
+      "coordinate_found": true
+    },
+    {
+      "heading_text": "Appendix Tables 12 \u201315",
+      "heading_number": null,
+      "heading_level": null,
+      "page_number": 15,
+      "body_text": "Table 11\nComparison of GOA optimisation results with literature for the 52-bar truss design problem.\nVariables ( mm 2 )\nPSO [64]\nPSOPC [64]\nHPSO [64]\nDHPSACO [65]\nMBA [66]\nSOS [63]\nGOA\nA1 - A4\n4658.055\n5999.988\n4658.055\n4658.055\n4658.055\n4658.055\n4658.055\nA5 - A10\n1374.19\n1008.38\n1161.288\n1161.288\n1161.288\n1161.288\n1161.288\nA11 - A13\n1858.06\n2696.77\n363.225\n494.193\n494.193\n494.193\n494.193\nA14 - A17\n3206.44\n3206.44\n3303.219\n3303.219\n3303.219\n3303.219\n3303.219\nA18 - A23\n1283.87\n1161.29\n940\n1008.385\n940\n940\n940\nA24 - A26\n252.26\n729.03\n494.193\n285.161\n494.193\n494.193\n494.193\nA27 - A30\n3303.22\n2238.71\n2238.705\n2290.318\n2238.705\n2238.705\n2238.705\nA31 - A36\n1045.16\n1008.38\n1008.385\n1008.385\n1008.385\n1008.385\n1008.385\nA37 - A39\n126.45\n494.19\n388.386\n388.386\n494.193\n494.193\n494.193\nA40 - A43\n2341.93\n1283.87\n1283.868\n1283.868\n1283.868\n1283.868\n1283.868\nA44 - A49\n1008.38\n1161.29\n1161.288\n1161.288\n1161.288\n1161.288\n1161.288\nA50 - A52\n1045.16\n494.19\n792.256\n506.451\n494.193\n494.193\n494.193\nOptimal weight ( kg )\n2230.16\n2146.63\n1905.495\n1904.83\n1902.605\n1902.605\n1902.605\nNo. of analyses\n150,0 0 0\n150,0 0 0\n5300\n11,100\n5450\n2350\n2300\nS. Saremi et al. / Advances in Engineering Software 105 (2017) 30\u201347\n45\nTable 12\nUnimodal benchmark functions.\nFunction\nDim\nRange\nf min\nf 1 (x ) = \ufffd n\ni =1 x 2\ni\n30\n[ \u2212100,100]\n0\nf 2 (x ) = \ufffd n\ni =1 | x i | + \ufffd n\ni =1 | x i |\n30\n[ \u221210,10]\n0\nf 3 (x ) = \ufffd i\ni =1 ( \ufffd i\nj\u22121 x j )\n2\n30\n[ \u2212100,100]\n0\nf 4 (x ) = max\ni { | x i | , 1 \u2264i \u2264n }\n30\n[ \u2212100,100]\n0\nf 5 (x ) = \ufffd n \u22121\ni =1 [ 100 ( x i +1 \u2212x 2\ni )\n2 + ( x i \u22121 ) 2 ]\n30\n[ \u221230,30]\n0\nf 6 (x ) = \ufffd n\ni =1 ( [ x i + 0 . 5 ] ) 2\n30\n[ \u2212100,100]\n0\nf 7 (x ) = \ufffd n\ni =1 ix 4\ni + random [ 0 , 1 )\n30\n[ \u22121.28,1.28]\n0\nTable 13\nMultimodal benchmark functions.\nFunction\nDim\nRange\nf min\nF 8 (x ) = \ufffd n\ni =1 \u2212x i sin (\n\ufffd\n| x i | )\n30\n[ \u221250 0,50 0]\n\u2212418.9829 \u00d7Dim\nF 9 (x ) = \ufffd n\ni =1 [ x 2\ni \u221210 cos ( 2 \u03c0x i ) + 10 ]\n30\n[ \u22125.12,5.12]\n0\nF 10 (x ) = \u221220 exp( \u22120 . 2\n\ufffd\n1\nn\n\ufffd n\ni =1 x 2\ni ) \u2212exp( 1\nn\n\ufffd n\ni =1 cos ( 2 \u03c0x i ) ) + 20 + e\n30\n[ \u221232,32]\n0\nF 11 (x ) =\n1\n40 0 0\n\ufffd n\ni =1 x 2\ni \u2212\ufffd n\ni =1 cos ( x\ni\n\u221a\ni ) + 1\n30\n[ \u221260 0,60 0]\n0\nF 12 (x ) = \u03c0\nn { 10 sin ( \u03c0y 1 ) + \ufffd n \u22121\ni =1 ( y i \u22121 ) 2 [ 1 + 10 si n 2 ( \u03c0y i +1 ) ] + ( y n \u22121 ) 2 } + \ufffd n\ni =1 u ( x i , 10 , 100 , 4 ) +\nn\n\ufffd\ni =1\nu ( x i , 10 , 100 , 4 )\ny i = 1 + x\ni +1\n4\nu ( x i , a, k, m ) =\n\ufffdk ( x i \u2212a ) m x i > a\n0 \u2212a < x i < a\nk ( \u2212x i \u2212a ) m x i < \u2212a\n30\n[ \u221250,50]\n0\nF 13 (x ) = 0 . 1 { si n 2 ( 3 \u03c0x 1 ) + \ufffd n\ni =1 ( x i \u22121 ) 2 [ 1 + si n 2 ( 3 \u03c0x i + 1 ) ] + ( x n \u22121 ) 2 [ 1 + si n 2 ( 2 \u03c0x n ) ] } + \ufffd n\ni =1 u ( x i , 5 , 100 , 4 )\n30\n[ \u221250,50]\n0\nTable 14\nComposite benchmark functions.\nFunction\nDim\nRange\nf min\nF 14 (CF1):\n30\n[ \u22125,5]\n0\nf 1 , f 2 , f 3 , \u2026, f 10 =Sphere Function\n[ \u0431 1 , \u0431 2 , \u0431 3 , . . . , \u0431 10 ] = [1 , 1 , 1 , .., 1]\n[ \u03bb1 , \u03bb2 , \u03bb3 \u2026, \u03bb10 ] = [5/100, 5/100, 5/100, .., 5/100]\nF 15 (CF2):\n30\n[ \u22125,5]\n0\nf 1 , f 2 , f 3 , . . . , f 10 = Griewank \u2019 s F unction\n[ \u0431 1 , \u0431 2 , \u0431 3 , . . . , \u0431 10 ] = [1 , 1 , 1 , .., 1]\n[ \u03bb1 , \u03bb2 , \u03bb3 , \u2026, \u03bb10 ] = [5/100, 5/100, 5/100, .., 5/100]\nF 16 (CF3):\n30\n[ \u22125,5]\n0\nf 1 , f 2 , f 3 , . . . , f 10 = Griewank \u2019 s F unction\n[ \u0431 1 , \u0431 2 , \u0431 3 , . . . , \u0431 10 ] = [1 , 1 , 1 , .., 1]\n[ \u03bb1 , \u03bb2 , \u03bb3 , \u2026, \u03bb10 ] = [1, 1, 1, .., 1]\nf 17 (CF4):\n30\n[ \u22125,5]\n0\nf 1 , f 2 = Ackley \u2019 sFunction\nf 3 , f 4 = Rastrigin \u2019 s Function\nf 5 , f 6 =Weierstrass Function\nf 7 , f 8 = Griewank \u2019 s Function\nf 9 , f 10 =Sphere Function\n[ \u0431 1 , \u0431 2 , \u0431 3 , . . . , \u0431 10 ] = [1 , 1 , 1 , .., 1]\n[ \u03bb1 , \u03bb2 , \u03bb3 , \u2026, \u03bb10 ] = [5/32, 5/32, 1, 1, 5/0.5, 5/0.5, 5/100, 5/10 0, 5/10 0, 5/10 0]\nf 18 (CF5):\n30\n[ \u22125,5]\n0\nf 1 , f 2 = Rastrigin \u2019 s Function\nf 3 , f 4 =Weierstrass Function\nf 5 , f 6 = Griewank \u2019 s Function\nf 7 , f 8 = Ackley \u2019 sFunction\nf 9 , f 10 =Sphere Function\n[ \u0431 1 , \u0431 2 , \u0431 3 , . . . , \u0431 10 ] = [1 , 1 , 1 , .., 1]\n[ \u03bb1 , \u03bb2 , \u03bb3 , \u2026, \u03bb10 ] = [1/5, 1/5, 5/0.5, 5/0.5, 5/100, 5/100, 5/32, 5/32, 5/100, 5/100]\nf 19 (CF6):\n30\n[ \u22125,5]\n0\nf 1 , f 2 = Rastrigin \u2019 s Function\nf 3 , f 4 =Weierstrass Function\nf 5 , f 6 = Griewank \u2019 s Function\nf 7 , f 8 = Ackley \u2019 sFunction\nf 9 , f 10 =Sphere Function\n[ \u0431 1 , \u0431 2 , \u0431 3 , . . . , \u0431 10 ] = [0 . 1 , 0 . 2 , 0 . 3 , 0 . 4 , 0 . 5 , 0 . 6 , 0 . 7 , 0 . 8 , 0 . 9 , 1]\n[ \u03bb1 , \u03bb2 , \u03bb3 , \u2026, \u03bb10 ] = [0.1 \u22171/5, 0.2 \u22171/5, 0.3 \u22175/0.5, 0.4 \u22175/0.5, 0.5 \u22175/100,\n0.6 \u22175/100, 0.7 \u22175/32, 0.8 \u22175/32, 0.9 \u22175/100, 1 \u22175/100]\n46\nS. Saremi et al. / Advances in Engineering Software 105 (2017) 30\u201347\nTable 15\nCEC2005 test functions.\nFunction\nDim\nRange\nf min\nF1_CEC2005: Shifted Sphere Function\n30\n[ \u2212100,100]\n\u2212450\nF2_CEC2005: Shifted Schwefel\u2019s Problem\n30\n[ \u2212100,100]\n\u2212450\nF3_CEC2005:Shifted Rotated High Conditioned Elliptic Function\n30\n[ \u2212100,100]\n\u2212450\nF4_CEC2005: Shifted Schwefel\u2019s Problem with Noise in Fitness\n30\n[ \u2212100,100]\n\u2212450\nF5_CEC2005: Schwefel\u2019s Problem with Global Optimum on Bounds\n30\n[ \u2212100,100]\n\u2212310\nF6_CEC2005: Shifted Rosenbrock\u2019s Function\n30\n[ \u2212100,100]\n390\nF7_CEC2005: Shifted Rotated Griewank\u2019s Function without Bounds\n30\n[ \u221260 0, 60 0]\n\u2212180\nF8_CEC2005: Shifted Rotated Ackley\u2019s Function with Global Optimum on Bounds\n30\n[ \u221232,32]\n\u2212140\nF9_CEC2005: Shifted Rastrigin\u2019s Function\n30\n[ \u22125,5]\n\u2212330\nF10_CEC2005: Shifted Rotated Rastrigin\u2019s Function\n30\n[ \u22125,5]\n\u2212330\nF11_CEC2005: Shifted Rotated Weierstrass Function\n30\n[ \u22120.5,0.5]\n90\nF12_CEC2005: Schwefel\u2019s Problem\n30\n[ \u2212100,100]\n\u2212460\nF13_CEC2005: Expanded Extended Griewank\u2019s plus Rosenbrock\u2019s Function (F8F2)\n30\n[ \u22123,1]\n\u2212130\nF14_CEC2005: Expanded Rotated Extended Scaffe\u2019s F6\n30\n[ \u2212100,100]\n\u2212300\nF15_CEC2005: Hybrid Composition Function 1\n30\n[ \u22125,5]\n120\nF16_CEC2005: Rotated Hybrid Composition Function 1\n30\n[ \u22125,5]\n120\nF17_CEC2005: Rotated Hybrid Composition Function 1 with Noise in Fitness\n30\n[ \u22125,5]\n120\nF18_CEC2005: Rotated Hybrid Composition Function 2\n30\n[ \u22125,5]\n10\nF19_CEC2005: Rotated Hybrid Composition Function 2 with a Narrow Basin for the Global Optimum\n30\n[ \u22125,5]\n10\nF20_CEC2005: Rotated Hybrid Composition Function 2 with the Global Optimum on the Bounds\n30\n[ \u22125,5]\n10\nF21_CEC2005: Rotated Hybrid Composition Function 3\n30\n[ \u22125,5]\n360\nF22_CEC2005: Rotated Hybrid Composition Function 3 with High Condition Number Matrix\n30\n[ \u22125,5]\n360\nF23_CEC2005: Non-Continuous Rotated Hybrid Composition Function 3\n30\n[ \u22125,5]\n360\nF24_CEC2005: Rotated Hybrid Composition Function 4\n30\n[ \u22125,5]\n260\nF25_CEC2005: Rotated Hybrid Composition Function 4 without Bounds\n30\n[ \u22125,5]",
+      "bbox": {
+        "page": 15,
+        "x0": 301.99798583984375,
+        "y0": 476.4249572753906,
+        "x1": 338.7504577636719,
+        "y1": 484.5225830078125
       },
       "coordinate_found": true
     }
@@ -249,13 +234,14 @@
         "page": 17,
         "x0": 36.84000015258789,
         "y0": 348.6883544921875,
-        "x1": 284.2594909667969,
-        "y1": 355.16644287109375
+        "x1": 287.72930908203125,
+        "y1": 371.10540771484375
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
-      "raw_string": "[2] Marler RT , Arora JS . Survey of multi-objective optimization methods for engi- neering. Struct Multidiscipl Optim 2004;26:369\u201395 .",
+      "raw_string": "[2] Marler RT , Arora JS . Survey of multi-objective optimization methods for engi-neering. Struct Multidiscipl Optim 2004;26:369\u201395 .",
       "number": 2,
       "year": 2004,
       "doi": null,
@@ -265,10 +251,11 @@
         "page": 17,
         "x0": 36.84124755859375,
         "y0": 372.60125732421875,
-        "x1": 276.38623046875,
-        "y1": 379.079345703125
+        "x1": 287.72357177734375,
+        "y1": 387.04437255859375
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
       "raw_string": "[3] Mirjalili S , Mirjalili SM , Lewis A . Grey wolf optimizer. Adv Eng Softw 2014;69:46\u201361 .",
@@ -281,13 +268,14 @@
         "page": 17,
         "x0": 36.84062194824219,
         "y0": 388.54022216796875,
-        "x1": 75.36714935302734,
-        "y1": 395.018310546875
+        "x1": 287.7908020019531,
+        "y1": 402.9834899902344
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
-      "raw_string": "[4] Spall JC . Introduction to stochastic search and optimization: estimation, simu- lation, and control, vol. 65. John Wiley & Sons; 2005 .",
+      "raw_string": "[4] Spall JC . Introduction to stochastic search and optimization: estimation, simu-lation, and control, vol. 65. John Wiley & Sons; 2005 .",
       "number": 4,
       "year": 2005,
       "doi": null,
@@ -297,13 +285,14 @@
         "page": 17,
         "x0": 36.840911865234375,
         "y0": 404.47930908203125,
-        "x1": 270.04803466796875,
-        "y1": 410.9574279785156
+        "x1": 287.6779479980469,
+        "y1": 418.9313659667969
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
-      "raw_string": "[5] Dasgupta D , Michalewicz Z . Evolutionary algorithms in engineering applica- tions. Springer; 1997 .",
+      "raw_string": "[5] Dasgupta D , Michalewicz Z . Evolutionary algorithms in engineering applica-tions. Springer; 1997 .",
       "number": 5,
       "year": 1997,
       "doi": null,
@@ -313,10 +302,11 @@
         "page": 17,
         "x0": 36.843475341796875,
         "y0": 420.41827392578125,
-        "x1": 135.8133087158203,
-        "y1": 426.8963928222656
+        "x1": 287.67919921875,
+        "y1": 434.8703918457031
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
       "raw_string": "[6] Yang X-S . Nature-inspired metaheuristic algorithms. Luniver press; 2010 .",
@@ -329,10 +319,11 @@
         "page": 17,
         "x0": 36.840240478515625,
         "y0": 436.3572998046875,
-        "x1": 268.6433410644531,
+        "x1": 270.1748962402344,
         "y1": 442.8354187011719
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
       "raw_string": "[7] Mirjalili S , Lewis A . S-shaped versus V-shaped transfer functions for binary particle swarm optimization. Swarm Evol Comput 2013;9:1\u201314 .",
@@ -345,10 +336,11 @@
         "page": 17,
         "x0": 36.84089660644531,
         "y0": 444.33123779296875,
-        "x1": 278.2221984863281,
-        "y1": 450.8093566894531
+        "x1": 287.72637939453125,
+        "y1": 458.7743835449219
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
       "raw_string": "[8] Davis L . Bit-climbing, representational bias, and test suite design. ICGA 1991:18\u201323 .",
@@ -361,10 +353,11 @@
         "page": 17,
         "x0": 36.84342956542969,
         "y0": 460.27020263671875,
-        "x1": 67.91033935546875,
-        "y1": 466.7483215332031
+        "x1": 287.6811218261719,
+        "y1": 474.7224426269531
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
       "raw_string": "[9] Kirkpatrick S , Gelatt CD , Vecchi MP . Optimization by simmulated annealing. Science 1983;220:671\u201380 .",
@@ -377,10 +370,11 @@
         "page": 17,
         "x0": 36.83969497680664,
         "y0": 476.2093505859375,
-        "x1": 282.88641357421875,
-        "y1": 482.6874694824219
+        "x1": 287.72711181640625,
+        "y1": 490.6614074707031
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
       "raw_string": "[10] L.J. Fogel, A.J. Owens, and M.J. Walsh, \"Arti\ufb01cial intelligence through simulated evolution,\" 1966.",
@@ -393,10 +387,11 @@
         "page": 17,
         "x0": 33.58277130126953,
         "y0": 492.1483154296875,
-        "x1": 265.765869140625,
-        "y1": 498.6264343261719
+        "x1": 287.6741638183594,
+        "y1": 506.6003723144531
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
       "raw_string": "[11] Glover F . Tabu search-part I. ORSA J Comput 1989;1:190\u2013206 .",
@@ -409,10 +404,11 @@
         "page": 17,
         "x0": 33.85247802734375,
         "y0": 508.0872802734375,
-        "x1": 235.66944885253906,
+        "x1": 237.19972229003906,
         "y1": 514.5654296875
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
       "raw_string": "[12] H.R. Louren\u00e7o, O.C. Martin, and T. Stutzle, \u201cIterated local search,\u201d arXiv preprint math/0102188 , 2001.",
@@ -425,10 +421,11 @@
         "page": 17,
         "x0": 33.484588623046875,
         "y0": 516.0612182617188,
-        "x1": 257.9505615234375,
-        "y1": 522.5394287109375
+        "x1": 287.66510009765625,
+        "y1": 530.5133056640625
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
       "raw_string": "[13] Holland JH . Genetic algorithms. Sci Am 1992;267:66\u201372 .",
@@ -441,13 +438,14 @@
         "page": 17,
         "x0": 33.55583953857422,
         "y0": 532.000244140625,
-        "x1": 219.75836181640625,
+        "x1": 221.287353515625,
         "y1": 538.4783935546875
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
-      "raw_string": "[14] Eberhart RC , Kennedy J . A new optimizer using particle swarm theory. In: Pro- ceedings of the sixth international symposium on micro machine and human science; 1995. p. 39\u201343 .",
+      "raw_string": "[14] Eberhart RC , Kennedy J . A new optimizer using particle swarm theory. In: Pro-ceedings of the sixth international symposium on micro machine and human science; 1995. p. 39\u201343 .",
       "number": 14,
       "year": 1995,
       "doi": null,
@@ -457,10 +455,11 @@
         "page": 17,
         "x0": 33.61065673828125,
         "y0": 539.9741821289062,
-        "x1": 269.8017883300781,
-        "y1": 546.4523315429688
+        "x1": 287.7791748046875,
+        "y1": 562.3912963867188
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
       "raw_string": "[15] Colorni A , Dorigo M , Maniezzo V . Distributed optimization by ant colonies. In: Proceedings of the \ufb01rst European conference on arti\ufb01cial life; 1991. p. 134\u201342 .",
@@ -473,10 +472,11 @@
         "page": 17,
         "x0": 33.57276153564453,
         "y0": 563.8783569335938,
-        "x1": 269.63189697265625,
-        "y1": 570.3565063476562
+        "x1": 287.7776184082031,
+        "y1": 578.3304443359375
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
       "raw_string": "[16] Storn R , Price K . Differential evolution\u2013a simple and e\ufb03cient heuristic for global optimization over continuous spaces. J Glob Optim 1997;11:341\u201359 .",
@@ -489,13 +489,14 @@
         "page": 17,
         "x0": 33.610321044921875,
         "y0": 579.8262939453125,
-        "x1": 278.1834716796875,
-        "y1": 586.304443359375
+        "x1": 287.723388671875,
+        "y1": 594.2694091796875
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
-      "raw_string": "[17] Eiben AE , Schippers C . On evolutionary exploration and exploitation. Funda- menta Informaticae 1998;35:35\u201350 .",
+      "raw_string": "[17] Eiben AE , Schippers C . On evolutionary exploration and exploitation. Funda-menta Informaticae 1998;35:35\u201350 .",
       "number": 17,
       "year": 1998,
       "doi": null,
@@ -505,10 +506,11 @@
         "page": 17,
         "x0": 33.76200866699219,
         "y0": 595.7651977539062,
-        "x1": 278.42449951171875,
-        "y1": 602.2433471679688
+        "x1": 287.6972351074219,
+        "y1": 610.2083740234375
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
       "raw_string": "[18] Kaveh A , Farhoudi N . A new optimization method: dolphin echolocation. Adv Eng Softw 2013;59:53\u201370 .",
@@ -521,13 +523,14 @@
         "page": 17,
         "x0": 33.64537048339844,
         "y0": 611.7041625976562,
-        "x1": 284.3874206542969,
-        "y1": 618.1823120117188
+        "x1": 287.73486328125,
+        "y1": 626.1473388671875
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
-      "raw_string": "[19] Kaveh A , Farhoudi N . Dolphin monitoring for enhancing metaheuristic algo- rithms: layout optimization of braced frames. Comput Struct 2016;165:1\u20139 .",
+      "raw_string": "[19] Kaveh A , Farhoudi N . Dolphin monitoring for enhancing metaheuristic algo-rithms: layout optimization of braced frames. Comput Struct 2016;165:1\u20139 .",
       "number": 19,
       "year": 2016,
       "doi": null,
@@ -537,10 +540,11 @@
         "page": 17,
         "x0": 33.603912353515625,
         "y0": 627.6431274414062,
-        "x1": 284.3536376953125,
-        "y1": 634.1212768554688
+        "x1": 287.6958312988281,
+        "y1": 642.0953369140625
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
       "raw_string": "[20] Yang X-S . Fire\ufb02y algorithm, stochastic test functions and design optimisation. Int J Bio Inspired Comput 2010;2:78\u201384 .",
@@ -553,10 +557,11 @@
         "page": 17,
         "x0": 33.16896057128906,
         "y0": 643.5822143554688,
-        "x1": 273.4351501464844,
-        "y1": 650.0603637695312
+        "x1": 287.6754455566406,
+        "y1": 658.0343017578125
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
       "raw_string": "[21] Yang X-S . Fire\ufb02y algorithm, Levy \ufb02ights and global optimization. In: Research and development in intelligent systems XXVI. Springer; 2010. p. 209\u201318 .",
@@ -569,13 +574,14 @@
         "page": 17,
         "x0": 33.43739318847656,
         "y0": 659.5211791992188,
-        "x1": 274.9768371582031,
-        "y1": 665.9993286132812
+        "x1": 287.6945495605469,
+        "y1": 673.9735107421875
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
-      "raw_string": "[22] Yang X-S . A new metaheuristic bat-inspired algorithm. In: Nature inspired co- operative strategies for optimization (NICSO 2010). Springer; 2010. p. 65\u201374 .",
+      "raw_string": "[22] Yang X-S . A new metaheuristic bat-inspired algorithm. In: Nature inspired co-operative strategies for optimization (NICSO 2010). Springer; 2010. p. 65\u201374 .",
       "number": 22,
       "year": 2010,
       "doi": null,
@@ -585,13 +591,14 @@
         "page": 17,
         "x0": 33.14967346191406,
         "y0": 675.4603881835938,
-        "x1": 272.5735168457031,
-        "y1": 681.9385375976562
+        "x1": 287.695068359375,
+        "y1": 689.9124755859375
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
-      "raw_string": "[23] Yang X-S , Deb S . Cuckoo search via L\u00e9vy \ufb02ights. In: Nature & biologically in- spired computing, 2009. NaBIC 2009. World congress on; 2009. p. 210\u201314 .",
+      "raw_string": "[23] Yang X-S , Deb S . Cuckoo search via L\u00e9vy \ufb02ights. In: Nature & biologically in-spired computing, 2009. NaBIC 2009. World congress on; 2009. p. 210\u201314 .",
       "number": 23,
       "year": 2009,
       "doi": null,
@@ -601,10 +608,11 @@
         "page": 17,
         "x0": 33.15226745605469,
         "y0": 691.3993530273438,
-        "x1": 273.2391662597656,
-        "y1": 697.8775024414062
+        "x1": 287.8053894042969,
+        "y1": 705.8515014648438
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
       "raw_string": "[24] Yang X-S , Deb S . Engineering optimisation by cuckoo search. Int J Math Model Numer Optim 2010;1:330\u201343 .",
@@ -617,29 +625,31 @@
         "page": 17,
         "x0": 33.23175048828125,
         "y0": 707.3472900390625,
-        "x1": 275.3800964355469,
-        "y1": 713.825439453125
+        "x1": 287.79180908203125,
+        "y1": 721.7904663085938
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
-      "raw_string": "[25] Cuevas E , Echavarr\u00eda A , Ram\u00edrez-Orteg\u00f3n MA . An optimization algorithm in- spired by the States of Matter that improves the balance between exploration and exploitation. Appl Intel 2014;40:256\u201372 .",
+      "raw_string": "[25] Cuevas E , Echavarr\u00eda A , Ram\u00edrez-Orteg\u00f3n MA . An optimization algorithm in-spired by the States of Matter that improves the balance between exploration Dim Range f min 30 [ \u2212100,100] \u2212450 30 [ \u2212100,100] \u2212450 30 [ \u2212100,100] \u2212450 30 [ \u2212100,100] \u2212450 [ \u2212100,100] \u2212310 30 30 [ \u2212100,100] 390 30 [ \u221260 0, 60 0] \u2212180 30 [ \u221232,32] \u2212140 \u2212330 30 [ \u22125,5] 30 [ \u22125,5] \u2212330 30 [ \u22120.5,0.5] 90 30 [ \u2212100,100] \u2212460 30 [ \u22123,1] \u2212130 [ \u2212100,100] \u2212300 30 30 [ \u22125,5] 120 30 [ \u22125,5] 120 30 [ \u22125,5] 120 30 [ \u22125,5] 10 30 [ \u22125,5] 10 30 [ \u22125,5] 10 30 [ \u22125,5] 360 30 [ \u22125,5] 360 30 [ \u22125,5] 360 30 [ \u22125,5] 260 30 [ \u22125,5] 260",
       "number": 25,
-      "year": 2014,
+      "year": null,
       "doi": null,
       "url": null,
       "entry_type": null,
       "bbox": {
         "page": 17,
         "x0": 33.147605895996094,
-        "y0": 723.2862548828125,
-        "x1": 281.7587890625,
-        "y1": 729.764404296875
+        "y0": 79.84022521972656,
+        "x1": 496.8880615234375,
+        "y1": 737.7294311523438
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
-      "raw_string": "[26] Cuevas E , Echavarr\u00eda A , Zald\u00edvar D , P\u00e9rez-Cisneros M . A novel evolutionary al- gorithm inspired by the states of matter for template matching. Expert Syst Appl 2013;40:6359\u201373 .",
+      "raw_string": "[26] Cuevas E , Echavarr\u00eda A , Zald\u00edvar D , P\u00e9rez-Cisneros M . A novel evolutionary al-gorithm inspired by the states of matter for template matching. Expert Syst Appl 2013;40:6359\u201373 .",
       "number": 26,
       "year": 2013,
       "doi": null,
@@ -649,13 +659,14 @@
         "page": 17,
         "x0": 302.1419982910156,
         "y0": 332.02032470703125,
-        "x1": 533.6217041015625,
-        "y1": 338.4984436035156
+        "x1": 556.8014526367188,
+        "y1": 354.4374084472656
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
-      "raw_string": "[27] Yang X-S . Flower pollination algorithm for global optimization. In: Unconven- tional computation and natural computation. Springer; 2012. p. 240\u20139 .",
+      "raw_string": "[27] Yang X-S . Flower pollination algorithm for global optimization. In: Unconven-tional computation and natural computation. Springer; 2012. p. 240\u20139 .",
       "number": 27,
       "year": 2012,
       "doi": null,
@@ -665,10 +676,11 @@
         "page": 17,
         "x0": 302.3389892578125,
         "y0": 355.9332275390625,
-        "x1": 543.5672607421875,
-        "y1": 362.4113464355469
+        "x1": 556.6593017578125,
+        "y1": 370.3763732910156
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
       "raw_string": "[28] Wolpert DH , Macready WG . No free lunch theorems for optimization. Evol Comput IEEE Trans 1997;1:67\u201382 .",
@@ -682,9 +694,10 @@
         "x0": 302.1409912109375,
         "y0": 371.8721923828125,
         "x1": 556.7247314453125,
-        "y1": 378.35028076171875
+        "y1": 386.3153076171875
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
       "raw_string": "[29] Chen S . Locust Swarms-A new multi-optima search technique. In: Evolutionary Computation, 2009. CEC\u201909. IEEE Congress on; 2009. p. 1745\u201352 .",
@@ -697,10 +710,11 @@
         "page": 17,
         "x0": 302.14178466796875,
         "y0": 387.8111572265625,
-        "x1": 549.7799072265625,
-        "y1": 394.28924560546875
+        "x1": 556.6674194335938,
+        "y1": 402.2542724609375
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
       "raw_string": "[30] Chen S . An analysis of locust swarms on large scale global optimization problems. In: Arti\ufb01cial Life: borrowing from biology. Springer; 2009. p. 211\u201320 .",
@@ -714,12 +728,13 @@
         "x0": 302.1602783203125,
         "y0": 403.7501220703125,
         "x1": 556.7329711914062,
-        "y1": 410.22821044921875
+        "y1": 418.202392578125
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
-      "raw_string": "[31] Chen S , Vargas YN . Improving the performance of particle swarms through di- mension reductions\u2014A case study with locust swarms. In: Evolutionary com- putation (CEC), 2010 IEEE congress on; 2010. p. 1\u20138 .",
+      "raw_string": "[31] Chen S , Vargas YN . Improving the performance of particle swarms through di-mension reductions\u2014A case study with locust swarms. In: Evolutionary com-putation (CEC), 2010 IEEE congress on; 2010. p. 1\u20138 .",
       "number": 31,
       "year": 2010,
       "doi": null,
@@ -729,13 +744,14 @@
         "page": 17,
         "x0": 302.4788818359375,
         "y0": 419.6893310546875,
-        "x1": 548.8679809570312,
-        "y1": 426.16741943359375
+        "x1": 556.7552490234375,
+        "y1": 442.1064453125
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
-      "raw_string": "[32] Lewis A . LoCost: a spatial social network algorithm for multi-objective opti- misation. In: Evolutionary computation, 2009. CEC\u201909. IEEE congress on; 2009. p. 2866\u201370 .",
+      "raw_string": "[32] Lewis A . LoCost: a spatial social network algorithm for multi-objective opti-misation. In: Evolutionary computation, 2009. CEC\u201909. IEEE congress on; 2009. p. 2866\u201370 .",
       "number": 32,
       "year": 2009,
       "doi": null,
@@ -745,13 +761,14 @@
         "page": 17,
         "x0": 302.142822265625,
         "y0": 443.602294921875,
-        "x1": 546.525390625,
-        "y1": 450.08038330078125
+        "x1": 556.6978149414062,
+        "y1": 466.01934814453125
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
-      "raw_string": "[33] Cuevas E , Cort\u00e9s MAD , Navarro DAO . Optimization based on the behavior of locust swarms. In: Advances of evolutionary computation: methods and oper- ators. Springer; 2016. p. 101\u201320 .",
+      "raw_string": "[33] Cuevas E , Cort\u00e9s MAD , Navarro DAO . Optimization based on the behavior of locust swarms. In: Advances of evolutionary computation: methods and oper-ators. Springer; 2016. p. 101\u201320 .",
       "number": 33,
       "year": 2016,
       "doi": null,
@@ -761,10 +778,11 @@
         "page": 17,
         "x0": 302.2442321777344,
         "y0": 467.51519775390625,
-        "x1": 553.4293212890625,
-        "y1": 473.9932861328125
+        "x1": 556.7774658203125,
+        "y1": 489.9324035644531
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
       "raw_string": "[34] Boussa\u00efD I , Lepagnot J , Siarry P . A survey on optimization metaheuristics. Inf Sci 2013;237:82\u2013117 .",
@@ -777,10 +795,11 @@
         "page": 17,
         "x0": 302.15911865234375,
         "y0": 491.4193115234375,
-        "x1": 538.3082885742188,
-        "y1": 497.8974304199219
+        "x1": 556.771484375,
+        "y1": 505.8713684082031
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
       "raw_string": "[35] Gogna A , Tayal A . Metaheuristics: review and application. J Exp Theor Artif Intel 2013;25:503\u201326 .",
@@ -793,13 +812,14 @@
         "page": 17,
         "x0": 302.24139404296875,
         "y0": 507.3582763671875,
-        "x1": 549.3471069335938,
-        "y1": 513.83642578125
+        "x1": 556.741455078125,
+        "y1": 521.8103637695312
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
-      "raw_string": "[36] Zhou A , Qu B-Y , Li H , Zhao S-Z , Suganthan PN , Zhang Q . Multiobjective evo- lutionary algorithms: A survey of the state of the art. Swarm Evol Comput 2011;1:32\u201349 .",
+      "raw_string": "[36] Zhou A , Qu B-Y , Li H , Zhao S-Z , Suganthan PN , Zhang Q . Multiobjective evo-lutionary algorithms: A survey of the state of the art. Swarm Evol Comput 2011;1:32\u201349 .",
       "number": 36,
       "year": 2011,
       "doi": null,
@@ -809,10 +829,11 @@
         "page": 17,
         "x0": 302.141845703125,
         "y0": 523.30615234375,
-        "x1": 343.0094299316406,
-        "y1": 529.7843017578125
+        "x1": 556.9110717773438,
+        "y1": 545.723388671875
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
       "raw_string": "[37] Simpson SJ , McCaffery A , HAeGELE BF . A behavioural analysis of phase change in the desert locust. Biol Rev 1999;74:461\u201380 .",
@@ -825,13 +846,14 @@
         "page": 17,
         "x0": 302.3885803222656,
         "y0": 547.2102661132812,
-        "x1": 542.8255615234375,
-        "y1": 553.6884155273438
+        "x1": 556.7689208984375,
+        "y1": 561.662353515625
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
-      "raw_string": "[38] Rogers SM , Matheson T , Despland E , Dodgson T , Burrows M , Simpson SJ . Mechanosensory-induced behavioural gregarization in the desert locust Schis- tocerca gregaria. J Exp Biol 2003;206:3991\u20134002 .",
+      "raw_string": "[38] Rogers SM , Matheson T , Despland E , Dodgson T , Burrows M , Simpson SJ . Mechanosensory-induced behavioural gregarization in the desert locust Schis-tocerca gregaria. J Exp Biol 2003;206:3991\u20134002 .",
       "number": 38,
       "year": 2003,
       "doi": null,
@@ -841,13 +863,14 @@
         "page": 17,
         "x0": 302.1427001953125,
         "y0": 563.1492919921875,
-        "x1": 555.3369750976562,
-        "y1": 569.62744140625
+        "x1": 556.8595581054688,
+        "y1": 585.5753173828125
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
-      "raw_string": "[39] Topaz CM , Bernoff AJ , Logan S , Toolson W . A model for rolling swarms of lo- custs. Eur Phys J Special Top 2008;157:93\u2013109 .",
+      "raw_string": "[39] Topaz CM , Bernoff AJ , Logan S , Toolson W . A model for rolling swarms of lo-custs. Eur Phys J Special Top 2008;157:93\u2013109 .",
       "number": 39,
       "year": 2008,
       "doi": null,
@@ -857,10 +880,11 @@
         "page": 17,
         "x0": 302.14263916015625,
         "y0": 587.0621948242188,
-        "x1": 449.23583984375,
-        "y1": 593.5403442382812
+        "x1": 556.8548583984375,
+        "y1": 601.514404296875
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
       "raw_string": "[40] Yao X , Liu Y , Lin G . Evolutionary programming made faster. In: Evolutionary computation, IEEE transactions on, 3; 1999. p. 82\u2013102 .",
@@ -873,10 +897,11 @@
         "page": 17,
         "x0": 302.1622314453125,
         "y0": 603.0013427734375,
-        "x1": 543.9727172851562,
-        "y1": 609.4794921875
+        "x1": 556.77978515625,
+        "y1": 617.4534301757812
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
       "raw_string": "[41] Digalakis J , Margaritis K . On benchmarking functions for genetic algorithms. Int J Comput Math 2001;77:481\u2013506 .",
@@ -889,13 +914,14 @@
         "page": 17,
         "x0": 302.5411071777344,
         "y0": 618.9403076171875,
-        "x1": 543.0840454101562,
-        "y1": 625.41845703125
+        "x1": 556.6805419921875,
+        "y1": 633.3924560546875
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
-      "raw_string": "[42] M. Molga and C. Smutnicki, \"Test functions for optimization needs,\" Test func- tions for optimization needs , 2005.",
+      "raw_string": "[42] M. Molga and C. Smutnicki, \"Test functions for optimization needs,\" Test func-tions for optimization needs , 2005.",
       "number": 42,
       "year": 2005,
       "doi": null,
@@ -905,10 +931,11 @@
         "page": 17,
         "x0": 302.1427917480469,
         "y0": 634.8793334960938,
-        "x1": 544.1845092773438,
-        "y1": 641.3574829101562
+        "x1": 556.6842651367188,
+        "y1": 649.3314208984375
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
       "raw_string": "[43] X.-S. Yang, \"Test problems in optimization,\" arXiv preprint arXiv:1008.0549 , 2010.",
@@ -921,13 +948,14 @@
         "page": 17,
         "x0": 302.1427307128906,
         "y0": 650.8272094726562,
-        "x1": 551.7791748046875,
-        "y1": 657.3053588867188
+        "x1": 556.6466674804688,
+        "y1": 665.2703857421875
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
-      "raw_string": "[44] Rashedi E , Nezamabadi-Pour H , Saryazdi S . GSA: a gravitational search algo- rithm. Inf Sci 2009;179:2232\u201348 .",
+      "raw_string": "[44] Rashedi E , Nezamabadi-Pour H , Saryazdi S . GSA: a gravitational search algo-rithm. Inf Sci 2009;179:2232\u201348 .",
       "number": 44,
       "year": 2009,
       "doi": null,
@@ -937,13 +965,14 @@
         "page": 17,
         "x0": 301.9967041015625,
         "y0": 666.7662353515625,
-        "x1": 543.8045043945312,
-        "y1": 673.244384765625
+        "x1": 556.74609375,
+        "y1": 681.2094116210938
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
-      "raw_string": "[45] P.N. Suganthan, N. Hansen, J.J. Liang, K. Deb, Y.-P. Chen, A. Auger, et al., \"Prob- lem de\ufb01nitions and evaluation criteria for the CEC 2005 special session on real-parameter optimization,\" KanGAL report , vol. 20 050 05, p. 20 05, 20 05.",
+      "raw_string": "[45] P.N. Suganthan, N. Hansen, J.J. Liang, K. Deb, Y.-P. Chen, A. Auger, et al., \"Prob-lem de\ufb01nitions and evaluation criteria for the CEC 2005 special session on real-parameter optimization,\" KanGAL report , vol. 20 050 05, p. 20 05, 20 05.",
       "number": 45,
       "year": 2005,
       "doi": null,
@@ -953,13 +982,14 @@
         "page": 17,
         "x0": 302.1420593261719,
         "y0": 682.7052001953125,
-        "x1": 530.6724243164062,
-        "y1": 689.183349609375
+        "x1": 556.7620849609375,
+        "y1": 705.1224975585938
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
-      "raw_string": "[46] Kaveh A . Colliding Bodies Optimization. In: Advances in metaheuristic algo- rithms for optimal design of structures. Springer; 2014. p. 195\u2013232 .",
+      "raw_string": "[46] Kaveh A . Colliding Bodies Optimization. In: Advances in metaheuristic algo-rithms for optimal design of structures. Springer; 2014. p. 195\u2013232 .",
       "number": 46,
       "year": 2014,
       "doi": null,
@@ -969,13 +999,14 @@
         "page": 17,
         "x0": 302.1423034667969,
         "y0": 706.6182861328125,
-        "x1": 550.6935424804688,
-        "y1": 713.096435546875
+        "x1": 556.6622314453125,
+        "y1": 721.0614624023438
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
-      "raw_string": "[47] Kaveh A , Mahdavi V . Colliding bodies optimization: a novel meta-heuristic method. Comput Struct 2014;139:18\u201327 .",
+      "raw_string": "[47] Kaveh A , Mahdavi V . Colliding bodies optimization: a novel meta-heuristic method. Comput Struct 2014;139:18\u201327 . optimization: water evaporation optimization. Struct Multidiscipl Optim 2016:1\u201321 .",
       "number": 47,
       "year": 2014,
       "doi": null,
@@ -985,26 +1016,11 @@
         "page": 17,
         "x0": 302.4337158203125,
         "y0": 722.5572509765625,
-        "x1": 553.353515625,
-        "y1": 729.035400390625
+        "x1": 556.6927490234375,
+        "y1": 737.0004272460938
       },
-      "coordinate_found": true
-    },
-    {
-      "raw_string": "[48] Kaveh A , Bakhshpoori T . A new metaheuristic for continuous structural S. Saremi et al. / Advances in Engineering Software 105 (2017) 30\u201347 47 optimization: water evaporation optimization. Struct Multidiscipl Optim 2016:1\u201321 .",
-      "number": 48,
-      "year": 2017,
-      "doi": null,
-      "url": null,
-      "entry_type": null,
-      "bbox": {
-        "page": 17,
-        "x0": 302.0389404296875,
-        "y0": 738.4962158203125,
-        "x1": 338.82073974609375,
-        "y1": 744.974365234375
-      },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 17
     },
     {
       "raw_string": "[49] Kaveh A , Bakhshpoori T , Afshari E . An e\ufb03cient hybrid particle swarm and swallow swarm optimization algorithm. Comput Struct 2014;143:40\u201359 .",
@@ -1017,13 +1033,14 @@
         "page": 18,
         "x0": 42.85234832763672,
         "y0": 74.71931457519531,
-        "x1": 294.247314453125,
-        "y1": 81.19743347167969
+        "x1": 297.5992126464844,
+        "y1": 89.16246032714844
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 18
     },
     {
-      "raw_string": "[50] Kaveh A , Khayatazad M . A new meta-heuristic method: ray optimization. Com- put Struct 2012;112:283\u201394 .",
+      "raw_string": "[50] Kaveh A , Khayatazad M . A new meta-heuristic method: ray optimization. Com-put Struct 2012;112:283\u201394 .",
       "number": 50,
       "year": 2012,
       "doi": null,
@@ -1033,10 +1050,11 @@
         "page": 18,
         "x0": 42.97859191894531,
         "y0": 90.65827941894531,
-        "x1": 291.5680847167969,
-        "y1": 97.13639831542969
+        "x1": 297.5329284667969,
+        "y1": 105.10142517089844
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 18
     },
     {
       "raw_string": "[51] Kaveh A , Khayatazad M . Ray optimization for size and shape optimization of truss structures. Comput Struct 2013;117:82\u201394 .",
@@ -1049,10 +1067,11 @@
         "page": 18,
         "x0": 43.374053955078125,
         "y0": 106.59730529785156,
-        "x1": 292.0960998535156,
-        "y1": 113.07542419433594
+        "x1": 297.5699768066406,
+        "y1": 121.04045104980469
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 18
     },
     {
       "raw_string": "[52] Kaveh A , Nasrollahi A . A new hybrid meta-heuristic for structural design: ranked particles optimization. Struct Eng Mech 2014;52:405\u201326 .",
@@ -1065,10 +1084,11 @@
         "page": 18,
         "x0": 42.96018981933594,
         "y0": 122.53627014160156,
-        "x1": 294.20147705078125,
-        "y1": 129.01438903808594
+        "x1": 297.5457458496094,
+        "y1": 136.9883270263672
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 18
     },
     {
       "raw_string": "[53] Kaveh A , Talatahari S . A novel heuristic optimization method: charged system search. Acta Mech 2010;213:267\u201389 .",
@@ -1081,10 +1101,11 @@
         "page": 18,
         "x0": 42.964019775390625,
         "y0": 138.47523498535156,
-        "x1": 282.67584228515625,
-        "y1": 144.95335388183594
+        "x1": 297.53216552734375,
+        "y1": 152.9272918701172
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 18
     },
     {
       "raw_string": "[54] Kaveh A , Mirzaei B , Jafarvand A . An improved magnetic charged system search for optimization of truss structures with continuous and discrete variables. Appl Soft Comput 2015;28:400\u201310 .",
@@ -1097,13 +1118,14 @@
         "page": 18,
         "x0": 42.951080322265625,
         "y0": 154.41419982910156,
-        "x1": 284.8724365234375,
-        "y1": 160.89231872558594
+        "x1": 297.5901794433594,
+        "y1": 176.83128356933594
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 18
     },
     {
-      "raw_string": "[55] Gandomi AH , Yang X-S , Alavi AH . Cuckoo search algorithm: a metaheuristic ap- proach to solve structural optimization problems. Eng Comput 2013;29:17\u201335 .",
+      "raw_string": "[55] Gandomi AH , Yang X-S , Alavi AH . Cuckoo search algorithm: a metaheuristic ap-proach to solve structural optimization problems. Eng Comput 2013;29:17\u201335 .",
       "number": 55,
       "year": 2013,
       "doi": null,
@@ -1113,13 +1135,14 @@
         "page": 18,
         "x0": 42.9625244140625,
         "y0": 178.3271026611328,
-        "x1": 147.6466522216797,
-        "y1": 184.8052215576172
+        "x1": 297.5965881347656,
+        "y1": 192.77940368652344
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 18
     },
     {
-      "raw_string": "[56] Sadollah A , Bahreininejad A , Eskandar H , Hamdi M . Mine blast algorithm: A new population based algorithm for solving constrained engineering optimiza- tion problems. Appl Soft Comput 2013;13:2592\u2013612 .",
+      "raw_string": "[56] Sadollah A , Bahreininejad A , Eskandar H , Hamdi M . Mine blast algorithm: A new population based algorithm for solving constrained engineering optimiza-tion problems. Appl Soft Comput 2013;13:2592\u2013612 .",
       "number": 56,
       "year": 2013,
       "doi": null,
@@ -1129,10 +1152,11 @@
         "page": 18,
         "x0": 42.96002197265625,
         "y0": 194.2663116455078,
-        "x1": 287.0078430175781,
-        "y1": 200.7444305419922
+        "x1": 297.6304016113281,
+        "y1": 216.68345642089844
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 18
     },
     {
       "raw_string": "[57] Mirjalili S . The ant lion optimizer. Adv Eng Softw 2015;83:80\u201398 .",
@@ -1145,13 +1169,14 @@
         "page": 18,
         "x0": 312.19500732421875,
         "y0": 58.78034973144531,
-        "x1": 525.8555908203125,
+        "x1": 527.386474609375,
         "y1": 65.25846862792969
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 18
     },
     {
-      "raw_string": "[58] Zhang M , Luo W , Wang X . Differential evolution with dynamic stochastic se- lection for constrained optimization. Inf Sci 2008;178:3043\u201374 .",
+      "raw_string": "[58] Zhang M , Luo W , Wang X . Differential evolution with dynamic stochastic se-lection for constrained optimization. Inf Sci 2008;178:3043\u201374 .",
       "number": 58,
       "year": 2008,
       "doi": null,
@@ -1161,10 +1186,11 @@
         "page": 18,
         "x0": 311.9533386230469,
         "y0": 66.74537658691406,
-        "x1": 557.2674560546875,
-        "y1": 73.22349548339844
+        "x1": 566.590576171875,
+        "y1": 81.19743347167969
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 18
     },
     {
       "raw_string": "[59] Liu H , Cai Z , Wang Y . Hybridizing particle swarm optimization with differential evolution for constrained numerical and engineering optimization. Appl Soft Comput 2010;10:629\u201340 .",
@@ -1177,13 +1203,14 @@
         "page": 18,
         "x0": 311.9540100097656,
         "y0": 82.68428039550781,
-        "x1": 543.9995727539062,
-        "y1": 89.16246032714844
+        "x1": 566.5958251953125,
+        "y1": 105.10136413574219
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 18
     },
     {
-      "raw_string": "[60] Ray T , Saini P . Engineering design optimization using a swarm with an intelli- gent information sharing among individuals. Eng Optim 2001;33:735\u201348 .",
+      "raw_string": "[60] Ray T , Saini P . Engineering design optimization using a swarm with an intelli-gent information sharing among individuals. Eng Optim 2001;33:735\u201348 .",
       "number": 60,
       "year": 2001,
       "doi": null,
@@ -1193,10 +1220,11 @@
         "page": 18,
         "x0": 311.9676513671875,
         "y0": 106.59718322753906,
-        "x1": 551.6122436523438,
-        "y1": 113.07530212402344
+        "x1": 566.5833129882812,
+        "y1": 121.04032897949219
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 18
     },
     {
       "raw_string": "[61] Tsai J-F . Global optimization of nonlinear fractional programming problems in engineering design. Eng Optim 2005;37:399\u2013409 .",
@@ -1209,13 +1237,14 @@
         "page": 18,
         "x0": 312.192138671875,
         "y0": 122.53614807128906,
-        "x1": 554.8409423828125,
-        "y1": 129.01426696777344
+        "x1": 566.4776000976562,
+        "y1": 136.98838806152344
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 18
     },
     {
-      "raw_string": "[62] Chickermane H , Gea H . Structural optimization using a new local approxima- tion method. Int J Numer Methods Eng 1996;39:829\u201346 .",
+      "raw_string": "[62] Chickermane H , Gea H . Structural optimization using a new local approxima-tion method. Int J Numer Methods Eng 1996;39:829\u201346 .",
       "number": 62,
       "year": 1996,
       "doi": null,
@@ -1225,13 +1254,14 @@
         "page": 18,
         "x0": 311.95263671875,
         "y0": 138.4752960205078,
-        "x1": 560.5745849609375,
-        "y1": 144.9534149169922
+        "x1": 566.5426635742188,
+        "y1": 152.92735290527344
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 18
     },
     {
-      "raw_string": "[63] Cheng M-Y , Prayogo D . Symbiotic organisms search: A new metaheuristic op- timization algorithm. Comput Struct 2014;139:98\u2013112 .",
+      "raw_string": "[63] Cheng M-Y , Prayogo D . Symbiotic organisms search: A new metaheuristic op-timization algorithm. Comput Struct 2014;139:98\u2013112 .",
       "number": 63,
       "year": 2014,
       "doi": null,
@@ -1241,10 +1271,11 @@
         "page": 18,
         "x0": 311.95330810546875,
         "y0": 154.4142608642578,
-        "x1": 563.1913452148438,
-        "y1": 160.8923797607422
+        "x1": 566.5362548828125,
+        "y1": 168.86631774902344
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 18
     },
     {
       "raw_string": "[64] Li L , Huang Z , Liu F . A heuristic particle swarm optimization method for truss structures with discrete variables. Comput Struct 2009;87:435\u201343 .",
@@ -1257,13 +1288,14 @@
         "page": 18,
         "x0": 311.84613037109375,
         "y0": 170.3532257080078,
-        "x1": 341.5526123046875,
-        "y1": 176.8313446044922
+        "x1": 566.6353149414062,
+        "y1": 184.80540466308594
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 18
     },
     {
-      "raw_string": "[65] Kaveh A , Talatahari S . A particle swarm ant colony optimization for truss struc- tures with discrete variables. J Constr Steel Res 2009;65:1558\u201368 .",
+      "raw_string": "[65] Kaveh A , Talatahari S . A particle swarm ant colony optimization for truss struc-tures with discrete variables. J Constr Steel Res 2009;65:1558\u201368 .",
       "number": 65,
       "year": 2009,
       "doi": null,
@@ -1273,10 +1305,11 @@
         "page": 18,
         "x0": 311.95599365234375,
         "y0": 186.3012237548828,
-        "x1": 543.8587036132812,
-        "y1": 192.7793426513672
+        "x1": 566.5729370117188,
+        "y1": 200.74449157714844
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 18
     },
     {
       "raw_string": "[66] Sadollah A , Bahreininejad A , Eskandar H , Hamdi M . Mine blast algorithm for optimization of truss structures with discrete variables. Comput Struct 2012;102:49\u201363 .",
@@ -1289,16 +1322,17 @@
         "page": 18,
         "x0": 311.8613586425781,
         "y0": 202.2403106689453,
-        "x1": 563.2372436523438,
-        "y1": 208.7184295654297
+        "x1": 566.5859985351562,
+        "y1": 224.6573944091797
       },
-      "coordinate_found": true
+      "coordinate_found": true,
+      "_page_hint": 18
     }
   ],
   "equations": [
     {
-      "number": 0,
-      "number_format": "(0)",
+      "number": 1,
+      "number_format": "(1)",
       "raw_text": "0 . 01 \u2264x 1 , x 2 , x 3 , x 4 , x 5 \u2264100",
       "page_number": 12,
       "bbox": null,
@@ -1317,22 +1351,14 @@
         "y1": 557.956787109375
       },
       "coordinate_found": true
-    },
-    {
-      "number": 14,
-      "number_format": "(14)",
-      "raw_text": "Beta [0.9, 0.5, 0.1]",
-      "page_number": 8,
-      "bbox": null,
-      "coordinate_found": false
     }
   ],
   "figures": [
     {
       "label": "Fig. 1",
       "number": 1,
-      "caption_text": null,
-      "caption_position": null,
+      "caption_text": "The life cycle of grasshoppers is shown in Fig. 1",
+      "caption_position": "below",
       "page_number": 2,
       "bbox": {
         "page": 2,
@@ -1346,8 +1372,8 @@
     {
       "label": "Fig. 2",
       "number": 2,
-      "caption_text": "(left) Function s when l = 1.5 and f = 0.5 (right) range of function s when x is in [ 1 , 4 ]",
-      "caption_position": "above",
+      "caption_text": "(left) Function s when l = 1.5 and f = 0.5 (right) range of function s when x is in [ 1 , 4 ] .",
+      "caption_position": null,
       "page_number": 3,
       "bbox": {
         "page": 3,
@@ -1361,8 +1387,8 @@
     {
       "label": "Fig. 3",
       "number": 3,
-      "caption_text": "Behaviour of the function s when varying l or f",
-      "caption_position": "above",
+      "caption_text": "Behaviour of the function s when varying l or f .",
+      "caption_position": null,
       "page_number": 3,
       "bbox": {
         "page": 3,
@@ -1376,15 +1402,15 @@
     {
       "label": "Fig. 4",
       "number": 4,
-      "caption_text": "Primitive corrective patterns between individuals in a swarm of grasshop- pers.",
-      "caption_position": "above",
-      "page_number": 4,
+      "caption_text": "A conceptual model of the interactions between grasshoppers and the comfort zone using the function s",
+      "caption_position": null,
+      "page_number": 3,
       "bbox": {
-        "page": 4,
-        "x0": 42.816001892089844,
-        "y0": 192.64637756347656,
-        "x1": 60.25081253051758,
-        "y1": 199.12449645996094
+        "page": 3,
+        "x0": 523.0650024414062,
+        "y0": 651.4209594726562,
+        "x1": 535.6466064453125,
+        "y1": 659.5186157226562
       },
       "coordinate_found": true
     },
@@ -1392,7 +1418,7 @@
       "label": "Fig. 5",
       "number": 5,
       "caption_text": null,
-      "caption_position": "above",
+      "caption_position": null,
       "page_number": 4,
       "bbox": {
         "page": 4,
@@ -1407,7 +1433,7 @@
       "label": "Fig. 6",
       "number": 6,
       "caption_text": null,
-      "caption_position": "above",
+      "caption_position": null,
       "page_number": 4,
       "bbox": {
         "page": 4,
@@ -1421,8 +1447,8 @@
     {
       "label": "Fig. 7",
       "number": 7,
-      "caption_text": "Behaviour of grasshoppers around a stationary and mobile target in 2D space and (b) 3D space (c) Behaviour of grasshoppers on a unimodal test function and a multi-modal test function.",
-      "caption_position": "below",
+      "caption_text": "(a) Behaviour of grasshoppers around a stationary and mobile target in 2D space and (b) 3D space (c) Behaviour of grasshoppers on a unimodal test function and a multi-modal test function. The effect of this parameter on the movement and convergence of grasshoppers is illustrated in Fig. 7 . The sub-\ufb01gures illustrate the position history of grasshoppers over 100 iterations. We have performed the experiment on both stationary and mobile targets to see how the swarm moves towards and chases them. This \ufb01g- ure shows that the swarm converges gradually towards a station- ary target in both 2D and 3D spaces. This behaviour is due to re- ducing the comfort zone by the factor c . Fig. 7 also shows that the swarm properly chases a mobile target as well. This is due to the last component of Eq. (2.6) ( \ufffd T d ) , in which grasshoppers are at- tracted towards the target. The interesting pattern is the gradual convergence of grasshoppers towards the target over the course of iteration, which is again due to decreasing the factor c . These be- haviours will assist the GOA algorithm not to converge towards the target too quickly and consequently not to become trapped in lo- cal optima. In the last steps of optimisation, however, grasshoppers will converge towards the target as much as possible, which is es- sential in exploitation. The above discussions show that the mathematical model pro- posed requires grasshoppers to move towards a target gradually",
+      "caption_position": null,
       "page_number": 6,
       "bbox": {
         "page": 6,
@@ -1451,7 +1477,7 @@
     {
       "label": "Fig. 9",
       "number": 9,
-      "caption_text": null,
+      "caption_text": "a unimodal test function has no local so- lutions and there is only one global optimum.",
       "caption_position": null,
       "page_number": 7,
       "bbox": {
@@ -1466,7 +1492,7 @@
     {
       "label": "Fig. 10",
       "number": 10,
-      "caption_text": null,
+      "caption_text": "Five diagrams have been drawn for each of the test functions",
       "caption_position": null,
       "page_number": 7,
       "bbox": {
@@ -1479,24 +1505,24 @@
       "coordinate_found": true
     },
     {
-      "label": "11",
+      "label": "Fig. 11",
       "number": 11,
-      "caption_text": "shows the shape of this truss and the forces applied.",
+      "caption_text": "Fig. 11 shows the shape of this truss and the forces applied.",
       "caption_position": null,
       "page_number": 11,
       "bbox": {
         "page": 11,
-        "x0": 240.0604248046875,
-        "y0": 161.7766876220703,
-        "x1": 246.74002075195312,
-        "y1": 168.2548065185547
+        "x0": 313.95001220703125,
+        "y0": 411.4449462890625,
+        "x1": 326.53240966796875,
+        "y1": 419.5425720214844
       },
       "coordinate_found": true
     },
     {
       "label": "Fig. 12",
       "number": 12,
-      "caption_text": "the cantilever beam is built using \ufb01ve, hol- low, square-section, box girders, and the lengths of those girders are the design parameters for this problem.",
+      "caption_text": "shows that the cantilever beam is built using \ufb01ve, hol- low, square-section, box girders, and the lengths of those girders are the design parameters for this problem.",
       "caption_position": "below",
       "page_number": 12,
       "bbox": {
@@ -1528,7 +1554,7 @@
     {
       "label": "Table 1",
       "number": 1,
-      "caption_text": null,
+      "caption_text": "The initial controlling parameters of all algorithms",
       "caption_position": null,
       "page_number": 7,
       "grid_data": {
@@ -1582,51 +1608,9 @@
     {
       "label": "Table 2",
       "number": 2,
-      "caption_text": null,
+      "caption_text": "Results of unimodal benchmark functions.",
       "caption_position": null,
-      "page_number": 8,
-      "grid_data": {
-        "table_index": 12,
-        "page_number": 9,
-        "bbox": {
-          "x1": 23.006,
-          "y1": 42.654498600000004,
-          "x2": 566.6658525,
-          "y2": 142.5920116153846
-        },
-        "accuracy": 95.45595011962257,
-        "parse_method": "stream",
-        "has_empty_cells": true,
-        "empty_cell_locations": [
-          {
-            "row": 0,
-            "col": 1
-          }
-        ],
-        "has_footnote_markers": true,
-        "row_count": 6,
-        "col_count": 2,
-        "headers": [
-          "Fig. 10.  Behaviour of GOA on the 2D benchmark problems.",
-          ""
-        ],
-        "data_json": "[{\"0\":\"Fig. 10.  Behaviour of GOA on the 2D benchmark problems.\",\"1\":\"\"},{\"0\":\"written for the best algorithm in each function which stands for\",\"1\":\"show the FPA is not signi\\ufb01cantly superior to GOA. Overall, these\"},{\"0\":\"Not Applicable.\",\"1\":\"results show that GOA is able to outperform other algorithms in\"},{\"0\":\"As per the results in this table, p-values are mostly less than\",\"1\":\"the literature. According to the NFL theorem, therefore, it has the\"},{\"0\":\"0.05 for the GOA, which demonstrates that the superiority of this\",\"1\":\"potential to  solve  problems (of  the  types  tested)  that  cannot  be\"},{\"0\":\"algorithm is statistically signi\\ufb01cant. For the F3 function the results\",\"1\":\"solved e\\ufb03ciently by other algorithms.\"}]"
-      },
-      "bbox": {
-        "page": 8,
-        "x0": 402.77099609375,
-        "y0": 369.7839660644531,
-        "x1": 422.0920715332031,
-        "y1": 377.881591796875
-      },
-      "coordinate_found": true
-    },
-    {
-      "label": "Table 3",
-      "number": 3,
-      "caption_text": null,
-      "caption_position": null,
-      "page_number": 8,
+      "page_number": 10,
       "grid_data": {
         "table_index": 13,
         "page_number": 10,
@@ -1762,20 +1746,20 @@
         "data_json": "[{\"0\":\"\",\"1\":\"\",\"2\":\"S. Saremi et al. \\/ Advances in Engineering Software 105 (2017) 30\\u201347\",\"3\":\"\",\"4\":\"\",\"5\":\"\",\"6\":\"\",\"7\":\"\",\"8\":\"\"},{\"0\":\"Table 2 \\nResults of unimodal benchmark functions.\",\"1\":\"\",\"2\":\"\",\"3\":\"\",\"4\":\"\",\"5\":\"\",\"6\":\"\",\"7\":\"\",\"8\":\"\"},{\"0\":\"F\",\"1\":\"GOA\",\"2\":\"\",\"3\":\"PSO\",\"4\":\"\",\"5\":\"GSA\",\"6\":\"\",\"7\":\"BA\",\"8\":\"\"},{\"0\":\"\",\"1\":\"Ave\",\"2\":\"std\",\"3\":\"ave\",\"4\":\"std\",\"5\":\"ave\",\"6\":\"std\",\"7\":\"ave\",\"8\":\"std\"},{\"0\":\"F1 \\nF2\",\"1\":\"0.0 0 0 0 \\n0.0020\",\"2\":\"0.0 0 0 0 \\n0.0010\",\"3\":\"0.2391 \\n0.0097\",\"4\":\"0.5622 \\n0.0013\",\"5\":\"0.0 0 02 \\n0.0 0 0 0\",\"6\":\"0.0012 \\n0.0 0 0 0\",\"7\":\"0.9882 \\n1.0 0 0 0\",\"8\":\"1.0 0 0 0 \\n1.0 0 0 0\"},{\"0\":\"F3 \\nF4\",\"1\":\"0.0010 \\n0.0 0 0 0\",\"2\":\"0.0203 \\n0.0 0 0 0\",\"3\":\"0.2613 \\n0.4767\",\"4\":\"0.3547 \\n0.4730\",\"5\":\"0.0328 \\n0.3244\",\"6\":\"0.0395 \\n0.5119\",\"7\":\"1.0 0 0 0 \\n0.9148\",\"8\":\"1.0 0 0 0 \\n1.0 0 0 0\"},{\"0\":\"F5 \\nF6\",\"1\":\"0.0 0 0 0 \\n0.0 0 0 0\",\"2\":\"0.0 0 0 0 \\n0.0 0 0 0\",\"3\":\"0.0386 \\n0.7786\",\"4\":\"0.0944 \\n0.4808\",\"5\":\"0.0 0 0 0 \\n0.3825\",\"6\":\"0.0 0 0 0 \\n0.2231\",\"7\":\"1.0 0 0 0 \\n1.0 0 0 0\",\"8\":\"1.0 0 0 0 \\n1.0 0 0 0\"},{\"0\":\"F7\",\"1\":\"0.0 0 0 0\",\"2\":\"0.0 0 0 0\",\"3\":\"0.1349\",\"4\":\"0.1648\",\"5\":\"0.0226\",\"6\":\"0.0763\",\"7\":\"1.0 0 0 0\",\"8\":\"1.0 0 0 0\"},{\"0\":\"F\",\"1\":\"FPA\",\"2\":\"\",\"3\":\"SMS\",\"4\":\"\",\"5\":\"FA\",\"6\":\"\",\"7\":\"GA\",\"8\":\"\"},{\"0\":\"\",\"1\":\"ave\",\"2\":\"std\",\"3\":\"ave\",\"4\":\"std\",\"5\":\"ave\",\"6\":\"std\",\"7\":\"ave\",\"8\":\"std\"},{\"0\":\"F1 \\nF2\",\"1\":\"0.0329 \\n0.0131\",\"2\":\"0.0784 \\n0.0 0 07\",\"3\":\"1.0 0 0 0 \\n0.0157\",\"4\":\"0.4478 \\n0.0 0 08\",\"5\":\"0.1581 \\n0.0076\",\"6\":\"0.0748 \\n0.0 0 01\",\"7\":\"0.4121 \\n0.0100\",\"8\":\"0.5202 \\n0.0 0 03\"},{\"0\":\"F3 \\nF4\",\"1\":\"0.0 0 0 0 \\n0.3219\",\"2\":\"0.0 0 0 0 \\n0.4215\",\"3\":\"0.3486 \\n1.0 0 0 0\",\"4\":\"0.0651 \\n0.7232\",\"5\":\"0.0617 \\n0.3796\",\"6\":\"0.0160 \\n0.2116\",\"7\":\"0.2022 \\n0.7245\",\"8\":\"0.0710 \\n0.2384\"},{\"0\":\"F5 \\nF6\",\"1\":\"0.0060 \\n0.0088\",\"2\":\"0.0345 \\n0.0189\",\"3\":\"0.3901 \\n0.7025\",\"4\":\"0.4781 \\n0.5891\",\"5\":\"0.0068 \\n0.0414\",\"6\":\"0.0068 \\n0.0190\",\"7\":\"0.0746 \\n0.1933\",\"8\":\"0.0931 \\n0.1932\"},{\"0\":\"F7\",\"1\":\"0.0386\",\"2\":\"0.0459\",\"3\":\"0.0036\",\"4\":\"0.0022\",\"5\":\"0.0590\",\"6\":\"0.0194\",\"7\":\"0.4416\",\"8\":\"0.2028\"}]"
       },
       "bbox": {
-        "page": 8,
-        "x0": 380.0010070800781,
-        "y0": 443.0078430175781,
-        "x1": 399.32208251953125,
-        "y1": 451.10546875
+        "page": 10,
+        "x0": 164.3818359375,
+        "y0": 57.15150451660156,
+        "x1": 186.7128448486328,
+        "y1": 63.62962341308594
       },
       "coordinate_found": true
     },
     {
-      "label": "Table 4",
-      "number": 4,
-      "caption_text": null,
+      "label": "Table 3",
+      "number": 3,
+      "caption_text": "Results of multimodal benchmark functions.",
       "caption_position": null,
-      "page_number": 8,
+      "page_number": 10,
       "grid_data": {
         "table_index": 15,
         "page_number": 10,
@@ -1927,20 +1911,20 @@
         "data_json": "[{\"0\":\"F7\",\"1\":\"0.0386\",\"2\":\"0.0459\",\"3\":\"0.0036\",\"4\":\"0.0022\",\"5\":\"0.0590\",\"6\":\"0.0194\",\"7\":\"0.4416\",\"8\":\"0.2028\"},{\"0\":\"Table 3 \\nResults of multimodal benchmark functions.\",\"1\":\"\",\"2\":\"\",\"3\":\"\",\"4\":\"\",\"5\":\"\",\"6\":\"\",\"7\":\"\",\"8\":\"\"},{\"0\":\"F\",\"1\":\"GOA\",\"2\":\"\",\"3\":\"PSO\",\"4\":\"\",\"5\":\"GSA\",\"6\":\"\",\"7\":\"BA\",\"8\":\"\"},{\"0\":\"\",\"1\":\"ave\",\"2\":\"std\",\"3\":\"ave\",\"4\":\"std\",\"5\":\"ave\",\"6\":\"std\",\"7\":\"ave\",\"8\":\"std\"},{\"0\":\"F8 \\nF9\",\"1\":\"1.0 0 0 0 \\n0.0 0 0 0\",\"2\":\"0.0 0 02 \\n0.0 0 07\",\"3\":\"0.7425 \\n0.6520\",\"4\":\"0.0016 \\n1.0 0 0 0\",\"5\":\"0.8473 \\n0.1361\",\"6\":\"0.0020 \\n0.2722\",\"7\":\"0.0148 \\n0.7022\",\"8\":\"1.0 0 0 0 \\n0.7517\"},{\"0\":\"F10 \\nF11\",\"1\":\"0.0975 \\n0.0 0 0 0\",\"2\":\"1.0 0 0 0 \\n0.0 0 0 0\",\"3\":\"0.6140 \\n0.8184\",\"4\":\"0.2426 \\n0.3512\",\"5\":\"0.0 0 0 0 \\n1.0 0 0 0\",\"6\":\"0.0 0 0 0 \\n0.5790\",\"7\":\"0.9665 \\n0.9912\",\"8\":\"0.1155 \\n1.0 0 0 0\"},{\"0\":\"F12 \\nF13\",\"1\":\"0.0 0 0 0 \\n0.0 0 0 0\",\"2\":\"0.0 0 07 \\n0.0 0 0 0\",\"3\":\"0.4689 \\n0.0973\",\"4\":\"0.8147 \\n0.1647\",\"5\":\"0.0577 \\n0.1603\",\"6\":\"0.4246 \\n0.0890\",\"7\":\"0.6892 \\n1.0 0 0 0\",\"8\":\"0.9635 \\n1.0 0 0 0\"},{\"0\":\"F\",\"1\":\"FPA\",\"2\":\"\",\"3\":\"SMS\",\"4\":\"\",\"5\":\"FA\",\"6\":\"\",\"7\":\"GA\",\"8\":\"\"},{\"0\":\"\",\"1\":\"ave\",\"2\":\"std\",\"3\":\"ave\",\"4\":\"std\",\"5\":\"ave\",\"6\":\"std\",\"7\":\"ave\",\"8\":\"std\"},{\"0\":\"F8 \\nF9\",\"1\":\"0.0381 \\n0.6568\",\"2\":\"0.0 0 06 \\n0.4179\",\"3\":\"0.5613 \\n0.8628\",\"4\":\"0.0049 \\n0.2633\",\"5\":\"0.6140 \\n0.8377\",\"6\":\"0.0 0 0 0 \\n0.0329\",\"7\":\"0.0 0 0 0 \\n1.0 0 0 0\",\"8\":\"0.0 0 06 \\n0.0 0 0 0\"},{\"0\":\"F10 \\nF11\",\"1\":\"0.7170 \\n0.0124\",\"2\":\"0.3848 \\n0.0058\",\"3\":\"1.0 0 0 0 \\n0.6746\",\"4\":\"0.0666 \\n0.7789\",\"5\":\"0.7078 \\n0.0548\",\"6\":\"0.0410 \\n0.0070\",\"7\":\"0.8628 \\n0.1941\",\"8\":\"0.1415 \\n0.2865\"},{\"0\":\"F12 \\nF13\",\"1\":\"0.0237 \\n0.3766\",\"2\":\"0.1907 \\n0.1566\",\"3\":\"0.1140 \\n0.9609\",\"4\":\"0.0 0 0 0 \\n0.2394\",\"5\":\"0.2442 \\n0.1119\",\"6\":\"1.0 0 0 0 \\n0.1510\",\"7\":\"1.0 0 0 0 \\n0.4 4 46\",\"8\":\"0.4363 \\n0.0798\"},{\"0\":\"Table 4\",\"1\":\"Results of composite benchmark functions.\",\"2\":\"\",\"3\":\"\",\"4\":\"\",\"5\":\"\",\"6\":\"\",\"7\":\"\",\"8\":\"\"},{\"0\":\"F\",\"1\":\"GOA\",\"2\":\"\",\"3\":\"PSO\",\"4\":\"\",\"5\":\"GSA\",\"6\":\"\",\"7\":\"BA\",\"8\":\"\"},{\"0\":\"\",\"1\":\"Ave\",\"2\":\"std\",\"3\":\"ave\",\"4\":\"std\",\"5\":\"ave\",\"6\":\"std\",\"7\":\"ave\",\"8\":\"std\"},{\"0\":\"F14 \\nF15\",\"1\":\"0.0 0 0 0 \\n0.4892\",\"2\":\"0.3386 \\n0.7182\",\"3\":\"0.6083 \\n0.4236\",\"4\":\"1.0 0 0 0 \\n0.7929\",\"5\":\"0.0840 \\n0.0672\",\"6\":\"0.2977 \\n0.5226\",\"7\":\"1.0 0 0 0 \\n1.0 0 0 0\",\"8\":\"0.5714 \\n1.0 0 0 0\"},{\"0\":\"F16 \\nF17\",\"1\":\"0.0 0 0 0 \\n0.8169\",\"2\":\"0.0 0 0 0 \\n1.0 0 0 0\",\"3\":\"0.4651 \\n0.3241\",\"4\":\"0.6805 \\n0.2970\",\"5\":\"0.4799 \\n0.0 0 0 0\",\"6\":\"0.8414 \\n0.6439\",\"7\":\"1.0 0 0 0 \\n1.0 0 0 0\",\"8\":\"1.0 0 0 0 \\n0.6905\"},{\"0\":\"F18 \\nF19\",\"1\":\"0.0 0 0 0 \\n0.7863\",\"2\":\"0.0064 \\n0.9355\",\"3\":\"0.3122 \\n1.0 0 0 0\",\"4\":\"1.0 0 0 0 \\n0.0 0 0 0\",\"5\":\"0.0581 \\n0.9391\",\"6\":\"0.2503 \\n0.3063\",\"7\":\"1.0 0 0 0 \\n0.9097\",\"8\":\"0.8953 \\n0.4190\"}]"
       },
       "bbox": {
-        "page": 8,
-        "x0": 366.5369873046875,
-        "y0": 537.1569213867188,
-        "x1": 385.8580627441406,
-        "y1": 545.2545776367188
+        "page": 10,
+        "x0": 162.7050018310547,
+        "y0": 271.0633544921875,
+        "x1": 185.03602600097656,
+        "y1": 277.5414733886719
       },
       "coordinate_found": true
     },
     {
-      "label": "Table 5",
-      "number": 5,
-      "caption_text": null,
+      "label": "Table 4",
+      "number": 4,
+      "caption_text": "Results of composite benchmark functions.",
       "caption_position": null,
-      "page_number": 8,
+      "page_number": 10,
       "grid_data": {
         "table_index": 17,
         "page_number": 10,
@@ -2112,6 +2096,48 @@
         "data_json": "[{\"0\":\"F7\",\"1\":\"0.0386\",\"2\":\"0.0459\",\"3\":\"0.0036\",\"4\":\"0.0022\",\"5\":\"0.0590\",\"6\":\"0.0194\",\"7\":\"0.4416\",\"8\":\"0.2028\"},{\"0\":\"Table 3 \\nResults of multimodal benchmark functions.\",\"1\":\"\",\"2\":\"\",\"3\":\"\",\"4\":\"\",\"5\":\"\",\"6\":\"\",\"7\":\"\",\"8\":\"\"},{\"0\":\"F\",\"1\":\"GOA\",\"2\":\"\",\"3\":\"PSO\",\"4\":\"\",\"5\":\"GSA\",\"6\":\"\",\"7\":\"BA\",\"8\":\"\"},{\"0\":\"\",\"1\":\"ave\",\"2\":\"std\",\"3\":\"ave\",\"4\":\"std\",\"5\":\"ave\",\"6\":\"std\",\"7\":\"ave\",\"8\":\"std\"},{\"0\":\"F8 \\nF9\",\"1\":\"1.0 0 0 0 \\n0.0 0 0 0\",\"2\":\"0.0 0 02 \\n0.0 0 07\",\"3\":\"0.7425 \\n0.6520\",\"4\":\"0.0016 \\n1.0 0 0 0\",\"5\":\"0.8473 \\n0.1361\",\"6\":\"0.0020 \\n0.2722\",\"7\":\"0.0148 \\n0.7022\",\"8\":\"1.0 0 0 0 \\n0.7517\"},{\"0\":\"F10 \\nF11\",\"1\":\"0.0975 \\n0.0 0 0 0\",\"2\":\"1.0 0 0 0 \\n0.0 0 0 0\",\"3\":\"0.6140 \\n0.8184\",\"4\":\"0.2426 \\n0.3512\",\"5\":\"0.0 0 0 0 \\n1.0 0 0 0\",\"6\":\"0.0 0 0 0 \\n0.5790\",\"7\":\"0.9665 \\n0.9912\",\"8\":\"0.1155 \\n1.0 0 0 0\"},{\"0\":\"F12 \\nF13\",\"1\":\"0.0 0 0 0 \\n0.0 0 0 0\",\"2\":\"0.0 0 07 \\n0.0 0 0 0\",\"3\":\"0.4689 \\n0.0973\",\"4\":\"0.8147 \\n0.1647\",\"5\":\"0.0577 \\n0.1603\",\"6\":\"0.4246 \\n0.0890\",\"7\":\"0.6892 \\n1.0 0 0 0\",\"8\":\"0.9635 \\n1.0 0 0 0\"},{\"0\":\"F\",\"1\":\"FPA\",\"2\":\"\",\"3\":\"SMS\",\"4\":\"\",\"5\":\"FA\",\"6\":\"\",\"7\":\"GA\",\"8\":\"\"},{\"0\":\"\",\"1\":\"ave\",\"2\":\"std\",\"3\":\"ave\",\"4\":\"std\",\"5\":\"ave\",\"6\":\"std\",\"7\":\"ave\",\"8\":\"std\"},{\"0\":\"F8 \\nF9\",\"1\":\"0.0381 \\n0.6568\",\"2\":\"0.0 0 06 \\n0.4179\",\"3\":\"0.5613 \\n0.8628\",\"4\":\"0.0049 \\n0.2633\",\"5\":\"0.6140 \\n0.8377\",\"6\":\"0.0 0 0 0 \\n0.0329\",\"7\":\"0.0 0 0 0 \\n1.0 0 0 0\",\"8\":\"0.0 0 06 \\n0.0 0 0 0\"},{\"0\":\"F10 \\nF11\",\"1\":\"0.7170 \\n0.0124\",\"2\":\"0.3848 \\n0.0058\",\"3\":\"1.0 0 0 0 \\n0.6746\",\"4\":\"0.0666 \\n0.7789\",\"5\":\"0.7078 \\n0.0548\",\"6\":\"0.0410 \\n0.0070\",\"7\":\"0.8628 \\n0.1941\",\"8\":\"0.1415 \\n0.2865\"},{\"0\":\"F12 \\nF13\",\"1\":\"0.0237 \\n0.3766\",\"2\":\"0.1907 \\n0.1566\",\"3\":\"0.1140 \\n0.9609\",\"4\":\"0.0 0 0 0 \\n0.2394\",\"5\":\"0.2442 \\n0.1119\",\"6\":\"1.0 0 0 0 \\n0.1510\",\"7\":\"1.0 0 0 0 \\n0.4 4 46\",\"8\":\"0.4363 \\n0.0798\"},{\"0\":\"Table 4\",\"1\":\"Results of composite benchmark functions.\",\"2\":\"\",\"3\":\"\",\"4\":\"\",\"5\":\"\",\"6\":\"\",\"7\":\"\",\"8\":\"\"},{\"0\":\"F\",\"1\":\"GOA\",\"2\":\"\",\"3\":\"PSO\",\"4\":\"\",\"5\":\"GSA\",\"6\":\"\",\"7\":\"BA\",\"8\":\"\"},{\"0\":\"\",\"1\":\"Ave\",\"2\":\"std\",\"3\":\"ave\",\"4\":\"std\",\"5\":\"ave\",\"6\":\"std\",\"7\":\"ave\",\"8\":\"std\"},{\"0\":\"F14 \\nF15\",\"1\":\"0.0 0 0 0 \\n0.4892\",\"2\":\"0.3386 \\n0.7182\",\"3\":\"0.6083 \\n0.4236\",\"4\":\"1.0 0 0 0 \\n0.7929\",\"5\":\"0.0840 \\n0.0672\",\"6\":\"0.2977 \\n0.5226\",\"7\":\"1.0 0 0 0 \\n1.0 0 0 0\",\"8\":\"0.5714 \\n1.0 0 0 0\"},{\"0\":\"F16 \\nF17\",\"1\":\"0.0 0 0 0 \\n0.8169\",\"2\":\"0.0 0 0 0 \\n1.0 0 0 0\",\"3\":\"0.4651 \\n0.3241\",\"4\":\"0.6805 \\n0.2970\",\"5\":\"0.4799 \\n0.0 0 0 0\",\"6\":\"0.8414 \\n0.6439\",\"7\":\"1.0 0 0 0 \\n1.0 0 0 0\",\"8\":\"1.0 0 0 0 \\n0.6905\"},{\"0\":\"F18 \\nF19\",\"1\":\"0.0 0 0 0 \\n0.7863\",\"2\":\"0.0064 \\n0.9355\",\"3\":\"0.3122 \\n1.0 0 0 0\",\"4\":\"1.0 0 0 0 \\n0.0 0 0 0\",\"5\":\"0.0581 \\n0.9391\",\"6\":\"0.2503 \\n0.3063\",\"7\":\"1.0 0 0 0 \\n0.9097\",\"8\":\"0.8953 \\n0.4190\"},{\"0\":\"F\",\"1\":\"FPA\",\"2\":\"\",\"3\":\"SMS\",\"4\":\"\",\"5\":\"FA\",\"6\":\"\",\"7\":\"GA\",\"8\":\"\"},{\"0\":\"\",\"1\":\"ave\",\"2\":\"std\",\"3\":\"ave\",\"4\":\"std\",\"5\":\"ave\",\"6\":\"std\",\"7\":\"ave\",\"8\":\"std\"},{\"0\":\"F14 \\nF15\",\"1\":\"0.0 0 08 \\n0.0 0 0 0\",\"2\":\"0.0570 \\n0.4822\",\"3\":\"0.5604 \\n0.5097\",\"4\":\"0.4830 \\n0.5559\",\"5\":\"0.5035 \\n0.5730\",\"6\":\"0.6008 \\n0.9765\",\"7\":\"0.3799 \\n0.1338\",\"8\":\"0.0 0 0 0 \\n0.0 0 0 0\"},{\"0\":\"F16 \\nF17\",\"1\":\"0.3381 \\n0.1395\",\"2\":\"0.0759 \\n0.0348\",\"3\":\"0.8914 \\n0.6594\",\"4\":\"0.5077 \\n0.0383\",\"5\":\"0.4921 \\n0.3264\",\"6\":\"0.0922 \\n0.4911\",\"7\":\"0.6820 \\n0.3660\",\"8\":\"0.1783 \\n0.0 0 0 0\"},{\"0\":\"F18 \\nF19\",\"1\":\"0.3249 \\n0.0 0 0 0\",\"2\":\"0.9194 \\n0.0702\",\"3\":\"0.3144 \\n0.4257\",\"4\":\"0.4097 \\n0.8595\",\"5\":\"0.3160 \\n0.7068\",\"6\":\"0.3885 \\n1.0 0 0 0\",\"7\":\"0.1347 \\n0.0211\",\"8\":\"0.0 0 0 0 \\n0.1720\"}]"
       },
       "bbox": {
+        "page": 10,
+        "x0": 162.77699279785156,
+        "y0": 467.83935546875,
+        "x1": 185.10801696777344,
+        "y1": 474.31744384765625
+      },
+      "coordinate_found": true
+    },
+    {
+      "label": "Table 5",
+      "number": 5,
+      "caption_text": "p-values",
+      "caption_position": null,
+      "page_number": 8,
+      "grid_data": {
+        "table_index": 12,
+        "page_number": 9,
+        "bbox": {
+          "x1": 23.006,
+          "y1": 42.654498600000004,
+          "x2": 566.6658525,
+          "y2": 142.5920116153846
+        },
+        "accuracy": 95.45595011962257,
+        "parse_method": "stream",
+        "has_empty_cells": true,
+        "empty_cell_locations": [
+          {
+            "row": 0,
+            "col": 1
+          }
+        ],
+        "has_footnote_markers": true,
+        "row_count": 6,
+        "col_count": 2,
+        "headers": [
+          "Fig. 10.  Behaviour of GOA on the 2D benchmark problems.",
+          ""
+        ],
+        "data_json": "[{\"0\":\"Fig. 10.  Behaviour of GOA on the 2D benchmark problems.\",\"1\":\"\"},{\"0\":\"written for the best algorithm in each function which stands for\",\"1\":\"show the FPA is not signi\\ufb01cantly superior to GOA. Overall, these\"},{\"0\":\"Not Applicable.\",\"1\":\"results show that GOA is able to outperform other algorithms in\"},{\"0\":\"As per the results in this table, p-values are mostly less than\",\"1\":\"the literature. According to the NFL theorem, therefore, it has the\"},{\"0\":\"0.05 for the GOA, which demonstrates that the superiority of this\",\"1\":\"potential to  solve  problems (of  the  types  tested)  that  cannot  be\"},{\"0\":\"algorithm is statistically signi\\ufb01cant. For the F3 function the results\",\"1\":\"solved e\\ufb03ciently by other algorithms.\"}]"
+      },
+      "bbox": {
         "page": 8,
         "x0": 501.59100341796875,
         "y0": 673.14697265625,
@@ -2272,8 +2298,8 @@
     {
       "label": "Table 7",
       "number": 7,
-      "caption_text": "P-values obtained from the Wilcoxon ranksum test.",
-      "caption_position": "above",
+      "caption_text": null,
+      "caption_position": null,
       "page_number": 13,
       "grid_data": {
         "table_index": 25,
@@ -2381,44 +2407,117 @@
     {
       "label": "Table 8",
       "number": 8,
-      "caption_text": "Comparison results of the three-bar truss design problem.",
-      "caption_position": "above",
-      "page_number": 13,
+      "caption_text": null,
+      "caption_position": null,
+      "page_number": 11,
       "grid_data": {
-        "table_index": 26,
-        "page_number": 13,
+        "table_index": 19,
+        "page_number": 11,
         "bbox": {
-          "x1": 296.435,
-          "y1": 379.675452,
-          "x2": 479.9012525,
-          "y2": 493.32297077067034
+          "x1": 120.26846539000002,
+          "y1": 529.98531142,
+          "x2": 469.1204093099999,
+          "y2": 756.2517821409702
         },
-        "accuracy": 99.99999999999997,
+        "accuracy": 99.05875593339827,
         "parse_method": "stream",
-        "has_empty_cells": false,
-        "empty_cell_locations": [],
-        "has_footnote_markers": true,
-        "row_count": 8,
-        "col_count": 1,
-        "headers": [
-          "0.0079 \nN/A \n0.0079 \n0.0079 \n0.4206"
+        "has_empty_cells": true,
+        "empty_cell_locations": [
+          {
+            "row": 0,
+            "col": 0
+          },
+          {
+            "row": 0,
+            "col": 1
+          },
+          {
+            "row": 0,
+            "col": 2
+          },
+          {
+            "row": 0,
+            "col": 4
+          },
+          {
+            "row": 0,
+            "col": 5
+          },
+          {
+            "row": 0,
+            "col": 6
+          },
+          {
+            "row": 0,
+            "col": 7
+          },
+          {
+            "row": 0,
+            "col": 8
+          },
+          {
+            "row": 1,
+            "col": 1
+          },
+          {
+            "row": 1,
+            "col": 2
+          },
+          {
+            "row": 1,
+            "col": 3
+          },
+          {
+            "row": 1,
+            "col": 4
+          },
+          {
+            "row": 1,
+            "col": 5
+          },
+          {
+            "row": 1,
+            "col": 6
+          },
+          {
+            "row": 1,
+            "col": 7
+          },
+          {
+            "row": 1,
+            "col": 8
+          }
         ],
-        "data_json": "[{\"0\":\"0.0079 \\nN\\/A \\n0.0079 \\n0.0079 \\n0.4206\"},{\"0\":\"7860.0 kg \\/ m 3 \\n\\u2022 \\u03c1\\n=\"},{\"0\":\"2.07 e 5 MPa \\n\\u2022 E \\n=\"},{\"0\":\"180 MPa \\n\\u2022 Stress limitation \\n=\"},{\"0\":\"179.7652 MPa \\n\\u2022 Maximum stress \\n=\"},{\"0\":\"\\u2022 Design variabe set are chosen from Table 18 \\n \\n \\n200 kN \\n100 kN ,  P y\"},{\"0\":\"k \\n\\u2022 P \\n=\\n=\"},{\"0\":\"This  is  a  discrete  problem,  in  which  the  values  for  the  12\"}]"
+        "has_footnote_markers": true,
+        "row_count": 13,
+        "col_count": 9,
+        "headers": [
+          "",
+          "",
+          "",
+          "S. Saremi et al. / Advances in Engineering Software 105 (2017) 30\u201347",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "data_json": "[{\"0\":\"\",\"1\":\"\",\"2\":\"\",\"3\":\"S. Saremi et al. \\/ Advances in Engineering Software 105 (2017) 30\\u201347\",\"4\":\"\",\"5\":\"\",\"6\":\"\",\"7\":\"\",\"8\":\"\"},{\"0\":\"Table 5 \\nP-values obtained from the Wilcoxon ranksum test.\",\"1\":\"\",\"2\":\"\",\"3\":\"\",\"4\":\"\",\"5\":\"\",\"6\":\"\",\"7\":\"\",\"8\":\"\"},{\"0\":\"TP\",\"1\":\"GOA\",\"2\":\"PSO\",\"3\":\"GSA\",\"4\":\"BA\",\"5\":\"FPA\",\"6\":\"SMS\",\"7\":\"FA\",\"8\":\"GA\"},{\"0\":\"F1 \\nF2\",\"1\":\"N\\/A \\n0.002827\",\"2\":\"0.0 0 0183 \\n0.0 0 0183\",\"3\":\"N\\/A \\nN\\/A\",\"4\":\"0.0 0 0183 \\n0.0 0 0183\",\"5\":\"0.0 0 0183 \\n0.0 0 0183\",\"6\":\"0.0 0 0183 \\n0.0 0 0183\",\"7\":\"0.0 0 0183 \\n0.0 0 0183\",\"8\":\"0.0 0 0183 \\n0.0 0 0183\"},{\"0\":\"F3 \\nF4\",\"1\":\"0.140465 \\nN\\/A\",\"2\":\"0.0 0 0183 \\n0.0 0 0183\",\"3\":\"0.0 0 0183 \\n0.0 0 0183\",\"4\":\"0.0 0 0183 \\n0.0 0 0183\",\"5\":\"N\\/A \\n0.0 0 0183\",\"6\":\"0.0 0 0183 \\n0.0 0 0183\",\"7\":\"0.0 0 0183 \\n0.0 0 0183\",\"8\":\"0.0 0 0183 \\n0.0 0 0183\"},{\"0\":\"F5 \\nF6\",\"1\":\"N\\/A \\nN\\/A\",\"2\":\"0.0 0 0183 \\n0.0 0 0183\",\"3\":\"0.241322 \\n0.0 0 0183\",\"4\":\"0.0 0 0183 \\n0.0 0 0183\",\"5\":\"0.0 0 0183 \\n0.0 0 0183\",\"6\":\"0.0 0 0183 \\n0.0 0 0183\",\"7\":\"0.0 0 0183 \\n0.0 0 0183\",\"8\":\"0.0 0 0183 \\n0.0 0 0183\"},{\"0\":\"F7 \\nF8\",\"1\":\"N\\/A \\n0.0 0 0183\",\"2\":\"0.0 0 0183 \\n0.0 0 0183\",\"3\":\"0.0 0 033 \\n0.0 0 0183\",\"4\":\"0.0 0 0183 \\nN\\/A\",\"5\":\"0.0 0 0183 \\n0.0 0 0183\",\"6\":\"0.0 0 0583 \\n0.0 0 0183\",\"7\":\"0.0 0 0183 \\n0.0 0 0183\",\"8\":\"0.0 0 0183 \\n0.0 0 0183\"},{\"0\":\"F9 \\nF10\",\"1\":\"N\\/A \\n0.0 0 0183\",\"2\":\"0.0 0 0183 \\n0.0 0 0183\",\"3\":\"0.01133 \\nN\\/A\",\"4\":\"0.0 0 0183 \\n0.0 0 0183\",\"5\":\"0.0 0 0183 \\n0.0 0 0183\",\"6\":\"0.0 0 0183 \\n0.0 0 0183\",\"7\":\"0.0 0 0183 \\n0.0 0 0183\",\"8\":\"0.0 0 0183 \\n0.0 0 0183\"},{\"0\":\"F11 \\nF12\",\"1\":\"N\\/A \\nN\\/A\",\"2\":\"0.0 0 0183 \\n0.0 0 0183\",\"3\":\"0.0 0 0183 \\n0.0 0 0183\",\"4\":\"0.0 0 0183 \\n0.0 0 0183\",\"5\":\"0.001315 \\n0.0 0 0183\",\"6\":\"0.0 0 0183 \\n6.39e-5\",\"7\":\"0.0 0 0183 \\n0.0 0 0183\",\"8\":\"0.0 0 0183 \\n0.0 0 0183\"},{\"0\":\"F13 \\nF14\",\"1\":\"N\\/A \\nN\\/A\",\"2\":\"0.0 0 0183 \\n0.001315\",\"3\":\"0.0 0 0183 \\n0.009108\",\"4\":\"0.0 0 0183 \\n0.0 0 0246\",\"5\":\"0.0 0 0183 \\n0.025748\",\"6\":\"6.39e-5 \\n0.001706\",\"7\":\"0.0 0 0183 \\n0.001315\",\"8\":\"0.0 0 0183 \\n0.002827\"},{\"0\":\"F15 \\nF16\",\"1\":\"0.0 010 08 \\nN\\/A\",\"2\":\"0.004586 \\n0.0 0 0246\",\"3\":\"0.791337 \\n0.0 0 044\",\"4\":\"0.0 0 0246 \\n0.0 0 0183\",\"5\":\"N\\/A \\n0.0 0 0183\",\"6\":\"0.0 010 08 \\n0.0 0 0183\",\"7\":\"0.0 0 0769 \\n0.0 0 0183\",\"8\":\"0.002827 \\n0.0 0 0183\"},{\"0\":\"F17 \\nF18\",\"1\":\"0.0 010 08 \\nN\\/A\",\"2\":\"0.002827 \\n0.01133\",\"3\":\"N\\/A \\n0.472676\",\"4\":\"0.0 010 08 \\n0.0 0 0183\",\"5\":\"0.002827 \\n0.025748\",\"6\":\"0.002827 \\n0.0 0 0183\",\"7\":\"0.002202 \\n0.0 0 0183\",\"8\":\"0.002827 \\n0.0 0 0183\"},{\"0\":\"F19\",\"1\":\"0.025748\",\"2\":\"0.0 0 0183\",\"3\":\"0.0 0 0183\",\"4\":\"0.0 0 0183\",\"5\":\"N\\/A\",\"6\":\"0.0 0 033\",\"7\":\"0.0 0 044\",\"8\":\"0.021134\"}]"
       },
       "bbox": {
-        "page": 13,
-        "x0": 133.41900634765625,
-        "y0": 623.3593139648438,
-        "x1": 155.75001525878906,
-        "y1": 629.8374633789062
+        "page": 11,
+        "x0": 457.75201416015625,
+        "y0": 547.4349365234375,
+        "x1": 477.0730895996094,
+        "y1": 555.5325927734375
       },
       "coordinate_found": true
     },
     {
       "label": "Table 9",
       "number": 9,
-      "caption_text": "The results are presented and compared to ALO, MMA, GCA_I, GCA-II, CS, and SOS for verification in Table 9.",
-      "caption_position": "above",
+      "caption_text": "The results are presented and com- pared to ALO, MMA, GCA_I, GCA-II, CS, and SOS for veri\ufb01cation in Table 9 .",
+      "caption_position": "below",
       "page_number": 12,
       "grid_data": {
         "table_index": 23,
@@ -2460,7 +2559,7 @@
       "label": "Table 10",
       "number": 10,
       "caption_text": "Available cross-section areas of the AISC norm (valid values for the parameters).",
-      "caption_position": "above",
+      "caption_position": null,
       "page_number": 15,
       "grid_data": {
         "table_index": 29,
@@ -2591,7 +2690,7 @@
       "label": "Table 11",
       "number": 11,
       "caption_text": "Comparison of GOA optimisation results with literature for the 52-bar truss design problem.",
-      "caption_position": "above",
+      "caption_position": null,
       "page_number": 15,
       "grid_data": {
         "table_index": 30,
@@ -6644,109 +6743,6 @@
       "caption_position": null,
       "page_number": 11,
       "grid_data": {
-        "table_index": 19,
-        "page_number": 11,
-        "bbox": {
-          "x1": 120.26846539000002,
-          "y1": 529.98531142,
-          "x2": 469.1204093099999,
-          "y2": 756.2517821409702
-        },
-        "accuracy": 99.05875593339827,
-        "parse_method": "stream",
-        "has_empty_cells": true,
-        "empty_cell_locations": [
-          {
-            "row": 0,
-            "col": 0
-          },
-          {
-            "row": 0,
-            "col": 1
-          },
-          {
-            "row": 0,
-            "col": 2
-          },
-          {
-            "row": 0,
-            "col": 4
-          },
-          {
-            "row": 0,
-            "col": 5
-          },
-          {
-            "row": 0,
-            "col": 6
-          },
-          {
-            "row": 0,
-            "col": 7
-          },
-          {
-            "row": 0,
-            "col": 8
-          },
-          {
-            "row": 1,
-            "col": 1
-          },
-          {
-            "row": 1,
-            "col": 2
-          },
-          {
-            "row": 1,
-            "col": 3
-          },
-          {
-            "row": 1,
-            "col": 4
-          },
-          {
-            "row": 1,
-            "col": 5
-          },
-          {
-            "row": 1,
-            "col": 6
-          },
-          {
-            "row": 1,
-            "col": 7
-          },
-          {
-            "row": 1,
-            "col": 8
-          }
-        ],
-        "has_footnote_markers": true,
-        "row_count": 13,
-        "col_count": 9,
-        "headers": [
-          "",
-          "",
-          "",
-          "S. Saremi et al. / Advances in Engineering Software 105 (2017) 30\u201347",
-          "",
-          "",
-          "",
-          "",
-          ""
-        ],
-        "data_json": "[{\"0\":\"\",\"1\":\"\",\"2\":\"\",\"3\":\"S. Saremi et al. \\/ Advances in Engineering Software 105 (2017) 30\\u201347\",\"4\":\"\",\"5\":\"\",\"6\":\"\",\"7\":\"\",\"8\":\"\"},{\"0\":\"Table 5 \\nP-values obtained from the Wilcoxon ranksum test.\",\"1\":\"\",\"2\":\"\",\"3\":\"\",\"4\":\"\",\"5\":\"\",\"6\":\"\",\"7\":\"\",\"8\":\"\"},{\"0\":\"TP\",\"1\":\"GOA\",\"2\":\"PSO\",\"3\":\"GSA\",\"4\":\"BA\",\"5\":\"FPA\",\"6\":\"SMS\",\"7\":\"FA\",\"8\":\"GA\"},{\"0\":\"F1 \\nF2\",\"1\":\"N\\/A \\n0.002827\",\"2\":\"0.0 0 0183 \\n0.0 0 0183\",\"3\":\"N\\/A \\nN\\/A\",\"4\":\"0.0 0 0183 \\n0.0 0 0183\",\"5\":\"0.0 0 0183 \\n0.0 0 0183\",\"6\":\"0.0 0 0183 \\n0.0 0 0183\",\"7\":\"0.0 0 0183 \\n0.0 0 0183\",\"8\":\"0.0 0 0183 \\n0.0 0 0183\"},{\"0\":\"F3 \\nF4\",\"1\":\"0.140465 \\nN\\/A\",\"2\":\"0.0 0 0183 \\n0.0 0 0183\",\"3\":\"0.0 0 0183 \\n0.0 0 0183\",\"4\":\"0.0 0 0183 \\n0.0 0 0183\",\"5\":\"N\\/A \\n0.0 0 0183\",\"6\":\"0.0 0 0183 \\n0.0 0 0183\",\"7\":\"0.0 0 0183 \\n0.0 0 0183\",\"8\":\"0.0 0 0183 \\n0.0 0 0183\"},{\"0\":\"F5 \\nF6\",\"1\":\"N\\/A \\nN\\/A\",\"2\":\"0.0 0 0183 \\n0.0 0 0183\",\"3\":\"0.241322 \\n0.0 0 0183\",\"4\":\"0.0 0 0183 \\n0.0 0 0183\",\"5\":\"0.0 0 0183 \\n0.0 0 0183\",\"6\":\"0.0 0 0183 \\n0.0 0 0183\",\"7\":\"0.0 0 0183 \\n0.0 0 0183\",\"8\":\"0.0 0 0183 \\n0.0 0 0183\"},{\"0\":\"F7 \\nF8\",\"1\":\"N\\/A \\n0.0 0 0183\",\"2\":\"0.0 0 0183 \\n0.0 0 0183\",\"3\":\"0.0 0 033 \\n0.0 0 0183\",\"4\":\"0.0 0 0183 \\nN\\/A\",\"5\":\"0.0 0 0183 \\n0.0 0 0183\",\"6\":\"0.0 0 0583 \\n0.0 0 0183\",\"7\":\"0.0 0 0183 \\n0.0 0 0183\",\"8\":\"0.0 0 0183 \\n0.0 0 0183\"},{\"0\":\"F9 \\nF10\",\"1\":\"N\\/A \\n0.0 0 0183\",\"2\":\"0.0 0 0183 \\n0.0 0 0183\",\"3\":\"0.01133 \\nN\\/A\",\"4\":\"0.0 0 0183 \\n0.0 0 0183\",\"5\":\"0.0 0 0183 \\n0.0 0 0183\",\"6\":\"0.0 0 0183 \\n0.0 0 0183\",\"7\":\"0.0 0 0183 \\n0.0 0 0183\",\"8\":\"0.0 0 0183 \\n0.0 0 0183\"},{\"0\":\"F11 \\nF12\",\"1\":\"N\\/A \\nN\\/A\",\"2\":\"0.0 0 0183 \\n0.0 0 0183\",\"3\":\"0.0 0 0183 \\n0.0 0 0183\",\"4\":\"0.0 0 0183 \\n0.0 0 0183\",\"5\":\"0.001315 \\n0.0 0 0183\",\"6\":\"0.0 0 0183 \\n6.39e-5\",\"7\":\"0.0 0 0183 \\n0.0 0 0183\",\"8\":\"0.0 0 0183 \\n0.0 0 0183\"},{\"0\":\"F13 \\nF14\",\"1\":\"N\\/A \\nN\\/A\",\"2\":\"0.0 0 0183 \\n0.001315\",\"3\":\"0.0 0 0183 \\n0.009108\",\"4\":\"0.0 0 0183 \\n0.0 0 0246\",\"5\":\"0.0 0 0183 \\n0.025748\",\"6\":\"6.39e-5 \\n0.001706\",\"7\":\"0.0 0 0183 \\n0.001315\",\"8\":\"0.0 0 0183 \\n0.002827\"},{\"0\":\"F15 \\nF16\",\"1\":\"0.0 010 08 \\nN\\/A\",\"2\":\"0.004586 \\n0.0 0 0246\",\"3\":\"0.791337 \\n0.0 0 044\",\"4\":\"0.0 0 0246 \\n0.0 0 0183\",\"5\":\"N\\/A \\n0.0 0 0183\",\"6\":\"0.0 010 08 \\n0.0 0 0183\",\"7\":\"0.0 0 0769 \\n0.0 0 0183\",\"8\":\"0.002827 \\n0.0 0 0183\"},{\"0\":\"F17 \\nF18\",\"1\":\"0.0 010 08 \\nN\\/A\",\"2\":\"0.002827 \\n0.01133\",\"3\":\"N\\/A \\n0.472676\",\"4\":\"0.0 010 08 \\n0.0 0 0183\",\"5\":\"0.002827 \\n0.025748\",\"6\":\"0.002827 \\n0.0 0 0183\",\"7\":\"0.002202 \\n0.0 0 0183\",\"8\":\"0.002827 \\n0.0 0 0183\"},{\"0\":\"F19\",\"1\":\"0.025748\",\"2\":\"0.0 0 0183\",\"3\":\"0.0 0 0183\",\"4\":\"0.0 0 0183\",\"5\":\"N\\/A\",\"6\":\"0.0 0 033\",\"7\":\"0.0 0 044\",\"8\":\"0.021134\"}]"
-      },
-      "bbox": null,
-      "coordinate_found": false
-    },
-    {
-      "label": null,
-      "number": null,
-      "caption_text": null,
-      "caption_position": null,
-      "page_number": 11,
-      "grid_data": {
         "table_index": 20,
         "page_number": 11,
         "bbox": {
@@ -6990,6 +6986,36 @@
           "the  nodes  are  \ufb01xed  and  the  bars  are  classi\ufb01ed  in  12  groups  as"
         ],
         "data_json": "[{\"0\":\"Fig. 12 shows that the cantilever beam is built using \\ufb01ve, hol-\",\"1\":\"the  nodes  are  \\ufb01xed  and  the  bars  are  classi\\ufb01ed  in  12  groups  as\"},{\"0\":\"low, square-section, box girders, and the lengths of those girders\",\"1\":\"follows, which are the main parameters to be optimised for this\"},{\"0\":\"are the design parameters for this problem. There is also one con-\",\"1\":\"problem:\"},{\"0\":\"straint for this problem. The GOA algorithm with 20 search agents\",\"1\":\"\"},{\"0\":\"and a maximum of 650 iterations is employed to determine the\",\"1\":\"1 , A \\n2 , A \\n3 ,  A \\n4 \\n\\u2022 Group 1:  A\"},{\"0\":\"optimum  for  this  problem.  The  results  are  presented  and  com-\",\"1\":\"5 ,  A \\n6 ,  A \\n7 ,  A \\n8 ,  A \\n9 ,  A \\n10 \\n\\u2022 Group 2:  A\"},{\"0\":\"pared to ALO, MMA, GCA_I, GCA-II, CS, and SOS for veri\\ufb01cation in\",\"1\":\"11 ,  A \\n12 ,  A \\n13 \\n\\u2022 Group 3:  A\"},{\"0\":\"Table 9 .\",\"1\":\"14 , A \\n15 ,  A \\n16 ,  A \\n17 \\n\\u2022 Group 4:  A\"},{\"0\":\"The results in Table 9 show that GOA \\ufb01nds the second best op-\",\"1\":\"18 ,  A \\n19 , A \\n20 , A \\n21 , A \\n22 , A \\n23 \\n\\u2022 Group 5:  A\"},{\"0\":\"timal weight. However, this algorithm provides the lowest number\",\"1\":\"24 , A \\n25 , A \\n26 \\n\\u2022 Group 6:  A\"},{\"0\":\"maximum function evaluation.\",\"1\":\"27 ,  A \\n28 , A \\n29 ,  A \\n30 \\n\\u2022 Group 7:  A\"}]"
+      },
+      "bbox": null,
+      "coordinate_found": false
+    },
+    {
+      "label": null,
+      "number": null,
+      "caption_text": null,
+      "caption_position": null,
+      "page_number": 13,
+      "grid_data": {
+        "table_index": 26,
+        "page_number": 13,
+        "bbox": {
+          "x1": 296.435,
+          "y1": 379.675452,
+          "x2": 479.9012525,
+          "y2": 493.32297077067034
+        },
+        "accuracy": 99.99999999999997,
+        "parse_method": "stream",
+        "has_empty_cells": false,
+        "empty_cell_locations": [],
+        "has_footnote_markers": true,
+        "row_count": 8,
+        "col_count": 1,
+        "headers": [
+          "0.0079 \nN/A \n0.0079 \n0.0079 \n0.4206"
+        ],
+        "data_json": "[{\"0\":\"0.0079 \\nN\\/A \\n0.0079 \\n0.0079 \\n0.4206\"},{\"0\":\"7860.0 kg \\/ m 3 \\n\\u2022 \\u03c1\\n=\"},{\"0\":\"2.07 e 5 MPa \\n\\u2022 E \\n=\"},{\"0\":\"180 MPa \\n\\u2022 Stress limitation \\n=\"},{\"0\":\"179.7652 MPa \\n\\u2022 Maximum stress \\n=\"},{\"0\":\"\\u2022 Design variabe set are chosen from Table 18 \\n \\n \\n200 kN \\n100 kN ,  P y\"},{\"0\":\"k \\n\\u2022 P \\n=\\n=\"},{\"0\":\"This  is  a  discrete  problem,  in  which  the  values  for  the  12\"}]"
       },
       "bbox": null,
       "coordinate_found": false
@@ -7393,305 +7419,758 @@
   ],
   "acronyms": [
     {
+      "acronym": "GOA",
+      "definition": "Grasshopper Optimisation Algorithm",
+      "page_number": 1,
+      "bbox": {
+        "page": 1,
+        "x0": 507.89044189453125,
+        "y0": 274.4740295410156,
+        "x1": 522.5709228515625,
+        "y1": 281.76190185546875
+      },
+      "coordinate_found": true
+    },
+    {
+      "acronym": "TS",
+      "definition": "Tabu Search",
+      "page_number": 2,
+      "bbox": {
+        "page": 2,
+        "x0": 118.99288940429688,
+        "y0": 99.34284210205078,
+        "x1": 125.51004028320312,
+        "y1": 107.44046783447266
+      },
+      "coordinate_found": true
+    },
+    {
+      "acronym": "ILS",
+      "definition": "Iterated Local Search",
+      "page_number": 2,
+      "bbox": {
+        "page": 2,
+        "x0": 45.768924713134766,
+        "y0": 183.0248565673828,
+        "x1": 56.621009826660156,
+        "y1": 191.12246704101562
+      },
+      "coordinate_found": true
+    },
+    {
       "acronym": "GA",
       "definition": "Genetic Algorithms",
       "page_number": 2,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 2,
+        "x0": 122.5389404296875,
+        "y0": 193.49195861816406,
+        "x1": 133.19894409179688,
+        "y1": 201.58956909179688
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "PSO",
       "definition": "Particle Swarm Optimisation",
       "page_number": 2,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 2,
+        "x0": 276.7523498535156,
+        "y0": 193.49195861816406,
+        "x1": 291.1463623046875,
+        "y1": 201.58956909179688
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "ACO",
       "definition": "Ant Colony Optimisation",
       "page_number": 2,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 2,
+        "x0": 164.29241943359375,
+        "y0": 203.94996643066406,
+        "x1": 179.67312622070312,
+        "y1": 212.04757690429688
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "DE",
-      "definition": "Differential Evolu- tion",
+      "definition": "Differential Evolution",
       "page_number": 2,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 2,
+        "x0": 81.51342010498047,
+        "y0": 151.64198303222656,
+        "x1": 90.4502944946289,
+        "y1": 159.73959350585938
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "DEL",
       "definition": "Dolphin Echolocation",
       "page_number": 2,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 2,
+        "x0": 276.9259338378906,
+        "y0": 496.845947265625,
+        "x1": 291.11273193359375,
+        "y1": 504.9435729980469
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "FA",
       "definition": "Fire\ufb02y Algorithm",
       "page_number": 2,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 2,
+        "x0": 138.11160278320312,
+        "y0": 162.1088409423828,
+        "x1": 144.8319854736328,
+        "y1": 170.20645141601562
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "BA",
       "definition": "Bat Algorithm",
       "page_number": 2,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 2,
+        "x0": 176.43003845214844,
+        "y0": 67.95996856689453,
+        "x1": 185.17483520507812,
+        "y1": 76.0575942993164
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "GWO",
       "definition": "Grey Wolf Optimizer",
       "page_number": 2,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 2,
+        "x0": 125.61152648925781,
+        "y0": 517.7709350585938,
+        "x1": 144.63694763183594,
+        "y1": 525.8685913085938
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "CS",
       "definition": "Cuckoo Search",
       "page_number": 2,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 2,
+        "x0": 165.86293029785156,
+        "y0": 308.55694580078125,
+        "x1": 173.236083984375,
+        "y1": 316.6545715332031
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "SMS",
       "definition": "State of Matter Search",
       "page_number": 2,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 2,
+        "x0": 225.91842651367188,
+        "y0": 601.4619750976562,
+        "x1": 241.75022888183594,
+        "y1": 609.5596313476562
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "FPA",
       "definition": "Flower Pollination Algorithm",
       "page_number": 2,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 2,
+        "x0": 189.60623168945312,
+        "y0": 622.3778686523438,
+        "x1": 202.95774841308594,
+        "y1": 630.4755249023438
+      },
+      "coordinate_found": true
+    },
+    {
+      "acronym": "NFL",
+      "definition": "No Free Lunch",
+      "page_number": 2,
+      "bbox": {
+        "page": 2,
+        "x0": 258.8759460449219,
+        "y0": 664.2189331054688,
+        "x1": 272.7885437011719,
+        "y1": 672.3165893554688
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "GOA",
       "definition": "the most well-regarded swarm intelligence technique in the literature",
       "page_number": 4,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 4,
+        "x0": 371.1955871582031,
+        "y0": 247.42897033691406,
+        "x1": 387.4984130859375,
+        "y1": 255.52658081054688
+      },
+      "coordinate_found": true
+    },
+    {
+      "acronym": "PSO",
+      "definition": "the most well-regarded swarm intelligence technique in the literature",
+      "page_number": 4,
+      "bbox": {
+        "page": 4,
+        "x0": 520.3807983398438,
+        "y0": 205.5878448486328,
+        "x1": 534.7716064453125,
+        "y1": 213.68545532226562
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "PSO",
       "definition": null,
       "page_number": 7,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 7,
+        "x0": 537.0023193359375,
+        "y0": 298.0989685058594,
+        "x1": 551.3931274414062,
+        "y1": 306.19659423828125
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "SMS",
       "definition": null,
       "page_number": 7,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 7,
+        "x0": 301.99798583984375,
+        "y0": 308.55694580078125,
+        "x1": 317.8265686035156,
+        "y1": 316.6545715332031
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "BA",
       "definition": null,
       "page_number": 7,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 7,
+        "x0": 257.66265869140625,
+        "y0": 235.61195373535156,
+        "x1": 266.40985107421875,
+        "y1": 243.70956420898438
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "FPA",
       "definition": null,
       "page_number": 7,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 7,
+        "x0": 385.63470458984375,
+        "y0": 308.55694580078125,
+        "x1": 398.9862060546875,
+        "y1": 316.6545715332031
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "CS",
       "definition": null,
       "page_number": 7,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 7,
+        "x0": 80.37734985351562,
+        "y0": 585.6578369140625,
+        "x1": 87.74889373779297,
+        "y1": 593.7554931640625
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "FA",
       "definition": null,
       "page_number": 7,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 7,
+        "x0": 165.54150390625,
+        "y0": 392.5269470214844,
+        "x1": 172.2618865966797,
+        "y1": 400.62457275390625
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "GA",
       "definition": null,
       "page_number": 7,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 7,
+        "x0": 93.02420806884766,
+        "y0": 497.1339416503906,
+        "x1": 101.4007797241211,
+        "y1": 505.2315673828125
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "DE",
       "definition": null,
       "page_number": 7,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 7,
+        "x0": 145.7699737548828,
+        "y0": 204.64332580566406,
+        "x1": 152.9195098876953,
+        "y1": 211.12144470214844
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "GSA",
       "definition": null,
       "page_number": 7,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 7,
+        "x0": 426.5654602050781,
+        "y0": 319.01495361328125,
+        "x1": 441.5213623046875,
+        "y1": 327.1125793457031
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "PSO",
-      "definition": null,
+      "definition": "Particle Swarm Optimisation",
       "page_number": 8,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 8,
+        "x0": 48.79199981689453,
+        "y0": 259.0753173828125,
+        "x1": 60.31488800048828,
+        "y1": 265.5534362792969
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "GA",
-      "definition": null,
+      "definition": "Genetic Algorithm",
       "page_number": 8,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 8,
+        "x0": 48.79582214355469,
+        "y0": 287.7677001953125,
+        "x1": 57.33278274536133,
+        "y1": 294.2458190917969
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "DE",
-      "definition": null,
+      "definition": "Differential Evolution",
       "page_number": 8,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 8,
+        "x0": 212.12281799316406,
+        "y0": 276.211669921875,
+        "x1": 219.2710723876953,
+        "y1": 282.6897888183594
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "GSA",
-      "definition": null,
+      "definition": "Gravity Search Algorithm",
       "page_number": 8,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 8,
+        "x0": 48.79707336425781,
+        "y0": 345.152587890625,
+        "x1": 60.77202606201172,
+        "y1": 351.6307067871094
+      },
+      "coordinate_found": true
+    },
+    {
+      "acronym": "BA",
+      "definition": "Bat Algorithm",
+      "page_number": 8,
+      "bbox": {
+        "page": 8,
+        "x0": 236.81747436523438,
+        "y0": 304.90411376953125,
+        "x1": 243.8120574951172,
+        "y1": 311.3822326660156
+      },
+      "coordinate_found": true
+    },
+    {
+      "acronym": "FPA",
+      "definition": "Firefly Algorithm",
+      "page_number": 8,
+      "bbox": {
+        "page": 8,
+        "x0": 48.79449462890625,
+        "y0": 376.83172607421875,
+        "x1": 59.482112884521484,
+        "y1": 383.309814453125
+      },
+      "coordinate_found": true
+    },
+    {
+      "acronym": "SMS",
+      "definition": "Sine Cosine Algorithm",
+      "page_number": 8,
+      "bbox": {
+        "page": 8,
+        "x0": 48.79510498046875,
+        "y0": 388.38775634765625,
+        "x1": 61.46441650390625,
+        "y1": 394.8658447265625
+      },
+      "coordinate_found": true
+    },
+    {
+      "acronym": "FA",
+      "definition": "Firefly Algorithm",
+      "page_number": 8,
+      "bbox": {
+        "page": 8,
+        "x0": 48.797637939453125,
+        "y0": 425.64837646484375,
+        "x1": 55.930580139160156,
+        "y1": 432.1264953613281
+      },
+      "coordinate_found": true
+    },
+    {
+      "acronym": "GOA",
+      "definition": "Grasshopper Optimisation Algorithm",
+      "page_number": 8,
+      "bbox": {
+        "page": 8,
+        "x0": 200.52279663085938,
+        "y0": 455.5089416503906,
+        "x1": 216.8256378173828,
+        "y1": 463.6065673828125
+      },
+      "coordinate_found": true
+    },
+    {
+      "acronym": "N/A",
+      "definition": "Not Applicable",
+      "page_number": 8,
+      "bbox": {
+        "page": 8,
+        "x0": 511.5788879394531,
+        "y0": 725.454833984375,
+        "x1": 525.5233764648438,
+        "y1": 733.552490234375
+      },
+      "coordinate_found": true
+    },
+    {
+      "acronym": "GOA",
+      "definition": null,
+      "page_number": 9,
+      "bbox": {
+        "page": 9,
+        "x0": 269.8039245605469,
+        "y0": 667.6482543945312,
+        "x1": 282.84942626953125,
+        "y1": 674.1264038085938
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "FPA",
       "definition": null,
-      "page_number": 8,
-      "bbox": null,
-      "coordinate_found": false
+      "page_number": 9,
+      "bbox": {
+        "page": 9,
+        "x0": 341.4158020019531,
+        "y0": 691.3269653320312,
+        "x1": 354.7673034667969,
+        "y1": 699.4246215820312
+      },
+      "coordinate_found": true
     },
     {
-      "acronym": "SMS",
+      "acronym": "NFL",
       "definition": null,
-      "page_number": 8,
-      "bbox": null,
-      "coordinate_found": false
+      "page_number": 9,
+      "bbox": {
+        "page": 9,
+        "x0": 423.4642028808594,
+        "y0": 712.251953125,
+        "x1": 437.3768005371094,
+        "y1": 720.349609375
+      },
+      "coordinate_found": true
     },
     {
-      "acronym": "FA",
+      "acronym": "GOA",
       "definition": null,
-      "page_number": 8,
-      "bbox": null,
-      "coordinate_found": false
+      "page_number": 11,
+      "bbox": {
+        "page": 11,
+        "x0": 152.52540588378906,
+        "y0": 79.84022521972656,
+        "x1": 165.57090759277344,
+        "y1": 86.31834411621094
+      },
+      "coordinate_found": true
+    },
+    {
+      "acronym": "GSA",
+      "definition": null,
+      "page_number": 11,
+      "bbox": {
+        "page": 11,
+        "x0": 231.41754150390625,
+        "y0": 79.84022521972656,
+        "x1": 243.3925018310547,
+        "y1": 86.31834411621094
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "GOA",
       "definition": null,
       "page_number": 12,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 12,
+        "x0": 205.22048950195312,
+        "y0": 79.84022521972656,
+        "x1": 218.2659912109375,
+        "y1": 86.31834411621094
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "PSO",
       "definition": null,
       "page_number": 12,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 12,
+        "x0": 270.2535400390625,
+        "y0": 79.84022521972656,
+        "x1": 281.77642822265625,
+        "y1": 86.31834411621094
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "GA",
       "definition": null,
       "page_number": 12,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 12,
+        "x0": 335.2865905761719,
+        "y0": 79.84022521972656,
+        "x1": 343.82354736328125,
+        "y1": 86.31834411621094
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "DE",
       "definition": null,
       "page_number": 12,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 12,
+        "x0": 399.8165283203125,
+        "y0": 79.84022521972656,
+        "x1": 407.98431396484375,
+        "y1": 86.31834411621094
+      },
+      "coordinate_found": true
+    },
+    {
+      "acronym": "GSA",
+      "definition": null,
+      "page_number": 12,
+      "bbox": {
+        "page": 12,
+        "x0": 204.986572265625,
+        "y0": 330.64337158203125,
+        "x1": 216.96153259277344,
+        "y1": 337.1214599609375
+      },
+      "coordinate_found": true
+    },
+    {
+      "acronym": "BA",
+      "definition": null,
+      "page_number": 12,
+      "bbox": {
+        "page": 12,
+        "x0": 270.0285339355469,
+        "y0": 330.64337158203125,
+        "x1": 277.9808044433594,
+        "y1": 337.1214599609375
+      },
+      "coordinate_found": true
+    },
+    {
+      "acronym": "FPA",
+      "definition": null,
+      "page_number": 12,
+      "bbox": {
+        "page": 12,
+        "x0": 335.0622253417969,
+        "y0": 330.64337158203125,
+        "x1": 345.7498474121094,
+        "y1": 337.1214599609375
+      },
+      "coordinate_found": true
+    },
+    {
+      "acronym": "FA",
+      "definition": null,
+      "page_number": 12,
+      "bbox": {
+        "page": 12,
+        "x0": 400.09588623046875,
+        "y0": 330.64337158203125,
+        "x1": 407.22882080078125,
+        "y1": 337.1214599609375
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "ALO",
       "definition": null,
       "page_number": 12,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 12,
+        "x0": 77.86000061035156,
+        "y0": 696.10595703125,
+        "x1": 92.86450958251953,
+        "y1": 704.20361328125
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "MMA",
       "definition": null,
       "page_number": 12,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 12,
+        "x0": 98.02790069580078,
+        "y0": 696.10595703125,
+        "x1": 118.17313385009766,
+        "y1": 704.20361328125
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "GCA_I",
       "definition": null,
       "page_number": 12,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 12,
+        "x0": 123.50550079345703,
+        "y0": 696.10595703125,
+        "x1": 145.57313537597656,
+        "y1": 704.20361328125
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "GCA-II",
       "definition": null,
       "page_number": 12,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 12,
+        "x0": 150.72889709472656,
+        "y0": 696.10595703125,
+        "x1": 174.5507354736328,
+        "y1": 704.20361328125
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "CS",
       "definition": null,
       "page_number": 12,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 12,
+        "x0": 179.70730590820312,
+        "y0": 696.10595703125,
+        "x1": 188.6975860595703,
+        "y1": 704.20361328125
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "SOS",
       "definition": null,
       "page_number": 12,
-      "bbox": null,
-      "coordinate_found": false
-    },
-    {
-      "acronym": "FPA",
-      "definition": null,
-      "page_number": 12,
-      "bbox": null,
-      "coordinate_found": false
-    },
-    {
-      "acronym": "FA",
-      "definition": null,
-      "page_number": 12,
-      "bbox": null,
-      "coordinate_found": false
-    },
-    {
-      "acronym": "GSA",
-      "definition": null,
-      "page_number": 12,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 12,
+        "x0": 210.8636016845703,
+        "y0": 696.10595703125,
+        "x1": 224.95632934570312,
+        "y1": 704.20361328125
+      },
+      "coordinate_found": true
     },
     {
       "acronym": "GOA",
-      "definition": "the Grasshopper Optimisation Algorithm",
+      "definition": "Grasshopper Optimisation Algorithm",
       "page_number": 14,
-      "bbox": null,
-      "coordinate_found": false
+      "bbox": {
+        "page": 14,
+        "x0": 48.79199981689453,
+        "y0": 250.3003692626953,
+        "x1": 61.837501525878906,
+        "y1": 256.7784729003906
+      },
+      "coordinate_found": true
     },
     {
-      "acronym": "SOS",
+      "acronym": "GOA",
+      "definition": "grasshoppers",
+      "page_number": 15,
+      "bbox": {
+        "page": 15,
+        "x0": 45.46200180053711,
+        "y0": 421.59686279296875,
+        "x1": 61.76483917236328,
+        "y1": 429.6944885253906
+      },
+      "coordinate_found": true
+    },
+    {
+      "acronym": "AISC",
       "definition": null,
-      "page_number": 14,
-      "bbox": null,
-      "coordinate_found": false
+      "page_number": 15,
+      "bbox": {
+        "page": 15,
+        "x0": 140.90365600585938,
+        "y0": 65.71968078613281,
+        "x1": 154.29026794433594,
+        "y1": 72.19779968261719
+      },
+      "coordinate_found": true
     }
   ],
   "camelot_tables": [
@@ -14505,10 +14984,10 @@
   "extraction_errors": [],
   "pipeline_timings": {
     "pymupdf_s": 0.23,
-    "regex_s": 0.0,
+    "regex_s": 0.03,
     "camelot_s": 10.86,
-    "nuextract_s": 421.5,
-    "total_s": 439.87
+    "nuextract_s": 334.97,
+    "total_s": 346.98
   },
   "total_pages_processed": 18,
   "pdf_path": "papers/GOA_paper.pdf"

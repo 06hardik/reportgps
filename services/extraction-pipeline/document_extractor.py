@@ -261,7 +261,7 @@ _REF_SECTION_HEADING = re.compile(
 )
 _NUMBERED_REF_START = re.compile(r'^\[(\d+)\]\s+(.+)')
 _DOTNUM_REF_START   = re.compile(r'^(\d+)\.\s+([A-Z].+)')
-_DOI_PAT = re.compile(r'(?:doi:|https?://doi\.org/)(\S+)', re.IGNORECASE)
+_DOI_PAT = re.compile(r'(?:doi\s*:\s*|https?://(?:dx\.)?doi\.org/)\s*(\S+)', re.IGNORECASE)
 _URL_PAT = re.compile(r'(https?://\S+)')
 _YEAR_PAT = re.compile(r'\b((?:19|20)\d{2})\b')
 
@@ -379,7 +379,9 @@ def _first_year(text: str) -> Optional[int]:
 
 def _first_doi(text: str) -> Optional[str]:
     m = _DOI_PAT.search(text)
-    return m.group(0) if m else None
+    if m:
+        return re.sub(r'\s+', '', m.group(0))
+    return None
 
 def _first_url(text: str) -> Optional[str]:
     m = _URL_PAT.search(text)

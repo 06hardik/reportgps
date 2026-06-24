@@ -113,7 +113,7 @@ def extract_document(pdf_path: str) -> dict:
     # ── Step 2: Regex — references + in-text citations ───────────────────────
     t2 = time.monotonic()
     print("[Orchestrator] Step 2/4 — Regex reference + citation extraction …")
-    references = extract_references(full_text)
+    references = extract_references(full_text, pdf_path)
     citations  = extract_in_text_citations(full_text, page_texts)
     print(f"[Orchestrator] Regex: {len(references)} reference(s), {len(citations)} citation(s).")
     timings["regex_s"] = round(time.monotonic() - t2, 2)
@@ -147,11 +147,23 @@ def extract_document(pdf_path: str) -> dict:
             print(f"[Orchestrator] Dynamic metadata page detected: Page {metadata_page}")
             break
 
+    # Identify references start page to avoid extracting subsequent bibliography pages via LLM
+    references_start_page = 9999
+    if references:
+        pages = [r.get("bbox", {}).get("page") for r in references if r.get("bbox")]
+        if pages:
+            references_start_page = min(pages)
+            print(f"[Orchestrator] Dynamic references page detected: Page {references_start_page}")
+
     page_results: List[Tuple[int, ExtractionMode, Optional[dict], Optional[str]]] = []
     extraction_errors: List[dict] = []
 
     def extract_page_task(chunk, idx, llm_client):
         page_num = chunk.page_number
+        if page_num > references_start_page:
+            print(f"[Orchestrator] p{page_num}: skipping (references page).")
+            return (page_num, ExtractionMode.BODY, {}, None)
+
         is_metadata = (page_num == metadata_page)
         mode = ExtractionMode.METADATA if is_metadata else ExtractionMode.BODY
 
@@ -210,12 +222,26 @@ def extract_document(pdf_path: str) -> dict:
     merged["extraction_errors"] = extraction_errors
 
     # ── Post-processing cleanup ───────────────────────────────────────────────
-    _post_process(merged)
+    _post_process(merged, full_text)
 
     # ── Coordinate mapping ────────────────────────────────────────────────────
     try:
         with PyMuPDFExtractor(pdf_path) as ex:
             enrich_with_coordinates(merged, ex)
+        
+        # Filter out headings that are journal headers or page headers/footers based on y-coordinate
+        clean_sections = []
+        for sec in merged.get("sections", []):
+            bbox = sec.get("bbox")
+            if bbox and sec.get("coordinate_found"):
+                y0 = bbox.get("y0", 0)
+                y1 = bbox.get("y1", 0)
+                if y0 < 55 or y1 > 750:
+                    print(f"[Orchestrator] Filtering out running header/footer section: {sec.get('heading_text')} (y0={y0}, y1={y1})")
+                    continue
+            clean_sections.append(sec)
+        merged["sections"] = clean_sections
+
         print("[Orchestrator] Coordinate mapping complete.")
     except Exception as exc:
         print(f"[Orchestrator] Coordinate mapping failed (non-fatal): {exc}")
@@ -425,7 +451,7 @@ def _attach_camelot_grids(
 # Post-processing cleanup
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _post_process(doc: dict) -> None:
+def _post_process(doc: dict, full_text: str) -> None:
     """Fix known extraction artifacts."""
     ms = doc.get("manuscript", {})
 
@@ -475,15 +501,78 @@ def _post_process(doc: dict) -> None:
 
     doc["equations"] = clean_eqs
 
-    # 4. Sections — clean up body_text type safety
-    for sec in doc.get("sections", []):
+    # 4. Sections — reconstruct body_text & clean up type safety
+    sections = doc.get("sections", [])
+    if sections:
+        # Reconstruct body_text sequentially
+        ref_header_re = re.compile(
+            r'^\s*(?:\d+\.?\s+)?(?:references|bibliography|literature cited)\s*$',
+            re.IGNORECASE | re.MULTILINE
+        )
+        ref_match = ref_header_re.search(full_text)
+        doc_end = ref_match.start() if ref_match else len(full_text)
+
+        heading_positions = []
+        current_pos = 0
+        for sec in sections:
+            heading_text = (sec.get("heading_text") or "").strip()
+            if not heading_text:
+                heading_positions.append(None)
+                continue
+
+            words = heading_text.split()
+            if not words:
+                heading_positions.append(None)
+                continue
+
+            pattern_str = r'(?:^|\n)\s*(' + r'\s+'.join(re.escape(w) for w in words) + r')'
+            pattern = re.compile(pattern_str, re.IGNORECASE)
+
+            m = pattern.search(full_text, current_pos)
+            if m:
+                heading_positions.append((m.start(1), m.end(1)))
+                current_pos = m.end(1)
+            else:
+                m_fallback = pattern.search(full_text)
+                if m_fallback:
+                    heading_positions.append((m_fallback.start(1), m_fallback.end(1)))
+                    if m_fallback.end(1) > current_pos:
+                        current_pos = m_fallback.end(1)
+                else:
+                    heading_positions.append(None)
+
+        for i, sec in enumerate(sections):
+            pos = heading_positions[i]
+            if pos is None:
+                sec["body_text"] = ""
+                continue
+
+            start_body = pos[1]
+            end_body = doc_end
+            for j in range(i + 1, len(sections)):
+                next_pos = heading_positions[j]
+                if next_pos is not None:
+                    end_body = next_pos[0]
+                    break
+
+            body_text = full_text[start_body:end_body].strip()
+            sec["body_text"] = body_text
+
+    # Type safety and noise filtering
+    for sec in sections:
         bt = sec.get("body_text", "")
         if not isinstance(bt, str):
             sec["body_text"] = str(bt) if bt else ""
 
-        # Remove headers that look like journal running headers
-        heading = sec.get("heading_text", "")
-        if re.search(r'Knowledge-Based Systems|journal homepage', heading, re.IGNORECASE):
+        # Remove noise section headings
+        heading = sec.get("heading_text", "") or ""
+        heading_text = heading.strip()
+        if (
+            heading_text.isdigit()
+            or re.match(r'^\s*(Table|Figure|Fig\.)\s+\d+', heading, re.IGNORECASE)
+            or len(heading) > 150
+            or re.search(r'Knowledge-Based Systems|journal homepage|Contents lists available', heading, re.IGNORECASE)
+        ):
             sec["_is_noise"] = True
 
     # Remove noise sections

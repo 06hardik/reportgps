@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import re
 from typing import List, Dict, Any
+import fitz  # PyMuPDF
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Reference extraction
@@ -45,9 +46,9 @@ _APA_START = re.compile(
     r'^\s*[A-Z][^(\n]{2,120}\(((?:19|20)\d{2})\)\s*\.',
 )
 
-# DOI pattern inside a reference string
+# DOI pattern inside a reference string (supporting spaces)
 _DOI = re.compile(
-    r'(?:doi:|https?://doi\.org/)(\S+)',
+    r'(?:doi\s*:\s*|https?://(?:dx\.)?doi\.org/)\s*(\S+)',
     re.IGNORECASE,
 )
 
@@ -62,13 +63,18 @@ _YEAR = re.compile(
 )
 
 
-def extract_references(full_text: str) -> List[Dict[str, Any]]:
+def extract_references(full_text: str, pdf_path: str | None = None) -> List[Dict[str, Any]]:
     """
     Extract reference list entries from the full document text.
 
     Returns a list of dicts with keys:
         raw_string, number, year, doi, url
     """
+    if pdf_path:
+        try:
+            return _extract_references_layout(pdf_path)
+        except Exception as e:
+            print(f"[RegexExtractor] Layout reference extraction failed, falling back to text: {e}")
     # Locate bibliography section start using a robust line-based search
     headers_regex = re.compile(
         r'^\s*(references|bibliography|literature cited|reference)\s*$', 
@@ -204,7 +210,287 @@ def _find_year(text: str) -> int | None:
 
 def _find_doi(text: str) -> str | None:
     m = _DOI.search(text)
-    return m.group(0) if m else None
+    if m:
+        return re.sub(r'\s+', '', m.group(0))
+    return None
+
+
+def _extract_references_layout(pdf_path: str) -> List[Dict[str, Any]]:
+    doc = fitz.open(pdf_path)
+    total_pages = len(doc)
+
+    ref_header_re = re.compile(
+        r'^\s*(?:\d+\.?\s+)?(?:references|bibliography|literature cited)\s*$',
+        re.IGNORECASE
+    )
+    caption_re = re.compile(r'^\s*(?:Table|Figure|Fig|Figs)\b', re.IGNORECASE)
+
+    ref_start_page_idx = None
+    for page_idx in range(total_pages - 1, -1, -1):
+        page = doc[page_idx]
+        page_height = page.rect.height
+        raw = page.get_text("dict", flags=fitz.TEXT_PRESERVE_WHITESPACE | fitz.TEXT_PRESERVE_LIGATURES)
+        has_header = False
+        for block in raw.get("blocks", []):
+            if block.get("type") != 0:
+                continue
+            for line in block.get("lines", []):
+                line_bbox = line.get("bbox", (0, 0, 0, 0))
+                y0, y1 = line_bbox[1], line_bbox[3]
+                if y0 < 55 or y1 > page_height - 55:
+                    continue
+                line_text = "".join(s.get("text", "") for s in line.get("spans", [])).strip()
+                if ref_header_re.match(line_text):
+                    has_header = True
+                    break
+            if has_header:
+                break
+        if has_header:
+            ref_start_page_idx = page_idx
+            break
+
+    if ref_start_page_idx is None:
+        raise ValueError("References section header not found in PDF pages.")
+
+    pages_to_process = range(ref_start_page_idx, total_pages)
+    all_ref_lines = []
+
+    for page_idx in pages_to_process:
+        page = doc[page_idx]
+        page_width = page.rect.width
+        page_height = page.rect.height
+
+        raw = page.get_text("dict", flags=fitz.TEXT_PRESERVE_WHITESPACE | fitz.TEXT_PRESERVE_LIGATURES)
+        lines_data = []
+        for block in raw.get("blocks", []):
+            if block.get("type") != 0:
+                continue
+            for line in block.get("lines", []):
+                line_bbox = line.get("bbox", (0, 0, 0, 0))
+                y0, y1 = line_bbox[1], line_bbox[3]
+                if y0 < 55 or y1 > page_height - 55:
+                    continue
+                line_text = "".join(s.get("text", "") for s in line.get("spans", []))
+                if caption_re.match(line_text):
+                    continue
+                if not line_text.strip():
+                    continue
+                lines_data.append({
+                    "text": line_text,
+                    "bbox": line_bbox,
+                    "x0": line_bbox[0],
+                    "y0": line_bbox[1],
+                    "x1": line_bbox[2],
+                    "y1": line_bbox[3],
+                    "page_num": page_idx + 1,
+                })
+
+        if not lines_data:
+            continue
+
+        # Detect layout columns: if substantial lines start at x0 > page_width * 0.45
+        right_col_lines = [l for l in lines_data if l["x0"] > page_width * 0.45]
+        is_two_column = len(right_col_lines) > 3 and len(right_col_lines) > 0.1 * len(lines_data)
+        for l in lines_data:
+            l["is_two_column"] = is_two_column
+
+        if is_two_column:
+            left_lines = [l for l in lines_data if l["x0"] <= page_width * 0.45]
+            right_lines = [l for l in lines_data if l["x0"] > page_width * 0.45]
+            left_lines.sort(key=lambda l: l["y0"])
+            right_lines.sort(key=lambda l: l["y0"])
+            columns = []
+            if left_lines:
+                columns.append(left_lines)
+            if right_lines:
+                columns.append(right_lines)
+        else:
+            lines_data.sort(key=lambda l: l["y0"])
+            columns = [lines_data]
+
+        # Slicing the start page at references header
+        if page_idx == ref_start_page_idx:
+            header_found = False
+            header_col_idx = -1
+            header_line_idx = -1
+            for col_idx, col in enumerate(columns):
+                for l_idx, l in enumerate(col):
+                    if ref_header_re.match(l["text"].strip()):
+                        header_found = True
+                        header_col_idx = col_idx
+                        header_line_idx = l_idx
+                        break
+                if header_found:
+                    break
+            if header_found:
+                new_columns = []
+                for col_idx, col in enumerate(columns):
+                    if col_idx < header_col_idx:
+                        continue
+                    elif col_idx == header_col_idx:
+                        sliced_col = col[header_line_idx + 1:]
+                        if sliced_col:
+                            new_columns.append(sliced_col)
+                    else:
+                        new_columns.append(col)
+                columns = new_columns
+
+        for col in columns:
+            if col:
+                all_ref_lines.append(col)
+
+    if not all_ref_lines:
+        raise ValueError("No text lines found in references section.")
+
+    # Classify bibliography style
+    flat_lines = [l for col in all_ref_lines for l in col]
+    bracket_prefix_re = re.compile(r'^\s*\[\d+\]')
+    dotnum_prefix_re = re.compile(r'^\s*\d+\.\s+')
+
+    bracket_count = sum(1 for l in flat_lines if bracket_prefix_re.match(l["text"]))
+    dotnum_count = sum(1 for l in flat_lines if dotnum_prefix_re.match(l["text"]))
+
+    if bracket_count >= 3 and bracket_count >= dotnum_count:
+        style = "numbered-bracket"
+    elif dotnum_count >= 3:
+        style = "dot-number"
+    else:
+        style = "apa-style"
+
+    # Partition lines into individual reference items
+    items = []
+    current_item_lines = []
+
+    is_first_col = True
+    for col in all_ref_lines:
+        if not col:
+            continue
+        col_x0_min = min(l["x0"] for l in col)
+        # Check if this column has indented lines
+        has_indents = any(line["x0"] >= col_x0_min + 5.5 for line in col)
+
+        for idx, l in enumerate(col):
+            is_start = False
+            text = l["text"]
+
+            if style == "numbered-bracket":
+                if bracket_prefix_re.match(text):
+                    is_start = True
+            elif style == "dot-number":
+                if dotnum_prefix_re.match(text):
+                    is_start = True
+            else: # APA style
+                if idx == 0:
+                    if is_first_col:
+                        is_start = True
+                    else:
+                        if has_indents:
+                            if l.get("is_two_column"):
+                                is_start = (l["x0"] < col_x0_min + 5.0)
+                            else:
+                                is_start = (l["x0"] < col_x0_min + 5.5)
+                        else:
+                            is_start = True
+                else:
+                    prev = col[idx - 1]
+                    if has_indents:
+                        if l.get("is_two_column"):
+                            is_start = (l["x0"] < col_x0_min + 5.0) or ((l["y0"] - prev["y1"]) > 4.5)
+                        else:
+                            is_start = (l["x0"] < col_x0_min + 5.5) or ((l["y0"] - prev["y1"]) > 4.0)
+                    else:
+                        is_start = ((l["y0"] - prev["y1"]) > 4.0)
+
+            if is_start:
+                if current_item_lines:
+                    items.append(current_item_lines)
+                current_item_lines = [l]
+            else:
+                if current_item_lines:
+                    current_item_lines.append(l)
+                else:
+                    current_item_lines = [l]
+
+        is_first_col = False
+
+    if current_item_lines:
+        items.append(current_item_lines)
+
+    # Construct final list of references
+    results = []
+    for item in items:
+        raw_string = " ".join(line["text"] for line in item).strip()
+        raw_string = re.sub(r'\s+', ' ', raw_string)
+        if not raw_string:
+            continue
+
+        raw_string = re.sub(r'-\s+', '-', raw_string)
+        raw_string = re.sub(r'/\s+', '/', raw_string)
+        raw_string = re.sub(r'\.\s+(com|org|net|edu|gov|mil|int)\b', r'.\1', raw_string)
+
+        year = _find_year(raw_string)
+
+        m_doi = _DOI.search(raw_string)
+        if m_doi:
+            doi = re.sub(r'\s+', '', m_doi.group(0))
+        else:
+            _BARE_DOI = re.compile(r'\b(10\.\d{4,9}/\S+)', re.IGNORECASE)
+            m_bare = _BARE_DOI.search(raw_string)
+            if m_bare:
+                doi = re.sub(r'\s+', '', m_bare.group(1))
+            else:
+                doi = None
+
+        if doi:
+            doi = doi.rstrip('.,;()[]{}')
+
+        url = _find_url(raw_string)
+
+        num = None
+        if style == "numbered-bracket":
+            m_num = bracket_prefix_re.match(item[0]["text"])
+            if m_num:
+                digit_match = re.search(r'\d+', m_num.group(0))
+                if digit_match:
+                    num = int(digit_match.group(0))
+        elif style == "dot-number":
+            m_num = dotnum_prefix_re.match(item[0]["text"])
+            if m_num:
+                digit_match = re.search(r'\d+', m_num.group(0))
+                if digit_match:
+                    num = int(digit_match.group(0))
+
+        # Set reference bbox directly from lines' bounding boxes and set coordinate_found = True
+        first_page = item[0]["page_num"]
+        lines_on_first_page = [l for l in item if l["page_num"] == first_page]
+        x0_min = min(l["x0"] for l in lines_on_first_page)
+        y0_min = min(l["y0"] for l in lines_on_first_page)
+        x1_max = max(l["x1"] for l in lines_on_first_page)
+        y1_max = max(l["y1"] for l in lines_on_first_page)
+
+        ref_dict = {
+            "raw_string": raw_string,
+            "number": num,
+            "year": year,
+            "doi": doi,
+            "url": url,
+            "entry_type": None,
+            "bbox": {
+                "page": first_page,
+                "x0": x0_min,
+                "y0": y0_min,
+                "x1": x1_max,
+                "y1": y1_max,
+            },
+            "coordinate_found": True,
+            "_page_hint": first_page,
+        }
+        results.append(ref_dict)
+
+    if style == "numbered-bracket" or style == "dot-number":
+        return sorted(results, key=lambda r: r["number"] or 0)
+    else:
+        return results
 
 
 def _find_url(text: str) -> str | None:

@@ -57,6 +57,8 @@ def enrich_with_coordinates(
 
     # ── references ────────────────────────────────────────────────────────────
     for ref in extracted_doc.get("references", []) or []:
+        if ref.get("coordinate_found") is True:
+            continue
         # Use the first 80 chars of raw_string as the search target
         raw = ref.get("raw_string") or ""
         search_str = raw[:80].strip()
@@ -138,7 +140,7 @@ def enrich_with_coordinates(
     for acr in extracted_doc.get("acronyms", []) or []:
         _enrich_item(
             item=acr,
-            search_field="first_occurrence_context",
+            search_field="acronym",
             page_hint=acr.get("page_number"),
             extractor=extractor,
             total_pages=total_pages,

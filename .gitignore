@@ -47,5 +47,6 @@ Thumbs.db
 # Large test assets and outputs
 *.pdf
 /out.json
+/.agents/
 
 
