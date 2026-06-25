@@ -221,6 +221,15 @@ def _try_recover_json(text: str) -> Optional[dict]:
         
     text_clean = text[start:].strip()
     
+    # Try json_repair first (handles incomplete brackets, strings, arrays)
+    try:
+        import json_repair
+        res = json_repair.loads(text_clean)
+        if isinstance(res, dict):
+            return res
+    except Exception:
+        pass
+
     # Try parsing the raw text directly in case it's already valid
     try:
         res = json.loads(text_clean)
