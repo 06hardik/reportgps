@@ -32,6 +32,7 @@ from typing import Any, Dict, List, Optional, Tuple
 from pymupdf_extractor import PyMuPDFExtractor
 from nuextract_client import NuExtractClient, ExtractionMode
 from camelot_extractor import extract_tables, CAMELOT_AVAILABLE
+from docling_extractor import extract_tables_docling, DOCLING_AVAILABLE
 from regex_extractor import extract_references, extract_in_text_citations
 from coordinate_mapper import enrich_with_coordinates
 
@@ -118,10 +119,25 @@ def extract_document(pdf_path: str) -> dict:
     print(f"[Orchestrator] Regex: {len(references)} reference(s), {len(citations)} citation(s).")
     timings["regex_s"] = round(time.monotonic() - t2, 2)
 
-    # ── Step 3: Camelot — table grids ────────────────────────────────────────
+    # ── Step 3: Table extraction (Docling with Camelot fallback) ──────────────
     t3 = time.monotonic()
     camelot_tables: List[dict] = []
-    if CAMELOT_AVAILABLE:
+    if DOCLING_AVAILABLE:
+        try:
+            print("[Orchestrator] Step 3/4 — Docling table extraction …")
+            raw_tables = extract_tables_docling(pdf_path)
+            camelot_tables = _filter_camelot_noise(raw_tables)
+            print(f"[Orchestrator] Docling: {len(camelot_tables)} real table(s) (after noise filter).")
+        except Exception as exc:
+            print(f"[Orchestrator] Docling failed, falling back to Camelot: {exc}")
+            if CAMELOT_AVAILABLE:
+                try:
+                    print("[Orchestrator] Fallback to Camelot table grids …")
+                    raw_tables = extract_tables(pdf_path)
+                    camelot_tables = _filter_camelot_noise([t.as_dict() for t in raw_tables])
+                except Exception as c_exc:
+                    print(f"[Orchestrator] Fallback Camelot failed (non-fatal): {c_exc}")
+    elif CAMELOT_AVAILABLE:
         try:
             print("[Orchestrator] Step 3/4 — Camelot table grids …")
             raw_tables = extract_tables(pdf_path)
@@ -130,7 +146,7 @@ def extract_document(pdf_path: str) -> dict:
         except Exception as exc:
             print(f"[Orchestrator] Camelot failed (non-fatal): {exc}")
     else:
-        print("[Orchestrator] Step 3/4 — Camelot not available.")
+        print("[Orchestrator] Step 3/4 — Neither Docling nor Camelot is available.")
     timings["camelot_s"] = round(time.monotonic() - t3, 2)
 
     # ── Step 4: NuExtract — page-by-page structural extraction ───────────────
@@ -222,7 +238,7 @@ def extract_document(pdf_path: str) -> dict:
     merged["extraction_errors"] = extraction_errors
 
     # ── Post-processing cleanup ───────────────────────────────────────────────
-    _post_process(merged, full_text)
+    _post_process(merged, full_text, page_texts)
 
     # ── Coordinate mapping ────────────────────────────────────────────────────
     try:
@@ -410,39 +426,67 @@ def _attach_camelot_grids(
     nu_tables: List[dict],
     camelot_tables: List[dict],
 ) -> List[dict]:
-    used = set()
+    # Match each NuExtract table to the best Camelot grid using scoring.
+    # This prevents collisions when there are multiple tables on/near the same page
+    # and filters out noise grids that don't match the table number.
+    camelot_info = []
+    for i, ct in enumerate(camelot_tables):
+        data_json = ct.get("data_json") or "{}"
+        grid_text = data_json.lower()
+        
+        camelot_info.append({
+            "index": i,
+            "page": ct.get("page_number", ct.get("page", 0)),
+            "text": grid_text,
+            "raw": ct
+        })
+
+    used_camelot = set()
     result = []
 
     for tbl in nu_tables:
         t = dict(tbl)
         t["grid_data"] = None
         tbl_page = t.get("page_number") or 0
-
-        best, best_d = None, 9999
-        for i, ct in enumerate(camelot_tables):
-            if i in used:
+        
+        label = (t.get("label") or "").strip().lower()
+        caption = (t.get("caption_text") or "").strip().lower()
+        label_clean = re.sub(r'\s+', ' ', label)
+        
+        best_idx, best_score = None, -9999
+        for ci in camelot_info:
+            if ci["index"] in used_camelot:
                 continue
-            d = abs((ct.get("page_number", ct.get("page", 0))) - tbl_page)
-            if d < best_d:
-                best_d, best = d, i
-
-        if best is not None and best_d <= 2:
-            t["grid_data"] = camelot_tables[best]
-            used.add(best)
-
+                
+            page_diff = abs(ci["page"] - tbl_page)
+            if page_diff > 2:
+                continue
+                
+            # Base score from page proximity
+            score = 10.0 - 4.0 * page_diff
+            
+            # Content similarity bonus
+            if label_clean and label_clean in ci["text"]:
+                score += 20.0
+            elif caption and any(w in ci["text"] for w in caption.split()[:4] if len(w) > 3):
+                score += 10.0
+                
+            # Skip mismatched table numbers (e.g. table Y matches Y but gets penalised for X)
+            tbl_number = str(t.get("number") or "")
+            if tbl_number:
+                mentioned_numbers = re.findall(r'\btable\s*(\d+|[a-z]\.\d+)', ci["text"])
+                if mentioned_numbers and tbl_number not in mentioned_numbers:
+                    score -= 50.0
+                    
+            if score > best_score:
+                best_score = score
+                best_idx = ci["index"]
+                
+        if best_idx is not None and best_score >= 0:
+            t["grid_data"] = camelot_tables[best_idx]
+            used_camelot.add(best_idx)
+            
         result.append(t)
-
-    # Append unmatched Camelot grids
-    for i, ct in enumerate(camelot_tables):
-        if i not in used:
-            result.append({
-                "label":            None,
-                "number":           None,
-                "caption_text":     None,
-                "caption_position": None,
-                "page_number":      ct.get("page_number", ct.get("page")),
-                "grid_data":        ct,
-            })
 
     return result
 
@@ -451,7 +495,7 @@ def _attach_camelot_grids(
 # Post-processing cleanup
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _post_process(doc: dict, full_text: str) -> None:
+def _post_process(doc: dict, full_text: str, page_texts: List[str]) -> None:
     """Fix known extraction artifacts."""
     ms = doc.get("manuscript", {})
 
@@ -512,34 +556,43 @@ def _post_process(doc: dict, full_text: str) -> None:
         ref_match = ref_header_re.search(full_text)
         doc_end = ref_match.start() if ref_match else len(full_text)
 
+        # Precompute page offsets in full_text to allow page-restricted search
+        page_offsets = [0]
+        for txt in page_texts:
+            page_offsets.append(page_offsets[-1] + len(txt) + 1)  # +1 for the '\n' joiner
+
         heading_positions = []
-        current_pos = 0
         for sec in sections:
             heading_text = (sec.get("heading_text") or "").strip()
-            if not heading_text:
-                heading_positions.append(None)
-                continue
+            page_num = sec.get("page_number", 1)
 
             words = heading_text.split()
             if not words:
                 heading_positions.append(None)
                 continue
 
-            pattern_str = r'(?:^|\n)\s*(' + r'\s+'.join(re.escape(w) for w in words) + r')'
+            pattern_str = r'(?:^|\n)\s*(?:\d+(?:\.\d+)*\.?\s+|[A-Z]\.?\s+|[IVXLCDM]+\.?\s+)?[\s\x00-\x1f]*(' + r'[\s\x00-\x1f]+'.join(re.escape(w) for w in words) + r')'
             pattern = re.compile(pattern_str, re.IGNORECASE)
 
-            m = pattern.search(full_text, current_pos)
-            if m:
-                heading_positions.append((m.start(1), m.end(1)))
-                current_pos = m.end(1)
-            else:
-                m_fallback = pattern.search(full_text)
-                if m_fallback:
-                    heading_positions.append((m_fallback.start(1), m_fallback.end(1)))
-                    if m_fallback.end(1) > current_pos:
-                        current_pos = m_fallback.end(1)
-                else:
-                    heading_positions.append(None)
+            matched_pos = None
+            # Search on the reported page, page+1, and page-1 to prevent cross-page matching bugs
+            for p in [page_num, page_num + 1, page_num - 1]:
+                if 1 <= p <= len(page_texts):
+                    p_text = page_texts[p - 1]
+                    m = pattern.search(p_text)
+                    if m:
+                        global_start = page_offsets[p - 1] + m.start(1)
+                        global_end = page_offsets[p - 1] + m.end(1)
+                        matched_pos = (global_start, global_end)
+                        break
+
+            if not matched_pos:
+                # Document-wide fallback search if not found near target page
+                m = pattern.search(full_text)
+                if m:
+                    matched_pos = (m.start(1), m.end(1))
+
+            heading_positions.append(matched_pos)
 
         for i, sec in enumerate(sections):
             pos = heading_positions[i]
@@ -551,7 +604,7 @@ def _post_process(doc: dict, full_text: str) -> None:
             end_body = doc_end
             for j in range(i + 1, len(sections)):
                 next_pos = heading_positions[j]
-                if next_pos is not None:
+                if next_pos is not None and next_pos[0] > start_body:
                     end_body = next_pos[0]
                     break
 
