@@ -208,7 +208,8 @@ def _run_camelot(
         if method == "stream":
             # edge_tol: tolerate slight misalignment in whitespace tables
             kwargs["edge_tol"] = 100
-            kwargs["row_tol"]  = 10
+            kwargs["row_tol"]  = 6
+            kwargs["column_tol"] = 2
 
         tables = camelot.read_pdf(pdf_path, **kwargs)
         return list(tables)
@@ -227,6 +228,49 @@ def _build_extracted_table(
 ) -> ExtractedTable:
     """Convert a camelot Table object into our ExtractedTable dataclass."""
     df: pd.DataFrame = camelot_table.df
+
+    # Clean up cell values to fix character fragmentation and layout artifacts
+    import re
+    def clean_cell_text(text: str) -> str:
+        if not isinstance(text, str):
+            return text
+        # Replace unicode minus with regular hyphen
+        text = text.replace('\u2212', '-')
+        # Replace newlines/carriage returns with space
+        text = text.replace('\r\n', ' ').replace('\r', ' ').replace('\n', ' ')
+        
+        # 1. Collapse spaces in floating point / scientific numbers first
+        prev = ""
+        while prev != text:
+            prev = text
+            text = re.sub(r'(\d)\s+(\d)', r'\1\2', text)
+            text = re.sub(r'(\d)\s+(\.)', r'\1\2', text)
+            text = re.sub(r'(\.)\s+(\d)', r'\1\2', text)
+            text = re.sub(r'([+\-])\s+(\d)', r'\1\2', text)
+            text = re.sub(r'([\d\.])\s+([Ee])', r'\1\2', text)
+            text = re.sub(r'([Ee])\s+([+\-\d])', r'\1\2', text)
+            
+        # 2. Move misplaced exponent signs to the correct place
+        text = re.sub(r'([Ee])\s*(\d+)\s*([+\-])', r'\1\3\2', text)
+        
+        # 3. Collapse spaces one more time to merge signs/digits that were moved
+        prev = ""
+        while prev != text:
+            prev = text
+            text = re.sub(r'(\d)\s+(\d)', r'\1\2', text)
+            text = re.sub(r'(\d)\s+(\.)', r'\1\2', text)
+            text = re.sub(r'(\.)\s+(\d)', r'\1\2', text)
+            text = re.sub(r'([+\-])\s+(\d)', r'\1\2', text)
+            text = re.sub(r'([\d\.])\s+([Ee])', r'\1\2', text)
+            text = re.sub(r'([Ee])\s+([+\-\d])', r'\1\2', text)
+            
+        # Clean up multiple spaces
+        text = re.sub(r'\s+', ' ', text).strip()
+        return text
+
+    df = df.copy()
+    for col in df.columns:
+        df[col] = df[col].apply(clean_cell_text)
 
     # Camelot bbox is a string "(x1,y1,x2,y2)" in PDF coordinates
     # x1,y1 = bottom-left; x2,y2 = top-right (PDF origin is bottom-left)
