@@ -55,7 +55,8 @@ The extraction pipeline in `services/extraction-pipeline` consists of the follow
 *   **`nuextract_client.py`**: Handles API requests to the local Llama server on port `8080` with json formatting and Length recovery.
 *   **`nuextract_schema.py`**: Defines the metadata and body JSON schemas. *Note: `body_text` is excluded from the LLM schema to prevent truncation and speed up generation.*
 *   **`coordinate_mapper.py`**: Fallback loop algorithm that queries PyMuPDF to search character strings and map absolute coordinate bounding-boxes.
-*   **`camelot_extractor.py`**: Invokes Camelot to trace lattice and stream table grid boundaries.
+*   **`docling_extractor.py`**: Invokes IBM Docling to perform visual page-segmentation and high-accuracy cell grid parsing on CPU.
+*   **`camelot_extractor.py`**: Invokes Camelot to trace table grid boundaries as a fallback if Docling is unavailable.
 *   **`pymupdf_extractor.py`**: Lower-level fitz reader parsing pages into TextLine objects.
 *   **`merger.py`**: Normalizes and consolidates structured objects from different stages into a single JSON schema.
 
@@ -63,6 +64,7 @@ The extraction pipeline in `services/extraction-pipeline` consists of the follow
 
 ## Design Optimizations
 
-1.  **Dynamic Metadata Detection**: The orchestrator scans the first 5 pages for the `\babstract\b` keyword, ensuring that cover sheets or highlights pages are bypassed and the abstract page is correctly processed with the metadata schema.
-2.  **References Skipping**: The pipeline detects the references start page during Stage 2 and completely skips LLM extraction on any pages after it, saving substantial processing time and preventing truncation errors on dense bibliography pages.
-3.  **Zero-Truncation Body Slicing**: Rather than forcing NuExtract to copy/paste thousands of words of body text verbatim (which caused output context overflows), the pipeline uses python string slicing between heading coordinates in `full_text` to reconstruct `body_text` with 100% precision.
+1.  **Prioritized Table Extraction (Docling + Camelot Fallback)**: The pipeline prioritizes **IBM Docling** to extract clean table grids and header metadata. If Docling is not installed or encounters an execution failure, the pipeline seamlessly falls back to a tuned **Camelot** configuration (`row_tol=6`, `column_tol=2`). Docling runs on CPU with fixed thread limits (4 threads) to prevent VRAM memory contention with the local LLM server.
+2.  **Dynamic Metadata Detection**: The orchestrator scans the first 5 pages for the `\babstract\b` keyword, ensuring that cover sheets or highlights pages are bypassed and the abstract page is correctly processed with the metadata schema.
+3.  **References Skipping**: The pipeline detects the references start page during Stage 2 and completely skips LLM extraction on any pages after it, saving substantial processing time and preventing truncation errors on dense bibliography pages.
+4.  **Zero-Truncation Body Slicing with Control Characters**: Rather than forcing NuExtract to copy/paste thousands of words of body text verbatim (which caused output context overflows), the pipeline uses python string slicing between heading coordinates in `full_text` to reconstruct `body_text` with 100% precision. The regex search is robust to ASCII control characters (such as `\x07` BEL) and non-breaking spaces commonly found in PDF text layers, preventing page-jumping or zero-length section body errors.
