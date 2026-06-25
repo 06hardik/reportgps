@@ -216,11 +216,36 @@ def _backoff(attempt: int) -> None:
 
 def _try_recover_json(text: str) -> Optional[dict]:
     start = text.find("{")
-    end   = text.rfind("}")
-    if start == -1 or end == -1 or end <= start:
+    if start == -1:
         return None
+        
+    text_clean = text[start:].strip()
+    
+    # Try parsing the raw text directly in case it's already valid
     try:
-        result = json.loads(text[start: end + 1])
-        return result if isinstance(result, dict) else None
+        res = json.loads(text_clean)
+        if isinstance(res, dict):
+            return res
     except json.JSONDecodeError:
-        return None
+        pass
+        
+    # Backtrack through '}' brackets from the end
+    pos = len(text_clean)
+    closures = ["", "}", "]}", "]]}", '"}]}', '"]}]}', '"}', '"]}', '"]]}']
+    
+    while True:
+        pos = text_clean.rfind("}", 0, pos)
+        if pos == -1:
+            break
+            
+        candidate = text_clean[:pos + 1]
+        for closure in closures:
+            try:
+                res = json.loads(candidate + closure)
+                if isinstance(res, dict):
+                    return res
+            except json.JSONDecodeError:
+                continue
+        pos -= 1
+        
+    return None
