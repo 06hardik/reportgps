@@ -7,3 +7,5 @@ pandas>=2.0.0
 # Camelot requires Ghostscript:  sudo apt-get install ghostscript
 camelot-py[cv]>=0.11.0
 opencv-python-headless>=4.9.0
+pdfplumber>=0.11.0
+docling>=2.0.0
