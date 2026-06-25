@@ -145,9 +145,39 @@ def extract_tables_docling(pdf_path: str) -> List[dict]:
                 print(f"[DoclingExtractor] Failed to export table {idx} as DataFrame: {e}")
                 continue
                 
-            df = df.copy()
+            def safe_clean(v):
+                if v is None:
+                    return ""
+                if isinstance(v, float):
+                    import math
+                    if math.isnan(v):
+                        return ""
+                try:
+                    val_str = str(v).strip()
+                    if val_str.lower() in ("nan", "none", "nat"):
+                        return ""
+                    return clean_cell_text(val_str)
+                except Exception:
+                    return ""
+
+            # Clean up the entire dataframe element-wise
+            if hasattr(df, "map"):
+                df = df.map(safe_clean)
+            else:
+                df = df.applymap(safe_clean)
+
+            # Make column names unique to satisfy json records serialization
+            unique_cols = []
+            seen_cols = {}
             for col in df.columns:
-                df[col] = df[col].apply(lambda v: clean_cell_text(str(v)) if pd.notna(v) else "")
+                c_str = str(col)
+                if c_str in seen_cols:
+                    seen_cols[c_str] += 1
+                    unique_cols.append(f"{c_str}_{seen_cols[c_str]}")
+                else:
+                    seen_cols[c_str] = 0
+                    unique_cols.append(c_str)
+            df.columns = unique_cols
                 
             # 3. Bounding box conversion to Camelot bottom-left format
             bbox_dict = {"x1": 0.0, "y1": 0.0, "x2": 0.0, "y2": 0.0}

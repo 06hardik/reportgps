@@ -1977,343 +1977,34 @@
     {
       "label": "Table 1",
       "number": 1,
-      "caption_text": "a comparison of them in terms of the evaluation tools and metrics, technique used, performance metric, deployment strategy(e.g., centralized, decentralized), and case study of each mechanism",
-      "caption_position": null,
+      "caption_text": "According to the discussed and studied service placement mechanisms, a comparison of them in terms of the evaluation tools and met\u00ad rics, technique used, performance metric, deployment strategy(e.g., centralized, decentralized), and case study of each mechanism are shown in Table 1.",
+      "caption_position": "below",
       "page_number": 3,
       "grid_data": {
-        "table_index": 4,
+        "table_index": 0,
         "page_number": 4,
         "bbox": {
-          "x1": 33.59679999999991,
-          "y1": 452.59587318,
-          "x2": 559.99054329,
-          "y2": 749.0600269321808
+          "x1": 36.59433364868164,
+          "y1": 332.9401550292969,
+          "x2": 558.0894775390625,
+          "y2": 74.03719329833984
         },
-        "accuracy": 98.8039009532567,
-        "parse_method": "stream",
-        "has_empty_cells": true,
-        "empty_cell_locations": [
-          {
-            "row": 0,
-            "col": 1
-          },
-          {
-            "row": 0,
-            "col": 2
-          },
-          {
-            "row": 0,
-            "col": 3
-          },
-          {
-            "row": 0,
-            "col": 4
-          },
-          {
-            "row": 0,
-            "col": 5
-          },
-          {
-            "row": 1,
-            "col": 1
-          },
-          {
-            "row": 1,
-            "col": 2
-          },
-          {
-            "row": 1,
-            "col": 3
-          },
-          {
-            "row": 1,
-            "col": 4
-          },
-          {
-            "row": 1,
-            "col": 5
-          },
-          {
-            "row": 3,
-            "col": 0
-          },
-          {
-            "row": 3,
-            "col": 1
-          },
-          {
-            "row": 3,
-            "col": 2
-          },
-          {
-            "row": 3,
-            "col": 3
-          },
-          {
-            "row": 3,
-            "col": 5
-          },
-          {
-            "row": 5,
-            "col": 0
-          },
-          {
-            "row": 5,
-            "col": 1
-          },
-          {
-            "row": 5,
-            "col": 4
-          },
-          {
-            "row": 7,
-            "col": 0
-          },
-          {
-            "row": 7,
-            "col": 1
-          },
-          {
-            "row": 7,
-            "col": 4
-          },
-          {
-            "row": 7,
-            "col": 5
-          },
-          {
-            "row": 9,
-            "col": 0
-          },
-          {
-            "row": 9,
-            "col": 1
-          },
-          {
-            "row": 9,
-            "col": 3
-          },
-          {
-            "row": 9,
-            "col": 4
-          },
-          {
-            "row": 10,
-            "col": 0
-          },
-          {
-            "row": 10,
-            "col": 1
-          },
-          {
-            "row": 10,
-            "col": 3
-          },
-          {
-            "row": 10,
-            "col": 4
-          },
-          {
-            "row": 10,
-            "col": 5
-          },
-          {
-            "row": 12,
-            "col": 0
-          },
-          {
-            "row": 12,
-            "col": 1
-          },
-          {
-            "row": 12,
-            "col": 3
-          },
-          {
-            "row": 12,
-            "col": 4
-          },
-          {
-            "row": 12,
-            "col": 5
-          },
-          {
-            "row": 14,
-            "col": 0
-          },
-          {
-            "row": 14,
-            "col": 1
-          },
-          {
-            "row": 14,
-            "col": 3
-          },
-          {
-            "row": 14,
-            "col": 4
-          },
-          {
-            "row": 16,
-            "col": 1
-          },
-          {
-            "row": 16,
-            "col": 3
-          },
-          {
-            "row": 16,
-            "col": 4
-          },
-          {
-            "row": 16,
-            "col": 5
-          },
-          {
-            "row": 17,
-            "col": 0
-          },
-          {
-            "row": 17,
-            "col": 1
-          },
-          {
-            "row": 17,
-            "col": 3
-          },
-          {
-            "row": 17,
-            "col": 4
-          },
-          {
-            "row": 17,
-            "col": 5
-          },
-          {
-            "row": 19,
-            "col": 0
-          },
-          {
-            "row": 19,
-            "col": 1
-          },
-          {
-            "row": 19,
-            "col": 4
-          },
-          {
-            "row": 19,
-            "col": 5
-          },
-          {
-            "row": 22,
-            "col": 0
-          },
-          {
-            "row": 22,
-            "col": 1
-          },
-          {
-            "row": 22,
-            "col": 4
-          },
-          {
-            "row": 24,
-            "col": 0
-          },
-          {
-            "row": 24,
-            "col": 1
-          },
-          {
-            "row": 24,
-            "col": 4
-          },
-          {
-            "row": 26,
-            "col": 0
-          },
-          {
-            "row": 26,
-            "col": 3
-          },
-          {
-            "row": 26,
-            "col": 4
-          },
-          {
-            "row": 26,
-            "col": 5
-          },
-          {
-            "row": 28,
-            "col": 0
-          },
-          {
-            "row": 28,
-            "col": 1
-          },
-          {
-            "row": 28,
-            "col": 3
-          },
-          {
-            "row": 28,
-            "col": 4
-          },
-          {
-            "row": 28,
-            "col": 5
-          },
-          {
-            "row": 30,
-            "col": 0
-          },
-          {
-            "row": 30,
-            "col": 1
-          },
-          {
-            "row": 30,
-            "col": 4
-          },
-          {
-            "row": 30,
-            "col": 5
-          },
-          {
-            "row": 31,
-            "col": 1
-          },
-          {
-            "row": 31,
-            "col": 2
-          },
-          {
-            "row": 31,
-            "col": 3
-          },
-          {
-            "row": 31,
-            "col": 4
-          },
-          {
-            "row": 31,
-            "col": 5
-          }
-        ],
+        "accuracy": 100.0,
+        "parse_method": "docling",
+        "has_empty_cells": false,
+        "empty_cell_locations": [],
         "has_footnote_markers": true,
-        "row_count": 32,
+        "row_count": 13,
         "col_count": 6,
         "headers": [
-          "Table1",
-          "",
-          "",
-          "",
-          "",
-          ""
+          "Reference",
+          "Utilized Technique",
+          "Evaluation Tool",
+          "Performance Metric",
+          "Deployment strategy",
+          "Case study"
         ],
-        "data_json": "[{\"0\":\"Table1\",\"1\":\"\",\"2\":\"\",\"3\":\"\",\"4\":\"\",\"5\":\"\"},{\"0\":\"A side-by-side comparison of the service placement mechanisms.\",\"1\":\"\",\"2\":\"\",\"3\":\"\",\"4\":\"\",\"5\":\"\"},{\"0\":\"Reference\",\"1\":\"Utilized Technique\",\"2\":\"Evaluation Tool\",\"3\":\"Performance Metric\",\"4\":\"Deployment\",\"5\":\"Case study\"},{\"0\":\"\",\"1\":\"\",\"2\":\"\",\"3\":\"\",\"4\":\"strategy\",\"5\":\"\"},{\"0\":\"(Skarlat et al., 2017)\",\"1\":\"GA\",\"2\":\"Simulation\",\"3\":\"Service delay, Resource utilization, service\",\"4\":\"Hierarchical\",\"5\":\"Manufacturing\"},{\"0\":\"\",\"1\":\"\",\"2\":\"(iFogSim)\",\"3\":\"placement percentage\",\"4\":\"\",\"5\":\"application\"},{\"0\":\"(Guerrero et al., 2019a)\",\"1\":\"NSGA-II\",\"2\":\"Simulation\",\"3\":\"Resource usage, Service spread, Network\",\"4\":\"Centralized\",\"5\":\"EEG application\"},{\"0\":\"\",\"1\":\"\",\"2\":\"(MATLAB)\",\"3\":\"latency, Execution time\",\"4\":\"\",\"5\":\"\"},{\"0\":\"(Canali & Lancellotti, 2019)\",\"1\":\"GA\",\"2\":\"Simulation\",\"3\":\"Execution time, Convergence\",\"4\":\"Centralized\",\"5\":\"Smart city\"},{\"0\":\"\",\"1\":\"\",\"2\":\"(AMPL + KNITRO\",\"3\":\"\",\"4\":\"\",\"5\":\"application\"},{\"0\":\"\",\"1\":\"\",\"2\":\"solver)\",\"3\":\"\",\"4\":\"\",\"5\":\"\"},{\"0\":\"(Djemai et al., 2019)\",\"1\":\"PSO\",\"2\":\"Simulation\",\"3\":\"Energy consumption, Delay violation\",\"4\":\"Centralized\",\"5\":\"IoT application\"},{\"0\":\"\",\"1\":\"\",\"2\":\"(iFogSim)\",\"3\":\"\",\"4\":\"\",\"5\":\"\"},{\"0\":\"(Roy et al., 2020)\",\"1\":\"PSO\",\"2\":\"Simulation\",\"3\":\"Deployment cost, QoE, User satisfaction ratio\",\"4\":\"Centralized\",\"5\":\"Smart city\"},{\"0\":\"\",\"1\":\"\",\"2\":\"(Cloudsim)\",\"3\":\"\",\"4\":\"\",\"5\":\"application\"},{\"0\":\"(Santoyo-Gonz\\u00b4alez &\",\"1\":\"SA\",\"2\":\"Simulation\",\"3\":\"Number of FNs deployed, Execution time\",\"4\":\"Centralized\",\"5\":\"Desktop application\"},{\"0\":\"Cervell\\u00b4o-Pastor, 2018)\",\"1\":\"\",\"2\":\"(Python + GLPK\",\"3\":\"\",\"4\":\"\",\"5\":\"\"},{\"0\":\"\",\"1\":\"\",\"2\":\"solver)\",\"3\":\"\",\"4\":\"\",\"5\":\"\"},{\"0\":\"(Guerrero et al., 2019b)\",\"1\":\"Heuristic-based\",\"2\":\"Simulation\",\"3\":\"Network usage, Service latency, CPU usage,\",\"4\":\"Decentralized\",\"5\":\"IoT application\"},{\"0\":\"\",\"1\":\"\",\"2\":\"(iFogSim)\",\"3\":\"Number of migrations\",\"4\":\"\",\"5\":\"\"},{\"0\":\"(Lin et al., 2020)\",\"1\":\"BA\",\"2\":\"Simulation (C++)\",\"3\":\"Execution time, Fitness value\",\"4\":\"Centralized\",\"5\":\"IoT application\"},{\"0\":\"(Mehran et al., 2019)\",\"1\":\"Pareto-based Optimization\",\"2\":\"Simulation\",\"3\":\"Execution time, Execution cost, Energy\",\"4\":\"Centralized\",\"5\":\"Healthcare\"},{\"0\":\"\",\"1\":\"\",\"2\":\"(jMetal solver)\",\"3\":\"consumption\",\"4\":\"\",\"5\":\"application\"},{\"0\":\"(Mahmud et al., 2018)\",\"1\":\"Heuristic-based\",\"2\":\"Simulation\",\"3\":\"Application placement time, Deadline satisfied\",\"4\":\"Decentralized\",\"5\":\"Healthcare\"},{\"0\":\"\",\"1\":\"\",\"2\":\"(iFogSim)\",\"3\":\"percentage\",\"4\":\"\",\"5\":\"application\"},{\"0\":\"(Zeng et al., 2018)\",\"1\":\"Heuristic-based + Linear\",\"2\":\"Simulation\",\"3\":\"Energy consumption\",\"4\":\"Decentralized\",\"5\":\"CPS application\"},{\"0\":\"\",\"1\":\"programming\",\"2\":\"(MATLAB)\",\"3\":\"\",\"4\":\"\",\"5\":\"\"},{\"0\":\"(Lee et al., 2019)\",\"1\":\"Vector bin packing\",\"2\":\"Simulation\",\"3\":\"Resource usage, Data movement distance\",\"4\":\"Decentralized\",\"5\":\"IoT application\"},{\"0\":\"\",\"1\":\"\",\"2\":\"(MATLAB)\",\"3\":\"\",\"4\":\"\",\"5\":\"\"},{\"0\":\"Our approach\",\"1\":\"WOA\",\"2\":\"Simulation\",\"3\":\"Resource usage, Service Acceptance ratio,\",\"4\":\"Centralized\",\"5\":\"IoT application\"},{\"0\":\"\",\"1\":\"\",\"2\":\"(iFogSim)\",\"3\":\"Energy consumption, Service Delay\",\"4\":\"\",\"5\":\"\"},{\"0\":\"Abbreviations: GA, Genetic Algorithm; PSO, Particles Swarm Optimization; SPEA2, Strength Pareto Evolutionary Algorithm; NSGA-II, Non-dominated sorting genetic\",\"1\":\"\",\"2\":\"\",\"3\":\"\",\"4\":\"\",\"5\":\"\"}]"
+        "data_json": "[{\"Reference\":\"(Skarlat et al., 2017)\",\"Utilized Technique\":\"GA\",\"Evaluation Tool\":\"Simulation (iFogSim)\",\"Performance Metric\":\"Service delay, Resource utilization, service placement percentage\",\"Deployment strategy\":\"Hierarchical\",\"Case study\":\"Manufacturing application\"},{\"Reference\":\"( Guerrero et al., 2019a )\",\"Utilized Technique\":\"NSGA-II\",\"Evaluation Tool\":\"Simulation (MATLAB)\",\"Performance Metric\":\"Resource usage, Service spread, Network latency, Execution time\",\"Deployment strategy\":\"Centralized\",\"Case study\":\"EEG application\"},{\"Reference\":\"(Canali & Lancellotti, 2019)\",\"Utilized Technique\":\"GA\",\"Evaluation Tool\":\"Simulation (AMPL + KNITRO solver)\",\"Performance Metric\":\"Execution time, Convergence\",\"Deployment strategy\":\"Centralized\",\"Case study\":\"Smart city application\"},{\"Reference\":\"(Djemai et al., 2019)\",\"Utilized Technique\":\"PSO\",\"Evaluation Tool\":\"Simulation (iFogSim)\",\"Performance Metric\":\"Energy consumption, Delay violation\",\"Deployment strategy\":\"Centralized\",\"Case study\":\"IoT application\"},{\"Reference\":\"(Roy et al., 2020)\",\"Utilized Technique\":\"PSO\",\"Evaluation Tool\":\"Simulation (Cloudsim)\",\"Performance Metric\":\"Deployment cost, QoE, User satisfaction ratio\",\"Deployment strategy\":\"Centralized\",\"Case study\":\"Smart city application\"},{\"Reference\":\"(Santoyo-Gonz \\u00b4 alez & Cervell \\u00b4 o-Pastor, 2018)\",\"Utilized Technique\":\"SA\",\"Evaluation Tool\":\"Simulation (Python + GLPK solver)\",\"Performance Metric\":\"Number of FNs deployed, Execution time\",\"Deployment strategy\":\"Centralized\",\"Case study\":\"Desktop application\"},{\"Reference\":\"( Guerrero et al., 2019b )\",\"Utilized Technique\":\"Heuristic-based\",\"Evaluation Tool\":\"Simulation (iFogSim)\",\"Performance Metric\":\"Network usage, Service latency, CPU usage, Number of migrations\",\"Deployment strategy\":\"Decentralized\",\"Case study\":\"IoT application\"},{\"Reference\":\"( Lin et al., 2020 )\",\"Utilized Technique\":\"BA\",\"Evaluation Tool\":\"Simulation (C ++ )\",\"Performance Metric\":\"Execution time, Fitness value\",\"Deployment strategy\":\"Centralized\",\"Case study\":\"IoT application\"},{\"Reference\":\"( Mehran et al., 2019 )\",\"Utilized Technique\":\"Pareto-based Optimization\",\"Evaluation Tool\":\"Simulation (jMetal solver)\",\"Performance Metric\":\"Execution time, Execution cost, Energy consumption\",\"Deployment strategy\":\"Centralized\",\"Case study\":\"Healthcare application\"},{\"Reference\":\"( Mahmud et al., 2018 )\",\"Utilized Technique\":\"Heuristic-based\",\"Evaluation Tool\":\"Simulation (iFogSim)\",\"Performance Metric\":\"Application placement time, Deadline satisfied percentage\",\"Deployment strategy\":\"Decentralized\",\"Case study\":\"Healthcare application\"},{\"Reference\":\"( Zeng et al., 2018 )\",\"Utilized Technique\":\"Heuristic-based + Linear programming\",\"Evaluation Tool\":\"Simulation (MATLAB)\",\"Performance Metric\":\"Energy consumption\",\"Deployment strategy\":\"Decentralized\",\"Case study\":\"CPS application\"},{\"Reference\":\"( Lee et al., 2019 )\",\"Utilized Technique\":\"Vector bin packing\",\"Evaluation Tool\":\"Simulation (MATLAB)\",\"Performance Metric\":\"Resource usage, Data movement distance\",\"Deployment strategy\":\"Decentralized\",\"Case study\":\"IoT application\"},{\"Reference\":\"Our approach\",\"Utilized Technique\":\"WOA\",\"Evaluation Tool\":\"Simulation (iFogSim)\",\"Performance Metric\":\"Resource usage, Service Acceptance ratio, Energy consumption, Service Delay\",\"Deployment strategy\":\"Centralized\",\"Case study\":\"IoT application\"}]"
       },
       "bbox": {
         "page": 3,
@@ -2331,88 +2022,26 @@
       "caption_position": "above",
       "page_number": 8,
       "grid_data": {
-        "table_index": 10,
+        "table_index": 1,
         "page_number": 8,
         "bbox": {
-          "x1": 33.5968,
-          "y1": 52.60675580000001,
-          "x2": 570.02867296,
-          "y2": 412.530380157197
+          "x1": 36.5802001953125,
+          "y1": 741.2160034179688,
+          "x2": 289.006591796875,
+          "y2": 412.43304443359375
         },
-        "accuracy": 99.68581802913585,
-        "parse_method": "stream",
-        "has_empty_cells": true,
-        "empty_cell_locations": [
-          {
-            "row": 0,
-            "col": 0
-          },
-          {
-            "row": 0,
-            "col": 1
-          },
-          {
-            "row": 1,
-            "col": 1
-          },
-          {
-            "row": 2,
-            "col": 0
-          },
-          {
-            "row": 2,
-            "col": 1
-          },
-          {
-            "row": 3,
-            "col": 1
-          },
-          {
-            "row": 3,
-            "col": 2
-          },
-          {
-            "row": 5,
-            "col": 0
-          },
-          {
-            "row": 5,
-            "col": 1
-          },
-          {
-            "row": 21,
-            "col": 2
-          },
-          {
-            "row": 25,
-            "col": 2
-          },
-          {
-            "row": 29,
-            "col": 2
-          },
-          {
-            "row": 31,
-            "col": 2
-          },
-          {
-            "row": 38,
-            "col": 0
-          },
-          {
-            "row": 38,
-            "col": 2
-          }
-        ],
+        "accuracy": 100.0,
+        "parse_method": "docling",
+        "has_empty_cells": false,
+        "empty_cell_locations": [],
         "has_footnote_markers": true,
-        "row_count": 39,
-        "col_count": 3,
+        "row_count": 28,
+        "col_count": 2,
         "headers": [
-          "",
-          "",
-          "{"
+          "Notation",
+          "Definition"
         ],
-        "data_json": "[{\"0\":\"\",\"1\":\"\",\"2\":\"{\"},{\"0\":\"Table2\",\"1\":\"\",\"2\":\"1 if IoT service Sk, l placed on the fog node FNi,j = XFNi,j\"},{\"0\":\"\",\"1\":\"\",\"2\":\"(3) Sk, l 0 otherwise\"},{\"0\":\"Notations and definitions.\",\"1\":\"\",\"2\":\"\"},{\"0\":\"Notation\",\"1\":\"Definition\",\"2\":\"FNi,j X = 1, if at least one IoT service is deployed on the fog nodeFNi,j,\"},{\"0\":\"\",\"1\":\"\",\"2\":\"Sk, l\"},{\"0\":\"\\u0394t\",\"1\":\"The time interval\",\"2\":\"FNi,j otherwiseX = 0.\"},{\"0\":\"A k\",\"1\":\"The k-th IoT application\",\"2\":\"Sk, l\"},{\"0\":\"Sk,l\",\"1\":\"The lth service belonging to kth the IoT application\",\"2\":\"Note that the fog control node within the master fog domain peri-\"},{\"0\":\"SDL k, l\",\"1\":\"The maximum time for executing IoT service Sk,l\",\"2\":\"odically calculates the IoT service placement plan according to objective\"},{\"0\":\"SSize k, l\",\"1\":\"The number of instruction of IoT service Sk,l\",\"2\":\"functions in certain \\u0394t time intervals.\"},{\"0\":\"SBW k, l\",\"1\":\"The network traffic usage of IoT service Sk,l\",\"2\":\"In the following, we describe the IoT service placement as an opti-\"},{\"0\":\"SCPU k, l\",\"1\":\"The processing power demand of IoT service Sk,l\",\"2\":\"mization problem. In this study, we consider two kinds of objective\"},{\"0\":\"SRAM k, l\",\"1\":\"The main memory demand of IoT service Sk,l\",\"2\":\"functions, namely, throughput and energy consumption. The first\"},{\"0\":\"SDisk k, l\",\"1\":\"The storage capacity demand of IoT service Sk,l\",\"2\":\"objective is throughput metric or service acceptance ratio, that means\"},{\"0\":\"Fi\",\"1\":\"The i-th fog domain\",\"2\":\"the maximization deploying the number of IoT service on the fog nodes\"},{\"0\":\"FNi,j\",\"1\":\"The jth fog resource belonging to ith the fog domain\",\"2\":\"(instead of cloud servers) while meeting the QoS requirements of each\"},{\"0\":\"FNCPU i, j\",\"1\":\"CPU capacity of the fog node FNi,j\",\"2\":\"IoT service, as expressed by Equation (4):\"},{\"0\":\"FNRAM i, j\",\"1\":\"Memory capacity of the fog node FNi,j\",\"2\":\"p m r n \\u2211 \\u2211 \\u2211 \\u2211\"},{\"0\":\"FNDisk i, j\",\"1\":\"The storage capacity of the fog node FNi,j\",\"2\":\"T = XFNi,j (4) Sk, l\"},{\"0\":\"FNBW i, j\",\"1\":\"The network bandwidth capacity of the fog node FNi,j\",\"2\":\"i=1 j=1 k=1 l=1\"},{\"0\":\"FNi,j X Sk,\",\"1\":\"Binary variable to present if IoT service Sk,l is placed on the fog node\",\"2\":\"\"},{\"0\":\"l\",\"1\":\"FNi,j\",\"2\":\"In this work, we consider the QoS requirements of each IoT service as\"},{\"0\":\"T\",\"1\":\"Throughput\",\"2\":\"the constraints of throughput objective function. Therefore, constraint\"},{\"0\":\"E\",\"1\":\"Total Energy Consumption\",\"2\":\"(5) guarantees that the response time of each IoT service SRT k, l does not\"},{\"0\":\"(\\u0394t) ESFNi,j\",\"1\":\"The static energy consumption at the \\u0394t th interval\",\"2\":\"\"},{\"0\":\"(\\u0394t) EDFNi,j\",\"1\":\"The dynamic energy consumption at the \\u0394t th interval\",\"2\":\"violate the maximum time for serving IoT service SDL k, l to satisfy the QoS\"},{\"0\":\"(\\u0394t) EFNi,j\",\"1\":\"The total computation energy consumption at the \\u0394t th interval\",\"2\":\"requirement for each IoT serviceSk,l, especially for delay-sensitive IoT\"},{\"0\":\"TEComp\",\"1\":\"Total computation energy consumption\",\"2\":\"services.\"},{\"0\":\"\\u2032 \\u2032 FNi,j ,FNi ,j \\u03bb\",\"1\":\"\\u2032 to serve The data transfer rate between two fog nodes FNi,j and FNi \\u2032 ,j\",\"2\":\"\"},{\"0\":\"k, l\",\"1\":\"IoT service Sk,l\",\"2\":\"SRT (5) k, l\\u2a7dSDL k, l; \\u2200Sk, l \\u2208 Ak\"},{\"0\":\"UCEFNi,j\",\"1\":\"The unit communication energy consumption of a fog node FNi,j\",\"2\":\"\"},{\"0\":\"(\\u0394t) ECFNi,j\",\"1\":\"The total communication energy consumption at the \\u0394t th interval\",\"2\":\"Besides, the constraints (6) to (13) demonstrate that the processing\"},{\"0\":\"TEComm\",\"1\":\"Total communication energy consumption\",\"2\":\"power, the main memory, and the storage demands of IoT services\"},{\"0\":\"DAC, CG\",\"1\":\"The delay between the admission control and the cloud gateway\",\"2\":\"should not exceed fog node capabilities as follows:\"},{\"0\":\"DAC, MF\",\"1\":\"The delay between the admission control and the master fog node\",\"2\":\"m r \\u2211 \\u2211\"},{\"0\":\"DMF, SF\",\"1\":\"The delay between the master fog node and the slave fog domains\",\"2\":\"XFNi,j \\u00d7 SCPU ; \\u2200i, j; \\u2200\\u0394t (6) k, l \\u2a7dFNCPU i,j Sk, l\"},{\"0\":\"DAC(Fi ), FNi,j\",\"1\":\"The delay between the fog domain control node Fi and the fog node FNi,j\",\"2\":\"k=1 l=1\"},{\"0\":\"\",\"1\":\"into the slave fog domain\",\"2\":\"\"}]"
+        "data_json": "[{\"Notation\":\"\\u0394 t\",\"Definition\":\"The time interval\"},{\"Notation\":\"A k\",\"Definition\":\"The k -th IoT application\"},{\"Notation\":\"S k , l\",\"Definition\":\"The l th service belonging to k th the IoT application\"},{\"Notation\":\"S DL k , l\",\"Definition\":\"The maximum time for executing IoT service S k , l\"},{\"Notation\":\"S Size k , l\",\"Definition\":\"The number of instruction of IoT service S k , l\"},{\"Notation\":\"S BW k , l\",\"Definition\":\"The network traffic usage of IoT service S k , l\"},{\"Notation\":\"S CPU k , l\",\"Definition\":\"The processing power demand of IoT service S k , l\"},{\"Notation\":\"S RAM k , l\",\"Definition\":\"The main memory demand of IoT service S k , l\"},{\"Notation\":\"S Disk k , l\",\"Definition\":\"The storage capacity demand of IoT service S k , l\"},{\"Notation\":\"F i\",\"Definition\":\"The i -th fog domain\"},{\"Notation\":\"FN i , j FN CPU i , j\",\"Definition\":\"The j th fog resource belonging to i th the fog domain CPU capacity of the fog node FN i , j\"},{\"Notation\":\"FN RAM i , j\",\"Definition\":\"Memory capacity of the fog node FN i , j\"},{\"Notation\":\"FN Disk i , j\",\"Definition\":\"The storage capacity of the fog node FN i , j\"},{\"Notation\":\"FN BW i , j\",\"Definition\":\"The network bandwidth capacity of the fog node FN i , j\"},{\"Notation\":\"X FN i , j S k , l\",\"Definition\":\"Binary variable to present if IoT service S k , l is placed on the fog node FN i , j\"},{\"Notation\":\"T\",\"Definition\":\"Throughput\"},{\"Notation\":\"E\",\"Definition\":\"Total Energy Consumption\"},{\"Notation\":\"ES FN i , j ( \\u0394 t )\",\"Definition\":\"The static energy consumption at the \\u0394 t th interval\"},{\"Notation\":\"ED FN i , j ( \\u0394 t )\",\"Definition\":\"The dynamic energy consumption at the \\u0394 t th interval\"},{\"Notation\":\"E FN i , j ( \\u0394 t )\",\"Definition\":\"The total computation energy consumption at the \\u0394 t th interval\"},{\"Notation\":\"TE Comp\",\"Definition\":\"Total computation energy consumption\"},{\"Notation\":\"\\u03bb FN i , j , FN i \\u2032 , j \\u2032 k , l\",\"Definition\":\"The data transfer rate between two fog nodes FN i , j and FN i \\u2032 , j \\u2032 to serve IoT service S k , l\"},{\"Notation\":\"UCE FN i , j EC FN i , j ( \\u0394 t )\",\"Definition\":\"The unit communication energy consumption of a fog node FN i , j The total communication energy consumption at the \\u0394 t th interval\"},{\"Notation\":\"TE Comm\",\"Definition\":\"Total communication energy consumption\"},{\"Notation\":\"D AC , CG D AC , MF\",\"Definition\":\"The delay between the admission control and the cloud gateway The delay between the admission control and the master fog node\"},{\"Notation\":\"D MF , SF\",\"Definition\":\"The delay between the master fog node and the slave fog domains\"},{\"Notation\":\"D AC ( F ) , FN\",\"Definition\":\"The delay between the fog domain control node F i and the fog node FN i , j\"},{\"Notation\":\"i i , j\",\"Definition\":\"into the slave fog domain\"}]"
       },
       "bbox": {
         "page": 8,
@@ -2430,79 +2059,27 @@
       "caption_position": "below",
       "page_number": 12,
       "grid_data": {
-        "table_index": 13,
-        "page_number": 10,
+        "table_index": 4,
+        "page_number": 12,
         "bbox": {
-          "x1": 27.587399999999974,
-          "y1": 142.0661261,
-          "x2": 572.3579369,
-          "y2": 662.4541817336263
+          "x1": 36.61396408081055,
+          "y1": 741.5173950195312,
+          "x2": 288.8872985839844,
+          "y2": 713.9291381835938
         },
-        "accuracy": 99.99999999999972,
-        "parse_method": "stream",
-        "has_empty_cells": true,
-        "empty_cell_locations": [
-          {
-            "row": 2,
-            "col": 0
-          },
-          {
-            "row": 3,
-            "col": 0
-          },
-          {
-            "row": 6,
-            "col": 1
-          },
-          {
-            "row": 17,
-            "col": 0
-          },
-          {
-            "row": 19,
-            "col": 0
-          },
-          {
-            "row": 22,
-            "col": 1
-          },
-          {
-            "row": 27,
-            "col": 1
-          },
-          {
-            "row": 30,
-            "col": 1
-          },
-          {
-            "row": 33,
-            "col": 0
-          },
-          {
-            "row": 37,
-            "col": 1
-          },
-          {
-            "row": 41,
-            "col": 0
-          },
-          {
-            "row": 43,
-            "col": 1
-          },
-          {
-            "row": 51,
-            "col": 1
-          }
-        ],
-        "has_footnote_markers": true,
-        "row_count": 53,
-        "col_count": 2,
+        "accuracy": 100.0,
+        "parse_method": "docling",
+        "has_empty_cells": false,
+        "empty_cell_locations": [],
+        "has_footnote_markers": false,
+        "row_count": 2,
+        "col_count": 3,
         "headers": [
-          "7: end for each",
-          "SDL (t \u0000 SAT k, l k, l"
+          "0",
+          "1",
+          "2"
         ],
-        "data_json": "[{\"0\":\"7: end for each\",\"1\":\"SDL (t \\u0000 SAT k, l k, l\"},{\"0\":\"8:End\",\"1\":\"4: end for each\"},{\"0\":\"\",\"1\":\"6:end for each\"},{\"0\":\"\",\"1\":\"7:Sort (IoT services,Pri(Sk, l))\"},{\"0\":\"4.3.1. Monitoring phase\",\"1\":\"8:Return Sorted_ IoT services_List\"},{\"0\":\"In this phase, two kinds of information are collected: first, the\",\"1\":\"9:End\"},{\"0\":\"required information about the QoS requirements of IoT applications\",\"1\":\"\"},{\"0\":\"sent by the admission control component; and second, the required in-\",\"1\":\"4.3.3. Planning phase\"},{\"0\":\"formation about the resource computation capabilities of available fog\",\"1\":\"The planning phase as the main component of the fog control node\"},{\"0\":\"nodes within the fog domains. Algorithm 2 illustrates the pseudo-code of\",\"1\":\"within the master fog domain finds an efficient fog service placement\"},{\"0\":\"the monitoring phase in our proposed solution. In this algorithm, all\",\"1\":\"(FSP) solution using the WOA as a meta-heuristic technique named\"},{\"0\":\"items about the QoS requirements of IoT applications\",\"1\":\"WOA-FSP for deploying IoT services on the fog nodes with different\"},{\"0\":\"includingSCPU ,SRAM ,SDisk ,SBW , and SDL k, l parameters at given time in- k, l k, l k, l k, l ,SSize k, l\",\"1\":\"resources capabilities while satisfying various QoS requirements of IoT\"},{\"0\":\"tervals are gathered and stored into a shared knowledge base to utilize\",\"1\":\"services. Indeed, this phase determines that the IoT service requested be\"},{\"0\":\"by other phases (lines 3\\u20135). Besides, the resource capabilities status of\",\"1\":\"deployed on which fog domain and which fog node controlled under\"},{\"0\":\"fog nodes includingFNCPU ,FNRAM ,FNDisk , and FNBW are collected (lines i,j i,j i,j i,j\",\"1\":\"that fog domain.\"},{\"0\":\"6\\u20138). Finally, this information is passed to the analysis phase (line10).\",\"1\":\"In the following, we describe the WOA-FSP algorithm to find the\"},{\"0\":\"\",\"1\":\"most suitable placement of IoT services in more detail, as shown in Al-\"},{\"0\":\"Algorithm 2: Monitoring Phase(\",\"1\":\"gorithm 4. The input of the algorithm is a series of IoT services and\"},{\"0\":\"\",\"1\":\"available fog nodes, and also, the output is a mapping of IoT services to\"},{\"0\":\"Input: Fog Domains F, IoT Applications A\",\"1\":\"fog nodes as optimal placement plan in the fog ecosystem.\"},{\"0\":\"Output: Monitored_Inputs\",\"1\":\"First, we generate the initial population of whales as the candidate\"},{\"0\":\"1:Begin\",\"1\":\"\"},{\"0\":\"2: for each (Time interval \\u0394t until the system is running) do\",\"1\":\"solutions according to the available IoT services, randomly. So that each\"},{\"0\":\"3: for each (IoT services Sk, l in A) do\",\"1\":\"IoT service Sk, l is randomly allocated to a fog nodeFNi,j, and a series of\"},{\"0\":\"4: MonitorSCPU ,SDisk ,SRAM ,SBW , and SDL k, l for all IoT Services k, l k, l k, l k, l ,SSize k, l\",\"1\":\"initial solutions (i.e., whales) will be generated (lines 2\\u20138). To initialize\"},{\"0\":\"5: end for each\",\"1\":\"the position of whales, we used an initial function, as follows:\"},{\"0\":\"6: for each (Fog node FNi,j in Fog Domain F) do\",\"1\":\"\"},{\"0\":\"7: MonitorFNCPU ,FNRAM ,FNDisk , and FNBW for all fog nodes i,j i,j i,j i,j\",\"1\":\"W(Sk, l, FNi,j) = [ub(Sk, l) \\u0000 lb(Sk, l)] \\u2217 rand() + lb(Sk, l) (30)\"},{\"0\":\"8: end for each\",\"1\":\"Where lb and ub are two vectors to illustrate the upper and lower\"},{\"0\":\"9:end for each\",\"1\":\"\"},{\"0\":\"10:Return Monitored_Inputs\",\"1\":\"bounds for assigning IoT service Sk, l to fog nodeFNi,j, as follows:\"},{\"0\":\"11:End\",\"1\":\"lb = [lb1, lb2, lb3, ..., lbn\\u0000 1, lbn]\"},{\"0\":\"\",\"1\":\"(31)\"},{\"0\":\"4.3.2. Analysis phase\",\"1\":\"ub = [ub1, ub2, ub3, ..., ubn\\u0000 1, ubn] (32)\"},{\"0\":\"The analysis phase acts as a pre-processing phase for the planning\",\"1\":\"Then, the initial solutions obtained will be evaluated using the fitness\"},{\"0\":\"phase, and it utilized the collected information from the monitoring\",\"1\":\"function explained according to Equation (21), and the solution with the\"},{\"0\":\"phase to prioritize IoT services for deploying on the fog resources, as\",\"1\":\"\"},{\"0\":\"shown in Algorithm 3. It calculates the prioritization of IoT services\",\"1\":\"lowest fitness value (i.e.,W*) as the current best candidate solution will\"},{\"0\":\"stored into a waiting queue based on their deadline and waiting time\",\"1\":\"be considered (lines 9\\u201310).\"},{\"0\":\"(lines 3\\u20135), as follows:\",\"1\":\"The overall process of the WOA-FSP algorithm will be executed until\"},{\"0\":\"\",\"1\":\"the termination condition is satisfied (lines 11\\u201328). In this study, we\"},{\"0\":\"11 + (1 \\u0000 \\u03b1) \\u00d7 Pri(Sk, l) = \\u03b1 \\u00d7\",\"1\":\"assume the maximum number of iterations (i.e.,Maxt) as the termination\"},{\"0\":\"(29) SDL (t \\u0000 SAT l)\",\"1\":\"\"},{\"0\":\"k, l k,\",\"1\":\"condition to find the optimal solution (line11).\"},{\"0\":\"Where SAT\",\"1\":\"If the termination condition is not satisfied, the encircling prey phase\"},{\"0\":\"k, l and t denote the arrival time of IoT service Sk, l and the\",\"1\":\"for updating the parameters into the current iteration will be started\"},{\"0\":\"current time of system, respectively. Also,\\u03b1 is the weight factor in [0, 1]\",\"1\":\"(line13). Since the WOA technique considered the current best solution\"},{\"0\":\"to distinct between deadline (i.e., SDL k, l) and waiting time(i.e., t \\u0000 SAT k, l)\",\"1\":\"(i.e.,W*) as the near-optimal solution, the other solutions (i.e., whales)\"},{\"0\":\"parameters in the prioritization process. Therefore, if an IoT service has\",\"1\":\"should adjust their current positions towards the best solution (i.e.,W*)\"},{\"0\":\"less deadline and more waiting time, it will have a higher priority.\",\"1\":\"according to Equations (33) and (34):\"},{\"0\":\"Finally, the IoT services are sorted according to their prioritization and\",\"1\":\"\"},{\"0\":\"passed to the planning phase (lines 7\\u20138).\",\"1\":\"D = |C.W *(t) \\u0000 W(t)| (33)\"}]"
+        "data_json": "[{\"0\":\"CPU Length\",\"1\":\"NW Length\",\"2\":\"Average Inter-arrival Time\"},{\"0\":\"1000\",\"1\":\"20,000\",\"2\":\"10\"}]"
       },
       "bbox": {
         "page": 12,
@@ -2519,7 +2096,28 @@
       "caption_text": "Fog node\u2019s configuration.",
       "caption_position": "below",
       "page_number": 12,
-      "grid_data": null,
+      "grid_data": {
+        "table_index": 5,
+        "page_number": 12,
+        "bbox": {
+          "x1": 319.771240234375,
+          "y1": 135.03623962402344,
+          "x2": 544.1849365234375,
+          "y2": 73.54623413085938
+        },
+        "accuracy": 100.0,
+        "parse_method": "docling",
+        "has_empty_cells": false,
+        "empty_cell_locations": [],
+        "has_footnote_markers": true,
+        "row_count": 4,
+        "col_count": 2,
+        "headers": [
+          "Symbol",
+          "Value"
+        ],
+        "data_json": "[{\"Symbol\":\"FN CPU i , j [MIPS]\",\"Value\":\"[300,1400,1600,3000] [MIPS]\"},{\"Symbol\":\"FN RAM i , j [MB]\",\"Value\":\"[256,512,1024,2048] [MB]\"},{\"Symbol\":\"FN Disk i , j [GB]\",\"Value\":\"[256,512,1024,2048] [GB]\"},{\"Symbol\":\"FN BW i , j [Mbps]\",\"Value\":\"[256,512,1024,2048] [Gbps]\"}]"
+      },
       "bbox": {
         "page": 12,
         "x0": 320.6549987792969,
@@ -2536,68 +2134,26 @@
       "caption_position": "below",
       "page_number": 12,
       "grid_data": {
-        "table_index": 15,
+        "table_index": 6,
         "page_number": 12,
         "bbox": {
-          "x1": 27.587399999999917,
-          "y1": 527.02046867,
-          "x2": 470.91217905999997,
-          "y2": 649.5072519945861
+          "x1": 305.5428771972656,
+          "y1": 258.3595886230469,
+          "x2": 558.0578002929688,
+          "y2": 176.91297912597656
         },
-        "accuracy": 99.0022797997647,
-        "parse_method": "stream",
-        "has_empty_cells": true,
-        "empty_cell_locations": [
-          {
-            "row": 0,
-            "col": 1
-          },
-          {
-            "row": 0,
-            "col": 2
-          },
-          {
-            "row": 1,
-            "col": 2
-          },
-          {
-            "row": 2,
-            "col": 2
-          },
-          {
-            "row": 3,
-            "col": 1
-          },
-          {
-            "row": 3,
-            "col": 2
-          },
-          {
-            "row": 9,
-            "col": 2
-          },
-          {
-            "row": 10,
-            "col": 2
-          },
-          {
-            "row": 11,
-            "col": 1
-          },
-          {
-            "row": 11,
-            "col": 2
-          }
-        ],
+        "accuracy": 100.0,
+        "parse_method": "docling",
+        "has_empty_cells": false,
+        "empty_cell_locations": [],
         "has_footnote_markers": true,
-        "row_count": 12,
-        "col_count": 3,
+        "row_count": 6,
+        "col_count": 2,
         "headers": [
-          "toO(J \u00d7 N). The computational complexity of the fitness function (i.",
-          "",
-          ""
+          "Symbol",
+          "Value"
         ],
-        "data_json": "[{\"0\":\"toO(J \\u00d7 N). The computational complexity of the fitness function (i.\",\"1\":\"\",\"2\":\"\"},{\"0\":\"e.,O(fitness)) to calculate the value of candidate solutions and it is\",\"1\":\"Table5\",\"2\":\"\"},{\"0\":\"specified by the application which depends on the number of IoT service\",\"1\":\"Configuration of IoT services.\",\"2\":\"\"},{\"0\":\"and the number of fog nodes. Since solutions are illustrated with a\",\"1\":\"\",\"2\":\"\"},{\"0\":\"matrix W of the size |L| \\u00d7 |J| where |L| is the number of IoT services and\",\"1\":\"Symbol\",\"2\":\"Value\"},{\"0\":\"|J| is the number of fog nodes. Therefore, the computational complexity\",\"1\":\"SCPU k, l [MIPS]\",\"2\":\"[250,500,1000,2000]\"},{\"0\":\"of the fitness function can be specified asO(fitness) = O(L \\u00d7 J). Also, the\",\"1\":\"SRAM [MB] k, l\",\"2\":\"[256,512,1024,2048]\"},{\"0\":\"time complexity of the main loop (lines 11\\u201328) depends on the\",\"1\":\"SDisk k, l [GB]\",\"2\":\"[256,512,1024,2048]\"},{\"0\":\"maximum number of iteration, the population size, and the size of each\",\"1\":\"SBW k, l [Mbps]\",\"2\":\"[256,512,1024,2048]\"},{\"0\":\"candidate solution and it is expressed byO(Maxt \\u00d7 N \\u00d7 (J + O(fitness))).\",\"1\":\"SSize k, l [MI]\",\"2\":\"\"},{\"0\":\"Since N, Maxt and O(fitness) are linear with respect to n, the total time\",\"1\":\"SDL k, l[ms]\",\"2\":\"\"},{\"0\":\"complexity of the proposed algorithm can be described asO(J \\u00d7 N) +\",\"1\":\"\",\"2\":\"\"}]"
+        "data_json": "[{\"Symbol\":\"S CPU k , l [MIPS]\",\"Value\":\"[250,500,1000,2000]\"},{\"Symbol\":\"S RAM k , l [MB]\",\"Value\":\"[256,512,1024,2048]\"},{\"Symbol\":\"S Disk k , l [GB]\",\"Value\":\"[256,512,1024,2048]\"},{\"Symbol\":\"S BW k , l [Mbps]\",\"Value\":\"[256,512,1024,2048]\"},{\"Symbol\":\"S Size k , l [MI]\",\"Value\":\"The random uniform distribution between [100,1000]\"},{\"Symbol\":\"S DL k , l [ms]\",\"Value\":\"The random uniform distribution between [100,500]\"}]"
       },
       "bbox": {
         "page": 12,
@@ -2614,7 +2170,32 @@
       "caption_text": "Parameters setting for GA-FSP mechanism.",
       "caption_position": "below",
       "page_number": 13,
-      "grid_data": null,
+      "grid_data": {
+        "table_index": 11,
+        "page_number": 15,
+        "bbox": {
+          "x1": 36.52143478393555,
+          "y1": 586.2533569335938,
+          "x2": 288.79913330078125,
+          "y2": 550.6985473632812
+        },
+        "accuracy": 100.0,
+        "parse_method": "docling",
+        "has_empty_cells": false,
+        "empty_cell_locations": [],
+        "has_footnote_markers": false,
+        "row_count": 2,
+        "col_count": 6,
+        "headers": [
+          "",
+          "WOA-FSP",
+          "GA-FSP",
+          "PSO-FSP",
+          "BA-FSP",
+          "SA-FSP"
+        ],
+        "data_json": "[{\"\":\"5 service types\",\"WOA-FSP\":\"1.21\",\"GA-FSP\":\"1.58\",\"PSO-FSP\":\"1.37\",\"BA-FSP\":\"1.52\",\"SA-FSP\":\"1.48\"},{\"\":\"10 service types\",\"WOA-FSP\":\"0.94\",\"GA-FSP\":\"1.34\",\"PSO-FSP\":\"1.06\",\"BA-FSP\":\"1.29\",\"SA-FSP\":\"1.16\"}]"
+      },
       "bbox": {
         "page": 13,
         "x0": 442.9951171875,
@@ -2630,7 +2211,32 @@
       "caption_text": "Parameters setting for PSO-FSP mechanism.",
       "caption_position": "below",
       "page_number": 13,
-      "grid_data": null,
+      "grid_data": {
+        "table_index": 12,
+        "page_number": 15,
+        "bbox": {
+          "x1": 305.4720764160156,
+          "y1": 568.21435546875,
+          "x2": 557.666015625,
+          "y2": 532.7373046875
+        },
+        "accuracy": 100.0,
+        "parse_method": "docling",
+        "has_empty_cells": false,
+        "empty_cell_locations": [],
+        "has_footnote_markers": false,
+        "row_count": 2,
+        "col_count": 6,
+        "headers": [
+          "",
+          "WOA-FSP",
+          "GA-FSP",
+          "PSO-FSP",
+          "BA-FSP",
+          "SA-FSP"
+        ],
+        "data_json": "[{\"\":\"5 service types\",\"WOA-FSP\":\"16.17\",\"GA-FSP\":\"21.2\",\"PSO-FSP\":\"17.7\",\"BA-FSP\":\"19.5\",\"SA-FSP\":\"17.8\"},{\"\":\"10 service types\",\"WOA-FSP\":\"19.2\",\"GA-FSP\":\"24.5\",\"PSO-FSP\":\"20.5\",\"BA-FSP\":\"23\",\"SA-FSP\":\"21.4\"}]"
+      },
       "bbox": {
         "page": 13,
         "x0": 468.846923828125,
@@ -2646,7 +2252,32 @@
       "caption_text": "Parameters setting for BA-FSP mechanism.",
       "caption_position": "below",
       "page_number": 13,
-      "grid_data": null,
+      "grid_data": {
+        "table_index": 7,
+        "page_number": 13,
+        "bbox": {
+          "x1": 36.632442474365234,
+          "y1": 741.6296997070312,
+          "x2": 558.3404541015625,
+          "y2": 713.7716674804688
+        },
+        "accuracy": 100.0,
+        "parse_method": "docling",
+        "has_empty_cells": false,
+        "empty_cell_locations": [],
+        "has_footnote_markers": true,
+        "row_count": 1,
+        "col_count": 6,
+        "headers": [
+          "Initial population",
+          "Number of generation",
+          "Termination condition",
+          "Selection operator",
+          "Mutation(probability)",
+          "Crossover(probability)"
+        ],
+        "data_json": "[{\"Initial population\":\"50\",\"Number of generation\":\"200\",\"Termination condition\":\"Number of generation\",\"Selection operator\":\"Tournament\",\"Mutation(probability)\":\"Random (0.02)\",\"Crossover(probability)\":\"Uniform crossover (0.8)\"}]"
+      },
       "bbox": {
         "page": 13,
         "x0": 405.06781005859375,
@@ -2662,7 +2293,89 @@
       "caption_text": "Parameters setting for SA-FSP mechanism.",
       "caption_position": "above",
       "page_number": 14,
-      "grid_data": null,
+      "grid_data": {
+        "table_index": 13,
+        "page_number": 16,
+        "bbox": {
+          "x1": 36.3847541809082,
+          "y1": 741.19580078125,
+          "x2": 558.0881958007812,
+          "y2": 586.3646240234375
+        },
+        "accuracy": 100.0,
+        "parse_method": "docling",
+        "has_empty_cells": true,
+        "empty_cell_locations": [
+          {
+            "row": 1,
+            "col": 0
+          },
+          {
+            "row": 1,
+            "col": 4
+          },
+          {
+            "row": 1,
+            "col": 5
+          },
+          {
+            "row": 2,
+            "col": 0
+          },
+          {
+            "row": 3,
+            "col": 0
+          },
+          {
+            "row": 5,
+            "col": 0
+          },
+          {
+            "row": 6,
+            "col": 0
+          },
+          {
+            "row": 7,
+            "col": 0
+          },
+          {
+            "row": 9,
+            "col": 0
+          },
+          {
+            "row": 10,
+            "col": 0
+          },
+          {
+            "row": 11,
+            "col": 0
+          },
+          {
+            "row": 13,
+            "col": 0
+          },
+          {
+            "row": 14,
+            "col": 0
+          },
+          {
+            "row": 15,
+            "col": 0
+          }
+        ],
+        "has_footnote_markers": false,
+        "row_count": 16,
+        "col_count": 6,
+        "headers": [
+          "Baseline Algorithms",
+          "Statistical parameters",
+          "Resource usage",
+          "Service acceptance ratio",
+          "Service delay",
+          "Energy consumption"
+        ],
+        "data_json": "[{\"Baseline Algorithms\":\"GA-FSP\",\"Statistical parameters\":\"Mean\",\"Resource usage\":\"7.54072\",\"Service acceptance ratio\":\"0.091782\",\"Service delay\":\"0.319832080.36823492\",\"Energy consumption\":\"4.80915.5982\"},{\"Baseline Algorithms\":\"\",\"Statistical parameters\":\"SD\",\"Resource usage\":\"6.98234\",\"Service acceptance ratio\":\"0.099823\",\"Service delay\":\"\",\"Energy consumption\":\"\"},{\"Baseline Algorithms\":\"\",\"Statistical parameters\":\"t- value\",\"Resource usage\":\"2.34983472\",\"Service acceptance ratio\":\"2.25982129\",\"Service delay\":\"3.19029334\",\"Energy consumption\":\"2.6245328\"},{\"Baseline Algorithms\":\"\",\"Statistical parameters\":\"p- value\",\"Resource usage\":\"0.01489058\",\"Service acceptance ratio\":\"0.0256673\",\"Service delay\":\"0.0213378\",\"Energy consumption\":\"0.0015328\"},{\"Baseline Algorithms\":\"PSO-FSP\",\"Statistical parameters\":\"Mean\",\"Resource usage\":\"4.329034\",\"Service acceptance ratio\":\"0.048909\",\"Service delay\":\"0.1743865\",\"Energy consumption\":\"2.27458\"},{\"Baseline Algorithms\":\"\",\"Statistical parameters\":\"SD\",\"Resource usage\":\"4.982341\",\"Service acceptance ratio\":\"0.043982\",\"Service delay\":\"0.1893282\",\"Energy consumption\":\"2.19088\"},{\"Baseline Algorithms\":\"\",\"Statistical parameters\":\"t- value\",\"Resource usage\":\"5.9821292\",\"Service acceptance ratio\":\"2.6239824\",\"Service delay\":\"4.98982234\",\"Energy consumption\":\"6.45329033\"},{\"Baseline Algorithms\":\"\",\"Statistical parameters\":\"p- value\",\"Resource usage\":\"0.009356904\",\"Service acceptance ratio\":\"0.01523986\",\"Service delay\":\"0.009907633\",\"Energy consumption\":\"0.00089896\"},{\"Baseline Algorithms\":\"BA-FSP\",\"Statistical parameters\":\"Mean\",\"Resource usage\":\"6.60981\",\"Service acceptance ratio\":\"0.083872\",\"Service delay\":\"0.2573321\",\"Energy consumption\":\"3.70923\"},{\"Baseline Algorithms\":\"\",\"Statistical parameters\":\"SD\",\"Resource usage\":\"6.78234\",\"Service acceptance ratio\":\"0.082394\",\"Service delay\":\"0.2692342\",\"Energy consumption\":\"3.92932\"},{\"Baseline Algorithms\":\"\",\"Statistical parameters\":\"t- value\",\"Resource usage\":\"2.3923493\",\"Service acceptance ratio\":\"4.23494583\",\"Service delay\":\"3.2453945\",\"Energy consumption\":\"2.67342095\"},{\"Baseline Algorithms\":\"\",\"Statistical parameters\":\"p- value\",\"Resource usage\":\"0.0142949\",\"Service acceptance ratio\":\"0.0224376\",\"Service delay\":\"0.01918876\",\"Energy consumption\":\"0.0012983\"},{\"Baseline Algorithms\":\"SA-FSP\",\"Statistical parameters\":\"Mean\",\"Resource usage\":\"5.438927\",\"Service acceptance ratio\":\"0.0600328\",\"Service delay\":\"0.2354928\",\"Energy consumption\":\"2.95631\"},{\"Baseline Algorithms\":\"\",\"Statistical parameters\":\"SD\",\"Resource usage\":\"5.309882\",\"Service acceptance ratio\":\"0.0589234\",\"Service delay\":\"0.2598321\",\"Energy consumption\":\"3.01098\"},{\"Baseline Algorithms\":\"\",\"Statistical parameters\":\"t- value\",\"Resource usage\":\"5.2349453\",\"Service acceptance ratio\":\"2.56303924\",\"Service delay\":\"2.73940327\",\"Energy consumption\":\"6.23495602\"},{\"Baseline Algorithms\":\"\",\"Statistical parameters\":\"p- value\",\"Resource usage\":\"0.00128661\",\"Service acceptance ratio\":\"0.0186621\",\"Service delay\":\"0.01643429\",\"Energy consumption\":\"0.0009339\"}]"
+      },
       "bbox": {
         "page": 14,
         "x0": 37.587398529052734,
@@ -2679,43 +2392,30 @@
       "caption_position": "below",
       "page_number": 14,
       "grid_data": {
-        "table_index": 19,
+        "table_index": 10,
         "page_number": 14,
         "bbox": {
-          "x1": 27.587399999999974,
-          "y1": 48.69529707000002,
-          "x2": 570.02107892,
-          "y2": 276.0140055961539
+          "x1": 36.31742477416992,
+          "y1": 100.32747650146484,
+          "x2": 557.8426513671875,
+          "y2": 74.33775329589844
         },
-        "accuracy": 100.00000000000001,
-        "parse_method": "stream",
-        "has_empty_cells": true,
-        "empty_cell_locations": [
-          {
-            "row": 0,
-            "col": 1
-          },
-          {
-            "row": 2,
-            "col": 0
-          },
-          {
-            "row": 3,
-            "col": 1
-          },
-          {
-            "row": 12,
-            "col": 0
-          }
-        ],
+        "accuracy": 100.0,
+        "parse_method": "docling",
+        "has_empty_cells": false,
+        "empty_cell_locations": [],
         "has_footnote_markers": true,
-        "row_count": 18,
-        "col_count": 2,
+        "row_count": 1,
+        "col_count": 6,
         "headers": [
-          "Fig.6. Comparison of resource usage for (a): 5 service types and (b): 10 ser-",
-          ""
+          "Initial population",
+          "Number of generation",
+          "Termination condition",
+          "Temperature range",
+          "Step size(fast temperature reduction)",
+          "The number of iterations per temperature"
         ],
-        "data_json": "[{\"0\":\"Fig.6. Comparison of resource usage for (a): 5 service types and (b): 10 ser-\",\"1\":\"\"},{\"0\":\"vice types.\",\"1\":\"Fig.7. Comparison of acceptance ratio for (a): 5 service types and (b): 10\"},{\"0\":\"\",\"1\":\"service types.\"},{\"0\":\"number of requested IoT services, the service acceptance ratio decreases.\",\"1\":\"\"},{\"0\":\"However, WOA-FSP has a higher acceptance ratio compared to other\",\"1\":\"services. As shown in this figure, our solution outperforms other service\"},{\"0\":\"approaches under 5 and 10 number of service types.\",\"1\":\"placement methods for both 5 and 10 number of service types. Whereas,\"},{\"0\":\"By increasing the number of types of service from 5 to 10, the service\",\"1\":\"with the growth of the number of IoT services, the difference among\"},{\"0\":\"acceptance ratio increases, because there will be more flexibility to\",\"1\":\"these approaches becomes more prominent, which shows that WOA-FSP\"},{\"0\":\"make a better placement decision. It can be concluded that the proposed\",\"1\":\"performs better than the other metaheuristic-based mechanisms. This\"},{\"0\":\"approach can be efficiently used for multiple service requests in\",\"1\":\"better performance is because the proposed technique provides more\"},{\"0\":\"resource-constrained scenarios because of the better searchability and\",\"1\":\"resource usage, as indicated in Fig.3.\"},{\"0\":\"consequently, better resource usage compared to other algorithms.\",\"1\":\"The average service delay for a different number of IoT services is\"},{\"0\":\"\",\"1\":\"shown in Table10. Under the five service types, the WOA-FSP approach\"},{\"0\":\"5.4.3. Service delay\",\"1\":\"reduces the execution time by up to 3%, 2.4%, 2%, and 1.3% compared\"},{\"0\":\"Depending on the maximum time of requested services and the\",\"1\":\"with GA-FSP, BA-FSP, SA-FSP, and PSO-FSP, respectively. Furthermore,\"},{\"0\":\"actually experienced response time, the service delay is calculated using\",\"1\":\"under ten service types, the proposed method reduces the service delay\"},{\"0\":\"Equation (45). Fig.8 shows the service delay of IoT devices\\u2019 requests\",\"1\":\"by up to 4.3%, 3.8%, 2.3%, and 1.4% compared with GA-FSP, BA-FSP,\"},{\"0\":\"under 5 and 10 number of service types for a different number of IoT\",\"1\":\"SA-FSP, and PSO-FSP, respectively.\"}]"
+        "data_json": "[{\"Initial population\":\"50\",\"Number of generation\":\"200\",\"Termination condition\":\"Number of generation\",\"Temperature range\":\"[0.001, 1]\",\"Step size(fast temperature reduction)\":\"\\u03b1 = 0.8, 0.9\",\"The number of iterations per temperature\":\"10\"}]"
       },
       "bbox": {
         "page": 14,
@@ -2733,79 +2433,30 @@
       "caption_position": "above",
       "page_number": 15,
       "grid_data": {
-        "table_index": 20,
-        "page_number": 15,
+        "table_index": 8,
+        "page_number": 13,
         "bbox": {
-          "x1": 27.587399999999946,
-          "y1": 53.286342440000006,
-          "x2": 569.99318357,
-          "y2": 353.33401514534887
+          "x1": 305.58837890625,
+          "y1": 127.49188995361328,
+          "x2": 557.666748046875,
+          "y2": 73.63330841064453
         },
-        "accuracy": 99.99999999999984,
-        "parse_method": "stream",
-        "has_empty_cells": true,
-        "empty_cell_locations": [
-          {
-            "row": 0,
-            "col": 0
-          },
-          {
-            "row": 1,
-            "col": 0
-          },
-          {
-            "row": 2,
-            "col": 1
-          },
-          {
-            "row": 3,
-            "col": 1
-          },
-          {
-            "row": 4,
-            "col": 0
-          },
-          {
-            "row": 5,
-            "col": 0
-          },
-          {
-            "row": 7,
-            "col": 1
-          },
-          {
-            "row": 9,
-            "col": 0
-          },
-          {
-            "row": 10,
-            "col": 1
-          },
-          {
-            "row": 11,
-            "col": 1
-          },
-          {
-            "row": 12,
-            "col": 0
-          },
-          {
-            "row": 13,
-            "col": 0
-          },
-          {
-            "row": 24,
-            "col": 1
-          }
-        ],
+        "accuracy": 100.0,
+        "parse_method": "docling",
+        "has_empty_cells": false,
+        "empty_cell_locations": [],
         "has_footnote_markers": true,
-        "row_count": 27,
-        "col_count": 2,
+        "row_count": 1,
+        "col_count": 6,
         "headers": [
-          "",
-          "Fig.9. Comparison of energy consumption for (a): 5 service types and (b): 10"
+          "Initial population (particle)",
+          "Number of generation",
+          "Termination condition",
+          "Particle velocity range",
+          "Cognitive and social constants",
+          "Inertia weight factor"
         ],
-        "data_json": "[{\"0\":\"\",\"1\":\"Fig.9. Comparison of energy consumption for (a): 5 service types and (b): 10\"},{\"0\":\"\",\"1\":\"service types.\"},{\"0\":\"Fig.8. Comparison of service delay for (a): 5 service types and (b): 10 ser-\",\"1\":\"\"},{\"0\":\"vice types.\",\"1\":\"\"},{\"0\":\"\",\"1\":\"Table11\"},{\"0\":\"\",\"1\":\"The average energy consumption under 5 and 10 service types.\"},{\"0\":\"Table10\",\"1\":\"WOA-FSP GA-FSP PSO-FSP BA-FSP SA-FSP\"},{\"0\":\"The average service delay under 5 and 10 service types.\",\"1\":\"\"},{\"0\":\"WOA-FSP GA-FSP PSO-FSP BA-FSP SA-FSP\",\"1\":\"5 service types 16.1721.217.719.517.8\"},{\"0\":\"\",\"1\":\"10 service types 19.224.520.52321.4\"},{\"0\":\"5 service types 1.211.581.371.521.48\",\"1\":\"\"},{\"0\":\"10 service types 0.941.341.061.291.16\",\"1\":\"\"},{\"0\":\"\",\"1\":\"better exploration and exploitation in the search space compared with\"},{\"0\":\"\",\"1\":\"other baseline meta-heuristic-based algorithms. Furthermore, it provides\"},{\"0\":\"5.4.4.Energy consumption\",\"1\":\"a more suitable distribution the IoT services on the fog nodes that lead to\"},{\"0\":\"The energy consumption is the total energy consumption required\",\"1\":\"decreasing in energy consumption.\"},{\"0\":\"for deploying IoT services, which includes the computation and\",\"1\":\"The average energy consumption for a different number of IoT ser-\"},{\"0\":\"communication energy for all resources in a fog network. Fig.9 shows\",\"1\":\"vices is shown in Table11. Under the five service types, the WOA-FSP\"},{\"0\":\"the energy consumption of IoT devices\\u2019 requests under 5 and 10 number\",\"1\":\"approach reduces the energy consumption by up to 3.1%, 2.1%, 1%,\"},{\"0\":\"of service types for the different number of IoT services. From the re-\",\"1\":\"and 0.9% compared with GA-FSP, BA-FSP, SA-FSP, and PSO-FSP,\"},{\"0\":\"sults, we observe that with growing the number of IoT services, the total\",\"1\":\"respectively. Furthermore, under ten service types, the proposed\"},{\"0\":\"energy consumption is increased. This is because of the dynamic energy\",\"1\":\"method reduces the energy consumption by up to 2.7%, 2%, 1.1%, and\"},{\"0\":\"consumption depends on the number of deployed IoT services. Besides,\",\"1\":\"0.7% compared with GA-FSP, BA-FSP, SA-FSP, and PSO-FSP,\"},{\"0\":\"according to the Fig.9, it is clear that the WOA-FSP reduces the energy\",\"1\":\"respectively.\"},{\"0\":\"consumption for both 5 and 10 number of service types compared with\",\"1\":\"\"},{\"0\":\"other service placement methods. This is because the WOA-FSP method\",\"1\":\"5.4.5. Convergence speed\"},{\"0\":\"is able to find better placement plans (i.e., solutions) due to providing\",\"1\":\"Fig.10 shows the convergence speed along with the number of\"}]"
+        "data_json": "[{\"Initial population (particle)\":\"50\",\"Number of generation\":\"200\",\"Termination condition\":\"Number of generation\",\"Particle velocity range\":\"[-6, 6]\",\"Cognitive and social constants\":\"c1 = 0.8, c2 = 0.9\",\"Inertia weight factor\":\"0.6\"}]"
       },
       "bbox": {
         "page": 15,
@@ -2822,121 +2473,7 @@
       "caption_text": "Statistical analysis of the proposed WOA-FSP algorithm for IoT service placement.",
       "caption_position": "above",
       "page_number": 16,
-      "grid_data": {
-        "table_index": 22,
-        "page_number": 16,
-        "bbox": {
-          "x1": 33.59679999999991,
-          "y1": 44.06520672000003,
-          "x2": 563.5763494500001,
-          "y2": 236.9113852027211
-        },
-        "accuracy": 99.08298058357691,
-        "parse_method": "stream",
-        "has_empty_cells": true,
-        "empty_cell_locations": [
-          {
-            "row": 0,
-            "col": 1
-          },
-          {
-            "row": 0,
-            "col": 2
-          },
-          {
-            "row": 0,
-            "col": 3
-          },
-          {
-            "row": 0,
-            "col": 4
-          },
-          {
-            "row": 0,
-            "col": 5
-          },
-          {
-            "row": 1,
-            "col": 1
-          },
-          {
-            "row": 1,
-            "col": 2
-          },
-          {
-            "row": 1,
-            "col": 3
-          },
-          {
-            "row": 1,
-            "col": 4
-          },
-          {
-            "row": 1,
-            "col": 5
-          },
-          {
-            "row": 4,
-            "col": 0
-          },
-          {
-            "row": 5,
-            "col": 0
-          },
-          {
-            "row": 6,
-            "col": 0
-          },
-          {
-            "row": 8,
-            "col": 0
-          },
-          {
-            "row": 9,
-            "col": 0
-          },
-          {
-            "row": 10,
-            "col": 0
-          },
-          {
-            "row": 12,
-            "col": 0
-          },
-          {
-            "row": 13,
-            "col": 0
-          },
-          {
-            "row": 14,
-            "col": 0
-          },
-          {
-            "row": 16,
-            "col": 0
-          },
-          {
-            "row": 17,
-            "col": 0
-          },
-          {
-            "row": 18,
-            "col": 0
-          }
-        ],
-        "has_footnote_markers": true,
-        "row_count": 19,
-        "col_count": 6,
-        "headers": [
-          "Table12",
-          "",
-          "",
-          "",
-          "",
-          ""
-        ],
-        "data_json": "[{\"0\":\"Table12\",\"1\":\"\",\"2\":\"\",\"3\":\"\",\"4\":\"\",\"5\":\"\"},{\"0\":\"Statistical analysis of the proposed WOA-FSP algorithm for IoT service placement.\",\"1\":\"\",\"2\":\"\",\"3\":\"\",\"4\":\"\",\"5\":\"\"},{\"0\":\"Baseline Algorithms\",\"1\":\"Statistical parameters\",\"2\":\"Resource usage\",\"3\":\"Service acceptance ratio\",\"4\":\"Service delay\",\"5\":\"Energy consumption\"},{\"0\":\"GA-FSP\",\"1\":\"Mean\",\"2\":\"7.54072\",\"3\":\"0.091782\",\"4\":\"0.31983208\",\"5\":\"4.8091\"},{\"0\":\"\",\"1\":\"SD\",\"2\":\"6.98234\",\"3\":\"0.099823\",\"4\":\"0.36823492\",\"5\":\"5.5982\"},{\"0\":\"\",\"1\":\"t-value\",\"2\":\"2.34983472\",\"3\":\"2.25982129\",\"4\":\"3.19029334\",\"5\":\"2.6245328\"},{\"0\":\"\",\"1\":\"p-value\",\"2\":\"0.01489058\",\"3\":\"0.0256673\",\"4\":\"0.0213378\",\"5\":\"0.0015328\"},{\"0\":\"PSO-FSP\",\"1\":\"Mean\",\"2\":\"4.329034\",\"3\":\"0.048909\",\"4\":\"0.1743865\",\"5\":\"2.27458\"},{\"0\":\"\",\"1\":\"SD\",\"2\":\"4.982341\",\"3\":\"0.043982\",\"4\":\"0.1893282\",\"5\":\"2.19088\"},{\"0\":\"\",\"1\":\"t-value\",\"2\":\"5.9821292\",\"3\":\"2.6239824\",\"4\":\"4.98982234\",\"5\":\"6.45329033\"},{\"0\":\"\",\"1\":\"p-value\",\"2\":\"0.009356904\",\"3\":\"0.01523986\",\"4\":\"0.009907633\",\"5\":\"0.00089896\"},{\"0\":\"BA-FSP\",\"1\":\"Mean\",\"2\":\"6.60981\",\"3\":\"0.083872\",\"4\":\"0.2573321\",\"5\":\"3.70923\"},{\"0\":\"\",\"1\":\"SD\",\"2\":\"6.78234\",\"3\":\"0.082394\",\"4\":\"0.2692342\",\"5\":\"3.92932\"},{\"0\":\"\",\"1\":\"t-value\",\"2\":\"2.3923493\",\"3\":\"4.23494583\",\"4\":\"3.2453945\",\"5\":\"2.67342095\"},{\"0\":\"\",\"1\":\"p-value\",\"2\":\"0.0142949\",\"3\":\"0.0224376\",\"4\":\"0.01918876\",\"5\":\"0.0012983\"},{\"0\":\"SA-FSP\",\"1\":\"Mean\",\"2\":\"5.438927\",\"3\":\"0.0600328\",\"4\":\"0.2354928\",\"5\":\"2.95631\"},{\"0\":\"\",\"1\":\"SD\",\"2\":\"5.309882\",\"3\":\"0.0589234\",\"4\":\"0.2598321\",\"5\":\"3.01098\"},{\"0\":\"\",\"1\":\"t-value\",\"2\":\"5.2349453\",\"3\":\"2.56303924\",\"4\":\"2.73940327\",\"5\":\"6.23495602\"},{\"0\":\"\",\"1\":\"p-value\",\"2\":\"0.00128661\",\"3\":\"0.0186621\",\"4\":\"0.01643429\",\"5\":\"0.0009339\"}]"
-      },
+      "grid_data": null,
       "bbox": {
         "page": 16,
         "x0": 318.5541687011719,
@@ -3027,21 +2564,8 @@
       "coordinate_found": true
     },
     {
-      "acronym": "QoS",
-      "definition": "Quality of Service",
-      "page_number": 2,
-      "bbox": {
-        "page": 2,
-        "x0": 150.9716339111328,
-        "y0": 197.7359619140625,
-        "x1": 165.3496856689453,
-        "y1": 210.76707458496094
-      },
-      "coordinate_found": true
-    },
-    {
       "acronym": "MAPE-k",
-      "definition": "monitoring, analysis, planning, and execution with a shared knowledge base",
+      "definition": "a shared knowledge base",
       "page_number": 2,
       "bbox": {
         "page": 2,
@@ -3106,7 +2630,7 @@
     },
     {
       "acronym": "NSGA-II",
-      "definition": "NSGA-II",
+      "definition": null,
       "page_number": 2,
       "bbox": {
         "page": 2,
@@ -3118,28 +2642,8 @@
       "coordinate_found": true
     },
     {
-      "acronym": "iFogSim",
-      "definition": "iFogSim toolkit",
-      "page_number": 2,
-      "bbox": {
-        "page": 2,
-        "x0": 340.94775390625,
-        "y0": 574.3431396484375,
-        "x1": 369.5365295410156,
-        "y1": 587.374267578125
-      },
-      "coordinate_found": true
-    },
-    {
-      "acronym": "ProLog",
-      "definition": "ProLog language",
-      "page_number": 2,
-      "bbox": null,
-      "coordinate_found": false
-    },
-    {
       "acronym": "5G",
-      "definition": "5G",
+      "definition": "5G mobile network",
       "page_number": 2,
       "bbox": {
         "page": 2,
@@ -3151,8 +2655,34 @@
       "coordinate_found": true
     },
     {
+      "acronym": "iFogSim",
+      "definition": "toolkit",
+      "page_number": 2,
+      "bbox": {
+        "page": 2,
+        "x0": 340.94775390625,
+        "y0": 574.3431396484375,
+        "x1": 369.5365295410156,
+        "y1": 587.374267578125
+      },
+      "coordinate_found": true
+    },
+    {
+      "acronym": "ProbLog",
+      "definition": null,
+      "page_number": 2,
+      "bbox": {
+        "page": 2,
+        "x0": 306.5926208496094,
+        "y0": 720.7801513671875,
+        "x1": 335.8348693847656,
+        "y1": 733.811279296875
+      },
+      "coordinate_found": true
+    },
+    {
       "acronym": "IoT",
-      "definition": "Internet of Things",
+      "definition": null,
       "page_number": 3,
       "bbox": {
         "page": 3,
@@ -3165,7 +2695,7 @@
     },
     {
       "acronym": "QoS",
-      "definition": "Quality of Service",
+      "definition": null,
       "page_number": 3,
       "bbox": {
         "page": 3,
@@ -3178,7 +2708,7 @@
     },
     {
       "acronym": "MAPE-K",
-      "definition": "Model-Assemble-Plan-Execute-Knowledge",
+      "definition": "an autonomic computing model",
       "page_number": 3,
       "bbox": {
         "page": 3,
@@ -3190,15 +2720,15 @@
       "coordinate_found": true
     },
     {
-      "acronym": "AI",
-      "definition": "Artificial intelligence",
+      "acronym": "WOA",
+      "definition": "Whale optimization algorithm",
       "page_number": 3,
       "bbox": {
         "page": 3,
-        "x0": 79.1427001953125,
-        "y0": 197.7359619140625,
-        "x1": 85.61441802978516,
-        "y1": 210.76707458496094
+        "x0": 539.031005859375,
+        "y0": 448.8260192871094,
+        "x1": 557.649169921875,
+        "y1": 461.85711669921875
       },
       "coordinate_found": true
     },
@@ -3370,13 +2900,6 @@
         "y1": 713.1231079101562
       },
       "coordinate_found": true
-    },
-    {
-      "acronym": "WAO",
-      "definition": null,
-      "page_number": 5,
-      "bbox": null,
-      "coordinate_found": false
     },
     {
       "acronym": "IoT",
@@ -5144,1120 +4667,361 @@
   "camelot_tables": [
     {
       "table_index": 0,
-      "page_number": 1,
+      "page_number": 4,
       "bbox": {
-        "x1": 27.587400000000002,
-        "y1": 348.89374499999997,
-        "x2": 569.7891092,
-        "y2": 664.2767890493903
+        "x1": 36.59433364868164,
+        "y1": 332.9401550292969,
+        "x2": 558.0894775390625,
+        "y2": 74.03719329833984
       },
-      "accuracy": 92.8699186342335,
-      "parse_method": "stream",
-      "has_empty_cells": true,
-      "empty_cell_locations": [
-        {
-          "row": 0,
-          "col": 1
-        },
-        {
-          "row": 1,
-          "col": 1
-        },
-        {
-          "row": 2,
-          "col": 1
-        },
-        {
-          "row": 3,
-          "col": 1
-        },
-        {
-          "row": 10,
-          "col": 0
-        },
-        {
-          "row": 11,
-          "col": 0
-        },
-        {
-          "row": 12,
-          "col": 0
-        },
-        {
-          "row": 13,
-          "col": 0
-        },
-        {
-          "row": 14,
-          "col": 0
-        },
-        {
-          "row": 15,
-          "col": 0
-        },
-        {
-          "row": 16,
-          "col": 0
-        },
-        {
-          "row": 17,
-          "col": 0
-        },
-        {
-          "row": 18,
-          "col": 0
-        },
-        {
-          "row": 19,
-          "col": 0
-        },
-        {
-          "row": 20,
-          "col": 0
-        }
-      ],
+      "accuracy": 100.0,
+      "parse_method": "docling",
+      "has_empty_cells": false,
+      "empty_cell_locations": [],
       "has_footnote_markers": true,
-      "row_count": 21,
-      "col_count": 2,
+      "row_count": 13,
+      "col_count": 6,
       "headers": [
-        "A cost-efficient IoT service placement approach using whale optimization",
-        ""
+        "Reference",
+        "Utilized Technique",
+        "Evaluation Tool",
+        "Performance Metric",
+        "Deployment strategy",
+        "Case study"
       ],
-      "data_json": "[{\"0\":\"A cost-efficient IoT service placement approach using whale optimization\",\"1\":\"\"},{\"0\":\"algorithm in fog computing environment\",\"1\":\"\"},{\"0\":\"Mostafa Ghobaei-Arani *, Ali Shahidinejad\",\"1\":\"\"},{\"0\":\"Department of Computer Engineering, Qom Branch, Islamic Azad University, Qom, Iran\",\"1\":\"\"},{\"0\":\"A R T I C L E I N F O\",\"1\":\"A B S T R A C T\"},{\"0\":\"Keywords:\",\"1\":\"The rapid development of Internet of Things (IoT)-based applications and the era of 5G networks has led to an\"},{\"0\":\"Fog computing\",\"1\":\"exponential increase in the amount of data required for processing the IoT services. The fog computing paradigm\"},{\"0\":\"IoT applications\",\"1\":\"has emerged as a distributed computing solution for serving these applications using available fog nodes near the\"},{\"0\":\"Service placement\",\"1\":\"IoT devices. Since the IoT applications are developed in the form of several IoT services with various quality of\"},{\"0\":\"Whale optimization algorithm\",\"1\":\"service (QoS) requirements that can be deployed on the fog nodes with different resource capabilities in the fog\"},{\"0\":\"\",\"1\":\"ecosystem, finding an efficient service placement plan is one of the challenging issues to be considered. In this\"},{\"0\":\"\",\"1\":\"paper, we propose an efficient IoT service placement solution based on the autonomic methodology for deploying\"},{\"0\":\"\",\"1\":\"IoT applications on the fog infrastructure. Our proposed solution monitors the QoS requirements of IoT services\"},{\"0\":\"\",\"1\":\"and capabilities of available fog nodes to determine an efficient service placement plan using the whale opti-\"},{\"0\":\"\",\"1\":\"mization algorithm (WOA) meta-heuristic technique. Besides, our evolutionary-based mechanism utilized the\"},{\"0\":\"\",\"1\":\"throughput and the energy consumption as objective functions for finding desirable IoT service placement plan\"},{\"0\":\"\",\"1\":\"while meeting the QoS requirements of each IoT service. Also, we develop an autonomous service placement\"},{\"0\":\"\",\"1\":\"framework according to a three-tier architecture of the fog ecosystem to show the interaction between the main\"},{\"0\":\"\",\"1\":\"components of the IoT device and fog layers for deploying IoT applications. The simulation results demonstrate\"},{\"0\":\"\",\"1\":\"that the proposed solution increases the resource usage and service acceptance ratio and reduces the service\"},{\"0\":\"\",\"1\":\"delay and the energy consumption compared with the other metaheuristic-based mechanisms.\"}]"
+      "data_json": "[{\"Reference\":\"(Skarlat et al., 2017)\",\"Utilized Technique\":\"GA\",\"Evaluation Tool\":\"Simulation (iFogSim)\",\"Performance Metric\":\"Service delay, Resource utilization, service placement percentage\",\"Deployment strategy\":\"Hierarchical\",\"Case study\":\"Manufacturing application\"},{\"Reference\":\"( Guerrero et al., 2019a )\",\"Utilized Technique\":\"NSGA-II\",\"Evaluation Tool\":\"Simulation (MATLAB)\",\"Performance Metric\":\"Resource usage, Service spread, Network latency, Execution time\",\"Deployment strategy\":\"Centralized\",\"Case study\":\"EEG application\"},{\"Reference\":\"(Canali & Lancellotti, 2019)\",\"Utilized Technique\":\"GA\",\"Evaluation Tool\":\"Simulation (AMPL + KNITRO solver)\",\"Performance Metric\":\"Execution time, Convergence\",\"Deployment strategy\":\"Centralized\",\"Case study\":\"Smart city application\"},{\"Reference\":\"(Djemai et al., 2019)\",\"Utilized Technique\":\"PSO\",\"Evaluation Tool\":\"Simulation (iFogSim)\",\"Performance Metric\":\"Energy consumption, Delay violation\",\"Deployment strategy\":\"Centralized\",\"Case study\":\"IoT application\"},{\"Reference\":\"(Roy et al., 2020)\",\"Utilized Technique\":\"PSO\",\"Evaluation Tool\":\"Simulation (Cloudsim)\",\"Performance Metric\":\"Deployment cost, QoE, User satisfaction ratio\",\"Deployment strategy\":\"Centralized\",\"Case study\":\"Smart city application\"},{\"Reference\":\"(Santoyo-Gonz \\u00b4 alez & Cervell \\u00b4 o-Pastor, 2018)\",\"Utilized Technique\":\"SA\",\"Evaluation Tool\":\"Simulation (Python + GLPK solver)\",\"Performance Metric\":\"Number of FNs deployed, Execution time\",\"Deployment strategy\":\"Centralized\",\"Case study\":\"Desktop application\"},{\"Reference\":\"( Guerrero et al., 2019b )\",\"Utilized Technique\":\"Heuristic-based\",\"Evaluation Tool\":\"Simulation (iFogSim)\",\"Performance Metric\":\"Network usage, Service latency, CPU usage, Number of migrations\",\"Deployment strategy\":\"Decentralized\",\"Case study\":\"IoT application\"},{\"Reference\":\"( Lin et al., 2020 )\",\"Utilized Technique\":\"BA\",\"Evaluation Tool\":\"Simulation (C ++ )\",\"Performance Metric\":\"Execution time, Fitness value\",\"Deployment strategy\":\"Centralized\",\"Case study\":\"IoT application\"},{\"Reference\":\"( Mehran et al., 2019 )\",\"Utilized Technique\":\"Pareto-based Optimization\",\"Evaluation Tool\":\"Simulation (jMetal solver)\",\"Performance Metric\":\"Execution time, Execution cost, Energy consumption\",\"Deployment strategy\":\"Centralized\",\"Case study\":\"Healthcare application\"},{\"Reference\":\"( Mahmud et al., 2018 )\",\"Utilized Technique\":\"Heuristic-based\",\"Evaluation Tool\":\"Simulation (iFogSim)\",\"Performance Metric\":\"Application placement time, Deadline satisfied percentage\",\"Deployment strategy\":\"Decentralized\",\"Case study\":\"Healthcare application\"},{\"Reference\":\"( Zeng et al., 2018 )\",\"Utilized Technique\":\"Heuristic-based + Linear programming\",\"Evaluation Tool\":\"Simulation (MATLAB)\",\"Performance Metric\":\"Energy consumption\",\"Deployment strategy\":\"Decentralized\",\"Case study\":\"CPS application\"},{\"Reference\":\"( Lee et al., 2019 )\",\"Utilized Technique\":\"Vector bin packing\",\"Evaluation Tool\":\"Simulation (MATLAB)\",\"Performance Metric\":\"Resource usage, Data movement distance\",\"Deployment strategy\":\"Decentralized\",\"Case study\":\"IoT application\"},{\"Reference\":\"Our approach\",\"Utilized Technique\":\"WOA\",\"Evaluation Tool\":\"Simulation (iFogSim)\",\"Performance Metric\":\"Resource usage, Service Acceptance ratio, Energy consumption, Service Delay\",\"Deployment strategy\":\"Centralized\",\"Case study\":\"IoT application\"}]"
     },
     {
       "table_index": 1,
-      "page_number": 1,
+      "page_number": 8,
       "bbox": {
-        "x1": 27.587399999999974,
-        "y1": 131.01311170999998,
-        "x2": 569.9963716100001,
-        "y2": 366.90984564939026
+        "x1": 36.5802001953125,
+        "y1": 741.2160034179688,
+        "x2": 289.006591796875,
+        "y2": 412.43304443359375
       },
-      "accuracy": 99.28673407093237,
-      "parse_method": "stream",
-      "has_empty_cells": true,
-      "empty_cell_locations": [
-        {
-          "row": 0,
-          "col": 0
-        },
-        {
-          "row": 2,
-          "col": 0
-        }
-      ],
+      "accuracy": 100.0,
+      "parse_method": "docling",
+      "has_empty_cells": false,
+      "empty_cell_locations": [],
       "has_footnote_markers": true,
-      "row_count": 19,
+      "row_count": 28,
       "col_count": 2,
       "headers": [
-        "",
-        "delay and the energy consumption compared with the other metaheuristic-based mechanisms."
+        "Notation",
+        "Definition"
       ],
-      "data_json": "[{\"0\":\"\",\"1\":\"delay and the energy consumption compared with the other metaheuristic-based mechanisms.\"},{\"0\":\"1. Introduction\",\"1\":\"resource capabilities while satisfying various QoS requirements of IoT\"},{\"0\":\"\",\"1\":\"services (Omer Hassan, Azizi, & Shojafar, 2020). It has a considerable\"},{\"0\":\"In recent years, the fog computing paradigm emerged as a distrib-\",\"1\":\"impact on the performance and energy consumption of fog resources in\"},{\"0\":\"uted computing paradigm to provide storage, computing, and\",\"1\":\"the fog ecosystem. Some IoT applications are delay-sensitive, such as\"},{\"0\":\"networking capabilities for serving the Internet of Things (IoT) appli-\",\"1\":\"virtual reality and online gaming, while others are compute-intensive,\"},{\"0\":\"cations at the edge of the network (Atlam, Walters, & Wills, 2018, Brogi,\",\"1\":\"such as big data analytics applications. On the other hand, due to the\"},{\"0\":\"Forti, Guerrero, & Lera, 2019). Fog computing technology deploys IoT\",\"1\":\"heterogeneity and resource-limited fog nodes and various requirements\"},{\"0\":\"applications on the available fog resources to minimize cost, latency,\",\"1\":\"of IoT applications, providing an effective placement plan is one of the\"},{\"0\":\"bandwidth usage, and satisfy the quality of service (QoS) requirements\",\"1\":\"most challenging tasks that should be considered.Evolutionary algo-\"},{\"0\":\"for real-time applications such as virtual reality, autonomous cars,\",\"1\":\"rithms are a subset of optimization techniques inspired by natural evo-\"},{\"0\":\"augmented reality, real-time manufacturing, drones, and cyber-physical\",\"1\":\"lution operators such as mutation, selection, and crossover within\"},{\"0\":\"system in IoT networks (Yousefpour et al., 2019). According to micro-\",\"1\":\"specific constraints to solve service placement problems. Since the ser-\"},{\"0\":\"service architecture, the IoT applications are developed in the form of\",\"1\":\"vice placement problem is known as an NP-hard optimization problem,\"},{\"0\":\"several IoT services that are loosely coupled with various QoS re-\",\"1\":\"the evolutionary algorithms such as genetic algorithm (GA) (Skarlat,\"},{\"0\":\"quirements that can deploy in different locations. On the other hand, in\",\"1\":\"Nardelli, Schulte, Borkowski, & Leitner, 2017, Guerrero, Lera, & Juiz,\"},{\"0\":\"the fog ecosystem, the fog layer consists of a network of resource-limited\",\"1\":\"2019a, Canali & Lancellotti, 2019), particle swarm optimization (PSO)\"},{\"0\":\"fog nodes with different resource capabilities. The IoT service placement\",\"1\":\"(Djemai, Stolf, Monteil, & Pierson, 2019, Roy et al., 2020), and Simu-\"},{\"0\":\"problem is deploying IoT services on the fog nodes with different\",\"1\":\"lated Annealing (SA) (Santoyo-Gonz\\u00b4alez & Cervell\\u00b4o-Pastor, 2018) are\"}]"
+      "data_json": "[{\"Notation\":\"\\u0394 t\",\"Definition\":\"The time interval\"},{\"Notation\":\"A k\",\"Definition\":\"The k -th IoT application\"},{\"Notation\":\"S k , l\",\"Definition\":\"The l th service belonging to k th the IoT application\"},{\"Notation\":\"S DL k , l\",\"Definition\":\"The maximum time for executing IoT service S k , l\"},{\"Notation\":\"S Size k , l\",\"Definition\":\"The number of instruction of IoT service S k , l\"},{\"Notation\":\"S BW k , l\",\"Definition\":\"The network traffic usage of IoT service S k , l\"},{\"Notation\":\"S CPU k , l\",\"Definition\":\"The processing power demand of IoT service S k , l\"},{\"Notation\":\"S RAM k , l\",\"Definition\":\"The main memory demand of IoT service S k , l\"},{\"Notation\":\"S Disk k , l\",\"Definition\":\"The storage capacity demand of IoT service S k , l\"},{\"Notation\":\"F i\",\"Definition\":\"The i -th fog domain\"},{\"Notation\":\"FN i , j FN CPU i , j\",\"Definition\":\"The j th fog resource belonging to i th the fog domain CPU capacity of the fog node FN i , j\"},{\"Notation\":\"FN RAM i , j\",\"Definition\":\"Memory capacity of the fog node FN i , j\"},{\"Notation\":\"FN Disk i , j\",\"Definition\":\"The storage capacity of the fog node FN i , j\"},{\"Notation\":\"FN BW i , j\",\"Definition\":\"The network bandwidth capacity of the fog node FN i , j\"},{\"Notation\":\"X FN i , j S k , l\",\"Definition\":\"Binary variable to present if IoT service S k , l is placed on the fog node FN i , j\"},{\"Notation\":\"T\",\"Definition\":\"Throughput\"},{\"Notation\":\"E\",\"Definition\":\"Total Energy Consumption\"},{\"Notation\":\"ES FN i , j ( \\u0394 t )\",\"Definition\":\"The static energy consumption at the \\u0394 t th interval\"},{\"Notation\":\"ED FN i , j ( \\u0394 t )\",\"Definition\":\"The dynamic energy consumption at the \\u0394 t th interval\"},{\"Notation\":\"E FN i , j ( \\u0394 t )\",\"Definition\":\"The total computation energy consumption at the \\u0394 t th interval\"},{\"Notation\":\"TE Comp\",\"Definition\":\"Total computation energy consumption\"},{\"Notation\":\"\\u03bb FN i , j , FN i \\u2032 , j \\u2032 k , l\",\"Definition\":\"The data transfer rate between two fog nodes FN i , j and FN i \\u2032 , j \\u2032 to serve IoT service S k , l\"},{\"Notation\":\"UCE FN i , j EC FN i , j ( \\u0394 t )\",\"Definition\":\"The unit communication energy consumption of a fog node FN i , j The total communication energy consumption at the \\u0394 t th interval\"},{\"Notation\":\"TE Comm\",\"Definition\":\"Total communication energy consumption\"},{\"Notation\":\"D AC , CG D AC , MF\",\"Definition\":\"The delay between the admission control and the cloud gateway The delay between the admission control and the master fog node\"},{\"Notation\":\"D MF , SF\",\"Definition\":\"The delay between the master fog node and the slave fog domains\"},{\"Notation\":\"D AC ( F ) , FN\",\"Definition\":\"The delay between the fog domain control node F i and the fog node FN i , j\"},{\"Notation\":\"i i , j\",\"Definition\":\"into the slave fog domain\"}]"
+    },
+    {
+      "table_index": 2,
+      "page_number": 10,
+      "bbox": {
+        "x1": 36.88121795654297,
+        "y1": 448.4308166503906,
+        "x2": 224.5381317138672,
+        "y2": 324.9244384765625
+      },
+      "accuracy": 100.0,
+      "parse_method": "docling",
+      "has_empty_cells": false,
+      "empty_cell_locations": [],
+      "has_footnote_markers": true,
+      "row_count": 10,
+      "col_count": 1,
+      "headers": [
+        "0"
+      ],
+      "data_json": "[{\"0\":\"Input: Fog Domains F, IoT Applications A\"},{\"0\":\"Output: Monitored_Inputs\"},{\"0\":\"1: Begin\"},{\"0\":\"2: for each ( Time interval \\u0394 t until the system is running) do\"},{\"0\":\"3: for each ( IoT services S k , l in A ) do\"},{\"0\":\"4: Monitor S CPU k , l , S Disk k , l , S RAM k , l , S BW k , l , S Size k , l , and S DL k , l for all IoT Services\"},{\"0\":\"5: end for each 6: for each ( Fog node FN i , j in Fog Domain F ) do\"},{\"0\":\"7: Monitor FN CPU i , j , FN RAM i , j , FN Disk i , j , and FN BW i , j for all fog nodes\"},{\"0\":\"8 : end for each\"},{\"0\":\"9: end for each 10 : Return Monitored_Inputs 11: End\"}]"
+    },
+    {
+      "table_index": 3,
+      "page_number": 11,
+      "bbox": {
+        "x1": 306.2679138183594,
+        "y1": 739.2273559570312,
+        "x2": 486.5195617675781,
+        "y2": 663.5518188476562
+      },
+      "accuracy": 100.0,
+      "parse_method": "docling",
+      "has_empty_cells": false,
+      "empty_cell_locations": [],
+      "has_footnote_markers": true,
+      "row_count": 6,
+      "col_count": 1,
+      "headers": [
+        "0"
+      ],
+      "data_json": "[{\"0\":\"Input: Placement plan\"},{\"0\":\"1: Begin\"},{\"0\":\"2: for each ( Time interval \\u0394 t until the system is running) do\"},{\"0\":\"3: for each (IoT services S k , l in A ) do\"},{\"0\":\"4: Deployment(S k , l , Placement Plan)\"},{\"0\":\"5: end for each 6: end for each\"}]"
     },
     {
       "table_index": 4,
-      "page_number": 4,
+      "page_number": 12,
       "bbox": {
-        "x1": 33.59679999999991,
-        "y1": 452.59587318,
-        "x2": 559.99054329,
-        "y2": 749.0600269321808
+        "x1": 36.61396408081055,
+        "y1": 741.5173950195312,
+        "x2": 288.8872985839844,
+        "y2": 713.9291381835938
       },
-      "accuracy": 98.8039009532567,
-      "parse_method": "stream",
-      "has_empty_cells": true,
-      "empty_cell_locations": [
-        {
-          "row": 0,
-          "col": 1
-        },
-        {
-          "row": 0,
-          "col": 2
-        },
-        {
-          "row": 0,
-          "col": 3
-        },
-        {
-          "row": 0,
-          "col": 4
-        },
-        {
-          "row": 0,
-          "col": 5
-        },
-        {
-          "row": 1,
-          "col": 1
-        },
-        {
-          "row": 1,
-          "col": 2
-        },
-        {
-          "row": 1,
-          "col": 3
-        },
-        {
-          "row": 1,
-          "col": 4
-        },
-        {
-          "row": 1,
-          "col": 5
-        },
-        {
-          "row": 3,
-          "col": 0
-        },
-        {
-          "row": 3,
-          "col": 1
-        },
-        {
-          "row": 3,
-          "col": 2
-        },
-        {
-          "row": 3,
-          "col": 3
-        },
-        {
-          "row": 3,
-          "col": 5
-        },
-        {
-          "row": 5,
-          "col": 0
-        },
-        {
-          "row": 5,
-          "col": 1
-        },
-        {
-          "row": 5,
-          "col": 4
-        },
-        {
-          "row": 7,
-          "col": 0
-        },
-        {
-          "row": 7,
-          "col": 1
-        },
-        {
-          "row": 7,
-          "col": 4
-        },
-        {
-          "row": 7,
-          "col": 5
-        },
-        {
-          "row": 9,
-          "col": 0
-        },
-        {
-          "row": 9,
-          "col": 1
-        },
-        {
-          "row": 9,
-          "col": 3
-        },
-        {
-          "row": 9,
-          "col": 4
-        },
-        {
-          "row": 10,
-          "col": 0
-        },
-        {
-          "row": 10,
-          "col": 1
-        },
-        {
-          "row": 10,
-          "col": 3
-        },
-        {
-          "row": 10,
-          "col": 4
-        },
-        {
-          "row": 10,
-          "col": 5
-        },
-        {
-          "row": 12,
-          "col": 0
-        },
-        {
-          "row": 12,
-          "col": 1
-        },
-        {
-          "row": 12,
-          "col": 3
-        },
-        {
-          "row": 12,
-          "col": 4
-        },
-        {
-          "row": 12,
-          "col": 5
-        },
-        {
-          "row": 14,
-          "col": 0
-        },
-        {
-          "row": 14,
-          "col": 1
-        },
-        {
-          "row": 14,
-          "col": 3
-        },
-        {
-          "row": 14,
-          "col": 4
-        },
-        {
-          "row": 16,
-          "col": 1
-        },
-        {
-          "row": 16,
-          "col": 3
-        },
-        {
-          "row": 16,
-          "col": 4
-        },
-        {
-          "row": 16,
-          "col": 5
-        },
-        {
-          "row": 17,
-          "col": 0
-        },
-        {
-          "row": 17,
-          "col": 1
-        },
-        {
-          "row": 17,
-          "col": 3
-        },
-        {
-          "row": 17,
-          "col": 4
-        },
-        {
-          "row": 17,
-          "col": 5
-        },
-        {
-          "row": 19,
-          "col": 0
-        },
-        {
-          "row": 19,
-          "col": 1
-        },
-        {
-          "row": 19,
-          "col": 4
-        },
-        {
-          "row": 19,
-          "col": 5
-        },
-        {
-          "row": 22,
-          "col": 0
-        },
-        {
-          "row": 22,
-          "col": 1
-        },
-        {
-          "row": 22,
-          "col": 4
-        },
-        {
-          "row": 24,
-          "col": 0
-        },
-        {
-          "row": 24,
-          "col": 1
-        },
-        {
-          "row": 24,
-          "col": 4
-        },
-        {
-          "row": 26,
-          "col": 0
-        },
-        {
-          "row": 26,
-          "col": 3
-        },
-        {
-          "row": 26,
-          "col": 4
-        },
-        {
-          "row": 26,
-          "col": 5
-        },
-        {
-          "row": 28,
-          "col": 0
-        },
-        {
-          "row": 28,
-          "col": 1
-        },
-        {
-          "row": 28,
-          "col": 3
-        },
-        {
-          "row": 28,
-          "col": 4
-        },
-        {
-          "row": 28,
-          "col": 5
-        },
-        {
-          "row": 30,
-          "col": 0
-        },
-        {
-          "row": 30,
-          "col": 1
-        },
-        {
-          "row": 30,
-          "col": 4
-        },
-        {
-          "row": 30,
-          "col": 5
-        },
-        {
-          "row": 31,
-          "col": 1
-        },
-        {
-          "row": 31,
-          "col": 2
-        },
-        {
-          "row": 31,
-          "col": 3
-        },
-        {
-          "row": 31,
-          "col": 4
-        },
-        {
-          "row": 31,
-          "col": 5
-        }
-      ],
-      "has_footnote_markers": true,
-      "row_count": 32,
-      "col_count": 6,
+      "accuracy": 100.0,
+      "parse_method": "docling",
+      "has_empty_cells": false,
+      "empty_cell_locations": [],
+      "has_footnote_markers": false,
+      "row_count": 2,
+      "col_count": 3,
       "headers": [
-        "Table1",
-        "",
-        "",
-        "",
-        "",
-        ""
+        "0",
+        "1",
+        "2"
       ],
-      "data_json": "[{\"0\":\"Table1\",\"1\":\"\",\"2\":\"\",\"3\":\"\",\"4\":\"\",\"5\":\"\"},{\"0\":\"A side-by-side comparison of the service placement mechanisms.\",\"1\":\"\",\"2\":\"\",\"3\":\"\",\"4\":\"\",\"5\":\"\"},{\"0\":\"Reference\",\"1\":\"Utilized Technique\",\"2\":\"Evaluation Tool\",\"3\":\"Performance Metric\",\"4\":\"Deployment\",\"5\":\"Case study\"},{\"0\":\"\",\"1\":\"\",\"2\":\"\",\"3\":\"\",\"4\":\"strategy\",\"5\":\"\"},{\"0\":\"(Skarlat et al., 2017)\",\"1\":\"GA\",\"2\":\"Simulation\",\"3\":\"Service delay, Resource utilization, service\",\"4\":\"Hierarchical\",\"5\":\"Manufacturing\"},{\"0\":\"\",\"1\":\"\",\"2\":\"(iFogSim)\",\"3\":\"placement percentage\",\"4\":\"\",\"5\":\"application\"},{\"0\":\"(Guerrero et al., 2019a)\",\"1\":\"NSGA-II\",\"2\":\"Simulation\",\"3\":\"Resource usage, Service spread, Network\",\"4\":\"Centralized\",\"5\":\"EEG application\"},{\"0\":\"\",\"1\":\"\",\"2\":\"(MATLAB)\",\"3\":\"latency, Execution time\",\"4\":\"\",\"5\":\"\"},{\"0\":\"(Canali & Lancellotti, 2019)\",\"1\":\"GA\",\"2\":\"Simulation\",\"3\":\"Execution time, Convergence\",\"4\":\"Centralized\",\"5\":\"Smart city\"},{\"0\":\"\",\"1\":\"\",\"2\":\"(AMPL + KNITRO\",\"3\":\"\",\"4\":\"\",\"5\":\"application\"},{\"0\":\"\",\"1\":\"\",\"2\":\"solver)\",\"3\":\"\",\"4\":\"\",\"5\":\"\"},{\"0\":\"(Djemai et al., 2019)\",\"1\":\"PSO\",\"2\":\"Simulation\",\"3\":\"Energy consumption, Delay violation\",\"4\":\"Centralized\",\"5\":\"IoT application\"},{\"0\":\"\",\"1\":\"\",\"2\":\"(iFogSim)\",\"3\":\"\",\"4\":\"\",\"5\":\"\"},{\"0\":\"(Roy et al., 2020)\",\"1\":\"PSO\",\"2\":\"Simulation\",\"3\":\"Deployment cost, QoE, User satisfaction ratio\",\"4\":\"Centralized\",\"5\":\"Smart city\"},{\"0\":\"\",\"1\":\"\",\"2\":\"(Cloudsim)\",\"3\":\"\",\"4\":\"\",\"5\":\"application\"},{\"0\":\"(Santoyo-Gonz\\u00b4alez &\",\"1\":\"SA\",\"2\":\"Simulation\",\"3\":\"Number of FNs deployed, Execution time\",\"4\":\"Centralized\",\"5\":\"Desktop application\"},{\"0\":\"Cervell\\u00b4o-Pastor, 2018)\",\"1\":\"\",\"2\":\"(Python + GLPK\",\"3\":\"\",\"4\":\"\",\"5\":\"\"},{\"0\":\"\",\"1\":\"\",\"2\":\"solver)\",\"3\":\"\",\"4\":\"\",\"5\":\"\"},{\"0\":\"(Guerrero et al., 2019b)\",\"1\":\"Heuristic-based\",\"2\":\"Simulation\",\"3\":\"Network usage, Service latency, CPU usage,\",\"4\":\"Decentralized\",\"5\":\"IoT application\"},{\"0\":\"\",\"1\":\"\",\"2\":\"(iFogSim)\",\"3\":\"Number of migrations\",\"4\":\"\",\"5\":\"\"},{\"0\":\"(Lin et al., 2020)\",\"1\":\"BA\",\"2\":\"Simulation (C++)\",\"3\":\"Execution time, Fitness value\",\"4\":\"Centralized\",\"5\":\"IoT application\"},{\"0\":\"(Mehran et al., 2019)\",\"1\":\"Pareto-based Optimization\",\"2\":\"Simulation\",\"3\":\"Execution time, Execution cost, Energy\",\"4\":\"Centralized\",\"5\":\"Healthcare\"},{\"0\":\"\",\"1\":\"\",\"2\":\"(jMetal solver)\",\"3\":\"consumption\",\"4\":\"\",\"5\":\"application\"},{\"0\":\"(Mahmud et al., 2018)\",\"1\":\"Heuristic-based\",\"2\":\"Simulation\",\"3\":\"Application placement time, Deadline satisfied\",\"4\":\"Decentralized\",\"5\":\"Healthcare\"},{\"0\":\"\",\"1\":\"\",\"2\":\"(iFogSim)\",\"3\":\"percentage\",\"4\":\"\",\"5\":\"application\"},{\"0\":\"(Zeng et al., 2018)\",\"1\":\"Heuristic-based + Linear\",\"2\":\"Simulation\",\"3\":\"Energy consumption\",\"4\":\"Decentralized\",\"5\":\"CPS application\"},{\"0\":\"\",\"1\":\"programming\",\"2\":\"(MATLAB)\",\"3\":\"\",\"4\":\"\",\"5\":\"\"},{\"0\":\"(Lee et al., 2019)\",\"1\":\"Vector bin packing\",\"2\":\"Simulation\",\"3\":\"Resource usage, Data movement distance\",\"4\":\"Decentralized\",\"5\":\"IoT application\"},{\"0\":\"\",\"1\":\"\",\"2\":\"(MATLAB)\",\"3\":\"\",\"4\":\"\",\"5\":\"\"},{\"0\":\"Our approach\",\"1\":\"WOA\",\"2\":\"Simulation\",\"3\":\"Resource usage, Service Acceptance ratio,\",\"4\":\"Centralized\",\"5\":\"IoT application\"},{\"0\":\"\",\"1\":\"\",\"2\":\"(iFogSim)\",\"3\":\"Energy consumption, Service Delay\",\"4\":\"\",\"5\":\"\"},{\"0\":\"Abbreviations: GA, Genetic Algorithm; PSO, Particles Swarm Optimization; SPEA2, Strength Pareto Evolutionary Algorithm; NSGA-II, Non-dominated sorting genetic\",\"1\":\"\",\"2\":\"\",\"3\":\"\",\"4\":\"\",\"5\":\"\"}]"
+      "data_json": "[{\"0\":\"CPU Length\",\"1\":\"NW Length\",\"2\":\"Average Inter-arrival Time\"},{\"0\":\"1000\",\"1\":\"20,000\",\"2\":\"10\"}]"
     },
     {
       "table_index": 5,
-      "page_number": 4,
+      "page_number": 12,
       "bbox": {
-        "x1": 27.588233429999995,
-        "y1": 38.772833089999985,
-        "x2": 570.01633328,
-        "y2": 225.48750228218086
+        "x1": 319.771240234375,
+        "y1": 135.03623962402344,
+        "x2": 544.1849365234375,
+        "y2": 73.54623413085938
       },
-      "accuracy": 99.99999999999996,
-      "parse_method": "stream",
-      "has_empty_cells": true,
-      "empty_cell_locations": [
-        {
-          "row": 0,
-          "col": 1
-        },
-        {
-          "row": 2,
-          "col": 1
-        },
-        {
-          "row": 4,
-          "col": 1
-        },
-        {
-          "row": 6,
-          "col": 1
-        },
-        {
-          "row": 8,
-          "col": 1
-        }
-      ],
+      "accuracy": 100.0,
+      "parse_method": "docling",
+      "has_empty_cells": false,
+      "empty_cell_locations": [],
       "has_footnote_markers": true,
-      "row_count": 17,
+      "row_count": 4,
       "col_count": 2,
       "headers": [
-        "by Equation (1) (Mirjalili et al., 2020b):",
-        ""
+        "Symbol",
+        "Value"
       ],
-      "data_json": "[{\"0\":\"by Equation (1) (Mirjalili et al., 2020b):\",\"1\":\"\"},{\"0\":\"\\u0305\\u2192 \\u2032\\u0305\\u2192\",\"1\":\"Fig.1. Whale updating position.\"},{\"0\":\"X\\u2192 (t +1) = D (t) .ebl.cos(2\\u03c0l) + X* (1)\",\"1\":\"\"},{\"0\":\"\\u2192 \\u0305\\u2192 \\u2032 \\u20d2\\u20d2\\u20d2 \\u20d2\\u20d2\\u20d2\",\"1\":\"and the exploration phases, respectively. Finally, the above steps are\"},{\"0\":\"= (t) \\u0000 X\\u2192 (t) and illustrates the difference between X* Where D\",\"1\":\"\"},{\"0\":\"\\u2192\",\"1\":\"repeated until the termination condition is satisfied.\"},{\"0\":\"the current position of the whale (i.e., X (t)) and the target prey position \\u0305\\u2192\",\"1\":\"\"},{\"0\":\"(i.e., X* (t)). Also, l is a random value in the interval [-1, 1] and b is a\",\"1\":\"3.2. Autonomous systems\"},{\"0\":\"constant to model the shape of the logarithmic spiral.\",\"1\":\"\"},{\"0\":\"The overall structure of the WOA technique is provided step by step,\",\"1\":\"The complexity of the administrative activities of the computer\"},{\"0\":\"as shown in Fig.2. According to Fig.2, we first randomly generate the\",\"1\":\"systems and their integration with heterogeneous systems as the main\"},{\"0\":\"initial whale population and set initialization parameters such as pop-\",\"1\":\"motivations for autonomous computer systems are considered. In 2001,\"},{\"0\":\"ulation size and the maximum number of iterations. Then, each whale is\",\"1\":\"IBM introduced the autonomic computing paradigm to describe a\"},{\"0\":\"evaluated according to the fitness function, and the whale with the\",\"1\":\"computer system that is able to adjust to environmental changes with\"},{\"0\":\"highest fitness value is considered as the best search agent. Afterwards,\",\"1\":\"minimal user intervention (Lalanda, McCann, & Diaconescu, 2013).\"},{\"0\":\"at each iteration, the whales as the search agents modify their current\",\"1\":\"Autonomic computing provides computer systems with self-\"},{\"0\":\"locations to select a randomly or the best search agent in the exploitation\",\"1\":\"management features to manage themselves, autonomously. In the\"}]"
+      "data_json": "[{\"Symbol\":\"FN CPU i , j [MIPS]\",\"Value\":\"[300,1400,1600,3000] [MIPS]\"},{\"Symbol\":\"FN RAM i , j [MB]\",\"Value\":\"[256,512,1024,2048] [MB]\"},{\"Symbol\":\"FN Disk i , j [GB]\",\"Value\":\"[256,512,1024,2048] [GB]\"},{\"Symbol\":\"FN BW i , j [Mbps]\",\"Value\":\"[256,512,1024,2048] [Gbps]\"}]"
     },
     {
       "table_index": 6,
-      "page_number": 5,
+      "page_number": 12,
       "bbox": {
-        "x1": 27.587400000000002,
-        "y1": 39.17011170999999,
-        "x2": 501.38683940000004,
-        "y2": 274.4465513671233
+        "x1": 305.5428771972656,
+        "y1": 258.3595886230469,
+        "x2": 558.0578002929688,
+        "y2": 176.91297912597656
       },
-      "accuracy": 99.99999999999997,
-      "parse_method": "stream",
-      "has_empty_cells": true,
-      "empty_cell_locations": [
-        {
-          "row": 0,
-          "col": 1
-        },
-        {
-          "row": 0,
-          "col": 2
-        },
-        {
-          "row": 1,
-          "col": 1
-        },
-        {
-          "row": 1,
-          "col": 2
-        },
-        {
-          "row": 2,
-          "col": 1
-        },
-        {
-          "row": 2,
-          "col": 2
-        },
-        {
-          "row": 3,
-          "col": 1
-        },
-        {
-          "row": 3,
-          "col": 2
-        },
-        {
-          "row": 4,
-          "col": 1
-        },
-        {
-          "row": 4,
-          "col": 2
-        },
-        {
-          "row": 5,
-          "col": 1
-        },
-        {
-          "row": 5,
-          "col": 2
-        },
-        {
-          "row": 6,
-          "col": 1
-        },
-        {
-          "row": 6,
-          "col": 2
-        },
-        {
-          "row": 7,
-          "col": 1
-        },
-        {
-          "row": 7,
-          "col": 2
-        },
-        {
-          "row": 8,
-          "col": 1
-        },
-        {
-          "row": 8,
-          "col": 2
-        },
-        {
-          "row": 9,
-          "col": 1
-        },
-        {
-          "row": 9,
-          "col": 2
-        },
-        {
-          "row": 10,
-          "col": 1
-        },
-        {
-          "row": 10,
-          "col": 2
-        },
-        {
-          "row": 11,
-          "col": 1
-        },
-        {
-          "row": 11,
-          "col": 2
-        },
-        {
-          "row": 12,
-          "col": 1
-        },
-        {
-          "row": 12,
-          "col": 2
-        },
-        {
-          "row": 13,
-          "col": 1
-        },
-        {
-          "row": 13,
-          "col": 2
-        },
-        {
-          "row": 14,
-          "col": 1
-        },
-        {
-          "row": 14,
-          "col": 2
-        },
-        {
-          "row": 15,
-          "col": 1
-        },
-        {
-          "row": 15,
-          "col": 2
-        },
-        {
-          "row": 16,
-          "col": 1
-        },
-        {
-          "row": 16,
-          "col": 2
-        },
-        {
-          "row": 17,
-          "col": 1
-        },
-        {
-          "row": 17,
-          "col": 2
-        }
-      ],
+      "accuracy": 100.0,
+      "parse_method": "docling",
+      "has_empty_cells": false,
+      "empty_cell_locations": [],
       "has_footnote_markers": true,
-      "row_count": 19,
-      "col_count": 3,
+      "row_count": 6,
+      "col_count": 2,
       "headers": [
-        "Fig.2. The flowchart of the WOA technique.",
-        "",
-        ""
+        "Symbol",
+        "Value"
       ],
-      "data_json": "[{\"0\":\"Fig.2. The flowchart of the WOA technique.\",\"1\":\"\",\"2\":\"\"},{\"0\":\"autonomic computing scope, the four main properties including self-\",\"1\":\"\",\"2\":\"\"},{\"0\":\"configuration, self-healing, self-protection, and self-optimization are\",\"1\":\"\",\"2\":\"\"},{\"0\":\"considered as self-management capabilities for any autonomous system.\",\"1\":\"\",\"2\":\"\"},{\"0\":\"The self-configuration property refers to adjusting the initialization\",\"1\":\"\",\"2\":\"\"},{\"0\":\"parameters and the deployment conditions to install and configure the\",\"1\":\"\",\"2\":\"\"},{\"0\":\"computer systems according to high-level policies, automatically. The\",\"1\":\"\",\"2\":\"\"},{\"0\":\"self-healing property refers to diagnosing and recovering unexpected\",\"1\":\"\",\"2\":\"\"},{\"0\":\"problems such as hardware and software failures to enhance the avail-\",\"1\":\"\",\"2\":\"\"},{\"0\":\"ability and reliability of computer systems. Fault tolerance is considered\",\"1\":\"\",\"2\":\"\"},{\"0\":\"as the main aspect of the self-healing feature. The self-protection prop-\",\"1\":\"\",\"2\":\"\"},{\"0\":\"erty refers to forecasting, identifying, and preventing various attacks to\",\"1\":\"\",\"2\":\"\"},{\"0\":\"protect computer system integrity and privacy. Security is considered as\",\"1\":\"\",\"2\":\"\"},{\"0\":\"the main aspect of the self-protection feature. Finally, the self-\",\"1\":\"\",\"2\":\"\"},{\"0\":\"optimization property refers to seeking and recognizing opportunities\",\"1\":\"\",\"2\":\"\"},{\"0\":\"to improve quality of service (QoS) or system performance according to\",\"1\":\"\",\"2\":\"\"},{\"0\":\"predefined goals, proactively (Parashar et al., 2018). To achieve these\",\"1\":\"\",\"2\":\"\"},{\"0\":\"self-management capabilities, IBM proposed MAPE-K (Monitoring,\",\"1\":\"\",\"2\":\"\"},{\"0\":\"Analyzing, Planning, Execution, Knowledge) loop as a reference logical\",\"1\":\"Fig.3.\",\"2\":\"IBM MAPE-K control loop.\"}]"
+      "data_json": "[{\"Symbol\":\"S CPU k , l [MIPS]\",\"Value\":\"[250,500,1000,2000]\"},{\"Symbol\":\"S RAM k , l [MB]\",\"Value\":\"[256,512,1024,2048]\"},{\"Symbol\":\"S Disk k , l [GB]\",\"Value\":\"[256,512,1024,2048]\"},{\"Symbol\":\"S BW k , l [Mbps]\",\"Value\":\"[256,512,1024,2048]\"},{\"Symbol\":\"S Size k , l [MI]\",\"Value\":\"The random uniform distribution between [100,1000]\"},{\"Symbol\":\"S DL k , l [ms]\",\"Value\":\"The random uniform distribution between [100,500]\"}]"
     },
     {
       "table_index": 7,
-      "page_number": 6,
+      "page_number": 13,
       "bbox": {
-        "x1": 27.587400000000002,
-        "y1": 40.92765785000001,
-        "x2": 570.00274769,
-        "y2": 212.7434853592593
+        "x1": 36.632442474365234,
+        "y1": 741.6296997070312,
+        "x2": 558.3404541015625,
+        "y2": 713.7716674804688
       },
-      "accuracy": 97.95131716891316,
-      "parse_method": "stream",
-      "has_empty_cells": true,
-      "empty_cell_locations": [
-        {
-          "row": 0,
-          "col": 0
-        },
-        {
-          "row": 5,
-          "col": 1
-        },
-        {
-          "row": 6,
-          "col": 0
-        }
-      ],
+      "accuracy": 100.0,
+      "parse_method": "docling",
+      "has_empty_cells": false,
+      "empty_cell_locations": [],
       "has_footnote_markers": true,
-      "row_count": 13,
-      "col_count": 2,
+      "row_count": 1,
+      "col_count": 6,
       "headers": [
-        "",
-        "Fig.4. The proposed framework."
+        "Initial population",
+        "Number of generation",
+        "Termination condition",
+        "Selection operator",
+        "Mutation(probability)",
+        "Crossover(probability)"
       ],
-      "data_json": "[{\"0\":\"\",\"1\":\"Fig.4. The proposed framework.\"},{\"0\":\"the proper fog nodes to deploy IoT services, we will describe the basic\",\"1\":\"gateway to the cloud layer are transferred, as shown in Fig.5. When IoT\"},{\"0\":\"components of the fog layer in more detail. According to Fig.4, the fog\",\"1\":\"services arrive into the master fog domain component, it utilized the\"},{\"0\":\"tier includes three basic components: the admission control, a series of\",\"1\":\"MAPE-k loop to automatically place IoT services on the fog nodes ac-\"},{\"0\":\"slave fog domains, and one master fog domain, each of which will be\",\"1\":\"cording to their QoS requirements.\"},{\"0\":\"explained, as follows:\",\"1\":\"\"},{\"0\":\"\",\"1\":\"4.1.3. Slave fog domains\"},{\"0\":\"4.1.2. Admission control\",\"1\":\"We consider several fog domains in the fog ecosystem which together\"},{\"0\":\"The admission control component receives IoT services through the\",\"1\":\"cooperate in a master\\/slave manner. The fog domains are micro-data\"},{\"0\":\"fog gateway from the thing layer and delivers them to the fog layer or\",\"1\":\"centres that include a set of fog nodes and a fog domain control node.\"},{\"0\":\"the cloud layer. According to their deadline parameter, it verifies IoT\",\"1\":\"Each fog node as a computational resource provides the processing\"},{\"0\":\"services to send the delay-sensitive services to the master fog domain for\",\"1\":\"power, memory, and storage capabilities for deploying and serving the\"},{\"0\":\"deploying on the fog infrastructure and other IoT services through cloud\",\"1\":\"IoT services. The fog domain control node is a powerful fog node in\"}]"
+      "data_json": "[{\"Initial population\":\"50\",\"Number of generation\":\"200\",\"Termination condition\":\"Number of generation\",\"Selection operator\":\"Tournament\",\"Mutation(probability)\":\"Random (0.02)\",\"Crossover(probability)\":\"Uniform crossover (0.8)\"}]"
     },
     {
       "table_index": 8,
-      "page_number": 7,
+      "page_number": 13,
       "bbox": {
-        "x1": 27.587399999999974,
-        "y1": 40.361111709999996,
-        "x2": 570.0194849000001,
-        "y2": 275.5731537555556
+        "x1": 305.58837890625,
+        "y1": 127.49188995361328,
+        "x2": 557.666748046875,
+        "y2": 73.63330841064453
       },
-      "accuracy": 98.82597977218748,
-      "parse_method": "stream",
-      "has_empty_cells": true,
-      "empty_cell_locations": [
-        {
-          "row": 0,
-          "col": 0
-        },
-        {
-          "row": 7,
-          "col": 0
-        },
-        {
-          "row": 11,
-          "col": 1
-        }
-      ],
+      "accuracy": 100.0,
+      "parse_method": "docling",
+      "has_empty_cells": false,
+      "empty_cell_locations": [],
       "has_footnote_markers": true,
-      "row_count": 19,
-      "col_count": 2,
+      "row_count": 1,
+      "col_count": 6,
       "headers": [
-        "",
-        "Fig.5. The admission control function."
+        "Initial population (particle)",
+        "Number of generation",
+        "Termination condition",
+        "Particle velocity range",
+        "Cognitive and social constants",
+        "Inertia weight factor"
       ],
-      "data_json": "[{\"0\":\"\",\"1\":\"Fig.5. The admission control function.\"},{\"0\":\"terms of computational capacities with extended functionality for\",\"1\":\"IoT services and stores them into the shared database to use by others.\"},{\"0\":\"monitoring fog nodes\\u2019 status through Observer and storing them into\",\"1\":\"The analyzer sub-component prioritizes IoT services using the infor-\"},{\"0\":\"local its database, and returning them via the Agent to the fog master\",\"1\":\"mation collected (i.e., deadline and waiting time) by the monitor. Then,\"},{\"0\":\"domains. It can also receive the IoT services from Agent and dispatches\",\"1\":\"the planner component as the core of the master fog domain determines\"},{\"0\":\"them among the proper fog nodes for satisfying various QoS re-\",\"1\":\"an appropriate placement plan using the WOA technique and then saves\"},{\"0\":\"quirements of IoT services.\",\"1\":\"it into the knowledge base to be used by the executor sub-component.\"},{\"0\":\"\",\"1\":\"Finally, the determined placement solution is performed by the exec-\"},{\"0\":\"4.1.4. Master fog domain\",\"1\":\"utor. These sub-components regularly cooperated at given time intervals\"},{\"0\":\"The master fog domain as the most important component in the fog\",\"1\":\"to deploy the IoT services on the suitable fog nodes according to their\"},{\"0\":\"landscape is responsible for managing and deploying the IoT services\",\"1\":\"QoS requirements.\"},{\"0\":\"received from the admission control component in an autonomic\",\"1\":\"\"},{\"0\":\"fashion. It keeps the required information about the QoS requirements of\",\"1\":\"4.1.5. Cloud layer\"},{\"0\":\"IoT services and capabilities of available fog nodes into its knowledge\",\"1\":\"The main components in the cloud layer are cloud servers and cloud\"},{\"0\":\"base. Therefore, it utilized the MAPE-k loop to dispatch IoT services\",\"1\":\"gateway. The cloud servers provide the storage and processing capa-\"},{\"0\":\"between the suitable slave fog domains. The master fog domain acts\",\"1\":\"bilities to serve IoT applications based on the pay-per-use model. The\"},{\"0\":\"according to four sub-components: monitor, analyzer, planner, and\",\"1\":\"cloud servers serve compute-intensive or data-intensive IoT applica-\"},{\"0\":\"executor. The monitor sub-component gathers the required information\",\"1\":\"tions, which require heavy compute processing and storage capabilities\"},{\"0\":\"about the capabilities of available fog nodes and QoS requirements of\",\"1\":\"in a long time interval. Note that the complementary functions of fog\"}]"
+      "data_json": "[{\"Initial population (particle)\":\"50\",\"Number of generation\":\"200\",\"Termination condition\":\"Number of generation\",\"Particle velocity range\":\"[-6, 6]\",\"Cognitive and social constants\":\"c1 = 0.8, c2 = 0.9\",\"Inertia weight factor\":\"0.6\"}]"
+    },
+    {
+      "table_index": 9,
+      "page_number": 13,
+      "bbox": {
+        "x1": 305.5816345214844,
+        "y1": 221.75050354003906,
+        "x2": 557.8190307617188,
+        "y2": 167.85992431640625
+      },
+      "accuracy": 100.0,
+      "parse_method": "docling",
+      "has_empty_cells": false,
+      "empty_cell_locations": [],
+      "has_footnote_markers": true,
+      "row_count": 1,
+      "col_count": 6,
+      "headers": [
+        "Initial population (bats)",
+        "Number of generation",
+        "Termination condition",
+        "Pulse loudness ratio",
+        "Pulse emission ratio",
+        "Maximum velocity"
+      ],
+      "data_json": "[{\"Initial population (bats)\":\"50\",\"Number of generation\":\"200\",\"Termination condition\":\"Number of generation\",\"Pulse loudness ratio\":\"0.9\",\"Pulse emission ratio\":\"0.9\",\"Maximum velocity\":\"0.1\"}]"
     },
     {
       "table_index": 10,
-      "page_number": 8,
+      "page_number": 14,
       "bbox": {
-        "x1": 33.5968,
-        "y1": 52.60675580000001,
-        "x2": 570.02867296,
-        "y2": 412.530380157197
+        "x1": 36.31742477416992,
+        "y1": 100.32747650146484,
+        "x2": 557.8426513671875,
+        "y2": 74.33775329589844
       },
-      "accuracy": 99.68581802913585,
-      "parse_method": "stream",
-      "has_empty_cells": true,
-      "empty_cell_locations": [
-        {
-          "row": 0,
-          "col": 0
-        },
-        {
-          "row": 0,
-          "col": 1
-        },
-        {
-          "row": 1,
-          "col": 1
-        },
-        {
-          "row": 2,
-          "col": 0
-        },
-        {
-          "row": 2,
-          "col": 1
-        },
-        {
-          "row": 3,
-          "col": 1
-        },
-        {
-          "row": 3,
-          "col": 2
-        },
-        {
-          "row": 5,
-          "col": 0
-        },
-        {
-          "row": 5,
-          "col": 1
-        },
-        {
-          "row": 21,
-          "col": 2
-        },
-        {
-          "row": 25,
-          "col": 2
-        },
-        {
-          "row": 29,
-          "col": 2
-        },
-        {
-          "row": 31,
-          "col": 2
-        },
-        {
-          "row": 38,
-          "col": 0
-        },
-        {
-          "row": 38,
-          "col": 2
-        }
-      ],
+      "accuracy": 100.0,
+      "parse_method": "docling",
+      "has_empty_cells": false,
+      "empty_cell_locations": [],
       "has_footnote_markers": true,
-      "row_count": 39,
-      "col_count": 3,
+      "row_count": 1,
+      "col_count": 6,
       "headers": [
-        "",
-        "",
-        "{"
+        "Initial population",
+        "Number of generation",
+        "Termination condition",
+        "Temperature range",
+        "Step size(fast temperature reduction)",
+        "The number of iterations per temperature"
       ],
-      "data_json": "[{\"0\":\"\",\"1\":\"\",\"2\":\"{\"},{\"0\":\"Table2\",\"1\":\"\",\"2\":\"1 if IoT service Sk, l placed on the fog node FNi,j = XFNi,j\"},{\"0\":\"\",\"1\":\"\",\"2\":\"(3) Sk, l 0 otherwise\"},{\"0\":\"Notations and definitions.\",\"1\":\"\",\"2\":\"\"},{\"0\":\"Notation\",\"1\":\"Definition\",\"2\":\"FNi,j X = 1, if at least one IoT service is deployed on the fog nodeFNi,j,\"},{\"0\":\"\",\"1\":\"\",\"2\":\"Sk, l\"},{\"0\":\"\\u0394t\",\"1\":\"The time interval\",\"2\":\"FNi,j otherwiseX = 0.\"},{\"0\":\"A k\",\"1\":\"The k-th IoT application\",\"2\":\"Sk, l\"},{\"0\":\"Sk,l\",\"1\":\"The lth service belonging to kth the IoT application\",\"2\":\"Note that the fog control node within the master fog domain peri-\"},{\"0\":\"SDL k, l\",\"1\":\"The maximum time for executing IoT service Sk,l\",\"2\":\"odically calculates the IoT service placement plan according to objective\"},{\"0\":\"SSize k, l\",\"1\":\"The number of instruction of IoT service Sk,l\",\"2\":\"functions in certain \\u0394t time intervals.\"},{\"0\":\"SBW k, l\",\"1\":\"The network traffic usage of IoT service Sk,l\",\"2\":\"In the following, we describe the IoT service placement as an opti-\"},{\"0\":\"SCPU k, l\",\"1\":\"The processing power demand of IoT service Sk,l\",\"2\":\"mization problem. In this study, we consider two kinds of objective\"},{\"0\":\"SRAM k, l\",\"1\":\"The main memory demand of IoT service Sk,l\",\"2\":\"functions, namely, throughput and energy consumption. The first\"},{\"0\":\"SDisk k, l\",\"1\":\"The storage capacity demand of IoT service Sk,l\",\"2\":\"objective is throughput metric or service acceptance ratio, that means\"},{\"0\":\"Fi\",\"1\":\"The i-th fog domain\",\"2\":\"the maximization deploying the number of IoT service on the fog nodes\"},{\"0\":\"FNi,j\",\"1\":\"The jth fog resource belonging to ith the fog domain\",\"2\":\"(instead of cloud servers) while meeting the QoS requirements of each\"},{\"0\":\"FNCPU i, j\",\"1\":\"CPU capacity of the fog node FNi,j\",\"2\":\"IoT service, as expressed by Equation (4):\"},{\"0\":\"FNRAM i, j\",\"1\":\"Memory capacity of the fog node FNi,j\",\"2\":\"p m r n \\u2211 \\u2211 \\u2211 \\u2211\"},{\"0\":\"FNDisk i, j\",\"1\":\"The storage capacity of the fog node FNi,j\",\"2\":\"T = XFNi,j (4) Sk, l\"},{\"0\":\"FNBW i, j\",\"1\":\"The network bandwidth capacity of the fog node FNi,j\",\"2\":\"i=1 j=1 k=1 l=1\"},{\"0\":\"FNi,j X Sk,\",\"1\":\"Binary variable to present if IoT service Sk,l is placed on the fog node\",\"2\":\"\"},{\"0\":\"l\",\"1\":\"FNi,j\",\"2\":\"In this work, we consider the QoS requirements of each IoT service as\"},{\"0\":\"T\",\"1\":\"Throughput\",\"2\":\"the constraints of throughput objective function. Therefore, constraint\"},{\"0\":\"E\",\"1\":\"Total Energy Consumption\",\"2\":\"(5) guarantees that the response time of each IoT service SRT k, l does not\"},{\"0\":\"(\\u0394t) ESFNi,j\",\"1\":\"The static energy consumption at the \\u0394t th interval\",\"2\":\"\"},{\"0\":\"(\\u0394t) EDFNi,j\",\"1\":\"The dynamic energy consumption at the \\u0394t th interval\",\"2\":\"violate the maximum time for serving IoT service SDL k, l to satisfy the QoS\"},{\"0\":\"(\\u0394t) EFNi,j\",\"1\":\"The total computation energy consumption at the \\u0394t th interval\",\"2\":\"requirement for each IoT serviceSk,l, especially for delay-sensitive IoT\"},{\"0\":\"TEComp\",\"1\":\"Total computation energy consumption\",\"2\":\"services.\"},{\"0\":\"\\u2032 \\u2032 FNi,j ,FNi ,j \\u03bb\",\"1\":\"\\u2032 to serve The data transfer rate between two fog nodes FNi,j and FNi \\u2032 ,j\",\"2\":\"\"},{\"0\":\"k, l\",\"1\":\"IoT service Sk,l\",\"2\":\"SRT (5) k, l\\u2a7dSDL k, l; \\u2200Sk, l \\u2208 Ak\"},{\"0\":\"UCEFNi,j\",\"1\":\"The unit communication energy consumption of a fog node FNi,j\",\"2\":\"\"},{\"0\":\"(\\u0394t) ECFNi,j\",\"1\":\"The total communication energy consumption at the \\u0394t th interval\",\"2\":\"Besides, the constraints (6) to (13) demonstrate that the processing\"},{\"0\":\"TEComm\",\"1\":\"Total communication energy consumption\",\"2\":\"power, the main memory, and the storage demands of IoT services\"},{\"0\":\"DAC, CG\",\"1\":\"The delay between the admission control and the cloud gateway\",\"2\":\"should not exceed fog node capabilities as follows:\"},{\"0\":\"DAC, MF\",\"1\":\"The delay between the admission control and the master fog node\",\"2\":\"m r \\u2211 \\u2211\"},{\"0\":\"DMF, SF\",\"1\":\"The delay between the master fog node and the slave fog domains\",\"2\":\"XFNi,j \\u00d7 SCPU ; \\u2200i, j; \\u2200\\u0394t (6) k, l \\u2a7dFNCPU i,j Sk, l\"},{\"0\":\"DAC(Fi ), FNi,j\",\"1\":\"The delay between the fog domain control node Fi and the fog node FNi,j\",\"2\":\"k=1 l=1\"},{\"0\":\"\",\"1\":\"into the slave fog domain\",\"2\":\"\"}]"
+      "data_json": "[{\"Initial population\":\"50\",\"Number of generation\":\"200\",\"Termination condition\":\"Number of generation\",\"Temperature range\":\"[0.001, 1]\",\"Step size(fast temperature reduction)\":\"\\u03b1 = 0.8, 0.9\",\"The number of iterations per temperature\":\"10\"}]"
     },
     {
       "table_index": 11,
-      "page_number": 8,
+      "page_number": 15,
       "bbox": {
-        "x1": 33.5968,
-        "y1": 44.0638799,
-        "x2": 570.02248242,
-        "y2": 412.530380157197
+        "x1": 36.52143478393555,
+        "y1": 586.2533569335938,
+        "x2": 288.79913330078125,
+        "y2": 550.6985473632812
       },
-      "accuracy": 99.68581802913585,
-      "parse_method": "stream",
-      "has_empty_cells": true,
-      "empty_cell_locations": [
-        {
-          "row": 0,
-          "col": 0
-        },
-        {
-          "row": 0,
-          "col": 1
-        },
-        {
-          "row": 1,
-          "col": 1
-        },
-        {
-          "row": 2,
-          "col": 0
-        },
-        {
-          "row": 2,
-          "col": 1
-        },
-        {
-          "row": 3,
-          "col": 1
-        },
-        {
-          "row": 3,
-          "col": 2
-        },
-        {
-          "row": 5,
-          "col": 0
-        },
-        {
-          "row": 5,
-          "col": 1
-        },
-        {
-          "row": 21,
-          "col": 2
-        },
-        {
-          "row": 25,
-          "col": 2
-        },
-        {
-          "row": 29,
-          "col": 2
-        },
-        {
-          "row": 31,
-          "col": 2
-        },
-        {
-          "row": 38,
-          "col": 0
-        },
-        {
-          "row": 38,
-          "col": 2
-        }
-      ],
-      "has_footnote_markers": true,
-      "row_count": 39,
-      "col_count": 3,
+      "accuracy": 100.0,
+      "parse_method": "docling",
+      "has_empty_cells": false,
+      "empty_cell_locations": [],
+      "has_footnote_markers": false,
+      "row_count": 2,
+      "col_count": 6,
       "headers": [
         "",
-        "",
-        "{"
+        "WOA-FSP",
+        "GA-FSP",
+        "PSO-FSP",
+        "BA-FSP",
+        "SA-FSP"
       ],
-      "data_json": "[{\"0\":\"\",\"1\":\"\",\"2\":\"{\"},{\"0\":\"Table2\",\"1\":\"\",\"2\":\"1 if IoT service Sk, l placed on the fog node FNi,j = XFNi,j\"},{\"0\":\"\",\"1\":\"\",\"2\":\"(3) Sk, l 0 otherwise\"},{\"0\":\"Notations and definitions.\",\"1\":\"\",\"2\":\"\"},{\"0\":\"Notation\",\"1\":\"Definition\",\"2\":\"FNi,j X = 1, if at least one IoT service is deployed on the fog nodeFNi,j,\"},{\"0\":\"\",\"1\":\"\",\"2\":\"Sk, l\"},{\"0\":\"\\u0394t\",\"1\":\"The time interval\",\"2\":\"FNi,j otherwiseX = 0.\"},{\"0\":\"A k\",\"1\":\"The k-th IoT application\",\"2\":\"Sk, l\"},{\"0\":\"Sk,l\",\"1\":\"The lth service belonging to kth the IoT application\",\"2\":\"Note that the fog control node within the master fog domain peri-\"},{\"0\":\"SDL k, l\",\"1\":\"The maximum time for executing IoT service Sk,l\",\"2\":\"odically calculates the IoT service placement plan according to objective\"},{\"0\":\"SSize k, l\",\"1\":\"The number of instruction of IoT service Sk,l\",\"2\":\"functions in certain \\u0394t time intervals.\"},{\"0\":\"SBW k, l\",\"1\":\"The network traffic usage of IoT service Sk,l\",\"2\":\"In the following, we describe the IoT service placement as an opti-\"},{\"0\":\"SCPU k, l\",\"1\":\"The processing power demand of IoT service Sk,l\",\"2\":\"mization problem. In this study, we consider two kinds of objective\"},{\"0\":\"SRAM k, l\",\"1\":\"The main memory demand of IoT service Sk,l\",\"2\":\"functions, namely, throughput and energy consumption. The first\"},{\"0\":\"SDisk k, l\",\"1\":\"The storage capacity demand of IoT service Sk,l\",\"2\":\"objective is throughput metric or service acceptance ratio, that means\"},{\"0\":\"Fi\",\"1\":\"The i-th fog domain\",\"2\":\"the maximization deploying the number of IoT service on the fog nodes\"},{\"0\":\"FNi,j\",\"1\":\"The jth fog resource belonging to ith the fog domain\",\"2\":\"(instead of cloud servers) while meeting the QoS requirements of each\"},{\"0\":\"FNCPU i, j\",\"1\":\"CPU capacity of the fog node FNi,j\",\"2\":\"IoT service, as expressed by Equation (4):\"},{\"0\":\"FNRAM i, j\",\"1\":\"Memory capacity of the fog node FNi,j\",\"2\":\"p m r n \\u2211 \\u2211 \\u2211 \\u2211\"},{\"0\":\"FNDisk i, j\",\"1\":\"The storage capacity of the fog node FNi,j\",\"2\":\"T = XFNi,j (4) Sk, l\"},{\"0\":\"FNBW i, j\",\"1\":\"The network bandwidth capacity of the fog node FNi,j\",\"2\":\"i=1 j=1 k=1 l=1\"},{\"0\":\"FNi,j X Sk,\",\"1\":\"Binary variable to present if IoT service Sk,l is placed on the fog node\",\"2\":\"\"},{\"0\":\"l\",\"1\":\"FNi,j\",\"2\":\"In this work, we consider the QoS requirements of each IoT service as\"},{\"0\":\"T\",\"1\":\"Throughput\",\"2\":\"the constraints of throughput objective function. Therefore, constraint\"},{\"0\":\"E\",\"1\":\"Total Energy Consumption\",\"2\":\"(5) guarantees that the response time of each IoT service SRT k, l does not\"},{\"0\":\"(\\u0394t) ESFNi,j\",\"1\":\"The static energy consumption at the \\u0394t th interval\",\"2\":\"\"},{\"0\":\"(\\u0394t) EDFNi,j\",\"1\":\"The dynamic energy consumption at the \\u0394t th interval\",\"2\":\"violate the maximum time for serving IoT service SDL k, l to satisfy the QoS\"},{\"0\":\"(\\u0394t) EFNi,j\",\"1\":\"The total computation energy consumption at the \\u0394t th interval\",\"2\":\"requirement for each IoT serviceSk,l, especially for delay-sensitive IoT\"},{\"0\":\"TEComp\",\"1\":\"Total computation energy consumption\",\"2\":\"services.\"},{\"0\":\"\\u2032 \\u2032 FNi,j ,FNi ,j \\u03bb\",\"1\":\"\\u2032 to serve The data transfer rate between two fog nodes FNi,j and FNi \\u2032 ,j\",\"2\":\"\"},{\"0\":\"k, l\",\"1\":\"IoT service Sk,l\",\"2\":\"SRT (5) k, l\\u2a7dSDL k, l; \\u2200Sk, l \\u2208 Ak\"},{\"0\":\"UCEFNi,j\",\"1\":\"The unit communication energy consumption of a fog node FNi,j\",\"2\":\"\"},{\"0\":\"(\\u0394t) ECFNi,j\",\"1\":\"The total communication energy consumption at the \\u0394t th interval\",\"2\":\"Besides, the constraints (6) to (13) demonstrate that the processing\"},{\"0\":\"TEComm\",\"1\":\"Total communication energy consumption\",\"2\":\"power, the main memory, and the storage demands of IoT services\"},{\"0\":\"DAC, CG\",\"1\":\"The delay between the admission control and the cloud gateway\",\"2\":\"should not exceed fog node capabilities as follows:\"},{\"0\":\"DAC, MF\",\"1\":\"The delay between the admission control and the master fog node\",\"2\":\"m r \\u2211 \\u2211\"},{\"0\":\"DMF, SF\",\"1\":\"The delay between the master fog node and the slave fog domains\",\"2\":\"XFNi,j \\u00d7 SCPU ; \\u2200i, j; \\u2200\\u0394t (6) k, l \\u2a7dFNCPU i,j Sk, l\"},{\"0\":\"DAC(Fi ), FNi,j\",\"1\":\"The delay between the fog domain control node Fi and the fog node FNi,j\",\"2\":\"k=1 l=1\"},{\"0\":\"\",\"1\":\"into the slave fog domain\",\"2\":\"\"}]"
+      "data_json": "[{\"\":\"5 service types\",\"WOA-FSP\":\"1.21\",\"GA-FSP\":\"1.58\",\"PSO-FSP\":\"1.37\",\"BA-FSP\":\"1.52\",\"SA-FSP\":\"1.48\"},{\"\":\"10 service types\",\"WOA-FSP\":\"0.94\",\"GA-FSP\":\"1.34\",\"PSO-FSP\":\"1.06\",\"BA-FSP\":\"1.29\",\"SA-FSP\":\"1.16\"}]"
+    },
+    {
+      "table_index": 12,
+      "page_number": 15,
+      "bbox": {
+        "x1": 305.4720764160156,
+        "y1": 568.21435546875,
+        "x2": 557.666015625,
+        "y2": 532.7373046875
+      },
+      "accuracy": 100.0,
+      "parse_method": "docling",
+      "has_empty_cells": false,
+      "empty_cell_locations": [],
+      "has_footnote_markers": false,
+      "row_count": 2,
+      "col_count": 6,
+      "headers": [
+        "",
+        "WOA-FSP",
+        "GA-FSP",
+        "PSO-FSP",
+        "BA-FSP",
+        "SA-FSP"
+      ],
+      "data_json": "[{\"\":\"5 service types\",\"WOA-FSP\":\"16.17\",\"GA-FSP\":\"21.2\",\"PSO-FSP\":\"17.7\",\"BA-FSP\":\"19.5\",\"SA-FSP\":\"17.8\"},{\"\":\"10 service types\",\"WOA-FSP\":\"19.2\",\"GA-FSP\":\"24.5\",\"PSO-FSP\":\"20.5\",\"BA-FSP\":\"23\",\"SA-FSP\":\"21.4\"}]"
     },
     {
       "table_index": 13,
-      "page_number": 10,
+      "page_number": 16,
       "bbox": {
-        "x1": 27.587399999999974,
-        "y1": 142.0661261,
-        "x2": 572.3579369,
-        "y2": 662.4541817336263
+        "x1": 36.3847541809082,
+        "y1": 741.19580078125,
+        "x2": 558.0881958007812,
+        "y2": 586.3646240234375
       },
-      "accuracy": 99.99999999999972,
-      "parse_method": "stream",
+      "accuracy": 100.0,
+      "parse_method": "docling",
       "has_empty_cells": true,
       "empty_cell_locations": [
+        {
+          "row": 1,
+          "col": 0
+        },
+        {
+          "row": 1,
+          "col": 4
+        },
+        {
+          "row": 1,
+          "col": 5
+        },
         {
           "row": 2,
           "col": 0
         },
         {
           "row": 3,
+          "col": 0
+        },
+        {
+          "row": 5,
           "col": 0
         },
         {
           "row": 6,
-          "col": 1
-        },
-        {
-          "row": 17,
-          "col": 0
-        },
-        {
-          "row": 19,
-          "col": 0
-        },
-        {
-          "row": 22,
-          "col": 1
-        },
-        {
-          "row": 27,
-          "col": 1
-        },
-        {
-          "row": 30,
-          "col": 1
-        },
-        {
-          "row": 33,
-          "col": 0
-        },
-        {
-          "row": 37,
-          "col": 1
-        },
-        {
-          "row": 41,
-          "col": 0
-        },
-        {
-          "row": 43,
-          "col": 1
-        },
-        {
-          "row": 51,
-          "col": 1
-        }
-      ],
-      "has_footnote_markers": true,
-      "row_count": 53,
-      "col_count": 2,
-      "headers": [
-        "7: end for each",
-        "SDL (t \u0000 SAT k, l k, l"
-      ],
-      "data_json": "[{\"0\":\"7: end for each\",\"1\":\"SDL (t \\u0000 SAT k, l k, l\"},{\"0\":\"8:End\",\"1\":\"4: end for each\"},{\"0\":\"\",\"1\":\"6:end for each\"},{\"0\":\"\",\"1\":\"7:Sort (IoT services,Pri(Sk, l))\"},{\"0\":\"4.3.1. Monitoring phase\",\"1\":\"8:Return Sorted_ IoT services_List\"},{\"0\":\"In this phase, two kinds of information are collected: first, the\",\"1\":\"9:End\"},{\"0\":\"required information about the QoS requirements of IoT applications\",\"1\":\"\"},{\"0\":\"sent by the admission control component; and second, the required in-\",\"1\":\"4.3.3. Planning phase\"},{\"0\":\"formation about the resource computation capabilities of available fog\",\"1\":\"The planning phase as the main component of the fog control node\"},{\"0\":\"nodes within the fog domains. Algorithm 2 illustrates the pseudo-code of\",\"1\":\"within the master fog domain finds an efficient fog service placement\"},{\"0\":\"the monitoring phase in our proposed solution. In this algorithm, all\",\"1\":\"(FSP) solution using the WOA as a meta-heuristic technique named\"},{\"0\":\"items about the QoS requirements of IoT applications\",\"1\":\"WOA-FSP for deploying IoT services on the fog nodes with different\"},{\"0\":\"includingSCPU ,SRAM ,SDisk ,SBW , and SDL k, l parameters at given time in- k, l k, l k, l k, l ,SSize k, l\",\"1\":\"resources capabilities while satisfying various QoS requirements of IoT\"},{\"0\":\"tervals are gathered and stored into a shared knowledge base to utilize\",\"1\":\"services. Indeed, this phase determines that the IoT service requested be\"},{\"0\":\"by other phases (lines 3\\u20135). Besides, the resource capabilities status of\",\"1\":\"deployed on which fog domain and which fog node controlled under\"},{\"0\":\"fog nodes includingFNCPU ,FNRAM ,FNDisk , and FNBW are collected (lines i,j i,j i,j i,j\",\"1\":\"that fog domain.\"},{\"0\":\"6\\u20138). Finally, this information is passed to the analysis phase (line10).\",\"1\":\"In the following, we describe the WOA-FSP algorithm to find the\"},{\"0\":\"\",\"1\":\"most suitable placement of IoT services in more detail, as shown in Al-\"},{\"0\":\"Algorithm 2: Monitoring Phase(\",\"1\":\"gorithm 4. The input of the algorithm is a series of IoT services and\"},{\"0\":\"\",\"1\":\"available fog nodes, and also, the output is a mapping of IoT services to\"},{\"0\":\"Input: Fog Domains F, IoT Applications A\",\"1\":\"fog nodes as optimal placement plan in the fog ecosystem.\"},{\"0\":\"Output: Monitored_Inputs\",\"1\":\"First, we generate the initial population of whales as the candidate\"},{\"0\":\"1:Begin\",\"1\":\"\"},{\"0\":\"2: for each (Time interval \\u0394t until the system is running) do\",\"1\":\"solutions according to the available IoT services, randomly. So that each\"},{\"0\":\"3: for each (IoT services Sk, l in A) do\",\"1\":\"IoT service Sk, l is randomly allocated to a fog nodeFNi,j, and a series of\"},{\"0\":\"4: MonitorSCPU ,SDisk ,SRAM ,SBW , and SDL k, l for all IoT Services k, l k, l k, l k, l ,SSize k, l\",\"1\":\"initial solutions (i.e., whales) will be generated (lines 2\\u20138). To initialize\"},{\"0\":\"5: end for each\",\"1\":\"the position of whales, we used an initial function, as follows:\"},{\"0\":\"6: for each (Fog node FNi,j in Fog Domain F) do\",\"1\":\"\"},{\"0\":\"7: MonitorFNCPU ,FNRAM ,FNDisk , and FNBW for all fog nodes i,j i,j i,j i,j\",\"1\":\"W(Sk, l, FNi,j) = [ub(Sk, l) \\u0000 lb(Sk, l)] \\u2217 rand() + lb(Sk, l) (30)\"},{\"0\":\"8: end for each\",\"1\":\"Where lb and ub are two vectors to illustrate the upper and lower\"},{\"0\":\"9:end for each\",\"1\":\"\"},{\"0\":\"10:Return Monitored_Inputs\",\"1\":\"bounds for assigning IoT service Sk, l to fog nodeFNi,j, as follows:\"},{\"0\":\"11:End\",\"1\":\"lb = [lb1, lb2, lb3, ..., lbn\\u0000 1, lbn]\"},{\"0\":\"\",\"1\":\"(31)\"},{\"0\":\"4.3.2. Analysis phase\",\"1\":\"ub = [ub1, ub2, ub3, ..., ubn\\u0000 1, ubn] (32)\"},{\"0\":\"The analysis phase acts as a pre-processing phase for the planning\",\"1\":\"Then, the initial solutions obtained will be evaluated using the fitness\"},{\"0\":\"phase, and it utilized the collected information from the monitoring\",\"1\":\"function explained according to Equation (21), and the solution with the\"},{\"0\":\"phase to prioritize IoT services for deploying on the fog resources, as\",\"1\":\"\"},{\"0\":\"shown in Algorithm 3. It calculates the prioritization of IoT services\",\"1\":\"lowest fitness value (i.e.,W*) as the current best candidate solution will\"},{\"0\":\"stored into a waiting queue based on their deadline and waiting time\",\"1\":\"be considered (lines 9\\u201310).\"},{\"0\":\"(lines 3\\u20135), as follows:\",\"1\":\"The overall process of the WOA-FSP algorithm will be executed until\"},{\"0\":\"\",\"1\":\"the termination condition is satisfied (lines 11\\u201328). In this study, we\"},{\"0\":\"11 + (1 \\u0000 \\u03b1) \\u00d7 Pri(Sk, l) = \\u03b1 \\u00d7\",\"1\":\"assume the maximum number of iterations (i.e.,Maxt) as the termination\"},{\"0\":\"(29) SDL (t \\u0000 SAT l)\",\"1\":\"\"},{\"0\":\"k, l k,\",\"1\":\"condition to find the optimal solution (line11).\"},{\"0\":\"Where SAT\",\"1\":\"If the termination condition is not satisfied, the encircling prey phase\"},{\"0\":\"k, l and t denote the arrival time of IoT service Sk, l and the\",\"1\":\"for updating the parameters into the current iteration will be started\"},{\"0\":\"current time of system, respectively. Also,\\u03b1 is the weight factor in [0, 1]\",\"1\":\"(line13). Since the WOA technique considered the current best solution\"},{\"0\":\"to distinct between deadline (i.e., SDL k, l) and waiting time(i.e., t \\u0000 SAT k, l)\",\"1\":\"(i.e.,W*) as the near-optimal solution, the other solutions (i.e., whales)\"},{\"0\":\"parameters in the prioritization process. Therefore, if an IoT service has\",\"1\":\"should adjust their current positions towards the best solution (i.e.,W*)\"},{\"0\":\"less deadline and more waiting time, it will have a higher priority.\",\"1\":\"according to Equations (33) and (34):\"},{\"0\":\"Finally, the IoT services are sorted according to their prioritization and\",\"1\":\"\"},{\"0\":\"passed to the planning phase (lines 7\\u20138).\",\"1\":\"D = |C.W *(t) \\u0000 W(t)| (33)\"}]"
-    },
-    {
-      "table_index": 15,
-      "page_number": 12,
-      "bbox": {
-        "x1": 27.587399999999917,
-        "y1": 527.02046867,
-        "x2": 470.91217905999997,
-        "y2": 649.5072519945861
-      },
-      "accuracy": 99.0022797997647,
-      "parse_method": "stream",
-      "has_empty_cells": true,
-      "empty_cell_locations": [
-        {
-          "row": 0,
-          "col": 1
-        },
-        {
-          "row": 0,
-          "col": 2
-        },
-        {
-          "row": 1,
-          "col": 2
-        },
-        {
-          "row": 2,
-          "col": 2
-        },
-        {
-          "row": 3,
-          "col": 1
-        },
-        {
-          "row": 3,
-          "col": 2
-        },
-        {
-          "row": 9,
-          "col": 2
-        },
-        {
-          "row": 10,
-          "col": 2
-        },
-        {
-          "row": 11,
-          "col": 1
-        },
-        {
-          "row": 11,
-          "col": 2
-        }
-      ],
-      "has_footnote_markers": true,
-      "row_count": 12,
-      "col_count": 3,
-      "headers": [
-        "toO(J \u00d7 N). The computational complexity of the fitness function (i.",
-        "",
-        ""
-      ],
-      "data_json": "[{\"0\":\"toO(J \\u00d7 N). The computational complexity of the fitness function (i.\",\"1\":\"\",\"2\":\"\"},{\"0\":\"e.,O(fitness)) to calculate the value of candidate solutions and it is\",\"1\":\"Table5\",\"2\":\"\"},{\"0\":\"specified by the application which depends on the number of IoT service\",\"1\":\"Configuration of IoT services.\",\"2\":\"\"},{\"0\":\"and the number of fog nodes. Since solutions are illustrated with a\",\"1\":\"\",\"2\":\"\"},{\"0\":\"matrix W of the size |L| \\u00d7 |J| where |L| is the number of IoT services and\",\"1\":\"Symbol\",\"2\":\"Value\"},{\"0\":\"|J| is the number of fog nodes. Therefore, the computational complexity\",\"1\":\"SCPU k, l [MIPS]\",\"2\":\"[250,500,1000,2000]\"},{\"0\":\"of the fitness function can be specified asO(fitness) = O(L \\u00d7 J). Also, the\",\"1\":\"SRAM [MB] k, l\",\"2\":\"[256,512,1024,2048]\"},{\"0\":\"time complexity of the main loop (lines 11\\u201328) depends on the\",\"1\":\"SDisk k, l [GB]\",\"2\":\"[256,512,1024,2048]\"},{\"0\":\"maximum number of iteration, the population size, and the size of each\",\"1\":\"SBW k, l [Mbps]\",\"2\":\"[256,512,1024,2048]\"},{\"0\":\"candidate solution and it is expressed byO(Maxt \\u00d7 N \\u00d7 (J + O(fitness))).\",\"1\":\"SSize k, l [MI]\",\"2\":\"\"},{\"0\":\"Since N, Maxt and O(fitness) are linear with respect to n, the total time\",\"1\":\"SDL k, l[ms]\",\"2\":\"\"},{\"0\":\"complexity of the proposed algorithm can be described asO(J \\u00d7 N) +\",\"1\":\"\",\"2\":\"\"}]"
-    },
-    {
-      "table_index": 19,
-      "page_number": 14,
-      "bbox": {
-        "x1": 27.587399999999974,
-        "y1": 48.69529707000002,
-        "x2": 570.02107892,
-        "y2": 276.0140055961539
-      },
-      "accuracy": 100.00000000000001,
-      "parse_method": "stream",
-      "has_empty_cells": true,
-      "empty_cell_locations": [
-        {
-          "row": 0,
-          "col": 1
-        },
-        {
-          "row": 2,
-          "col": 0
-        },
-        {
-          "row": 3,
-          "col": 1
-        },
-        {
-          "row": 12,
-          "col": 0
-        }
-      ],
-      "has_footnote_markers": true,
-      "row_count": 18,
-      "col_count": 2,
-      "headers": [
-        "Fig.6. Comparison of resource usage for (a): 5 service types and (b): 10 ser-",
-        ""
-      ],
-      "data_json": "[{\"0\":\"Fig.6. Comparison of resource usage for (a): 5 service types and (b): 10 ser-\",\"1\":\"\"},{\"0\":\"vice types.\",\"1\":\"Fig.7. Comparison of acceptance ratio for (a): 5 service types and (b): 10\"},{\"0\":\"\",\"1\":\"service types.\"},{\"0\":\"number of requested IoT services, the service acceptance ratio decreases.\",\"1\":\"\"},{\"0\":\"However, WOA-FSP has a higher acceptance ratio compared to other\",\"1\":\"services. As shown in this figure, our solution outperforms other service\"},{\"0\":\"approaches under 5 and 10 number of service types.\",\"1\":\"placement methods for both 5 and 10 number of service types. Whereas,\"},{\"0\":\"By increasing the number of types of service from 5 to 10, the service\",\"1\":\"with the growth of the number of IoT services, the difference among\"},{\"0\":\"acceptance ratio increases, because there will be more flexibility to\",\"1\":\"these approaches becomes more prominent, which shows that WOA-FSP\"},{\"0\":\"make a better placement decision. It can be concluded that the proposed\",\"1\":\"performs better than the other metaheuristic-based mechanisms. This\"},{\"0\":\"approach can be efficiently used for multiple service requests in\",\"1\":\"better performance is because the proposed technique provides more\"},{\"0\":\"resource-constrained scenarios because of the better searchability and\",\"1\":\"resource usage, as indicated in Fig.3.\"},{\"0\":\"consequently, better resource usage compared to other algorithms.\",\"1\":\"The average service delay for a different number of IoT services is\"},{\"0\":\"\",\"1\":\"shown in Table10. Under the five service types, the WOA-FSP approach\"},{\"0\":\"5.4.3. Service delay\",\"1\":\"reduces the execution time by up to 3%, 2.4%, 2%, and 1.3% compared\"},{\"0\":\"Depending on the maximum time of requested services and the\",\"1\":\"with GA-FSP, BA-FSP, SA-FSP, and PSO-FSP, respectively. Furthermore,\"},{\"0\":\"actually experienced response time, the service delay is calculated using\",\"1\":\"under ten service types, the proposed method reduces the service delay\"},{\"0\":\"Equation (45). Fig.8 shows the service delay of IoT devices\\u2019 requests\",\"1\":\"by up to 4.3%, 3.8%, 2.3%, and 1.4% compared with GA-FSP, BA-FSP,\"},{\"0\":\"under 5 and 10 number of service types for a different number of IoT\",\"1\":\"SA-FSP, and PSO-FSP, respectively.\"}]"
-    },
-    {
-      "table_index": 20,
-      "page_number": 15,
-      "bbox": {
-        "x1": 27.587399999999946,
-        "y1": 53.286342440000006,
-        "x2": 569.99318357,
-        "y2": 353.33401514534887
-      },
-      "accuracy": 99.99999999999984,
-      "parse_method": "stream",
-      "has_empty_cells": true,
-      "empty_cell_locations": [
-        {
-          "row": 0,
-          "col": 0
-        },
-        {
-          "row": 1,
-          "col": 0
-        },
-        {
-          "row": 2,
-          "col": 1
-        },
-        {
-          "row": 3,
-          "col": 1
-        },
-        {
-          "row": 4,
-          "col": 0
-        },
-        {
-          "row": 5,
           "col": 0
         },
         {
           "row": 7,
-          "col": 1
+          "col": 0
         },
         {
           "row": 9,
@@ -6265,113 +5029,10 @@
         },
         {
           "row": 10,
-          "col": 1
+          "col": 0
         },
         {
           "row": 11,
-          "col": 1
-        },
-        {
-          "row": 12,
-          "col": 0
-        },
-        {
-          "row": 13,
-          "col": 0
-        },
-        {
-          "row": 24,
-          "col": 1
-        }
-      ],
-      "has_footnote_markers": true,
-      "row_count": 27,
-      "col_count": 2,
-      "headers": [
-        "",
-        "Fig.9. Comparison of energy consumption for (a): 5 service types and (b): 10"
-      ],
-      "data_json": "[{\"0\":\"\",\"1\":\"Fig.9. Comparison of energy consumption for (a): 5 service types and (b): 10\"},{\"0\":\"\",\"1\":\"service types.\"},{\"0\":\"Fig.8. Comparison of service delay for (a): 5 service types and (b): 10 ser-\",\"1\":\"\"},{\"0\":\"vice types.\",\"1\":\"\"},{\"0\":\"\",\"1\":\"Table11\"},{\"0\":\"\",\"1\":\"The average energy consumption under 5 and 10 service types.\"},{\"0\":\"Table10\",\"1\":\"WOA-FSP GA-FSP PSO-FSP BA-FSP SA-FSP\"},{\"0\":\"The average service delay under 5 and 10 service types.\",\"1\":\"\"},{\"0\":\"WOA-FSP GA-FSP PSO-FSP BA-FSP SA-FSP\",\"1\":\"5 service types 16.1721.217.719.517.8\"},{\"0\":\"\",\"1\":\"10 service types 19.224.520.52321.4\"},{\"0\":\"5 service types 1.211.581.371.521.48\",\"1\":\"\"},{\"0\":\"10 service types 0.941.341.061.291.16\",\"1\":\"\"},{\"0\":\"\",\"1\":\"better exploration and exploitation in the search space compared with\"},{\"0\":\"\",\"1\":\"other baseline meta-heuristic-based algorithms. Furthermore, it provides\"},{\"0\":\"5.4.4.Energy consumption\",\"1\":\"a more suitable distribution the IoT services on the fog nodes that lead to\"},{\"0\":\"The energy consumption is the total energy consumption required\",\"1\":\"decreasing in energy consumption.\"},{\"0\":\"for deploying IoT services, which includes the computation and\",\"1\":\"The average energy consumption for a different number of IoT ser-\"},{\"0\":\"communication energy for all resources in a fog network. Fig.9 shows\",\"1\":\"vices is shown in Table11. Under the five service types, the WOA-FSP\"},{\"0\":\"the energy consumption of IoT devices\\u2019 requests under 5 and 10 number\",\"1\":\"approach reduces the energy consumption by up to 3.1%, 2.1%, 1%,\"},{\"0\":\"of service types for the different number of IoT services. From the re-\",\"1\":\"and 0.9% compared with GA-FSP, BA-FSP, SA-FSP, and PSO-FSP,\"},{\"0\":\"sults, we observe that with growing the number of IoT services, the total\",\"1\":\"respectively. Furthermore, under ten service types, the proposed\"},{\"0\":\"energy consumption is increased. This is because of the dynamic energy\",\"1\":\"method reduces the energy consumption by up to 2.7%, 2%, 1.1%, and\"},{\"0\":\"consumption depends on the number of deployed IoT services. Besides,\",\"1\":\"0.7% compared with GA-FSP, BA-FSP, SA-FSP, and PSO-FSP,\"},{\"0\":\"according to the Fig.9, it is clear that the WOA-FSP reduces the energy\",\"1\":\"respectively.\"},{\"0\":\"consumption for both 5 and 10 number of service types compared with\",\"1\":\"\"},{\"0\":\"other service placement methods. This is because the WOA-FSP method\",\"1\":\"5.4.5. Convergence speed\"},{\"0\":\"is able to find better placement plans (i.e., solutions) due to providing\",\"1\":\"Fig.10 shows the convergence speed along with the number of\"}]"
-    },
-    {
-      "table_index": 22,
-      "page_number": 16,
-      "bbox": {
-        "x1": 33.59679999999991,
-        "y1": 44.06520672000003,
-        "x2": 563.5763494500001,
-        "y2": 236.9113852027211
-      },
-      "accuracy": 99.08298058357691,
-      "parse_method": "stream",
-      "has_empty_cells": true,
-      "empty_cell_locations": [
-        {
-          "row": 0,
-          "col": 1
-        },
-        {
-          "row": 0,
-          "col": 2
-        },
-        {
-          "row": 0,
-          "col": 3
-        },
-        {
-          "row": 0,
-          "col": 4
-        },
-        {
-          "row": 0,
-          "col": 5
-        },
-        {
-          "row": 1,
-          "col": 1
-        },
-        {
-          "row": 1,
-          "col": 2
-        },
-        {
-          "row": 1,
-          "col": 3
-        },
-        {
-          "row": 1,
-          "col": 4
-        },
-        {
-          "row": 1,
-          "col": 5
-        },
-        {
-          "row": 4,
-          "col": 0
-        },
-        {
-          "row": 5,
-          "col": 0
-        },
-        {
-          "row": 6,
-          "col": 0
-        },
-        {
-          "row": 8,
-          "col": 0
-        },
-        {
-          "row": 9,
-          "col": 0
-        },
-        {
-          "row": 10,
-          "col": 0
-        },
-        {
-          "row": 12,
           "col": 0
         },
         {
@@ -6383,30 +5044,22 @@
           "col": 0
         },
         {
-          "row": 16,
-          "col": 0
-        },
-        {
-          "row": 17,
-          "col": 0
-        },
-        {
-          "row": 18,
+          "row": 15,
           "col": 0
         }
       ],
-      "has_footnote_markers": true,
-      "row_count": 19,
+      "has_footnote_markers": false,
+      "row_count": 16,
       "col_count": 6,
       "headers": [
-        "Table12",
-        "",
-        "",
-        "",
-        "",
-        ""
+        "Baseline Algorithms",
+        "Statistical parameters",
+        "Resource usage",
+        "Service acceptance ratio",
+        "Service delay",
+        "Energy consumption"
       ],
-      "data_json": "[{\"0\":\"Table12\",\"1\":\"\",\"2\":\"\",\"3\":\"\",\"4\":\"\",\"5\":\"\"},{\"0\":\"Statistical analysis of the proposed WOA-FSP algorithm for IoT service placement.\",\"1\":\"\",\"2\":\"\",\"3\":\"\",\"4\":\"\",\"5\":\"\"},{\"0\":\"Baseline Algorithms\",\"1\":\"Statistical parameters\",\"2\":\"Resource usage\",\"3\":\"Service acceptance ratio\",\"4\":\"Service delay\",\"5\":\"Energy consumption\"},{\"0\":\"GA-FSP\",\"1\":\"Mean\",\"2\":\"7.54072\",\"3\":\"0.091782\",\"4\":\"0.31983208\",\"5\":\"4.8091\"},{\"0\":\"\",\"1\":\"SD\",\"2\":\"6.98234\",\"3\":\"0.099823\",\"4\":\"0.36823492\",\"5\":\"5.5982\"},{\"0\":\"\",\"1\":\"t-value\",\"2\":\"2.34983472\",\"3\":\"2.25982129\",\"4\":\"3.19029334\",\"5\":\"2.6245328\"},{\"0\":\"\",\"1\":\"p-value\",\"2\":\"0.01489058\",\"3\":\"0.0256673\",\"4\":\"0.0213378\",\"5\":\"0.0015328\"},{\"0\":\"PSO-FSP\",\"1\":\"Mean\",\"2\":\"4.329034\",\"3\":\"0.048909\",\"4\":\"0.1743865\",\"5\":\"2.27458\"},{\"0\":\"\",\"1\":\"SD\",\"2\":\"4.982341\",\"3\":\"0.043982\",\"4\":\"0.1893282\",\"5\":\"2.19088\"},{\"0\":\"\",\"1\":\"t-value\",\"2\":\"5.9821292\",\"3\":\"2.6239824\",\"4\":\"4.98982234\",\"5\":\"6.45329033\"},{\"0\":\"\",\"1\":\"p-value\",\"2\":\"0.009356904\",\"3\":\"0.01523986\",\"4\":\"0.009907633\",\"5\":\"0.00089896\"},{\"0\":\"BA-FSP\",\"1\":\"Mean\",\"2\":\"6.60981\",\"3\":\"0.083872\",\"4\":\"0.2573321\",\"5\":\"3.70923\"},{\"0\":\"\",\"1\":\"SD\",\"2\":\"6.78234\",\"3\":\"0.082394\",\"4\":\"0.2692342\",\"5\":\"3.92932\"},{\"0\":\"\",\"1\":\"t-value\",\"2\":\"2.3923493\",\"3\":\"4.23494583\",\"4\":\"3.2453945\",\"5\":\"2.67342095\"},{\"0\":\"\",\"1\":\"p-value\",\"2\":\"0.0142949\",\"3\":\"0.0224376\",\"4\":\"0.01918876\",\"5\":\"0.0012983\"},{\"0\":\"SA-FSP\",\"1\":\"Mean\",\"2\":\"5.438927\",\"3\":\"0.0600328\",\"4\":\"0.2354928\",\"5\":\"2.95631\"},{\"0\":\"\",\"1\":\"SD\",\"2\":\"5.309882\",\"3\":\"0.0589234\",\"4\":\"0.2598321\",\"5\":\"3.01098\"},{\"0\":\"\",\"1\":\"t-value\",\"2\":\"5.2349453\",\"3\":\"2.56303924\",\"4\":\"2.73940327\",\"5\":\"6.23495602\"},{\"0\":\"\",\"1\":\"p-value\",\"2\":\"0.00128661\",\"3\":\"0.0186621\",\"4\":\"0.01643429\",\"5\":\"0.0009339\"}]"
+      "data_json": "[{\"Baseline Algorithms\":\"GA-FSP\",\"Statistical parameters\":\"Mean\",\"Resource usage\":\"7.54072\",\"Service acceptance ratio\":\"0.091782\",\"Service delay\":\"0.319832080.36823492\",\"Energy consumption\":\"4.80915.5982\"},{\"Baseline Algorithms\":\"\",\"Statistical parameters\":\"SD\",\"Resource usage\":\"6.98234\",\"Service acceptance ratio\":\"0.099823\",\"Service delay\":\"\",\"Energy consumption\":\"\"},{\"Baseline Algorithms\":\"\",\"Statistical parameters\":\"t- value\",\"Resource usage\":\"2.34983472\",\"Service acceptance ratio\":\"2.25982129\",\"Service delay\":\"3.19029334\",\"Energy consumption\":\"2.6245328\"},{\"Baseline Algorithms\":\"\",\"Statistical parameters\":\"p- value\",\"Resource usage\":\"0.01489058\",\"Service acceptance ratio\":\"0.0256673\",\"Service delay\":\"0.0213378\",\"Energy consumption\":\"0.0015328\"},{\"Baseline Algorithms\":\"PSO-FSP\",\"Statistical parameters\":\"Mean\",\"Resource usage\":\"4.329034\",\"Service acceptance ratio\":\"0.048909\",\"Service delay\":\"0.1743865\",\"Energy consumption\":\"2.27458\"},{\"Baseline Algorithms\":\"\",\"Statistical parameters\":\"SD\",\"Resource usage\":\"4.982341\",\"Service acceptance ratio\":\"0.043982\",\"Service delay\":\"0.1893282\",\"Energy consumption\":\"2.19088\"},{\"Baseline Algorithms\":\"\",\"Statistical parameters\":\"t- value\",\"Resource usage\":\"5.9821292\",\"Service acceptance ratio\":\"2.6239824\",\"Service delay\":\"4.98982234\",\"Energy consumption\":\"6.45329033\"},{\"Baseline Algorithms\":\"\",\"Statistical parameters\":\"p- value\",\"Resource usage\":\"0.009356904\",\"Service acceptance ratio\":\"0.01523986\",\"Service delay\":\"0.009907633\",\"Energy consumption\":\"0.00089896\"},{\"Baseline Algorithms\":\"BA-FSP\",\"Statistical parameters\":\"Mean\",\"Resource usage\":\"6.60981\",\"Service acceptance ratio\":\"0.083872\",\"Service delay\":\"0.2573321\",\"Energy consumption\":\"3.70923\"},{\"Baseline Algorithms\":\"\",\"Statistical parameters\":\"SD\",\"Resource usage\":\"6.78234\",\"Service acceptance ratio\":\"0.082394\",\"Service delay\":\"0.2692342\",\"Energy consumption\":\"3.92932\"},{\"Baseline Algorithms\":\"\",\"Statistical parameters\":\"t- value\",\"Resource usage\":\"2.3923493\",\"Service acceptance ratio\":\"4.23494583\",\"Service delay\":\"3.2453945\",\"Energy consumption\":\"2.67342095\"},{\"Baseline Algorithms\":\"\",\"Statistical parameters\":\"p- value\",\"Resource usage\":\"0.0142949\",\"Service acceptance ratio\":\"0.0224376\",\"Service delay\":\"0.01918876\",\"Energy consumption\":\"0.0012983\"},{\"Baseline Algorithms\":\"SA-FSP\",\"Statistical parameters\":\"Mean\",\"Resource usage\":\"5.438927\",\"Service acceptance ratio\":\"0.0600328\",\"Service delay\":\"0.2354928\",\"Energy consumption\":\"2.95631\"},{\"Baseline Algorithms\":\"\",\"Statistical parameters\":\"SD\",\"Resource usage\":\"5.309882\",\"Service acceptance ratio\":\"0.0589234\",\"Service delay\":\"0.2598321\",\"Energy consumption\":\"3.01098\"},{\"Baseline Algorithms\":\"\",\"Statistical parameters\":\"t- value\",\"Resource usage\":\"5.2349453\",\"Service acceptance ratio\":\"2.56303924\",\"Service delay\":\"2.73940327\",\"Energy consumption\":\"6.23495602\"},{\"Baseline Algorithms\":\"\",\"Statistical parameters\":\"p- value\",\"Resource usage\":\"0.00128661\",\"Service acceptance ratio\":\"0.0186621\",\"Service delay\":\"0.01643429\",\"Energy consumption\":\"0.0009339\"}]"
     }
   ],
   "in_text_citations": [
@@ -7043,11 +5696,11 @@
   ],
   "extraction_errors": [],
   "pipeline_timings": {
-    "pymupdf_s": 0.15,
+    "pymupdf_s": 0.1,
     "regex_s": 0.02,
-    "camelot_s": 6.38,
-    "nuextract_s": 428.15,
-    "total_s": 435.51
+    "camelot_s": 33.8,
+    "nuextract_s": 422.32,
+    "total_s": 457.03
   },
   "total_pages_processed": 18,
   "pdf_path": "papers/Fog Computing+WOA.pdf"
