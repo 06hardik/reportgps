@@ -1,65 +1,214 @@
-# ReportGPS — Hybrid Extraction Pipeline Architecture
+# ReportGPS — Extraction Pipeline Architecture (v3.0)
 
-A local, high-fidelity, offline hybrid extraction microservice (`services/extraction-pipeline/` running on port `8004`) that coordinates PyMuPDF, NuExtract3 (via local `llama.cpp`), Camelot, and IBM Docling to extract highly structured academic paper schemas.
+## Overview
+
+The extraction pipeline is a **lean, 3-step PDF analysis service** that runs in **< 1 second per paper** (down from 50–175s in v2).
+
+No LLM. No ML models. No heavy table grids. Every extraction is traceable to a PDF primitive (text, font size, bold flag, image block).
 
 ---
 
-## Technical Architecture
+## Architecture
 
-```mermaid
-flowchart TD
-    PDF["📄 PDF Upload"] --> OR["orchestrator.py\n(Coordination & Timing)"]
-    
-    subgraph Base["1. Parsing & Base Layer"]
-        OR -->|"fitz.open()"| PM["pymupdf_extractor.py\n(Page text & lines)"]
-        OR -->|"extract_tables_docling()"| DM["docling_extractor.py\n(Deep Learning Table Extraction)"]
-        OR -.->|"extract_tables() [Fallback]"| CM["camelot_extractor.py\n(Lattice/Stream table grids)"]
-    end
-    
-    subgraph Prep["2. Layout & Reference Analysis"]
-        PM -->|"page_chunks"| CC["_clean_control_characters\n(Translate math symbols to ASCII)"]
-        CC -->|"full_text & pdf_path"| RG["regex_extractor.py\n(Citations & Style-Agnostic Layout References)"]
-        RG -->|"References Page Start"| SKIP["Identify references_start_page\n(Skips LLM for trailing bib pages)"]
-    end
-
-    subgraph LLM["3. Structural Extraction"]
-        SKIP -->|"Page text (excluding bib pages)"| NU["nuextract_client.py\n(NuExtract3-GGUF Q4_K_M)"]
-    end
-
-    subgraph Post["4. Consolidation & Coordinate Mapping"]
-        NU -->|"Raw Page JSON (without body_text)"| MG["merger.py / orchestrator.py\n(Page results merging & cleanup)"]
-        DM -->|"Table grids"| MG
-        CM -.->|"Table grids fallback"| MG
-        MG -->|"Full text slicing"| SLICE["Reconstruct body_text in python\n(Slices between section coordinates)"]
-        SLICE -->|"Merged JSON with page hints"| MAP["coordinate_mapper.py\n(fitz.search_for coordinate lookup)"]
-    end
-
-    MAP --> Response["📦 Structured JSON Response\n(Sent to Downstream Linter)"]
+```
+PDF Input
+   │
+   ▼ Step 1: PyMuPDF Full-Document Pass (~0.3–0.7s)
+   │   • page_texts[], full_text
+   │   • per-span: font_size, is_bold, bbox
+   │   • image blocks per page: {x0,y0,x1,y1}
+   │
+   ▼ Step 2: Heuristic Structural Analysis (~0.03–0.1s)
+   │   structural_analyzer.py
+   │   a) Heading detection via font-size + bold flags
+   │   b) Manuscript metadata (title, abstract, keywords, authors) from page-1 heuristics
+   │   c) Figure discovery: regex for "Fig. N:" captions + PyMuPDF image bboxes
+   │   d) Table discovery: regex for "Table N:" captions
+   │   e) Equation discovery: regex for "(N)" at line-end
+   │
+   ▼ Step 3: Regex Extraction (~0.05–0.15s)
+       a) regex_extractor.py → references + in-text citations
+       b) typography_checker.py → en-dash, number-unit, percent/degree, latin abbreviations
 ```
 
 ---
 
-## High-Fidelity Pipeline Stages
+## Modules
 
-### Stage 1: Base Layer (PyMuPDF, IBM Docling, & Camelot)
-1. **PyMuPDF Extraction**: Extracts page plain text and structures lines/spans (capturing coordinates, font size, bold/italic).
-2. **Deep-Learning Table Extraction**: Prioritizes **IBM Docling** to extract structured tables. Docling applies layout object detection (YOLOv8-based) and a transformer-based cells parser (`TableFormer`) to extract borderless academic tables and align exponents without manual tuning.
-3. **Camelot Fallback**: If Docling is unavailable, the pipeline falls back to **Camelot** (lattice/stream heuristics) with tuned row/column tolerances (`row_tol=6`, `column_tol=2`).
+| File | Role | Status |
+|---|---|---|
+| `orchestrator.py` | Pipeline entry point (3 steps) | Active |
+| `pymupdf_extractor.py` | PyMuPDF text + font + image extraction | Active |
+| `structural_analyzer.py` | Heading/metadata/figure/table/equation detection | Active |
+| `regex_extractor.py` | References + in-text citations | Active |
+| `typography_checker.py` | Typography violation checks | Active |
+| `app.py` | FastAPI wrapper (port 8004) | Active |
+| `_archive/nuextract_client.py` | LLM client (archived — too slow) | Archived |
 
-### Stage 2: Layout & Bibliography Analysis
-1. **PDF Control Character Translation**: Maps mathematical control codes (e.g. `\x04`, `\x02`) to standard ASCII symbols.
-2. **Style-Agnostic Layout Reference Extraction (`_extract_references_layout`)**:
-   - Locates references page start using text headers.
-   - Extracts page text lines with bounding-box coordinates, sorting them correctly for two-column layouts.
-   - Automatically detects the citation style (`numbered-bracket`, `dot-number`, or `apa-style`).
-   - Groups multi-line references based on indentation and margins, and splits column-merged blocks.
-   - Discards page numbers and running headers/footers based on vertical block dimensions and positions.
-3. **LLM Reference Skipping**: Computes the first references page number and completely bypasses NuExtract LLM calls on all pages after it, saving latency and preventing output token limit errors.
+### Deleted Modules
+- `merger.py` — only reconciled LLM page outputs
+- `nuextract_schema.py` — LLM prompt schema
+- `camelot_extractor.py` — full table grid extraction (not needed)
+- `coordinate_mapper.py` — absorbed into structural_analyzer
+- `document_extractor.py` — superseded by structural_analyzer
+- `docling_extractor.py` — ML table extractor (can re-add if needed)
 
-### Stage 3: LLM Parsing (NuExtract3)
-1. **Dynamic Metadata Page Detection**: Scans first 5 pages for `\babstract\b` to run the metadata schema on the actual title/abstract page (bypassing cover sheets).
-2. **Body Extraction (No Body Text)**: Extracts section subheadings, equations, table/figure captions, and acronyms page-by-page. *Note: `body_text` is excluded from the schema to prevent NuExtract output truncation.*
+---
 
-### Stage 4: Consolidation & Slicing
-1. **Zero-Truncation Body Slicing**: Dynamically maps heading text to their exact character coordinates in `full_text` and slices the body text between headings in Python, ensuring 100% text accuracy at zero token cost. The pattern matches whitespaces and ASCII control characters (`[\s\x00-\x1f]+`), preventing matching failures due to PDF rendering artifacts (e.g., `\x07` BEL character).
-2. **Coordinate Pinning**: Searches for headings, caption labels, acronyms, and equations using multi-tier page lookup, returning absolute bounding boxes to the UI.
+## Output JSON Schema
+
+```json
+{
+  "manuscript": {
+    "title": "...",
+    "abstract_text": "...",
+    "abstract_word_count": 243,
+    "keywords": ["kw1", "kw2"],
+    "keywords_section_present": true,
+    "authors": ["Author A", "Author B"],
+    "publishing_statements": {
+      "conflict_of_interest": null,
+      "ethics_statement": null,
+      "funding_statement": null,
+      "data_access_statement": null,
+      "author_contribution_statement": null
+    }
+  },
+
+  "sections": [
+    {
+      "heading_text": "Introduction",
+      "heading_number": "1",
+      "heading_level": 2,
+      "page_number": 2,
+      "bbox": {"page": 2, "x0": 54.0, "y0": 130.0, "x1": 200.0, "y1": 145.0},
+      "coordinate_found": true
+    }
+  ],
+
+  "figures": [
+    {
+      "number": 1,
+      "caption_text": "Classification of metaheuristic algorithms",
+      "caption_page": 3,
+      "caption_ends_period": false,
+      "image_bbox": {"page": 3, "x0": 52.6, "y0": 57.8, "x1": 542.7, "y1": 288.5},
+      "first_mention_page": 2,
+      "coordinate_found": true
+    }
+  ],
+
+  "tables": [
+    {
+      "number": 1,
+      "caption_text": "Standard benchmark test functions",
+      "caption_page": 9,
+      "caption_ends_period": false,
+      "caption_bbox": null,
+      "first_mention_page": 8,
+      "coordinate_found": false
+    }
+  ],
+
+  "equations": [
+    {
+      "number": 1,
+      "number_format": "(1)",
+      "raw_text": "fk = µk mg cos θ",
+      "page_number": 7
+    }
+  ],
+
+  "references": [
+    {
+      "raw_string": "1. Smith A (2020) Title. Journal 10(2):100–120",
+      "number": 1,
+      "year": 2020,
+      "doi": null,
+      "url": null,
+      "bbox": {"page": 18, "x0": 306.1, "y0": 210.7, "x1": 546.4, "y1": 233.5},
+      "coordinate_found": true
+    }
+  ],
+
+  "in_text_citations": [
+    {
+      "marker": "[1]",
+      "style": "numeric-bracket",
+      "context_snippet": "...as shown in [1] the algorithm...",
+      "page_number": 3
+    }
+  ],
+
+  "typography": {
+    "en_dash_violations":        [{"found": "1-5", "correct": "1–5", "snippet": "...pages 1-5 of...", "detail": "..."}],
+    "number_unit_violations":    [{"found": "10ms", "correct": "10 ms", "snippet": "...", "detail": "..."}],
+    "percent_degree_violations": [],
+    "latin_abbrev_violations":   []
+  },
+
+  "estimated_word_count": 11260,
+  "total_pages_processed": 19,
+  "extraction_errors": [],
+  "pipeline_timings": {
+    "pymupdf_s": 0.67,
+    "structural_s": 0.05,
+    "regex_s": 0.08,
+    "typography_s": 0.07,
+    "total_s": 0.87
+  }
+}
+```
+
+---
+
+## Performance Benchmarks (5 papers, 16–34 pages each)
+
+| Paper | Pages | Time | Secs | Figs | Tbls | Eqs | Refs |
+|---|---|---|---|---|---|---|---|
+| Fog Computing+WOA | 18 | 0.55s | 13 | 10 | 12 | 42 | 43 |
+| GG-GSA | 16 | 0.98s | 73 | 6 | 15 | 23 | 46 |
+| GOA_paper | 18 | 1.17s | 30 | 13 | 16 | 0 | 65 |
+| Giza | 19 | 0.81s | 19 | 9 | 9 | 9 | 61 |
+| WOA+MFO image | 34 | 0.82s | 20 | 15 | 10 | 22 | 63 |
+| **Average** | **21** | **0.87s** | | | | | |
+
+**Previous pipeline (NuExtract): 50–175s per paper.**
+
+---
+
+## Structural Analyzer: Heading Detection
+
+Font-size heuristics for heading detection:
+- **Size heading**: `font_size >= body_font_size * 1.15`
+- **Bold heading**: `is_bold AND font_size >= body_font_size AND len(text) <= 80 AND not sentence-like`
+- **All-caps heading**: `ALL_CAPS AND len <= 50 AND font_size >= body_font_size * 0.9`
+- **Excluded**: y0 < 55pt (header) or y1 > page_height-55pt (footer), figure/table caption patterns, journal titles
+
+Body font size estimation uses **length-weighted mode** across all spans > 7pt, so footnote sizes don't skew the estimate.
+
+---
+
+## Regex Extractor: Reference Styles Supported
+
+- **Numbered bracket**: `[1] Smith, A. ...`
+- **Dot number**: `1. Smith, A. ...`
+- **APA author-year**: `Smith, A. (2020). Title. Journal...`
+
+Detection uses a layout-aware extraction that handles two-column PDFs, page headers/footers, and multi-line references.
+
+---
+
+## API
+
+```
+POST http://localhost:8004/extract
+  Content-Type: multipart/form-data
+  file: <PDF binary>
+
+GET  http://localhost:8004/health
+GET  http://localhost:8004/health/llm   (always returns unreachable now — LLM archived)
+```
+
+Response: JSON document as described above.
+Typical response time: **< 2 seconds** for most papers.

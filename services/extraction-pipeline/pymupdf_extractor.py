@@ -67,6 +67,7 @@ class PageChunk:
     plain_text:    str                                    # joined plain text
     lines:         List[TextLine] = field(default_factory=list)
     image_count:   int = 0
+    image_blocks:  List[Dict[str, float]] = field(default_factory=list)  # [{x0,y0,x1,y1}]
 
 
 @dataclass
@@ -252,7 +253,21 @@ class PyMuPDFExtractor:
                     plain_parts.append(stripped)
 
         plain_text = "\n".join(plain_parts)
-        image_count = len(page.get_images(full=False))
+
+        # Collect image bounding boxes (used by structural_analyzer for figure matching)
+        image_blocks: List[Dict[str, float]] = []
+        try:
+            for img_info in page.get_image_info(hashes=False, xrefs=False):
+                bbox = img_info.get("bbox")
+                if bbox and len(bbox) == 4:
+                    x0, y0, x1, y1 = bbox
+                    if x1 > x0 and y1 > y0:  # valid non-empty rect
+                        image_blocks.append({"x0": x0, "y0": y0, "x1": x1, "y1": y1})
+        except Exception:
+            # Fallback: count only, no bboxes
+            pass
+
+        image_count = len(image_blocks)
 
         return PageChunk(
             page_number=page_number,
@@ -261,6 +276,7 @@ class PyMuPDFExtractor:
             plain_text=plain_text,
             lines=lines,
             image_count=image_count,
+            image_blocks=image_blocks,
         )
 
     @staticmethod
