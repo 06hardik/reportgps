@@ -1,19 +1,21 @@
 """
 app.py
 ======
-FastAPI service wrapper for the hybrid extraction pipeline.
+FastAPI service wrapper for the lean extraction pipeline (v3.0).
 
 Endpoints:
   POST /extract      — accepts a PDF, runs the full pipeline, returns JSON
   GET  /health       — liveness probe
-  GET  /health/llm   — probes the local NuExtract llama.cpp server
+  GET  /health/llm   — returns 'archived' (NuExtract LLM has been archived)
 
 Port: 8004  (distinct from existing services: 8001, 8002, 8003)
 
-The JSON response from POST /extract is the full merged document dict
+The JSON response from POST /extract is the full structured document dict
 produced by orchestrator.extract_document().  The downstream Node.js backend
 (documentProcessor.js) will consume this response and pass the structured data
 to each linting service.
+
+Typical response time: < 2 seconds per paper.
 """
 
 import os
@@ -25,15 +27,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from orchestrator import extract_document
-from nuextract_client import NuExtractClient, NUEXTRACT_BASE_URL
 
 app = FastAPI(
-    title="ReportGPS — Hybrid Extraction Pipeline",
+    title="ReportGPS — Extraction Pipeline",
     description=(
-        "PyMuPDF + NuExtract3 (local llama.cpp) + Camelot extraction service. "
-        "Accepts a PDF and returns a fully structured, coordinate-mapped JSON document."
+        "Lean PDF extraction service (v3.0). "
+        "PyMuPDF + heuristic structural analysis + regex. "
+        "No LLM. Accepts a PDF and returns a structured JSON document."
     ),
-    version="2.0.0",
+    version="3.0.0",
 )
 
 app.add_middleware(
@@ -53,30 +55,24 @@ def health():
     return {
         "status":  "ok",
         "service": "extraction-pipeline",
-        "version": "2.0.0",
+        "version": "3.0.0",
     }
 
 
 @app.get("/health/llm")
 def health_llm():
-    """Check whether the local NuExtract llama.cpp server is reachable."""
-    try:
-        with NuExtractClient() as client:
-            alive = client.health_check()
-        return {
-            "nuextract_api":  NUEXTRACT_BASE_URL,
-            "status":         "ok" if alive else "unreachable",
-            "llm_reachable":  alive,
-        }
-    except Exception as exc:
-        return JSONResponse(
-            status_code=503,
-            content={
-                "nuextract_api": NUEXTRACT_BASE_URL,
-                "status":        "error",
-                "detail":        str(exc),
-            },
-        )
+    """NuExtract LLM has been archived — this endpoint now always returns 'archived'."""
+    return JSONResponse(
+        status_code=200,
+        content={
+            "status":       "archived",
+            "llm_reachable": False,
+            "detail": (
+                "NuExtract LLM client has been archived. "
+                "The pipeline now uses pure heuristic/regex extraction (~1s per paper)."
+            ),
+        },
+    )
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -86,10 +82,9 @@ def health_llm():
 @app.post("/extract")
 async def extract(file: UploadFile = File(...)):
     """
-    Accepts a PDF file upload and runs the full hybrid extraction pipeline.
+    Accepts a PDF file upload and runs the lean extraction pipeline.
 
-    Returns the structured document JSON with coordinates.  This may take
-    30–120 seconds for a typical 10–15 page paper depending on GPU speed.
+    Returns the structured document JSON.  Typical time: < 2 seconds.
     """
     if not file.filename or not file.filename.lower().endswith(".pdf"):
         raise HTTPException(
