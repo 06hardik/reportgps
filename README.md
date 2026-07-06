@@ -1,70 +1,121 @@
-# ReportGPS — Extraction Pipeline & Core Architecture
+# ReportGPS — Academic Paper Extraction Pipeline
 
-This repository contains the local, offline, high-fidelity hybrid extraction pipeline microservice (`services/extraction-pipeline`) that integrates layout parsing, coordinate mapping, and schema-based LLM extraction.
-
-## Prerequisites
-
-- **Node.js**: 18+ (for frontend and backend testing UIs)
-- **Python**: 3.10+ (for extraction services)
-- **Ghostscript**: Installed on system (required by Camelot for table parsing)
-- **Model cache**: `numind/NuExtract3-GGUF:Q4_K_M` model downloaded locally
+A fast, offline, zero-LLM PDF extraction pipeline for academic papers.  
+Extracts structure, figures, tables, equations, references, and typography checks in **< 2 seconds**.
 
 ---
 
-## Getting Started
+## Quick Start
 
-### 1. Start the Llama Server (Sequential Context Protected)
-To prevent context overflow and memory contention, launch the local `llama.cpp` serve instance sequentially (`--parallel 1`) with a context window of `16384` tokens:
-```bash
-llama serve -hf numind/NuExtract3-GGUF:Q4_K_M --n-gpu-layers 99 -c 16384 --parallel 1
-```
+### 1 — Python Extraction Service (port 8004)
 
-### 2. Start the Python Extraction Microservice
-Navigate to the microservice directory, activate the virtual environment, install requirements, and run the FastAPI server on port `8004`:
 ```bash
 cd services/extraction-pipeline
 source ../../env/bin/activate
-pip install -r requirements.txt
+pip install -r requirements.txt      # fastapi uvicorn pymupdf httpx
 python app.py
 ```
 
-### 3. Start Backend & Frontend Test UIs (Optional)
-Run the Node.js test applications in the root workspace directory.
+### 2 — Node.js Backend (port 5000)
 
-**Terminal 1 (Backend - port 5000)**:
 ```bash
 cd backend
 npm install && npm start
 ```
 
-**Terminal 2 (Frontend - port 3000)**:
+### 3 — React Frontend (port 3000)
+
 ```bash
 cd frontend
 npm install && npm run dev
 ```
 
----
-
-## Core Pipeline Modules
-
-The extraction pipeline in `services/extraction-pipeline` consists of the following core modules:
-
-*   **`app.py`**: The FastAPI server wrapper exposing the `POST /extract` microservice endpoint.
-*   **`orchestrator.py`**: The central controller coordinating the 4-stage pipeline execution: base parsing, references/citations extraction, LLM page extraction, and coordinate mapping.
-*   **`regex_extractor.py`**: Implements **Stage 2** (citations matching) and the **style-agnostic hybrid layout reference extractor** which segments bibliographies column-by-column using PyMuPDF page-line structures.
-*   **`nuextract_client.py`**: Handles API requests to the local Llama server on port `8080` with json formatting and Length recovery.
-*   **`nuextract_schema.py`**: Defines the metadata and body JSON schemas. *Note: `body_text` is excluded from the LLM schema to prevent truncation and speed up generation.*
-*   **`coordinate_mapper.py`**: Fallback loop algorithm that queries PyMuPDF to search character strings and map absolute coordinate bounding-boxes.
-*   **`docling_extractor.py`**: Invokes IBM Docling to perform visual page-segmentation and high-accuracy cell grid parsing on CPU.
-*   **`camelot_extractor.py`**: Invokes Camelot to trace table grid boundaries as a fallback if Docling is unavailable.
-*   **`pymupdf_extractor.py`**: Lower-level fitz reader parsing pages into TextLine objects.
-*   **`merger.py`**: Normalizes and consolidates structured objects from different stages into a single JSON schema.
+Open **http://localhost:3000** → drag & drop a PDF → click **Analyse Document**.
 
 ---
 
-## Design Optimizations
+## Architecture
 
-1.  **Prioritized Table Extraction (Docling + Camelot Fallback)**: The pipeline prioritizes **IBM Docling** to extract clean table grids and header metadata. If Docling is not installed or encounters an execution failure, the pipeline seamlessly falls back to a tuned **Camelot** configuration (`row_tol=6`, `column_tol=2`). Docling runs on CPU with fixed thread limits (4 threads) to prevent VRAM memory contention with the local LLM server.
-2.  **Dynamic Metadata Detection**: The orchestrator scans the first 5 pages for the `\babstract\b` keyword, ensuring that cover sheets or highlights pages are bypassed and the abstract page is correctly processed with the metadata schema.
-3.  **References Skipping**: The pipeline detects the references start page during Stage 2 and completely skips LLM extraction on any pages after it, saving substantial processing time and preventing truncation errors on dense bibliography pages.
-4.  **Zero-Truncation Body Slicing with Control Characters**: Rather than forcing NuExtract to copy/paste thousands of words of body text verbatim (which caused output context overflows), the pipeline uses python string slicing between heading coordinates in `full_text` to reconstruct `body_text` with 100% precision. The regex search is robust to ASCII control characters (such as `\x07` BEL) and non-breaking spaces commonly found in PDF text layers, preventing page-jumping or zero-length section body errors.
+```
+Browser (React, port 3000)
+        │ POST /api/upload (multipart PDF)
+        ▼
+Node.js Backend (Express, port 5000)
+        │ Proxies to http://localhost:8004/extract
+        ▼
+Python Extraction Service (FastAPI, port 8004)
+        │
+        ├─ Step 1: PyMuPDF  (~0.3–0.7 s)
+        │     Text + font metadata + image bboxes
+        │
+        ├─ Step 2: structural_analyzer.py  (~0.03–0.1 s)
+        │     Headings, manuscript metadata, figures, tables, equations
+        │
+        └─ Step 3: regex_extractor + typography_checker  (~0.05–0.15 s)
+              References, citations, typography violations
+```
+
+**Average total: ~0.87 s per paper.**
+
+---
+
+## Pipeline Modules
+
+| File | Purpose |
+|---|---|
+| `app.py` | FastAPI server — `POST /extract`, `GET /health` |
+| `orchestrator.py` | 3-step pipeline coordinator |
+| `pymupdf_extractor.py` | PyMuPDF page text + font + image bboxes |
+| `structural_analyzer.py` | Heading detection, metadata, figure/table/equation discovery |
+| `regex_extractor.py` | References + in-text citations |
+| `typography_checker.py` | En-dash, unit-space, percent/degree, latin abbreviation checks |
+| `_archive/nuextract_client.py` | Archived — LLM approach (50–175 s, replaced) |
+
+---
+
+## Output JSON Schema
+
+```json
+{
+  "manuscript":  { "title", "abstract_text", "abstract_word_count", "keywords", "authors" },
+  "sections":    [{ "heading_text", "heading_level", "page_number", "bbox" }],
+  "figures":     [{ "number", "caption_text", "caption_page", "image_bbox", "first_mention_page" }],
+  "tables":      [{ "number", "caption_text", "caption_page", "first_mention_page" }],
+  "equations":   [{ "number", "number_format", "raw_text", "page_number" }],
+  "references":  [{ "raw_string", "number", "year", "doi", "bbox" }],
+  "in_text_citations": [{ "marker", "page_number" }],
+  "typography":  { "en_dash_violations", "number_unit_violations", "percent_degree_violations", "latin_abbrev_violations" },
+  "estimated_word_count": 11260,
+  "total_pages_processed": 19,
+  "pipeline_timings": { "pymupdf_s", "structural_s", "regex_s", "typography_s", "total_s" }
+}
+```
+
+---
+
+## Performance (5 test papers)
+
+| Paper | Pages | Time |
+|---|---|---|
+| Fog Computing + WOA | 18 | 0.55 s |
+| GG-GSA | 16 | 0.98 s |
+| GOA | 18 | 1.17 s |
+| Giza | 19 | 0.81 s |
+| WOA + MFO image | 34 | 0.82 s |
+| **Average** | **21** | **0.87 s** |
+
+Previous pipeline (NuExtract LLM): 50–175 s per paper.
+
+---
+
+## API Reference
+
+```
+POST http://localhost:8004/extract
+  Content-Type: multipart/form-data
+  file: <PDF binary>
+  → returns structured JSON (< 2s typical)
+
+GET  http://localhost:8004/health
+  → { status: "ok", version: "3.0.0" }
+```
