@@ -117,5 +117,5 @@ POST http://localhost:8004/extract
   → returns structured JSON (< 2s typical)
 
 GET  http://localhost:8004/health
-  → { status: "ok", version: "3.0.0" }
+  → { status: "ok", version: "3.2.0" }
 ```
