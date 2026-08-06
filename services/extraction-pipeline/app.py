@@ -31,11 +31,11 @@ from orchestrator import extract_document
 app = FastAPI(
     title="ReportGPS — Extraction Pipeline",
     description=(
-        "Lean PDF extraction service (v3.0). "
+        "Lean PDF extraction service (v3.1). "
         "PyMuPDF + heuristic structural analysis + regex. "
         "No LLM. Accepts a PDF and returns a structured JSON document."
     ),
-    version="3.0.0",
+    version="3.1.0",
 )
 
 app.add_middleware(
@@ -55,7 +55,7 @@ def health():
     return {
         "status":  "ok",
         "service": "extraction-pipeline",
-        "version": "3.0.0",
+        "version": "3.1.0",
     }
 
 

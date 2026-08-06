@@ -6,11 +6,14 @@ Lean, 3-step extraction pipeline — no LLM, no ML models, no heavy table grids.
 Architecture:
   PDF
    ├─► Step 1: PyMuPDF          → raw page text + font metadata + image bboxes
-   ├─► Step 2: structural_analyzer → headings, metadata, figures, tables, equations
+   ├─► Step 2: structural_analyzer → headings, metadata, figures, tables
    ├─► Step 3a: regex_extractor → references + in-text citations
    └─► Step 3b: typography_checker → en-dash, unit-space, percent, latin abbrevs
 
-Target time: 3–8 seconds for a 20-page paper (was 50–175s with NuExtract).
+NOTE: Equations removed from this pipeline — to be implemented via a dedicated
+math parsing library in a future milestone.
+
+Target time: < 2 seconds for a 20-page paper (was 50–175s with NuExtract).
 
 Output JSON schema: see docs/extraction_pipeline_architecture.md
 """
@@ -76,7 +79,6 @@ def extract_document(pdf_path: str) -> dict:
             "sections": [],
             "figures": [],
             "tables": [],
-            "equations": [],
             "estimated_word_count": len(full_text.split()),
         }
 
@@ -84,8 +86,7 @@ def extract_document(pdf_path: str) -> dict:
         f"[Orchestrator] Structural: "
         f"{len(structural.get('sections', []))} section(s), "
         f"{len(structural.get('figures', []))} figure(s), "
-        f"{len(structural.get('tables', []))} table(s), "
-        f"{len(structural.get('equations', []))} equation(s)."
+        f"{len(structural.get('tables', []))} table(s)."
     )
     timings["structural_s"] = round(time.monotonic() - t2, 2)
 
@@ -165,10 +166,10 @@ def _print_summary(r: dict) -> None:
         f"  Title        : {'YES' if ms.get('title') else 'NOT FOUND'}\n"
         f"  Abstract     : {'YES (' + str(ms.get('abstract_word_count') or 0) + ' words)' if ms.get('abstract_text') else 'NOT FOUND'}\n"
         f"  Keywords     : {len(ms.get('keywords') or [])}\n"
+        f"  Authors      : {len(ms.get('authors') or [])}\n"
         f"  Sections     : {len(r.get('sections', []))}\n"
         f"  Figures      : {len(r.get('figures', []))}\n"
         f"  Tables       : {len(r.get('tables', []))}\n"
-        f"  Equations    : {len(r.get('equations', []))}\n"
         f"  References   : {len(r.get('references', []))} (regex)\n"
         f"  Citations    : {len(r.get('in_text_citations', []))}\n"
         f"  Typography   : {typo_total} violation(s)\n"
@@ -208,7 +209,6 @@ def _error_result(message: str) -> dict:
         "sections":            [],
         "figures":             [],
         "tables":              [],
-        "equations":           [],
         "references":          [],
         "in_text_citations":   [],
         "typography": {

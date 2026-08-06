@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import {
   UploadCloud, FileText, CheckCircle, AlertCircle, Play,
-  RotateCcw, BookOpen, Image, Table2, Sigma, Quote,
+  RotateCcw, BookOpen, Image, Table2, Quote,
   Type, Layers, Clock, Code2, Users, Tag, AlignLeft, Hash
 } from 'lucide-react';
 import './index.css';
@@ -175,28 +175,6 @@ function TablesTab({ data }) {
   );
 }
 
-/* ─── Tab: Equations ────────────────────────────────────────────────────────── */
-function EquationsTab({ data }) {
-  const equations = arr(data?.equations);
-  if (equations.length === 0) return (
-    <div className="panel"><EmptyState icon={Sigma} text="No numbered equations detected." /></div>
-  );
-
-  return (
-    <div className="panel">
-      <div className="eq-list">
-        {equations.map((e, i) => (
-          <div className="eq-item" key={i}>
-            <span className="eq-label">{e.number_format || `(${e.number})`}</span>
-            <span className="eq-text" title={e.raw_text}>{e.raw_text}</span>
-            <span className="eq-page">p.{e.page_number}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 /* ─── Tab: References ───────────────────────────────────────────────────────── */
 function ReferencesTab({ data }) {
   const refs = arr(data?.references);
@@ -336,7 +314,6 @@ const TABS = [
   { id: 'sections',   label: 'Sections',   icon: Layers,    countKey: 'sections' },
   { id: 'figures',    label: 'Figures',    icon: Image,     countKey: 'figures' },
   { id: 'tables',     label: 'Tables',     icon: Table2,    countKey: 'tables' },
-  { id: 'equations',  label: 'Equations',  icon: Sigma,     countKey: 'equations' },
   { id: 'references', label: 'References', icon: BookOpen,  countKey: 'references' },
   { id: 'typography', label: 'Typography', icon: Type,      countKey: null },
   { id: 'raw',        label: 'Raw JSON',   icon: Code2,     countKey: null },
@@ -377,7 +354,6 @@ function ResultsViewer({ data, onReset }) {
           { label: 'Sections',   value: arr(data?.sections).length },
           { label: 'Figures',    value: arr(data?.figures).length },
           { label: 'Tables',     value: arr(data?.tables).length },
-          { label: 'Equations',  value: arr(data?.equations).length },
           { label: 'References', value: arr(data?.references).length },
           { label: 'Citations',  value: arr(data?.in_text_citations).length },
           { label: 'Typo flags', value: typoCount },
@@ -441,7 +417,6 @@ function ResultsViewer({ data, onReset }) {
       {activeTab === 'sections'    && <SectionsTab    data={data} />}
       {activeTab === 'figures'     && <FiguresTab     data={data} />}
       {activeTab === 'tables'      && <TablesTab      data={data} />}
-      {activeTab === 'equations'   && <EquationsTab   data={data} />}
       {activeTab === 'references'  && <ReferencesTab  data={data} />}
       {activeTab === 'typography'  && <TypographyTab  data={data} />}
       {activeTab === 'raw'         && <RawTab         data={data} />}
