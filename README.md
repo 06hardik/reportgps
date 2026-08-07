@@ -69,7 +69,6 @@ Python Extraction Service (FastAPI, port 8004)
 | `structural_analyzer.py` | Heading detection, metadata, figure/table/equation discovery |
 | `regex_extractor.py` | References + in-text citations |
 | `typography_checker.py` | En-dash, unit-space, percent/degree, latin abbreviation checks |
-| `_archive/nuextract_client.py` | Archived — LLM approach (50–175 s, replaced) |
 
 ---
 
