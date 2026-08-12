@@ -55,9 +55,13 @@ Python Extraction Service (FastAPI, port 8004)
         ├─ Step 3a: regex_extractor + typography_checker  (~0.05–0.15 s)
         │     References, citations, typography violations
         │
-        └─ Step 3b: figures_tables_checker.py  (~0.01–0.03 s)
-              Sequential numbering, chronological order, caption positioning,
-              sub-part label validation for figures and tables
+        ├─ Step 3b: figures_tables_checker.py  (~0.01–0.03 s)
+        │     Sequential numbering, chronological order, caption positioning,
+        │     sub-part label validation for figures and tables
+        │
+        └─ Step 3d: syntax_grammar_checker.py  (~0.01–0.02 s)
+              Typography, Syntax & Grammar Checks 17-24 (Acronyms, En-dashes,
+              Spacing, Quotes, English Spelling Consistency)
 ```
 
 **Average total: ~0.87 s per paper.**
@@ -75,6 +79,7 @@ Python Extraction Service (FastAPI, port 8004)
 | `regex_extractor.py` | References + in-text citations |
 | `typography_checker.py` | En-dash, unit-space, percent/degree, latin abbreviation checks |
 | `figures_tables_checker.py` | Figure/table sequential numbering, chronological order, caption positioning, sub-part validation |
+| `syntax_grammar_checker.py` | Implementation of Checks 17–24 (Acronym definitions, double spaces, quote styles, spelling, etc.) |
 
 ---
 
@@ -99,9 +104,19 @@ Python Extraction Service (FastAPI, port 8004)
     "figure_caption_below":        { "passed", "violations", "skipped", "detail" },
     "figure_parts_mention":        { "passed", "violations", "detail" }
   },
+  "syntax_grammar_checks": {
+    "acronym_definition":          { "passed", "violations", "detail" },
+    "en_dash_ranges":              { "passed", "violations", "detail" },
+    "nonbreaking_space_units":     { "passed", "violations", "detail" },
+    "no_space_percent_degree":     { "passed", "violations", "detail" },
+    "double_spaces":               { "passed", "violations", "detail" },
+    "punctuation_spacing":         { "passed", "violations", "detail" },
+    "quote_style_consistency":     { "passed", "violations", "detail" },
+    "english_spelling_consistency":{ "passed", "violations", "detail" }
+  },
   "estimated_word_count": 11260,
   "total_pages_processed": 19,
-  "pipeline_timings": { "pymupdf_s", "structural_s", "regex_s", "typography_s", "figures_tables_s", "total_s" }
+  "pipeline_timings": { "pymupdf_s", "structural_s", "regex_s", "typography_s", "figures_tables_s", "syntax_grammar_s", "total_s" }
 }
 ```
 
@@ -120,6 +135,23 @@ All checks run via `figures_tables_checker.py` after structural analysis. Each c
 | **Check 11** — Table Caption Above Table | Table caption must be positioned above the table body (y-coordinate comparison) | `tables[i]["caption_bbox"]["y1"]`, `tables[i]["table_body_y0"]` |
 | **Check 12** — Figure Caption Below Figure | Figure caption must be positioned below the image (y-coordinate comparison) | `figures[i]["caption_bbox"]["y0"]`, `figures[i]["image_bbox"]["y1"]` |
 | **Check 13** — Figure Parts Mention | Sub-part labels `(a)`, `(b)`, `(c)` … in figure captions must be consecutive starting from `(a)` | `figures[i]["caption_text"]` via regex |
+
+---
+
+## Typography, Syntax & Grammar Validation Checks
+
+All checks run via `syntax_grammar_checker.py` after structural analysis. Each check returns `passed` (bool) and `detail` (human-readable verdict), along with detailed `violations`. 
+
+| Check | Rule | Data Used |
+|---|---|---|
+| **Check 17** — Acronym Definition | Any acronym (3+ capital letters) must be fully defined in parentheses at its first occurrence | `full_text` (regex + initials matching heuristic) |
+| **Check 18** — En-dash for Ranges | En-dash (`–`) must be used for number ranges instead of hyphen/double-hyphen (`10-20`) | `body_text` |
+| **Check 19** — Non-breaking Space for Units | Non-breaking space (U+00A0) must be used between numbers and standard units (`10 kg`) | `body_text` |
+| **Check 20** — No Space for Percentages/Degrees | No space should occur before `%` or degree notation (`10%`, `90°C`) | `body_text` |
+| **Check 21** — Double Spaces | No accidental double ASCII spaces between non-whitespace characters | `body_text` |
+| **Check 22** — Consistent Punctuation Spacing | Space after (but not before) commas and semicolons. Only 1 space after sentence boundaries | `body_text` |
+| **Check 23** — Quote Style Consistency | Consistent use of either straight (`"`) or typographic curly (`“”`) double quotes | `full_text` |
+| **Check 24** — English Spelling Consistency | American and British English spelling shouldn't be mixed within the document | `body_text` (via predefined Am/Br word pairs) |
 
 ---
 

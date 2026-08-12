@@ -56,3 +56,7 @@ npm-debug.log*
 
 
 paper_outputs/
+
+# Local virtual environments
+services/extraction-pipeline/env/
+
