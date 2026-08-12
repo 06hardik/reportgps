@@ -36,11 +36,16 @@ __pycache__/
 .venv/
 venv/
 env/
+**/env/
+*.egg-info/
+*.egg
+pip-log.txt
 
 # OS and editor noise
 .DS_Store
 Thumbs.db
 *.log
+npm-debug.log*
 .vscode/
 .idea/
 

@@ -30,6 +30,7 @@ from pymupdf_extractor import PyMuPDFExtractor
 from structural_analyzer import analyze_structure
 from regex_extractor import extract_references, extract_in_text_citations
 from typography_checker import check_typography
+from figures_tables_checker import check_figures_and_tables
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -132,18 +133,36 @@ def extract_document(pdf_path: str) -> dict:
     print(f"[Orchestrator] Typography: {typo_total} violation(s) flagged.")
     timings["typography_s"] = round(time.monotonic() - t4, 2)
 
+    # ── Step 3c: Figures & Tables checks ─────────────────────────────────────
+    t5 = time.monotonic()
+    try:
+        figures_tables_checks = check_figures_and_tables(
+            figures=structural.get("figures", []),
+            tables=structural.get("tables", []),
+            page_texts=page_texts,
+        )
+    except Exception as exc:
+        print(f"[Orchestrator] Figures/Tables check error (non-fatal): {exc}")
+        figures_tables_checks = {}
+    print(
+        f"[Orchestrator] Figures/Tables checks: "
+        f"{len(figures_tables_checks)} check(s) run."
+    )
+    timings["figures_tables_s"] = round(time.monotonic() - t5, 2)
+
     # ── Assemble final result ─────────────────────────────────────────────────
     timings["total_s"] = round(time.monotonic() - t_start, 2)
 
     result = {
         **structural,
-        "references":        references,
-        "in_text_citations": citations,
-        "typography":        typography,
-        "extraction_errors": [],
-        "total_pages_processed": len(page_texts),
-        "pdf_path":          pdf_path,
-        "pipeline_timings":  timings,
+        "references":              references,
+        "in_text_citations":       citations,
+        "typography":              typography,
+        "figures_tables_checks":   figures_tables_checks,
+        "extraction_errors":       [],
+        "total_pages_processed":   len(page_texts),
+        "pdf_path":                pdf_path,
+        "pipeline_timings":        timings,
     }
 
     _print_summary(result)
