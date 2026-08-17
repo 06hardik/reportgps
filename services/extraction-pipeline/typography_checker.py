@@ -30,33 +30,82 @@ MAX_VIOLATIONS = 25
 # ─────────────────────────────────────────────────────────────────────────────
 
 # En-dash: hyphen between two integers (ranges)
-# Excludes: negative numbers, page references in citations, DOIs
+# Excludes: negative numbers, version strings
 _HYPHEN_RANGE = re.compile(r'(?<!\w)(\d+)-(\d+)(?!\w|\.\d)')
 
 # Double-dash used as range separator
 _DOUBLE_DASH = re.compile(r'(\d)\s*--\s*(\d)')
 
-# Number directly followed by a unit (no space)
-_UNIT_LIST = (
-    "ms|µs|μs|ns|ps|fs"
-    "|kg|g|mg|µg|μg|ng"
-    "|km|cm|mm|nm|µm|μm|pm|Å"
-    "|MHz|GHz|kHz|THz|Hz"
-    "|KB|MB|GB|TB|kB|PB"
-    "|kW|MW|GW|W|mW|µW|μW"
-    "|kV|MV|V|mV|µV|μV"
-    "|A|mA|µA|μA|nA"
-    "|dB|dBm|dBi"
-    "|mol|mmol|µmol|μmol"
-    "|L|mL|µL|μL|nL|dL"
-    "|K|°C|°F"            # temperature
-    "|rad|sr"
-    "|Pa|kPa|MPa|GPa|bar|atm"
-    "|bits?|bytes?|Bytes?"
-)
-_NO_SPACE_UNIT = re.compile(
-    rf'\b(\d+(?:\.\d+)?)({_UNIT_LIST})\b',
+# DOI strings — blanked out before en-dash scanning so hyphens inside
+# DOIs (e.g. doi:10.1109/NET.2021.3050-3070) are never flagged.
+# Covers: "doi:10.xxxx/..." and "https://doi.org/10.xxxx/..."
+_DOI_STRIP_RE = re.compile(
+    r'(?:'
+    r'(?:https?://)?doi\.org/'   # https://doi.org/ or doi.org/ or ttps://doi.org/
+    r'|doi:\s*'                   # doi: prefix
+    r')'
+    r'10\.\d{4,}[^\s]*',        # 10.NNNN/... rest of DOI path
     re.IGNORECASE,
+)
+
+# Number directly followed by a unit (no space).
+#
+# DESIGN DECISIONS — to prevent false positives on figure/table labels
+# like "1a", "4b", "Fig. 1g" etc.:
+#
+#   1. NO re.IGNORECASE — SI units are case-sensitive (mW ≠ MW, ms ≠ MS).
+#      Without IGNORECASE, 'a','b','c','g' etc. no longer match 'A','B','C','G'.
+#
+#   2. All ambiguous single-letter units (g, A, L, K, W, V, s) are REMOVED
+#      because they are indistinguishable from figure/table sub-part labels
+#      and common prose letters.
+#
+#   3. Negative lookahead (?![a-zA-Z0-9]) after the unit — the matched unit
+#      must NOT be immediately followed by another alphanumeric character.
+#      This stops "Fig. 4b" matching because 'b' is followed by more letters.
+_UNIT_LIST = (
+    # Time (compound only; bare 's' excluded)
+    "ms|\u00b5s|\u03bcs|ns|ps|fs"
+    # Mass (compound only; bare 'g' excluded)
+    "|kg|mg|\u00b5g|\u03bcg|ng"
+    # Distance (compound only; bare 'm' excluded)
+    "|km|cm|mm|nm|\u00b5m|\u03bcm|pm|\u00c5"
+    # Frequency (longer first)
+    "|MHz|GHz|kHz|THz|Hz"
+    # Digital storage
+    "|KB|MB|GB|TB|kB|PB"
+    # Power (compound only; bare 'W' excluded)
+    "|kW|MW|GW|mW|\u00b5W|\u03bcW"
+    # Voltage (compound only; bare 'V' excluded)
+    "|kV|MV|mV|\u00b5V|\u03bcV"
+    # Current (compound only; bare 'A' excluded)
+    "|mA|\u00b5A|\u03bcA|nA"
+    # Decibels
+    "|dBm|dBi|dB"
+    # Magnetic flux density (compound; bare 'T' excluded)
+    "|mT|\u00b5T|\u03bcT"
+    # Chemical (compound only; bare 'mol' can be ambiguous but kept as it
+    # is multi-character and always a scientific term)
+    "|mmol|\u00b5mol|\u03bcmol"
+    # Volume (compound only; bare 'L' excluded)
+    "|mL|\u00b5L|\u03bcL|nL|dL"
+    # Temperature — degree symbol required, prevents bare 'C'/'F' match
+    "|\u00b0C|\u00b0F"
+    # Angle
+    "|rad|sr"
+    # Pressure
+    "|kPa|MPa|GPa|bar|atm|Pa"
+    # Speed (compound, avoids bare 'm')
+    "|km/h|m/s"
+    # Resistance
+    "|k\u03a9|M\u03a9|\u03a9"
+    # Capacitance / Inductance
+    "|\u00b5F|\u03bcF|nF|pF|mH|\u00b5H|\u03bcH|nH"
+)
+# Case-sensitive (no re.IGNORECASE).
+# Negative lookahead (?![a-zA-Z0-9]) blocks alphanumeric-suffix false positives.
+_NO_SPACE_UNIT = re.compile(
+    rf'\b(\d+(?:\.\d+)?)({_UNIT_LIST})(?![a-zA-Z0-9])'
 )
 
 # Percent: digit(s) immediately followed by % then a letter (no space before text)
@@ -115,33 +164,36 @@ def check_typography(body_text: str) -> Dict[str, List[Dict[str, Any]]]:
 # ─────────────────────────────────────────────────────────────────────────────
 
 def _check_en_dash(text: str) -> List[Dict[str, Any]]:
+    # Strip DOI strings first so hyphens inside DOIs are never flagged.
+    scan_text = _DOI_STRIP_RE.sub(lambda m: ' ' * len(m.group(0)), text)
+
     violations: List[Dict] = []
     seen: set = set()
 
-    for m in _HYPHEN_RANGE.finditer(text):
+    for m in _HYPHEN_RANGE.finditer(scan_text):
         key = m.group(0)
         if key in seen:
             continue
         seen.add(key)
         violations.append({
             "found":   key,
-            "correct": f"{m.group(1)}–{m.group(2)}",
+            "correct": f"{m.group(1)}\u2013{m.group(2)}",
             "snippet": _snippet(text, m.start(), m.end()),
-            "detail":  f"Use en-dash (–) for range: '{key}' → '{m.group(1)}–{m.group(2)}'",
+            "detail":  f"Use en-dash (\u2013) for range: '{key}' \u2192 '{m.group(1)}\u2013{m.group(2)}'",
         })
         if len(violations) >= MAX_VIOLATIONS:
             break
 
-    for m in _DOUBLE_DASH.finditer(text):
+    for m in _DOUBLE_DASH.finditer(scan_text):
         key = m.group(0)
         if key in seen:
             continue
         seen.add(key)
         violations.append({
             "found":   key,
-            "correct": f"{m.group(1)}–{m.group(2)}",
+            "correct": f"{m.group(1)}\u2013{m.group(2)}",
             "snippet": _snippet(text, m.start(), m.end()),
-            "detail":  f"Use en-dash (–) instead of double-hyphen (--): '{key}'",
+            "detail":  f"Use en-dash (\u2013) instead of double-hyphen (--): '{key}'",
         })
         if len(violations) >= MAX_VIOLATIONS:
             break
