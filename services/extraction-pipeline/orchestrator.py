@@ -31,6 +31,7 @@ from structural_analyzer import analyze_structure
 from regex_extractor import extract_references, extract_in_text_citations
 from typography_checker import check_typography
 from figures_tables_checker import check_figures_and_tables
+from syntax_grammar_checker import check_syntax_grammar
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -109,16 +110,17 @@ def extract_document(pdf_path: str) -> dict:
     print(f"[Orchestrator] Regex: {len(references)} reference(s), {len(citations)} citation(s).")
     timings["regex_s"] = round(time.monotonic() - t3, 2)
 
+    # ── Compute body_text (references section excluded) — shared by Steps 3b & 3d ──
+    _ref_re = re.compile(
+        r'^\s*(?:\d+\.?\s+)?(?:references?|bibliography)\s*$',
+        re.IGNORECASE | re.MULTILINE,
+    )
+    _ref_start = _ref_re.search(full_text)
+    body_text = full_text[: _ref_start.start()] if _ref_start else full_text
+
     # ── Step 3b: Typography checks ────────────────────────────────────────────
     t4 = time.monotonic()
     try:
-        # Run typography on body only (exclude references section)
-        ref_re = re.compile(
-            r'^\s*(?:\d+\.?\s+)?(?:references?|bibliography)\s*$',
-            re.IGNORECASE | re.MULTILINE,
-        )
-        ref_start = ref_re.search(full_text)
-        body_text = full_text[: ref_start.start()] if ref_start else full_text
         typography = check_typography(body_text)
     except Exception as exc:
         print(f"[Orchestrator] Typography check error (non-fatal): {exc}")
@@ -150,6 +152,22 @@ def extract_document(pdf_path: str) -> dict:
     )
     timings["figures_tables_s"] = round(time.monotonic() - t5, 2)
 
+    # ── Step 3d: Syntax / Grammar checks ─────────────────────────────────────
+    t6 = time.monotonic()
+    try:
+        syntax_grammar_checks = check_syntax_grammar(
+            full_text=full_text,
+            body_text=body_text,
+        )
+    except Exception as exc:
+        print(f"[Orchestrator] Syntax/Grammar check error (non-fatal): {exc}")
+        syntax_grammar_checks = {}
+    print(
+        f"[Orchestrator] Syntax/Grammar: "
+        f"{len(syntax_grammar_checks)} check(s) run."
+    )
+    timings["syntax_grammar_s"] = round(time.monotonic() - t6, 2)
+
     # ── Assemble final result ─────────────────────────────────────────────────
     timings["total_s"] = round(time.monotonic() - t_start, 2)
 
@@ -159,6 +177,7 @@ def extract_document(pdf_path: str) -> dict:
         "in_text_citations":       citations,
         "typography":              typography,
         "figures_tables_checks":   figures_tables_checks,
+        "syntax_grammar_checks":   syntax_grammar_checks,
         "extraction_errors":       [],
         "total_pages_processed":   len(page_texts),
         "pdf_path":                pdf_path,
@@ -236,6 +255,8 @@ def _error_result(message: str) -> dict:
             "percent_degree_violations": [],
             "latin_abbrev_violations": [],
         },
+        "figures_tables_checks":  {},
+        "syntax_grammar_checks":  {},
         "extraction_errors":   [{"page": 0, "reason": message}],
         "estimated_word_count": 0,
         "total_pages_processed": 0,
