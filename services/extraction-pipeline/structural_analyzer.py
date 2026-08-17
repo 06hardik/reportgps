@@ -955,6 +955,7 @@ def _discover_figures(
                 if num in captions:
                     continue
                 # Reconstruct multi-line caption
+                caption_y0 = line.bbox[1]   # top of the first caption line (for Check 12)
                 caption_parts = [text[m.end():].strip()]
                 prev_y1 = line.bbox[3]
 
@@ -985,6 +986,8 @@ def _discover_figures(
                         "caption_text": cap_text,
                         "caption_page": chunk.page_number,
                         "caption_ends_period": cap_text.rstrip().endswith('.'),
+                        "caption_y0": caption_y0,  # top of caption (Check 12)
+                        "caption_y1": prev_y1,     # bottom of last caption line
                     }
 
     # Collect first mentions
@@ -1017,12 +1020,21 @@ def _discover_figures(
             if image_bbox:
                 break
 
+        # Build caption_bbox only when y-coordinates were captured (i.e. caption found)
+        _cap_y0 = cap_info.get("caption_y0")
+        _cap_y1 = cap_info.get("caption_y1")
+        caption_bbox = (
+            {"page": cap_page, "y0": _cap_y0, "y1": _cap_y1}
+            if _cap_y0 is not None else None
+        )
+
         figures.append({
             "number":              num,
             "caption_text":        cap_info.get("caption_text", ""),
             "caption_page":        cap_page,
             "caption_ends_period": cap_info.get("caption_ends_period", False),
             "image_bbox":          image_bbox,
+            "caption_bbox":        caption_bbox,  # y0/y1 of caption text (Check 12)
             "first_mention_page":  first_mentions.get(num, cap_page),
             "coordinate_found":    image_bbox is not None,
         })
@@ -1058,8 +1070,10 @@ def _discover_tables(
                 if num in captions:
                     continue
                 # Reconstruct multi-line caption
+                caption_y0 = line.bbox[1]  # top of first caption line (for Check 11)
                 caption_parts = [text[m.end():].strip()]
                 prev_y1 = line.bbox[3]
+                table_body_y0: Optional[float] = None  # y0 of first table-body line
 
                 for j in range(idx + 1, min(len(chunk.lines), idx + 10)):
                     next_line = chunk.lines[j]
@@ -1068,12 +1082,14 @@ def _discover_tables(
                         continue
                     # Check if it looks like a header/table row
                     if header_keywords.match(next_text):
+                        table_body_y0 = next_line.bbox[1]   # table body starts here
                         break
                     # Check for multiple wide spaces indicating columns
                     if '   ' in next_text or '  ' in next_text:
                         if len(re.split(r'\s{2,}', next_text)) >= 3:
+                            table_body_y0 = next_line.bbox[1]  # column-formatted row
                             break
-                    # Skip if it matches a table/figure marker or section heading
+                    # New table/figure/heading — not part of this table's body
                     if re.match(r'^(?:Table|Fig(?:ure)?|Algorithm)\s+\d+', next_text, re.IGNORECASE):
                         break
                     if re.match(r'^[1-9]\d*(?:\.\d+)+\.?\s+[A-Z]', next_text):
@@ -1085,6 +1101,8 @@ def _discover_tables(
                         caption_parts.append(next_text)
                         prev_y1 = next_line.bbox[3]
                     else:
+                        # Gap/font-size change signals start of table body
+                        table_body_y0 = next_line.bbox[1]
                         break
 
                 cap_text = ' '.join(caption_parts).strip()
@@ -1100,6 +1118,9 @@ def _discover_tables(
                     "caption_text": cap_text,
                     "caption_page": chunk.page_number,
                     "caption_ends_period": cap_text.rstrip().endswith('.'),
+                    "caption_y0": caption_y0,       # top of caption (Check 11)
+                    "caption_y1": prev_y1,           # bottom of last caption line
+                    "table_body_y0": table_body_y0,  # top of first table-body line
                 }
 
     # First mentions (cross-references)
@@ -1113,13 +1134,23 @@ def _discover_tables(
     tables: List[Dict] = []
     for num in sorted(captions.keys()):
         cap_info = captions[num]
+        _cap_pg  = cap_info.get("caption_page", 1)
+        _tc_y0   = cap_info.get("caption_y0")
+        _tc_y1   = cap_info.get("caption_y1")
+        _tb_y0   = cap_info.get("table_body_y0")
+        caption_bbox = (
+            {"page": _cap_pg, "y0": _tc_y0, "y1": _tc_y1}
+            if _tc_y0 is not None else None
+        )
+
         tables.append({
             "number":              num,
             "caption_text":        cap_info.get("caption_text", ""),
-            "caption_page":        cap_info.get("caption_page", 1),
+            "caption_page":        _cap_pg,
             "caption_ends_period": cap_info.get("caption_ends_period", False),
-            "caption_bbox":        None,
-            "first_mention_page":  first_mentions.get(num, cap_info.get("caption_page", 1)),
+            "caption_bbox":        caption_bbox,  # real y-coords now (Check 11)
+            "table_body_y0":       _tb_y0,        # y0 of first detected table-body line
+            "first_mention_page":  first_mentions.get(num, _cap_pg),
             "coordinate_found":    False,
         })
 
