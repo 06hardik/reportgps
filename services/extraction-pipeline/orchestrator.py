@@ -10,8 +10,7 @@ Architecture:
    ├─► Step 3a: regex_extractor → references + in-text citations
    └─► Step 3b: typography_checker → en-dash, unit-space, percent, latin abbrevs
 
-NOTE: Equations removed from this pipeline — to be implemented via a dedicated
-math parsing library in a future milestone.
+NOTE: Equations are now processed using Pix2Text.
 
 Target time: < 2 seconds for a 20-page paper (was 50–175s with NuExtract).
 
@@ -32,6 +31,8 @@ from regex_extractor import extract_references, extract_in_text_citations
 from typography_checker import check_typography
 from figures_tables_checker import check_figures_and_tables
 from syntax_grammar_checker import check_syntax_grammar
+from equation_extractor import extract_equations
+from equation_checker import run_all_checks
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -91,6 +92,20 @@ def extract_document(pdf_path: str) -> dict:
         f"{len(structural.get('tables', []))} table(s)."
     )
     timings["structural_s"] = round(time.monotonic() - t2, 2)
+
+    # ── Step 2.5: Equation extraction (Pix2Text) ─────────────────────────────
+    t_eq = time.monotonic()
+    print("[Orchestrator] Step 2.5/3 — Equation extraction (Pix2Text) …")
+    try:
+        equations = extract_equations(pdf_path)
+    except Exception as exc:
+        traceback.print_exc()
+        print(f"[Orchestrator] Equation extraction error (non-fatal): {exc}")
+        equations = []
+    
+    print(f"[Orchestrator] Equation extraction: {len(equations)} equation(s) found.")
+    timings["equation_extraction_s"] = round(time.monotonic() - t_eq, 2)
+
 
     # ── Step 3a: Regex — references + in-text citations ───────────────────────
     t3 = time.monotonic()
@@ -168,11 +183,25 @@ def extract_document(pdf_path: str) -> dict:
     )
     timings["syntax_grammar_s"] = round(time.monotonic() - t6, 2)
 
+    # ── Step 3e: Equation checks (15-18) ─────────────────────────────────────
+    t_eq_check = time.monotonic()
+    print("[Orchestrator] Step 3e/3 — Equation checks …")
+    try:
+        equation_checks = run_all_checks(equations=equations, full_text=full_text)
+    except Exception as exc:
+        traceback.print_exc()
+        print(f"[Orchestrator] Equation checks error (non-fatal): {exc}")
+        equation_checks = {}
+    
+    timings["equation_checks_s"] = round(time.monotonic() - t_eq_check, 2)
+
     # ── Assemble final result ─────────────────────────────────────────────────
     timings["total_s"] = round(time.monotonic() - t_start, 2)
 
     result = {
         **structural,
+        "equations":               equations,
+        "equation_checks":         equation_checks,
         "references":              references,
         "in_text_citations":       citations,
         "typography":              typography,
@@ -247,6 +276,7 @@ def _error_result(message: str) -> dict:
         "sections":            [],
         "figures":             [],
         "tables":              [],
+        "equations":           [],
         "references":          [],
         "in_text_citations":   [],
         "typography": {
@@ -257,6 +287,7 @@ def _error_result(message: str) -> dict:
         },
         "figures_tables_checks":  {},
         "syntax_grammar_checks":  {},
+        "equation_checks":        {},
         "extraction_errors":   [{"page": 0, "reason": message}],
         "estimated_word_count": 0,
         "total_pages_processed": 0,
