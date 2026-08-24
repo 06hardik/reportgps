@@ -25,10 +25,23 @@ import traceback
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from contextlib import asynccontextmanager
 
 from orchestrator import extract_document
+from equation_extractor import _get_p2t
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    print("[ExtractionPipeline] Warming up Pix2Text equation model...")
+    try:
+        _get_p2t()
+        print("[ExtractionPipeline] Pix2Text model is ready!")
+    except Exception as e:
+        print(f"[ExtractionPipeline] Failed to load Pix2Text: {e}")
+    yield
 
 app = FastAPI(
+    lifespan=lifespan,
     title="ReportGPS — Extraction Pipeline",
     description=(
         "Lean PDF extraction service (v3.1). "
