@@ -344,8 +344,8 @@ def _extract_references_layout(pdf_path: str) -> List[Dict[str, Any]]:
 
     # Classify bibliography style
     flat_lines = [l for col in all_ref_lines for l in col]
-    bracket_prefix_re = re.compile(r'^\s*\[\d+\]')
-    dotnum_prefix_re = re.compile(r'^\s*\d+\.\s+')
+    bracket_prefix_re = re.compile(r'^\s*\[(?!(?:19|20)\d{2}\])\d+\]')
+    dotnum_prefix_re = re.compile(r'^\s*(?!(?:19|20)\d{2}\.)\d+\.\s+')
 
     bracket_count = sum(1 for l in flat_lines if bracket_prefix_re.match(l["text"]))
     dotnum_count = sum(1 for l in flat_lines if dotnum_prefix_re.match(l["text"]))
@@ -505,9 +505,9 @@ def _find_url(text: str) -> str | None:
 # In-text citation extraction
 # ─────────────────────────────────────────────────────────────────────────────
 
-# [1], [1,2], [1-3], [1, 2, 3]
+# [1], [1,2], [1-3], [1, 2, 3]  — requires at least one number >= 1 (never [0])
 _NUMERIC_BRACKET = re.compile(
-    r'(\[[\d,\s\-–]+\])',
+    r'(\[[1-9][\d,\s\-\u2013]*\])',
 )
 
 # Superscript numbers attached to words: word^1,2  (common in PDFs extracted as plain text)
