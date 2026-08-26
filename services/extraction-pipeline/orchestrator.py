@@ -226,6 +226,9 @@ def _print_summary(r: dict) -> None:
     ms = r.get("manuscript", {})
     typo = r.get("typography", {})
     typo_total = sum(len(v) for v in typo.values()) if isinstance(typo, dict) else 0
+    eq_checks = r.get("equation_checks", {})
+    eq_checks_passed = sum(1 for v in eq_checks.values() if isinstance(v, dict) and v.get("passed"))
+    eq_checks_total  = len(eq_checks)
 
     print(
         f"\n[Orchestrator] ═══ Done ═══════════════════════════════════════\n"
@@ -237,12 +240,14 @@ def _print_summary(r: dict) -> None:
         f"  Sections     : {len(r.get('sections', []))}\n"
         f"  Figures      : {len(r.get('figures', []))}\n"
         f"  Tables       : {len(r.get('tables', []))}\n"
+        f"  Equations    : {len(r.get('equations', []))} (checks: {eq_checks_passed}/{eq_checks_total} passed)\n"
         f"  References   : {len(r.get('references', []))} (regex)\n"
         f"  Citations    : {len(r.get('in_text_citations', []))}\n"
         f"  Typography   : {typo_total} violation(s)\n"
         f"  Word count   : ~{r.get('estimated_word_count', 0)}\n"
         f"  PyMuPDF      : {t.get('pymupdf_s', '?')}s\n"
         f"  Structural   : {t.get('structural_s', '?')}s\n"
+        f"  Equations    : {t.get('equation_extraction_s', '?')}s (extraction) + {t.get('equation_checks_s', '?')}s (checks)\n"
         f"  Regex        : {t.get('regex_s', '?')}s\n"
         f"  Typography   : {t.get('typography_s', '?')}s\n"
         f"  TOTAL        : {t.get('total_s', '?')}s\n"
