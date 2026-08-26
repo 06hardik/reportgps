@@ -352,6 +352,49 @@ def build_candidates(raw_result: Dict) -> List[ErrorCandidate]:
                 skip_verifier=       rule["skip_verifier"],
             ))
 
+    # ── Equation checks ───────────────────────────────────────────────────────
+
+    eqc = raw_result.get("equation_checks", {})
+    _eq_keys = [
+        "equation_sequential_numbering", "equation_punctuation",
+        "in_text_reference_consistency", "delimiter_balance_scaling"
+    ]
+    for check_id in _eq_keys:
+        rule = get_rule(check_id)
+        # Note: check 15 (sequential numbering) is deterministic, so skip_verifier=True
+        # However, it returns violations if there are missing/duplicate numbers
+        chk = eqc.get(check_id) or {}
+        # if the check didn't pass but there are no explicit violations, fallback
+        if not chk.get("passed", True) and not chk.get("violations", []):
+             candidates.append(ErrorCandidate(
+                candidate_id=        _next_candidate_id(check_id),
+                check_id=            check_id,
+                check_name=          rule["check_name"],
+                rule=                rule["rule"],
+                category=            rule["category"],
+                page=                None,
+                document_context=    doc_ctx,
+                evidence=            chk.get("detail", ""),
+                detector_raw=        {"detail": chk.get("detail", "")},
+                detector_confidence= rule["detector_confidence"],
+                skip_verifier=       rule["skip_verifier"],
+            ))
+        else:
+            for v in chk.get("violations", []):
+                candidates.append(ErrorCandidate(
+                    candidate_id=        _next_candidate_id(check_id),
+                    check_id=            check_id,
+                    check_name=          rule["check_name"],
+                    rule=                rule["rule"],
+                    category=            rule["category"],
+                    page=                v.get("page"),
+                    document_context=    doc_ctx,
+                    evidence=            _evidence_generic(v),
+                    detector_raw=        v,
+                    detector_confidence= rule["detector_confidence"],
+                    skip_verifier=       rule["skip_verifier"],
+                ))
+
     return candidates
 
 
