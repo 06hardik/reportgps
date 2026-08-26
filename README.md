@@ -1,7 +1,7 @@
 # ReportGPS — Academic Paper Extraction Pipeline
 
-A fast, offline, zero-LLM PDF extraction pipeline for academic papers.  
-Extracts structure, figures, tables, equations, references, and typography checks in **< 2 seconds**.
+A hybrid PDF extraction and validation pipeline for academic papers.  
+It combines lightning-fast deterministic extraction (PyMuPDF) with an intelligent AI Verifier (Groq/Gemini) to validate rule violations with high accuracy.
 
 ---
 
@@ -13,7 +13,7 @@ Extracts structure, figures, tables, equations, references, and typography check
 cd services/extraction-pipeline
 python3 -m venv env
 source env/bin/activate
-pip install -r requirements.txt      # fastapi uvicorn pymupdf httpx
+pip install -r requirements.txt      # fastapi uvicorn pymupdf httpx groq google-genai python-dotenv
 python app.py
 ```
 
@@ -38,7 +38,7 @@ Open **http://localhost:3000** → drag & drop a PDF → click **Analyse Documen
 ## Architecture
 
 ```
-Browser (React, port 3000)
+Browser (React + Vite, port 3000)
         │ POST /api/upload (multipart PDF)
         ▼
 Node.js Backend (Express, port 5001)
@@ -59,12 +59,15 @@ Python Extraction Service (FastAPI, port 8004)
         │     Sequential numbering, chronological order, caption positioning,
         │     sub-part label validation for figures and tables
         │
-        └─ Step 3d: syntax_grammar_checker.py  (~0.01–0.02 s)
-              Typography, Syntax & Grammar Checks 17-24 (Acronyms, En-dashes,
-              Spacing, Quotes, English Spelling Consistency)
+        ├─ Step 3c: syntax_grammar_checker.py  (~0.01–0.02 s)
+        │     Typography, Syntax & Grammar Checks 17-24
+        │
+        └─ Step 4: AI Verifier (verifier.py)
+              Groq (Llama-3) / Gemini validate the potential violations 
+              to filter out false positives and generate human-readable evidence.
 ```
 
-**Average total: ~0.87 s per paper.**
+**Average total:** ~1-2 s per paper (depending on LLM API latency).
 
 ---
 
