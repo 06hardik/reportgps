@@ -6,3 +6,11 @@ httpx>=0.27.0
 groq>=0.9.0
 google-genai>=0.1.0
 python-dotenv>=1.0.0
+
+# ── Equations (Pix2Text) ──────────────────────────────────────────────────────
+# Pin to the latest stable release (v1.1.4, July 2025).
+pix2text==1.1.4
+
+# protobuf: pix2text's transitive deps pull protobuf 6.x, but streamlit 1.37.x
+# (and many other tools in the base env) require protobuf<6.
+protobuf>=3.20,<6

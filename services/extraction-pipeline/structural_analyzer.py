@@ -1044,7 +1044,15 @@ def _discover_figures(
             if blocks:
                 image_map[chunk.page_number] = blocks
 
-    # Collect captions using layout-aware paragraph reconstruction
+    # Collect captions using layout-aware paragraph reconstruction.
+    # Key guard: a real caption line is SHORT (ends without a verb clause) or
+    # starts with non-sentence text. We reject lines where the text after the
+    # figure label looks like a running sentence (e.g. "Figure 2 depicts the…").
+    _CAPTION_SENTENCE_RE = re.compile(
+        r'^(?:shows?|depicts?|illustrates?|presents?|displays?|is\s|are\s|can\s|'
+        r'was\s|were\s|has\s|have\s|represents?)\b',
+        re.IGNORECASE,
+    )
     captions: Dict[int, Dict] = {}
     for chunk in page_chunks:
         for idx, line in enumerate(chunk.lines):
@@ -1055,9 +1063,16 @@ def _discover_figures(
                 num = int(m.group(1))
                 if num in captions:
                     continue
+
+                # Reject in-text references that look like running sentences
+                # e.g. "Figure 2 depicts the routes..." is NOT a caption
+                after = re.sub(r'^[:.]\s*', '', text[m.end():].strip())
+                if _CAPTION_SENTENCE_RE.match(after):
+                    continue
+
                 # Reconstruct multi-line caption
                 caption_y0 = line.bbox[1]   # top of the first caption line (for Check 12)
-                caption_parts = [text[m.end():].strip()]
+                caption_parts = [after] if after else []
                 prev_y1 = line.bbox[3]
 
                 for j in range(idx + 1, min(len(chunk.lines), idx + 10)):

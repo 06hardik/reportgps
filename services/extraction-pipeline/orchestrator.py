@@ -10,8 +10,7 @@ Architecture:
    ├─► Step 3a: regex_extractor → references + in-text citations
    └─► Step 3b: typography_checker → en-dash, unit-space, percent, latin abbrevs
 
-NOTE: Equations removed from this pipeline — to be implemented via a dedicated
-math parsing library in a future milestone.
+NOTE: Equations are now processed using Pix2Text.
 
 Target time: < 2 seconds for a 20-page paper (was 50–175s with NuExtract).
 
@@ -40,6 +39,7 @@ from regex_extractor import extract_references, extract_in_text_citations
 from typography_checker import check_typography
 from figures_tables_checker import check_figures_and_tables
 from syntax_grammar_checker import check_syntax_grammar
+
 from verifier_config import VERIFIER_ENABLED
 from verifier import verify_candidates
 
@@ -281,6 +281,8 @@ def _build_reference_checks(
             "violations": consistency_violations,
         },
     }
+from equation_extractor import extract_equations
+from equation_checker import run_all_checks
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -340,6 +342,20 @@ def extract_document(pdf_path: str) -> dict:
         f"{len(structural.get('tables', []))} table(s)."
     )
     timings["structural_s"] = round(time.monotonic() - t2, 2)
+
+    # ── Step 2.5: Equation extraction (Pix2Text) ─────────────────────────────
+    t_eq = time.monotonic()
+    print("[Orchestrator] Step 2.5/3 — Equation extraction (Pix2Text) …")
+    try:
+        equations = extract_equations(pdf_path)
+    except Exception as exc:
+        traceback.print_exc()
+        print(f"[Orchestrator] Equation extraction error (non-fatal): {exc}")
+        equations = []
+    
+    print(f"[Orchestrator] Equation extraction: {len(equations)} equation(s) found.")
+    timings["equation_extraction_s"] = round(time.monotonic() - t_eq, 2)
+
 
     # ── Step 3a: Regex — references + in-text citations ───────────────────────
     t3 = time.monotonic()
@@ -422,6 +438,7 @@ def extract_document(pdf_path: str) -> dict:
     )
     timings["syntax_grammar_s"] = round(time.monotonic() - t6, 2)
 
+
     # ── Step 3e: Reference quality checks ────────────────────────────────────
     t7 = time.monotonic()
     # Extract raw reference strings from already-parsed references list
@@ -450,10 +467,25 @@ def extract_document(pdf_path: str) -> dict:
     timings["reference_checks_s"] = round(time.monotonic() - t7, 2)
 
     # ── Assemble partial result for verifier ──────────────────────────────────
+    # ── Step 3e: Equation checks (15-18) ─────────────────────────────────────
+    t_eq_check = time.monotonic()
+    print("[Orchestrator] Step 3f/3 — Equation checks …")
+    try:
+        equation_checks = run_all_checks(equations=equations, full_text=full_text)
+    except Exception as exc:
+        traceback.print_exc()
+        print(f"[Orchestrator] Equation checks error (non-fatal): {exc}")
+        equation_checks = {}
+    
+    timings["equation_checks_s"] = round(time.monotonic() - t_eq_check, 2)
+
+    # ── Assemble final result ─────────────────────────────────────────────────
     timings["total_s"] = round(time.monotonic() - t_start, 2)
 
     result = {
         **structural,
+        "equations":               equations,
+        "equation_checks":         equation_checks,
         "references":              references,
         "in_text_citations":       citations,
         "typography":              typography,
@@ -494,6 +526,9 @@ def _print_summary(r: dict) -> None:
     ms = r.get("manuscript", {})
     typo = r.get("typography", {})
     typo_total = sum(len(v) for v in typo.values()) if isinstance(typo, dict) else 0
+    eq_checks = r.get("equation_checks", {})
+    eq_checks_passed = sum(1 for v in eq_checks.values() if isinstance(v, dict) and v.get("passed"))
+    eq_checks_total  = len(eq_checks)
 
     print(
         f"\n[Orchestrator] ═══ Done ═══════════════════════════════════════\n"
@@ -505,12 +540,14 @@ def _print_summary(r: dict) -> None:
         f"  Sections     : {len(r.get('sections', []))}\n"
         f"  Figures      : {len(r.get('figures', []))}\n"
         f"  Tables       : {len(r.get('tables', []))}\n"
+        f"  Equations    : {len(r.get('equations', []))} (checks: {eq_checks_passed}/{eq_checks_total} passed)\n"
         f"  References   : {len(r.get('references', []))} (regex)\n"
         f"  Citations    : {len(r.get('in_text_citations', []))}\n"
         f"  Typography   : {typo_total} violation(s)\n"
         f"  Word count   : ~{r.get('estimated_word_count', 0)}\n"
         f"  PyMuPDF      : {t.get('pymupdf_s', '?')}s\n"
         f"  Structural   : {t.get('structural_s', '?')}s\n"
+        f"  Equations    : {t.get('equation_extraction_s', '?')}s (extraction) + {t.get('equation_checks_s', '?')}s (checks)\n"
         f"  Regex        : {t.get('regex_s', '?')}s\n"
         f"  Typography   : {t.get('typography_s', '?')}s\n"
         f"  TOTAL        : {t.get('total_s', '?')}s\n"
@@ -544,6 +581,7 @@ def _error_result(message: str) -> dict:
         "sections":            [],
         "figures":             [],
         "tables":              [],
+        "equations":           [],
         "references":          [],
         "in_text_citations":   [],
         "typography": {
@@ -553,6 +591,7 @@ def _error_result(message: str) -> dict:
         },
         "figures_tables_checks":  {},
         "syntax_grammar_checks":  {},
+        "equation_checks":        {},
         "extraction_errors":   [{"page": 0, "reason": message}],
         "estimated_word_count": 0,
         "total_pages_processed": 0,

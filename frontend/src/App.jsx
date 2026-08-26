@@ -1,6 +1,14 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import axios from 'axios';
+<<<<<<< HEAD
 import * as pdfjsLib from 'pdfjs-dist';
+=======
+import {
+  UploadCloud, FileText, CheckCircle, AlertCircle, Play,
+  RotateCcw, BookOpen, Image, Table2, Quote,
+  Type, Layers, Clock, Code2, Users, Tag, AlignLeft, Hash, Sigma
+} from 'lucide-react';
+>>>>>>> origin/pix2text
 import './index.css';
 
 // Configure PDF.js worker
@@ -452,6 +460,100 @@ function ChecksView() {
 }
 
 
+/* ─── Tab: Equations ─────────────────────────────────────────────────────────── */
+function EquationsTab({ data }) {
+  const equations = arr(data?.equations);
+  const checks = data?.equation_checks || {};
+
+  const CHECK_LABELS = {
+    equation_sequential_numbering:    'Check 15 — Sequential Numbering',
+    equation_punctuation:             'Check 16 — Equation Punctuation',
+    in_text_reference_consistency:    'Check 17 — In-text Reference Consistency',
+    delimiter_balance_scaling:        'Check 18 — Delimiter Balance & Scaling',
+  };
+
+  if (equations.length === 0) return (
+    <div className="panel"><EmptyState icon={Sigma} text="No equations detected in this paper." /></div>
+  );
+
+  return (
+    <div className="panel">
+      {/* Check Results */}
+      {Object.keys(checks).length > 0 && (
+        <>
+          <SectionHeading>Validation Checks</SectionHeading>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', marginBottom: '1.25rem' }}>
+            {Object.entries(checks).map(([key, result]) => {
+              const passed = result?.passed;
+              return (
+                <div key={key} style={{
+                  background: passed ? 'rgba(34,197,94,0.07)' : 'rgba(239,68,68,0.07)',
+                  border: `1px solid ${passed ? 'rgba(34,197,94,0.25)' : 'rgba(239,68,68,0.25)'}`,
+                  borderRadius: 'var(--radius-xs)',
+                  padding: '0.65rem 0.9rem',
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: result?.violations?.length ? '0.35rem' : 0 }}>
+                    <span style={{ color: passed ? 'var(--success)' : 'var(--error)', fontWeight: 700, fontSize: '0.85rem' }}>
+                      {passed ? '✓ PASSED' : '✗ FAILED'}
+                    </span>
+                    <span style={{ fontWeight: 600, fontSize: '0.82rem', color: 'var(--text-primary)' }}>
+                      {CHECK_LABELS[key] || key}
+                    </span>
+                  </div>
+                  <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)' }}>{result?.detail}</div>
+                  {!passed && arr(result?.violations).slice(0, 2).map((v, i) => (
+                    <div key={i} style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', marginTop: '0.25rem', paddingLeft: '0.5rem', borderLeft: '2px solid var(--border)' }}>
+                      {v?.detail || JSON.stringify(v)}
+                    </div>
+                  ))}
+                </div>
+              );
+            })}
+          </div>
+        </>
+      )}
+
+      {/* Equations list */}
+      <SectionHeading>Extracted Equations ({equations.length})</SectionHeading>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+        {equations.map((eq, i) => (
+          <div key={i} style={{
+            background: 'var(--surface-2)',
+            border: '1px solid var(--border)',
+            borderRadius: 'var(--radius-xs)',
+            padding: '0.65rem 0.9rem',
+          }}>
+            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', marginBottom: '0.35rem' }}>
+              {eq.number != null && (
+                <span className="fig-tag tag-info">Eq. ({eq.number})</span>
+              )}
+              {eq.number == null && (
+                <span className="fig-tag tag-warning">Unlabelled</span>
+              )}
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>Page {eq.page}</span>
+            </div>
+            <code style={{ fontSize: '0.78rem', color: 'var(--text-primary)', wordBreak: 'break-all', display: 'block', whiteSpace: 'pre-wrap', fontFamily: 'monospace' }}>
+              {eq.latex}
+            </code>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─── Results Viewer ─────────────────────────────────────────────────────────── */
+const TABS = [
+  { id: 'manuscript', label: 'Manuscript', icon: FileText,  countKey: null },
+  { id: 'sections',   label: 'Sections',   icon: Layers,    countKey: 'sections' },
+  { id: 'figures',    label: 'Figures',    icon: Image,     countKey: 'figures' },
+  { id: 'tables',     label: 'Tables',     icon: Table2,    countKey: 'tables' },
+  { id: 'equations',  label: 'Equations',  icon: Sigma,     countKey: 'equations' },
+  { id: 'references', label: 'References', icon: BookOpen,  countKey: 'references' },
+  { id: 'typography', label: 'Typography', icon: Type,      countKey: null },
+  { id: 'raw',        label: 'Raw JSON',   icon: Code2,     countKey: null },
+];
+
 
 function LoadingView({ file }) {
   return (
@@ -512,7 +614,29 @@ function LoadingView({ file }) {
   );
 }
 
+<<<<<<< HEAD
 /* ─── PDF Viewer with Highlight Support ─────────────────────────────────────── */
+=======
+      {/* Stats grid */}
+      <div className="stats-grid">
+        {[
+          { label: 'Pages',      value: data?.total_pages_processed },
+          { label: 'Sections',   value: arr(data?.sections).length },
+          { label: 'Figures',    value: arr(data?.figures).length },
+          { label: 'Tables',     value: arr(data?.tables).length },
+          { label: 'Equations',  value: arr(data?.equations).length },
+          { label: 'References', value: arr(data?.references).length },
+          { label: 'Citations',  value: arr(data?.in_text_citations).length },
+          { label: 'Typo flags', value: typoCount },
+          { label: '~Words',     value: data?.estimated_word_count?.toLocaleString() },
+        ].map(({ label, value }) => (
+          <div className="stat-card" key={label}>
+            <div className="stat-value">{value ?? '—'}</div>
+            <div className="stat-label">{label}</div>
+          </div>
+        ))}
+      </div>
+>>>>>>> origin/pix2text
 
 /**
  * Extract the best short search string from an issue to find in the PDF text layer.
@@ -773,6 +897,46 @@ function PDFViewer({ fileUrl, activeIssue }) {
           </div>
         )}
       </div>
+<<<<<<< HEAD
+=======
+
+      {/* Tabs */}
+      <div className="tabs-container">
+        <div className="tab-list" role="tablist">
+          {TABS.map(({ id, label, icon: Icon, countKey }) => {
+            const count = getCount(countKey);
+            const isBadge = id === 'typography' ? typoCount : count;
+            return (
+              <button
+                key={id}
+                className={`tab-btn ${activeTab === id ? 'active' : ''}`}
+                onClick={() => setActiveTab(id)}
+                role="tab"
+                aria-selected={activeTab === id}
+              >
+                <Icon size={14} />
+                {label}
+                {isBadge != null && (
+                  <span className="tab-badge">
+                    {id === 'typography' ? typoCount : count}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Panel content */}
+      {activeTab === 'manuscript'  && <ManuscriptTab  data={data} />}
+      {activeTab === 'sections'    && <SectionsTab    data={data} />}
+      {activeTab === 'figures'     && <FiguresTab     data={data} />}
+      {activeTab === 'tables'      && <TablesTab      data={data} />}
+      {activeTab === 'references'  && <ReferencesTab  data={data} />}
+      {activeTab === 'typography'  && <TypographyTab  data={data} />}
+      {activeTab === 'equations'   && <EquationsTab   data={data} />}
+      {activeTab === 'raw'         && <RawTab         data={data} />}
+>>>>>>> origin/pix2text
     </div>
   );
 }
