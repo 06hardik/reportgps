@@ -1,14 +1,11 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import axios from 'axios';
-<<<<<<< HEAD
 import * as pdfjsLib from 'pdfjs-dist';
-=======
 import {
   UploadCloud, FileText, CheckCircle, AlertCircle, Play,
   RotateCcw, BookOpen, Image, Table2, Quote,
   Type, Layers, Clock, Code2, Users, Tag, AlignLeft, Hash, Sigma
 } from 'lucide-react';
->>>>>>> origin/pix2text
 import './index.css';
 
 // Configure PDF.js worker
@@ -614,29 +611,7 @@ function LoadingView({ file }) {
   );
 }
 
-<<<<<<< HEAD
 /* ─── PDF Viewer with Highlight Support ─────────────────────────────────────── */
-=======
-      {/* Stats grid */}
-      <div className="stats-grid">
-        {[
-          { label: 'Pages',      value: data?.total_pages_processed },
-          { label: 'Sections',   value: arr(data?.sections).length },
-          { label: 'Figures',    value: arr(data?.figures).length },
-          { label: 'Tables',     value: arr(data?.tables).length },
-          { label: 'Equations',  value: arr(data?.equations).length },
-          { label: 'References', value: arr(data?.references).length },
-          { label: 'Citations',  value: arr(data?.in_text_citations).length },
-          { label: 'Typo flags', value: typoCount },
-          { label: '~Words',     value: data?.estimated_word_count?.toLocaleString() },
-        ].map(({ label, value }) => (
-          <div className="stat-card" key={label}>
-            <div className="stat-value">{value ?? '—'}</div>
-            <div className="stat-label">{label}</div>
-          </div>
-        ))}
-      </div>
->>>>>>> origin/pix2text
 
 /**
  * Extract the best short search string from an issue to find in the PDF text layer.
@@ -897,8 +872,6 @@ function PDFViewer({ fileUrl, activeIssue }) {
           </div>
         )}
       </div>
-<<<<<<< HEAD
-=======
 
       {/* Tabs */}
       <div className="tabs-container">
@@ -936,7 +909,7 @@ function PDFViewer({ fileUrl, activeIssue }) {
       {activeTab === 'typography'  && <TypographyTab  data={data} />}
       {activeTab === 'equations'   && <EquationsTab   data={data} />}
       {activeTab === 'raw'         && <RawTab         data={data} />}
->>>>>>> origin/pix2text
+
     </div>
   );
 }
