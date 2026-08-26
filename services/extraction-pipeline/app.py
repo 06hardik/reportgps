@@ -22,6 +22,20 @@ import os
 import tempfile
 import traceback
 
+# Load .env file if present (allows VERIFIER_ENABLED, GOOGLE_API_KEY, etc.
+# to be set without system environment variables)
+try:
+    _env_path = os.path.join(os.path.dirname(__file__), ".env")
+    if os.path.isfile(_env_path):
+        with open(_env_path, encoding="utf-8") as _ef:
+            for _line in _ef:
+                _line = _line.strip()
+                if _line and not _line.startswith("#") and "=" in _line:
+                    _k, _, _v = _line.partition("=")
+                    os.environ.setdefault(_k.strip(), _v.strip())
+except Exception:
+    pass
+
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
