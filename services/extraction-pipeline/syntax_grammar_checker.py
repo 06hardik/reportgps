@@ -43,29 +43,51 @@ MAX_VIOLATIONS = 25
 # Public entry point
 # ─────────────────────────────────────────────────────────────────────────────
 
-def check_syntax_grammar(
-    full_text: str,
-    body_text: str,
-) -> Dict[str, Any]:
+def check_syntax_grammar(full_text: str, body_text: str, page_offsets: List[int] = None) -> Dict[str, Any]:
     """
-    Run all 8 Typography / Syntax / Grammar checks.
-
-    Args:
-        full_text:  Complete paper text (all pages joined), references included.
-        body_text:  Paper text with references section excluded.
-
-    Returns:
-        Dict keyed by check name. Each value is that check's result dict.
+    Main entry point for syntax and grammar checks.
+    Uses body_text for checks that should exclude references/bibliography.
     """
+    def _add_page(violations: List[Dict[str, Any]]) -> None:
+        if not page_offsets:
+            return
+        for v in violations:
+            if "first_pos" in v:
+                v["page"] = _find_page(v["first_pos"], page_offsets)
+
+    acronym = _check_acronym_definitions(body_text)
+    _add_page(acronym.get("violations", []))
+
+    quote = _check_quote_style_consistency(body_text)
+    _add_page(quote.get("violations", []))
+
+    spelling = _check_english_spelling_consistency(body_text)
+    _add_page(spelling.get("violations", []))
+
+    endash = _check_en_dash_ranges(body_text)
+    _add_page(endash.get("violations", []))
+
+    nbsp = _check_nonbreaking_space_units(body_text)
+    _add_page(nbsp.get("violations", []))
+
+    pct_deg = _check_no_space_percent_degree(body_text)
+    _add_page(pct_deg.get("violations", []))
+
+    spaces = _check_double_spaces(body_text)
+    _add_page(spaces.get("violations", []))
+
+    punct = _check_punctuation_spacing(body_text)
+    _add_page(punct.get("violations", []))
+
     return {
-        "acronym_definition":            _check_acronym_definition(full_text),
-        "en_dash_ranges":                _check_en_dash_ranges(body_text),
-        "nonbreaking_space_units":       _check_nonbreaking_space_units(body_text),
-        "no_space_percent_degree":       _check_no_space_percent_degree(body_text),
-        "double_spaces":                 _check_double_spaces(body_text),
-        "punctuation_spacing":           _check_punctuation_spacing(body_text),
-        "quote_style_consistency":       _check_quote_style_consistency(full_text),
-        "english_spelling_consistency":  _check_english_spelling_consistency(body_text),
+        "acronym_definition":           acronym,
+        "quote_style_consistency":      quote,
+        "english_spelling_consistency": spelling,
+        "en_dash_ranges":               endash,
+        "nonbreaking_space_units":      nbsp,
+        "no_space_percent_degree":      pct_deg,
+        "double_spaces":                spaces,
+        "punctuation_spacing":          punct,
     }
 
 
@@ -193,6 +215,7 @@ def _check_acronym_definition(text: str) -> Dict[str, Any]:
             violations.append({
                 "found":   acr,
                 "snippet": snippet,
+                "first_pos": first_pos,
                 "detail":  (
                     f"'{acr}' is never defined — add '(Full Name)' "
                     f"at its first use."
@@ -205,6 +228,7 @@ def _check_acronym_definition(text: str) -> Dict[str, Any]:
                 violations.append({
                     "found":   acr,
                     "snippet": snippet,
+                    "first_pos": first_pos,
                     "detail":  (
                         f"'{acr}' is used (char {first_pos}) before its "
                         f"definition (char {earliest_def}). "

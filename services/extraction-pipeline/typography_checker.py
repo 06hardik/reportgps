@@ -3,11 +3,10 @@ typography_checker.py
 =====================
 Fast regex-based typography checks on the body text of a PDF paper.
 
-Covers checks 26–29:
+Covers checks 26–28:
   26. En-dash for numeric ranges  (hyphen used where en-dash expected)
   27. Number-unit spacing         (missing space between number and unit)
   28. Percent/degree spacing      (missing space or incorrect usage)
-  29. Latin abbreviations         (e.g., i.e., et al. formatting)
 
 All patterns operate on the full body text (references section excluded by
 the caller).  Each function returns a list of violation dicts:
@@ -30,8 +29,8 @@ MAX_VIOLATIONS = 25
 # ─────────────────────────────────────────────────────────────────────────────
 
 # En-dash: hyphen between two integers (ranges)
-# Excludes: negative numbers, version strings
-_HYPHEN_RANGE = re.compile(r'(?<!\w)(\d+)-(\d+)(?!\w|\.\d)')
+# Excludes: negative numbers, version strings, ISBNs (multiple hyphens), and ISSNs (slash suffix)
+_HYPHEN_RANGE = re.compile(r'(?<!\w|[-–])(\d+)-(\d+)(?!\w|\.\d|[-–/])')
 
 # Double-dash used as range separator
 _DOUBLE_DASH = re.compile(r'(\d)\s*--\s*(\d)')
@@ -115,21 +114,6 @@ _PERCENT_NOSPACE = re.compile(r'\b(\d+(?:\.\d+)?)(%)(?=[A-Za-z])')
 # Degree without unit: "45°something" where something is not C/F/K (those are OK)
 _DEGREE_NOSPACE = re.compile(r'\b(\d+°)(?![CFK\s°\d])')
 
-# Latin abbreviations without proper period / comma formatting
-# Bad: "eg", "ie" (no periods), "etc" (no period), "et al" (no period)
-# Also flag "i.e.," or "e.g.," not followed by space
-_LATIN_BAD: List[tuple] = [
-    (re.compile(r'\beg\b(?!\.)'), "e.g."),
-    (re.compile(r'\bie\b(?!\.)'), "i.e."),
-    (re.compile(r'\betc\b(?!\.)'), "etc."),
-    (re.compile(r'\bet\s+al\b(?!\.)'), "et al."),
-    (re.compile(r'\bcf\b(?!\.)'), "cf."),
-    (re.compile(r'\bviz\b(?!\.)'), "viz."),
-    # "i.e.," or "e.g.," not followed by a space
-    (re.compile(r'i\.e\.,(?!\s)'), "i.e., "),
-    (re.compile(r'e\.g\.,(?!\s)'), "e.g., "),
-]
-
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Public API
@@ -155,7 +139,6 @@ def check_typography(body_text: str) -> Dict[str, List[Dict[str, Any]]]:
         "en_dash_violations":        _check_en_dash(body_text),
         "number_unit_violations":    _check_number_unit(body_text),
         "percent_degree_violations": _check_percent_degree(body_text),
-        "latin_abbrev_violations":   _check_latin_abbrev(body_text),
     }
 
 
@@ -260,33 +243,6 @@ def _check_percent_degree(text: str) -> List[Dict[str, Any]]:
         })
         if len(violations) >= MAX_VIOLATIONS:
             break
-
-    return violations
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Check 29: Latin abbreviations
-# ─────────────────────────────────────────────────────────────────────────────
-
-def _check_latin_abbrev(text: str) -> List[Dict[str, Any]]:
-    violations: List[Dict] = []
-    seen: set = set()
-
-    for pattern, correct in _LATIN_BAD:
-        for m in pattern.finditer(text):
-            # Use a region-based key to avoid flooding with every occurrence
-            region_key = m.group(0) + str(m.start() // 200)
-            if region_key in seen:
-                continue
-            seen.add(region_key)
-            violations.append({
-                "found":   m.group(0),
-                "correct": correct,
-                "snippet": _snippet(text, m.start(), m.end()),
-                "detail":  f"'{m.group(0)}' should be '{correct}'",
-            })
-            if len(violations) >= MAX_VIOLATIONS:
-                return violations
 
     return violations
 

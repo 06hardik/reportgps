@@ -68,6 +68,10 @@ class PageChunk:
     lines:         List[TextLine] = field(default_factory=list)
     image_count:   int = 0
     image_blocks:  List[Dict[str, float]] = field(default_factory=list)  # [{x0,y0,x1,y1}]
+    # Strategy C: raw block sequence in reading order (y-sorted).
+    # Each entry is {"type": 0|1, "bbox": (x0,y0,x1,y1)} where type 0=text, 1=image.
+    # Used by structural_analyzer for block-order image-caption association.
+    raw_blocks:    List[Dict] = field(default_factory=list)
 
 
 @dataclass
@@ -269,6 +273,27 @@ class PyMuPDFExtractor:
 
         image_count = len(image_blocks)
 
+        # Strategy C: Build raw block sequence sorted by y0 (reading order).
+        # Interleaves text blocks (type=0) and image blocks (type=1) so
+        # structural_analyzer can determine relative order without y-value math.
+        raw_blocks: List[Dict] = []
+        try:
+            dict_data = page.get_text("dict", flags=fitz.TEXT_PRESERVE_WHITESPACE)
+            for blk in dict_data.get("blocks", []):
+                btype = blk.get("type", -1)
+                bbox  = blk.get("bbox")
+                if bbox and btype in (0, 1):
+                    x0, y0, x1, y1 = bbox
+                    if x1 > x0 and y1 > y0:
+                        raw_blocks.append({
+                            "type": btype,       # 0=text, 1=image
+                            "bbox": (x0, y0, x1, y1),
+                        })
+            # Sort top-to-bottom (primary), left-to-right (secondary)
+            raw_blocks.sort(key=lambda b: (round(b["bbox"][1] / 10), b["bbox"][0]))
+        except Exception:
+            pass
+
         return PageChunk(
             page_number=page_number,
             page_width=page.rect.width,
@@ -277,6 +302,7 @@ class PyMuPDFExtractor:
             lines=lines,
             image_count=image_count,
             image_blocks=image_blocks,
+            raw_blocks=raw_blocks,
         )
 
     @staticmethod
