@@ -62,6 +62,9 @@ Python Extraction Service (FastAPI, port 8004)
         ├─ Step 3c: syntax_grammar_checker.py  (~0.01–0.02 s)
         │     Typography, Syntax & Grammar Checks 17-24
         │
+        ├─ Step 3d: equation_extractor.py  (~0.1–0.5 s)
+        │     Pix2Text powered extraction and validation of equations (Checks 15-18)
+        │
         └─ Step 4: AI Verifier (verifier.py)
               Groq (Llama-3) / Gemini validate the potential violations 
               to filter out false positives and generate human-readable evidence.
@@ -83,6 +86,7 @@ Python Extraction Service (FastAPI, port 8004)
 | `typography_checker.py` | En-dash, unit-space, percent/degree, latin abbreviation checks |
 | `figures_tables_checker.py` | Figure/table sequential numbering, chronological order, caption positioning, sub-part validation |
 | `syntax_grammar_checker.py` | Implementation of Checks 17–24 (Acronym definitions, double spaces, quote styles, spelling, etc.) |
+| `equation_extractor.py` | Uses Pix2Text for equation OCR and performs Checks 15-18 on mathematical formulas |
 
 ---
 
@@ -116,6 +120,12 @@ Python Extraction Service (FastAPI, port 8004)
     "punctuation_spacing":         { "passed", "violations", "detail" },
     "quote_style_consistency":     { "passed", "violations", "detail" },
     "english_spelling_consistency":{ "passed", "violations", "detail" }
+  },
+  "equation_checks": {
+    "equation_sequential_numbering": { "passed", "violations", "detail" },
+    "equation_punctuation":          { "passed", "violations", "detail" },
+    "in_text_reference_consistency": { "passed", "violations", "detail" },
+    "delimiter_balance_scaling":     { "passed", "violations", "detail" }
   },
   "estimated_word_count": 11260,
   "total_pages_processed": 19,
@@ -155,6 +165,19 @@ All checks run via `syntax_grammar_checker.py` after structural analysis. Each c
 | **Check 22** — Consistent Punctuation Spacing | Space after (but not before) commas and semicolons. Only 1 space after sentence boundaries | `body_text` |
 | **Check 23** — Quote Style Consistency | Consistent use of either straight (`"`) or typographic curly (`“”`) double quotes | `full_text` |
 | **Check 24** — English Spelling Consistency | American and British English spelling shouldn't be mixed within the document | `body_text` (via predefined Am/Br word pairs) |
+
+---
+
+## Equation Validation Checks
+
+Equations are extracted using Pix2Text (which requires `cnocr` and `doclayout-yolo`) and validated in `equation_extractor.py`.
+
+| Check | Rule | Data Used |
+|---|---|---|
+| **Check 15** — Equation Sequential Numbering | Equations must be numbered sequentially (1), (2), (3) ... | `equations[i]["number"]` |
+| **Check 16** — Equation Punctuation | Equations should have proper punctuation (comma, period) if they end a sentence or clause | `equations[i]["raw_text"]` and surrounding text |
+| **Check 17** — In-text Reference Consistency | Equations must be referenced correctly in the text (e.g. "Eq. 1" or "Equation (1)") | `body_text` + `equations` |
+| **Check 18** — Delimiter Balance & Scaling | Parentheses and brackets within equations should be balanced and properly scaled | `equations[i]["raw_text"]` |
 
 ---
 
