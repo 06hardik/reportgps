@@ -210,6 +210,19 @@ def analyze_structure(
     page_offsets = _build_page_offsets(page_texts)
     body_font_size = _estimate_body_font_size(page_chunks)
 
+    # Normalize Unicode superscript/subscript digits before any regex scanning.
+    # PyMuPDF sometimes renders footnote markers like ¹²³ as plain ASCII digits
+    # when superscript spans are concatenated with adjacent text, turning
+    # e.g. "Fig. 4¹" into "Fig. 41" in the extracted string.
+    _SUPERSCRIPT_MAP = str.maketrans(
+        "⁰¹²³⁴⁵⁶⁷⁸⁹₀₁₂₃₄₅₆₇₈₉",
+        "01234567890123456789",
+    )
+    # Replace superscript digits with a non-digit placeholder so they don't
+    # corrupt numeric figure/table identifiers.
+    _SUP_RE = re.compile(r'[\u2070\u00b9\u00b2\u00b3\u2074-\u2079\u2080-\u2089]')
+    full_text = _SUP_RE.sub('·', full_text)  # middle-dot placeholder
+
     sections = _detect_headings(page_chunks, body_font_size)
     manuscript = _extract_manuscript_metadata(page_chunks, sections, body_font_size)
     figures = _discover_figures(full_text, page_offsets, page_chunks)
@@ -920,18 +933,106 @@ def _find_authors(
 # Step 3a: Figure discovery
 # ─────────────────────────────────────────────────────────────────────────────
 
+def _find_best_image_for_caption(
+    caption_y0: float,
+    caption_page: int,
+    page_chunks: List["PageChunk"],
+    used_image_keys: set,
+    max_distance_pts: float = 500.0,
+) -> Optional[Dict]:
+    """
+    Strategy A + C: Find the image block most likely associated with a caption.
+
+    Algorithm:
+      1. Use the raw_blocks reading-order list from PyMuPDF (Strategy C).
+         This interleaves text and image blocks in top-to-bottom, left-to-right order.
+      2. Search on the caption page first, then the previous page.
+      3. On the caption page: prefer the image block immediately BEFORE the caption
+         in reading order (i.e. above it). Among candidates, pick the one whose
+         vertical distance to caption_y0 is smallest (Strategy A — proximity).
+      4. Enforce max_distance_pts: if no image is within that distance, skip to
+         the previous page rather than grabbing an unrelated image across the page.
+      5. Mark the chosen image key as used so two figures don't share one image.
+    """
+    def _block_img_key(page: int, bbox) -> tuple:
+        return (page, round(bbox[0]), round(bbox[1]))
+
+    # Build a per-page lookup of raw_blocks
+    chunk_map: Dict[int, "PageChunk"] = {c.page_number: c for c in page_chunks}
+
+    for p in [caption_page, caption_page - 1]:
+        chunk = chunk_map.get(p)
+        if chunk is None:
+            continue
+
+        # Collect image blocks on this page that haven't been used yet
+        # with their distance to the caption top
+        candidates = []
+        for blk in chunk.raw_blocks:
+            if blk["type"] != 1:   # only image blocks
+                continue
+            x0, y0, x1, y1 = blk["bbox"]
+            key = _block_img_key(p, blk["bbox"])
+            if key in used_image_keys:
+                continue
+            area = (x1 - x0) * (y1 - y0)
+            if area < 400:   # skip tiny decorative icons (< 20x20 pts)
+                continue
+
+            if p == caption_page:
+                # On the same page: image should be ABOVE the caption (y1 < caption_y0)
+                # Distance = gap between image bottom and caption top
+                if y1 <= caption_y0:
+                    dist = caption_y0 - y1
+                else:
+                    # Image overlaps or is below caption — skip for same-page search
+                    continue
+            else:
+                # Previous page: any image is considered (caption on next page is common)
+                dist = 0.0  # treat all previous-page images equally; pick largest
+
+            candidates.append({"page": p, "x0": x0, "y0": y0, "x1": x1, "y1": y1,
+                                "dist": dist, "area": area, "key": key})
+
+        if not candidates:
+            continue
+
+        if p == caption_page:
+            # Filter by max distance threshold
+            near = [c for c in candidates if c["dist"] <= max_distance_pts]
+            if not near:
+                # No image close enough on same page — try previous page
+                continue
+            # Among close images, pick the closest; break ties by largest area
+            best = min(near, key=lambda c: (round(c["dist"] / 5), -c["area"]))
+        else:
+            # Previous page: pick largest image (most likely the figure)
+            best = max(candidates, key=lambda c: c["area"])
+
+        used_image_keys.add(best["key"])
+        return {"page": best["page"], "x0": best["x0"], "y0": best["y0"],
+                "x1": best["x1"], "y1": best["y1"]}
+
+    return None  # no suitable image found
+
+
 def _discover_figures(
     full_text: str,
     page_offsets: List[int],
-    page_chunks: List[PageChunk],
+    page_chunks: List["PageChunk"],
 ) -> List[Dict[str, Any]]:
     """
     Discover figures from:
       - Regex on full text for caption patterns (Figure N: ...)
       - First inline mentions (Fig. N)
       - PyMuPDF image block bboxes (for figure position checks)
+
+    Image matching uses Strategies A + C:
+      - Block-order proximity matching (not largest-unused guessing)
+      - Tolerant distance cap to avoid cross-page false matches
     """
     # Build image block map: page_num → list of {x0, y0, x1, y1, area}
+    # (kept for non-proximity callers, e.g. counting)
     image_map: Dict[int, List[Dict]] = {}
     for chunk in page_chunks:
         if chunk.image_blocks:
@@ -943,7 +1044,15 @@ def _discover_figures(
             if blocks:
                 image_map[chunk.page_number] = blocks
 
-    # Collect captions using layout-aware paragraph reconstruction
+    # Collect captions using layout-aware paragraph reconstruction.
+    # Key guard: a real caption line is SHORT (ends without a verb clause) or
+    # starts with non-sentence text. We reject lines where the text after the
+    # figure label looks like a running sentence (e.g. "Figure 2 depicts the…").
+    _CAPTION_SENTENCE_RE = re.compile(
+        r'^(?:shows?|depicts?|illustrates?|presents?|displays?|is\s|are\s|can\s|'
+        r'was\s|were\s|has\s|have\s|represents?)\b',
+        re.IGNORECASE,
+    )
     captions: Dict[int, Dict] = {}
     for chunk in page_chunks:
         for idx, line in enumerate(chunk.lines):
@@ -954,9 +1063,16 @@ def _discover_figures(
                 num = int(m.group(1))
                 if num in captions:
                     continue
+
+                # Reject in-text references that look like running sentences
+                # e.g. "Figure 2 depicts the routes..." is NOT a caption
+                after = re.sub(r'^[:.]\s*', '', text[m.end():].strip())
+                if _CAPTION_SENTENCE_RE.match(after):
+                    continue
+
                 # Reconstruct multi-line caption
                 caption_y0 = line.bbox[1]   # top of the first caption line (for Check 12)
-                caption_parts = [text[m.end():].strip()]
+                caption_parts = [after] if after else []
                 prev_y1 = line.bbox[3]
 
                 for j in range(idx + 1, min(len(chunk.lines), idx + 10)):
@@ -990,10 +1106,21 @@ def _discover_figures(
                         "caption_y1": prev_y1,     # bottom of last caption line
                     }
 
-    # Collect first mentions
+    # Collect first mentions — skip implausibly large numbers (superscript artifacts).
+    # Heuristic: a mention-only number >  max(captioned nums) * 2  with no caption
+    # is almost certainly a footnote superscript fused to the preceding digit.
+    max_captioned = max(captions.keys()) if captions else 0
     first_mentions: Dict[int, int] = {}
     for m in _FIG_MENTION_RE.finditer(full_text):
         num = int(m.group(1))
+        
+        # Reject if no caption exists for this number AND it is out of plausible range.
+        # This prevents superscript footnote artifacts like Fig 4¹ -> 41 from becoming new figures.
+        if num not in captions:
+            allowed_max = max_captioned + 2 if max_captioned > 0 else 10
+            if num > allowed_max:
+                continue
+                
         if num not in first_mentions:
             first_mentions[num] = _char_pos_to_page(m.start(), page_offsets)
 
@@ -1005,22 +1132,22 @@ def _discover_figures(
     for num in all_nums:
         cap_info = captions.get(num, {})
         cap_page = cap_info.get("caption_page") or first_mentions.get(num, 1)
+        cap_y0   = cap_info.get("caption_y0")   # top y of caption line (may be None)
 
-        # Match image block: prefer largest unused image on caption page or adjacent
-        image_bbox = None
-        for p in [cap_page, cap_page - 1, cap_page + 1]:
-            blocks = image_map.get(p, [])
-            for b in sorted(blocks, key=lambda x: -x["area"]):
-                key = (p, round(b["x0"]), round(b["y0"]))
-                if key not in used_image_keys:
-                    image_bbox = {"page": p, "x0": b["x0"], "y0": b["y0"],
-                                  "x1": b["x1"], "y1": b["y1"]}
-                    used_image_keys.add(key)
-                    break
-            if image_bbox:
-                break
+        # Strategy A + C: Use proximity + block-order matching
+        # Falls back gracefully to None when no image is within range.
+        if cap_y0 is not None:
+            image_bbox = _find_best_image_for_caption(
+                caption_y0=cap_y0,
+                caption_page=cap_page,
+                page_chunks=page_chunks,
+                used_image_keys=used_image_keys,
+            )
+        else:
+            # No caption line found (figure only cited, not captioned) — no image match
+            image_bbox = None
 
-        # Build caption_bbox only when y-coordinates were captured (i.e. caption found)
+        # Build caption_bbox only when y-coordinates were captured
         _cap_y0 = cap_info.get("caption_y0")
         _cap_y1 = cap_info.get("caption_y1")
         caption_bbox = (
@@ -1034,7 +1161,7 @@ def _discover_figures(
             "caption_page":        cap_page,
             "caption_ends_period": cap_info.get("caption_ends_period", False),
             "image_bbox":          image_bbox,
-            "caption_bbox":        caption_bbox,  # y0/y1 of caption text (Check 12)
+            "caption_bbox":        caption_bbox,
             "first_mention_page":  first_mentions.get(num, cap_page),
             "coordinate_found":    image_bbox is not None,
         })
@@ -1053,9 +1180,29 @@ def _discover_tables(
 ) -> List[Dict[str, Any]]:
     """
     Discover table captions from layout page chunk lines.
+
+    Table body detection uses Strategy C: multiple visual signals instead of
+    a narrow keyword list, so tables with unusual headers are not skipped.
+    Signals (any one is sufficient to declare body start):
+      - Vertical gap > 4 pts after caption
+      - Font size change > 0.5 pt
+      - Line has ≥3 tokens separated by ≥2 spaces (column-formatted row)
+      - Bold line after non-bold caption (common table header style)
+      - Match against an expanded header keyword set
     """
-    header_keywords = re.compile(
-        r'^\s*(?:Methods|Worst|Mean|Best|SD|FEs|Function|Index|Parameters|Value|Winner|p\s*value|GA\b|PSO\b|DE\b|AEO\b|CS\b|GSA\b|ABC\b|[a-z]\d+\(x\))\b',
+    # Expanded header keyword set (Strategy C)
+    _TABLE_HEADER_KW = re.compile(
+        r'^\s*(?:'
+        r'Method|Algorithm|Model|Metric|Measure|Result|Score|Value|'
+        r'Parameter|Feature|Class|Label|Type|Name|Item|Source|'
+        r'Dataset|Baseline|Proposed|Comparison|Performance|'
+        r'Accuracy|Precision|Recall|F1|AUC|Error|Loss|'
+        r'Train|Test|Valid|Epoch|Batch|Layer|Size|'
+        r'Mean|Median|Std|SD|Min|Max|Avg|Best|Worst|Total|'
+        r'Methods|FEs|Function|Index|Parameters|Winner|p\s*value|'
+        r'GA\b|PSO\b|DE\b|AEO\b|CS\b|GSA\b|ABC\b|'
+        r'No\.|#|\d+\.?\s|[A-Z]{1,5}\b'
+        r')',
         re.IGNORECASE
     )
 
@@ -1075,44 +1222,66 @@ def _discover_tables(
                 prev_y1 = line.bbox[3]
                 table_body_y0: Optional[float] = None  # y0 of first table-body line
 
-                for j in range(idx + 1, min(len(chunk.lines), idx + 10)):
+                for j in range(idx + 1, min(len(chunk.lines), idx + 15)):
                     next_line = chunk.lines[j]
                     next_text = next_line.text.strip()
                     if not next_text:
                         continue
-                    # Check if it looks like a header/table row
-                    if header_keywords.match(next_text):
-                        table_body_y0 = next_line.bbox[1]   # table body starts here
-                        break
-                    # Check for multiple wide spaces indicating columns
-                    if '   ' in next_text or '  ' in next_text:
-                        if len(re.split(r'\s{2,}', next_text)) >= 3:
-                            table_body_y0 = next_line.bbox[1]  # column-formatted row
-                            break
-                    # New table/figure/heading — not part of this table's body
+
+                    # Stop at another figure/table/section marker
                     if re.match(r'^(?:Table|Fig(?:ure)?|Algorithm)\s+\d+', next_text, re.IGNORECASE):
                         break
                     if re.match(r'^[1-9]\d*(?:\.\d+)+\.?\s+[A-Z]', next_text):
                         break
 
-                    gap = next_line.bbox[1] - prev_y1
+                    gap       = next_line.bbox[1] - prev_y1
                     size_diff = abs(next_line.max_font_size - line.max_font_size)
-                    if gap < 16.0 and size_diff < 0.5:
-                        caption_parts.append(next_text)
-                        prev_y1 = next_line.bbox[3]
-                    else:
-                        # Gap/font-size change signals start of table body
+
+                    # Strategy C: multi-signal table body detection
+                    is_col_formatted = len(re.split(r'\s{2,}', next_text)) >= 3
+                    is_bold_header   = next_line.is_bold and not line.is_bold
+                    has_gap          = gap > 4.0
+                    has_size_change  = size_diff > 0.5
+
+                    if (has_gap or has_size_change or is_col_formatted
+                            or is_bold_header or _TABLE_HEADER_KW.match(next_text)):
                         table_body_y0 = next_line.bbox[1]
                         break
 
+                    # Still in caption: accumulate
+                    caption_parts.append(next_text)
+                    prev_y1 = next_line.bbox[3]
+
                 cap_text = ' '.join(caption_parts).strip()
                 cap_text = re.sub(r'\s+', ' ', cap_text).strip()
+
+                # ── Recovery: "Table N" alone on its own line ────────────────
+                # If nothing followed the number on the same line, the next
+                # non-empty line is the actual caption title — grab it first.
+                if not cap_text:
+                    for j2 in range(idx + 1, min(len(chunk.lines), idx + 5)):
+                        nxt = chunk.lines[j2].text.strip()
+                        if not nxt:
+                            continue
+                        # Stop if it looks like a table body row (many columns)
+                        if len(re.split(r'\s{2,}', nxt)) >= 3:
+                            break
+                        # Stop if it's another caption
+                        if re.match(r'^(?:Table|Fig(?:ure)?|Algorithm)\s+\d+', nxt, re.IGNORECASE):
+                            break
+                        cap_text = nxt
+                        break
+                # ─────────────────────────────────────────────────────────────
 
                 # Validate
                 if _CAPTION_VERB_RE.match(cap_text):
                     continue
                 if len(cap_text.split()) < 2:
-                    continue
+                    # Even a 1-word caption is acceptable — we just need the
+                    # table number to be recorded for the numbering check.
+                    # Use a placeholder rather than silently dropping it.
+                    if not cap_text:
+                        cap_text = f"(unlabeled table {num})"
 
                 captions[num] = {
                     "caption_text": cap_text,

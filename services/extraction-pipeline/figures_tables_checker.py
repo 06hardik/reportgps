@@ -20,6 +20,14 @@ from __future__ import annotations
 
 from typing import Any, Dict, List
 
+# Strategy B: Spatial tolerance for caption position checks.
+# PyMuPDF image block bboxes include rendering padding while text bboxes are
+# tight. A caption that is visually below/above its figure/table can appear to
+# overlap by a few points due to this padding. The tolerance prevents those
+# near-miss false positives.
+# Value: 15 PDF points ≈ 5 mm on a standard A4/US-Letter page.
+CAPTION_POSITION_TOLERANCE = 15  # pts  (configurable — increase if false-positives persist)
+
 
 # -------------------------------------------------------------------------
 # Public entry point
@@ -429,6 +437,19 @@ def _check_figure_parts_mention(
         labels = [lbl.lower() for lbl in raw_labels]
         unique_labels = sorted(set(labels))
 
+        # ── Guard: ignore math/variable false positives ───────────────────────
+        # A genuine sub-figure sequence must either:
+        #   (a) start with 'a', OR
+        #   (b) have 2+ consecutive letters
+        # Single isolated letters like (m), (n), (r) are math variables, not parts.
+        is_consecutive = len(unique_labels) >= 2 and all(
+            ord(unique_labels[i+1]) - ord(unique_labels[i]) == 1
+            for i in range(len(unique_labels)-1)
+        )
+        if 'a' not in unique_labels and not is_consecutive:
+            continue  # Math variable in parens — not a sub-figure label
+        # ─────────────────────────────────────────────────────────────────────
+
         # Must start from 'a'
         first = unique_labels[0]
         last  = unique_labels[-1]
@@ -440,6 +461,7 @@ def _check_figure_parts_mention(
         if first != 'a':
             violations.append({
                 "figure":         num,
+                "page":           fig.get("caption_bbox", {}).get("page"),
                 "found_parts":    unique_labels,
                 "missing_parts":  [],
                 "detail": (
@@ -450,6 +472,7 @@ def _check_figure_parts_mention(
         elif missing:
             violations.append({
                 "figure":        num,
+                "page":          fig.get("caption_bbox", {}).get("page"),
                 "found_parts":   unique_labels,
                 "missing_parts": missing,
                 "detail": (
@@ -522,19 +545,21 @@ def _check_table_caption_above(
             skipped += 1
             continue
 
-        cap_y1 = caption_bbox["y1"]   # bottom edge of caption
+        cap_y0 = caption_bbox["y0"]   # top edge of caption
 
-        # In PDF coordinate space y increases downward, so
-        # "caption above table body" means cap_y1 < body_y0
-        if cap_y1 >= body_y0:
+        # In PDF coordinate space y increases downward.
+        # We check if the caption STARTS below the table body top.
+        # This allows side-by-side captions (where cap_y0 ~ body_y0) to pass,
+        # while catching captions that are genuinely placed below the table.
+        if cap_y0 > (body_y0 + CAPTION_POSITION_TOLERANCE):
             violations.append({
                 "table":           num,
                 "page":            caption_bbox["page"],
-                "caption_y1":      round(cap_y1, 2),
+                "caption_y0":      round(cap_y0, 2),
                 "table_body_y0":   round(body_y0, 2),
                 "detail": (
-                    f"Table {num} (page {caption_bbox['page']}): caption bottom "
-                    f"(y={cap_y1:.1f}) is NOT above the table body "
+                    f"Table {num} (page {caption_bbox['page']}): caption top "
+                    f"(y={cap_y0:.1f}) is below the table body top "
                     f"(y={body_y0:.1f})."
                 ),
             })
@@ -611,20 +636,22 @@ def _check_figure_caption_below(
             skipped += 1
             continue
 
-        img_y1  = image_bbox["y1"]     # bottom edge of image
-        cap_y0  = caption_bbox["y0"]   # top edge of caption
+        cap_y1  = caption_bbox["y1"]   # bottom edge of caption
+        img_y0  = image_bbox["y0"]     # top edge of image
 
-        # "caption below image" means cap_y0 > img_y1
-        if cap_y0 <= img_y1:
+        # "caption below image" means the caption should not be placed above the image.
+        # We check if the caption ENDS above the top of the image.
+        # This allows side-by-side captions to pass.
+        if cap_y1 < (img_y0 - CAPTION_POSITION_TOLERANCE):
             violations.append({
                 "figure":       num,
                 "page":         caption_bbox["page"],
-                "image_y1":     round(img_y1, 2),
-                "caption_y0":   round(cap_y0, 2),
+                "image_y0":     round(img_y0, 2),
+                "caption_y1":   round(cap_y1, 2),
                 "detail": (
-                    f"Figure {num} (page {caption_bbox['page']}): caption top "
-                    f"(y={cap_y0:.1f}) is NOT below the image bottom "
-                    f"(y={img_y1:.1f})."
+                    f"Figure {num} (page {caption_bbox['page']}): caption bottom "
+                    f"(y={cap_y1:.1f}) is placed above the image top "
+                    f"(y={img_y0:.1f})."
                 ),
             })
 
