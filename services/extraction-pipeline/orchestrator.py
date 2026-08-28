@@ -370,7 +370,7 @@ def extract_document(pdf_path: str) -> dict:
         references = []
 
     try:
-        citations = extract_in_text_citations(full_text, page_texts)
+        citations = extract_in_text_citations(full_text, page_texts, references)
     except Exception as exc:
         print(f"[Orchestrator] Citation extraction error (non-fatal): {exc}")
         citations = []

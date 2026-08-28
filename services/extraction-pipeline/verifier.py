@@ -321,7 +321,7 @@ def build_candidates(raw_result: Dict) -> List[ErrorCandidate]:
                 check_name=          rule["check_name"],
                 rule=                rule["rule"],
                 category=            rule["category"],
-                page=                None,
+                page=                v.get("page"),
                 document_context=    doc_ctx,
                 evidence=            ev_builder(v),
                 detector_raw=        v,
@@ -814,7 +814,13 @@ class VerifierService:
 
     def _build_deterministic_finding(self, candidate: ErrorCandidate) -> Optional[ValidatedFinding]:
         verifier_resp = {"decision": "VALID", "reason": "Deterministic check — skipped LLM."}
-        return self._build_finding(candidate, verifier_resp, "VALID", candidate.detector_confidence, candidate.detector_raw.get("detail", ""), 0.0)
+        finding = self._build_finding(candidate, verifier_resp, "VALID", candidate.detector_confidence, candidate.detector_raw.get("detail", ""), 0.0)
+        if finding:
+            finding.title = candidate.check_name
+            finding.why_flagged = candidate.detector_raw.get("detail", "")
+            finding.evidence_summary = candidate.detector_raw.get("context", "")
+            finding.recommendation = candidate.detector_raw.get("suggestion", "Review and correct this issue.")
+        return finding
 
     def _build_llm_finding(self, candidate: ErrorCandidate, verifier_resp: Dict, latency: float) -> Optional[ValidatedFinding]:
         decision     = verifier_resp.get("decision", "VERIFIER_FAILED")
@@ -855,7 +861,7 @@ class VerifierService:
         if not finding.title:
             finding.title          = candidate.check_name
             finding.why_flagged    = actual_issue or candidate.detector_raw.get("detail", "")
-            finding.evidence_summary = ""
+            finding.evidence_summary = candidate.detector_raw.get("context", "")
             finding.recommendation = candidate.detector_raw.get("suggestion", "Review and correct this issue.")
 
         _log_verifier_call(candidate, verifier_resp, latency)

@@ -108,7 +108,7 @@ def extract_equations(pdf_path: str) -> List[Dict[str, Any]]:
         raise FileNotFoundError(f"PDF not found: {pdf_path}")
 
     try:
-        import fitz  # PyMuPDF
+        import pymupdf as fitz  # PyMuPDF
     except ImportError as exc:
         raise ImportError(
             "PyMuPDF is not installed. Run: pip install pymupdf"
