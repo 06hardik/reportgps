@@ -114,12 +114,30 @@ Python Extraction Service (FastAPI, port 8004)
 Copy `.env.example` to `.env` and fill in your keys:
 
 ```
-VERIFIER_ENABLED=true         # false = skip AI verification (faster)
-GROQ_API_KEY=gsk_...          # Groq API key (for Llama-3 verification)
-GOOGLE_API_KEY=AIza...        # Gemini API key (fallback verifier)
+# LLM Verification
+VERIFIER_ENABLED=true          # false = skip AI, return raw violations (~0.5s faster)
+VERIFIER_TEMPERATURE=0.1
+VERIFIER_TIMEOUT=60
+VERIFIER_MAX_RETRIES=3
+PHRASING_ENABLED=true          # true = rephrase violations into human-readable language
+
+# Groq (primary LLM — add up to 4 keys for load balancing)
+GROQ_API_KEY=gsk_...
+GROQ_API_KEY_2=gsk_...
+GROQ_API_KEY_3=gsk_...
+GROQ_API_KEY_4=gsk_...
+
+# Cerebras (fallback)
+CEREBRAS_API_KEY=csk_...
+
+# Gemini (last resort)
+GOOGLE_API_KEY=AIza...
+
+# Reference analyser microservice
+REFERENCE_ANALYSER_URL=http://localhost:8002
 ```
 
-The pipeline works without API keys — set `VERIFIER_ENABLED=false` to run in pure deterministic mode.
+See `.env.example` for all options with explanations. The pipeline works without API keys — set `VERIFIER_ENABLED=false` to run in pure deterministic mode.
 
 ---
 
@@ -152,11 +170,12 @@ The pipeline works without API keys — set `VERIFIER_ENABLED=false` to run in p
 
 ### Equations (equation_extractor.py + equation_checker.py)
 
-| Check | Rule |
-|---|---|
-| **15** — Sequential Numbering | Equation labels must form a gapless integer sequence |
-| **16** — Punctuation | Comma required after equation when text continues with "where", "with", "in which" |
-| **17** — In-text Citation Style | All equation references must use one consistent style (e.g. "Eq. (N)") |
+| Check | Rule | Status |
+|---|---|---|
+| **15** — Sequential Numbering | Equation labels must form a gapless integer sequence | ✅ |
+| **16** — Punctuation | Comma required after equation when text continues with "where", "with", "in which" | ✅ |
+| **17** — In-text Citation Style | All equation references must use one consistent style (e.g. "Eq. (N)") | ✅ |
+| ~~**18** — Delimiter Balance~~ | ~~Equal brackets, properly scaled delimiters~~ | ❌ Requires math OCR |
 
 ---
 
