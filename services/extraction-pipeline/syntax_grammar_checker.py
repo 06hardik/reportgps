@@ -55,7 +55,7 @@ def check_syntax_grammar(full_text: str, body_text: str, page_offsets: List[int]
             if "first_pos" in v:
                 v["page"] = _find_page(v["first_pos"], page_offsets)
 
-    acronym = _check_acronym_definitions(body_text)
+    acronym = _check_acronym_definition(body_text)
     _add_page(acronym.get("violations", []))
 
     quote = _check_quote_style_consistency(body_text)

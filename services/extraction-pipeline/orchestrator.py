@@ -471,7 +471,11 @@ def extract_document(pdf_path: str) -> dict:
     t_eq_check = time.monotonic()
     print("[Orchestrator] Step 3f/3 — Equation checks …")
     try:
-        equation_checks = run_all_checks(equations=equations, full_text=full_text)
+        equation_checks = run_all_checks(
+            equations=equations, 
+            full_text=full_text,
+            page_offsets=page_offsets,
+        )
     except Exception as exc:
         traceback.print_exc()
         print(f"[Orchestrator] Equation checks error (non-fatal): {exc}")
