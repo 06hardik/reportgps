@@ -33,10 +33,26 @@ Returns:
 
 from __future__ import annotations
 
+import bisect
 import re
 from typing import Any, Dict, List, Set, Tuple
 
 MAX_VIOLATIONS = 25
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Helpers
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _find_page(char_pos: int, page_offsets: List[int]) -> int:
+    """
+    Return the 1-based page number for a character offset into full_text.
+    page_offsets[i] is the start offset of page i+1.
+    """
+    if not page_offsets:
+        return 1
+    idx = bisect.bisect_right(page_offsets, char_pos) - 1
+    return max(1, idx + 1)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
