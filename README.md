@@ -1,19 +1,24 @@
-# ReportGPS — Academic Paper Extraction Pipeline
+# ReportGPS — Academic Paper Validation Pipeline
 
-A hybrid PDF extraction and validation pipeline for academic papers.  
-It combines lightning-fast deterministic extraction (PyMuPDF) with an intelligent AI Verifier (Groq/Gemini) to validate rule violations with high accuracy.
+A multi-layer PDF analysis and validation system for academic research papers.  
+It combines fast deterministic extraction (PyMuPDF) with an optional AI Verifier (Groq/Gemini) to catch formatting, structural, and equation issues with high accuracy and minimal false positives.
 
 ---
 
 ## Quick Start
 
+### Prerequisites
+- Python 3.10+
+- Node.js 18+
+
 ### 1 — Python Extraction Service (port 8004)
 
 ```bash
 cd services/extraction-pipeline
-python3 -m venv env
-source env/bin/activate
-pip install -r requirements.txt      # fastapi uvicorn pymupdf httpx groq google-genai python-dotenv
+python -m venv env
+source env/bin/activate          # Windows: env\Scripts\activate
+pip install -r requirements.txt
+cp .env.example .env             # then fill in API keys
 python app.py
 ```
 
@@ -47,30 +52,40 @@ Node.js Backend (Express, port 5001)
 Python Extraction Service (FastAPI, port 8004)
         │
         ├─ Step 1: PyMuPDF  (~0.3–0.7 s)
-        │     Text + font metadata + image bboxes
+        │     Text + font metadata + image bboxes for every page
         │
         ├─ Step 2: structural_analyzer.py  (~0.03–0.1 s)
-        │     Headings, manuscript metadata, figures, tables, equations
+        │     Headings, manuscript metadata (title/abstract/keywords/authors),
+        │     figure & table discovery, section detection
         │
-        ├─ Step 3a: regex_extractor + typography_checker  (~0.05–0.15 s)
-        │     References, citations, typography violations
+        ├─ Step 2.5: equation_extractor.py  (~0.05–0.3 s)
+        │     Right-margin label scan (supports 1- and 2-column layouts)
+        │     Produces equation list with page number, bbox, context
         │
-        ├─ Step 3b: figures_tables_checker.py  (~0.01–0.03 s)
-        │     Sequential numbering, chronological order, caption positioning,
+        ├─ Step 3a: regex_extractor.py  (~0.05–0.15 s)
+        │     References (numbered, APA) + in-text citations
+        │
+        ├─ Step 3b: typography_checker.py  (~0.01–0.03 s)
+        │     En-dash, unit-space, percent/degree formatting
+        │
+        ├─ Step 3c: figures_tables_checker.py  (~0.01–0.03 s)
+        │     Sequential numbering, chronological order, caption position,
         │     sub-part label validation for figures and tables
         │
-        ├─ Step 3c: syntax_grammar_checker.py  (~0.01–0.02 s)
-        │     Typography, Syntax & Grammar Checks 17-24
+        ├─ Step 3d: syntax_grammar_checker.py  (~0.01–0.02 s)
+        │     Acronym definitions, double spaces, quote styles, en-dash ranges,
+        │     non-breaking spaces, spelling consistency
         │
-        ├─ Step 3d: equation_extractor.py  (~0.1–0.5 s)
-        │     Pix2Text powered extraction and validation of equations (Checks 15-18)
+        ├─ Step 3e: equation_checker.py  (~0.01 s)
+        │     Sequential numbering (Check 15), punctuation (Check 16),
+        │     in-text citation style consistency (Check 17)
         │
-        └─ Step 4: AI Verifier (verifier.py)
-              Groq (Llama-3) / Gemini validate the potential violations 
-              to filter out false positives and generate human-readable evidence.
+        └─ Step 4: verifier.py  (optional, ~1–3 s)
+              Groq (Llama-3) / Gemini AI validates flagged violations,
+              filters false positives, generates human-readable evidence
 ```
 
-**Average total:** ~1-2 s per paper (depending on LLM API latency).
+**Typical total:** ~1–2 s per paper (with LLM) / < 0.5 s (without).
 
 ---
 
@@ -79,14 +94,69 @@ Python Extraction Service (FastAPI, port 8004)
 | File | Purpose |
 |---|---|
 | `app.py` | FastAPI server — `POST /extract`, `GET /health` |
-| `orchestrator.py` | 3-step pipeline coordinator |
+| `orchestrator.py` | Full pipeline coordinator |
 | `pymupdf_extractor.py` | PyMuPDF page text + font + image bboxes |
-| `structural_analyzer.py` | Heading detection, metadata, figure/table/equation discovery |
+| `structural_analyzer.py` | Heading detection, manuscript metadata, figure/table discovery |
+| `equation_extractor.py` | PDF right-margin label scan for equation numbers |
+| `equation_checker.py` | Equation validation checks (15–17) |
 | `regex_extractor.py` | References + in-text citations |
-| `typography_checker.py` | En-dash, unit-space, percent/degree, latin abbreviation checks |
-| `figures_tables_checker.py` | Figure/table sequential numbering, chronological order, caption positioning, sub-part validation |
-| `syntax_grammar_checker.py` | Implementation of Checks 17–24 (Acronym definitions, double spaces, quote styles, spelling, etc.) |
-| `equation_extractor.py` | Uses Pix2Text for equation OCR and performs Checks 15-18 on mathematical formulas |
+| `typography_checker.py` | En-dash, unit-space, percent/degree checks |
+| `figures_tables_checker.py` | Figure/table numbering, order, caption positioning |
+| `syntax_grammar_checker.py` | Acronym, spacing, quote style, spelling checks |
+| `verifier.py` | AI-powered false-positive filter (Groq / Gemini) |
+| `verifier_rules.py` | Declarative rule registry for the verifier |
+| `verifier_config.py` | Enable/disable verifier, select LLM provider |
+
+---
+
+## Environment Variables
+
+Copy `.env.example` to `.env` and fill in your keys:
+
+```
+VERIFIER_ENABLED=true         # false = skip AI verification (faster)
+GROQ_API_KEY=gsk_...          # Groq API key (for Llama-3 verification)
+GOOGLE_API_KEY=AIza...        # Gemini API key (fallback verifier)
+```
+
+The pipeline works without API keys — set `VERIFIER_ENABLED=false` to run in pure deterministic mode.
+
+---
+
+## Validation Checks Reference
+
+### Figures & Tables (figures_tables_checker.py)
+
+| Check | Rule |
+|---|---|
+| **7** — Figure Sequential Numbering | Figures must be numbered 1, 2, 3 … without gaps or duplicates |
+| **8** — Table Sequential Numbering | Tables must be numbered 1, 2, 3 … without gaps or duplicates |
+| **9** — Figure Chronological Order | Figures must be first mentioned in ascending numeric order |
+| **10** — Table Chronological Order | Tables must be first mentioned in ascending numeric order |
+| **11** — Table Caption Above | Table caption must be positioned above the table body |
+| **12** — Figure Caption Below | Figure caption must be positioned below the image |
+| **13** — Figure Sub-part Labels | Sub-part labels (a), (b) … must be consecutive starting from (a) |
+
+### Syntax & Grammar (syntax_grammar_checker.py)
+
+| Check | Rule |
+|---|---|
+| **17** — Acronym Definition | Acronyms (3+ capitals) must be defined at their first occurrence |
+| **18** — En-dash for Ranges | Use en-dash (–) not hyphen (-) for number ranges |
+| **19** — Non-breaking Space | Use non-breaking space between numbers and units |
+| **20** — No Space % / ° | No space before `%` or degree symbols |
+| **21** — Double Spaces | No double ASCII spaces in running text |
+| **22** — Punctuation Spacing | Single space after commas, semicolons, sentence-end periods |
+| **23** — Quote Style Consistency | Use either straight (`"`) or curly (`"`) quotes, not both |
+| **24** — Spelling Consistency | Don't mix American and British English spellings |
+
+### Equations (equation_extractor.py + equation_checker.py)
+
+| Check | Rule |
+|---|---|
+| **15** — Sequential Numbering | Equation labels must form a gapless integer sequence |
+| **16** — Punctuation | Comma required after equation when text continues with "where", "with", "in which" |
+| **17** — In-text Citation Style | All equation references must use one consistent style (e.g. "Eq. (N)") |
 
 ---
 
@@ -98,101 +168,38 @@ Python Extraction Service (FastAPI, port 8004)
   "sections":    [{ "heading_text", "heading_level", "page_number", "bbox" }],
   "figures":     [{ "number", "caption_text", "caption_page", "image_bbox", "caption_bbox", "first_mention_page" }],
   "tables":      [{ "number", "caption_text", "caption_page", "caption_bbox", "table_body_y0", "first_mention_page" }],
-  "equations":   [{ "number", "number_format", "raw_text", "page_number" }],
+  "equations":   [{ "number", "number_format", "latex", "page_number", "bbox", "context_before", "context_after" }],
   "references":  [{ "raw_string", "number", "year", "doi", "bbox" }],
   "in_text_citations": [{ "marker", "page_number" }],
-  "typography":  { "en_dash_violations", "number_unit_violations", "percent_degree_violations", "latin_abbrev_violations" },
   "figures_tables_checks": {
-    "figure_sequential_numbering": { "passed", "found_sequence", "missing_numbers", "duplicate_numbers", "detail" },
-    "table_sequential_numbering":  { "passed", "found_sequence", "missing_numbers", "duplicate_numbers", "detail" },
+    "figure_sequential_numbering": { "passed", "violations", "detail" },
+    "table_sequential_numbering":  { "passed", "violations", "detail" },
     "figure_chronological_order":  { "passed", "violations", "detail" },
     "table_chronological_order":   { "passed", "violations", "detail" },
-    "table_caption_above":         { "passed", "violations", "skipped", "detail" },
-    "figure_caption_below":        { "passed", "violations", "skipped", "detail" },
+    "table_caption_above":         { "passed", "violations", "detail" },
+    "figure_caption_below":        { "passed", "violations", "detail" },
     "figure_parts_mention":        { "passed", "violations", "detail" }
   },
   "syntax_grammar_checks": {
-    "acronym_definition":          { "passed", "violations", "detail" },
-    "en_dash_ranges":              { "passed", "violations", "detail" },
-    "nonbreaking_space_units":     { "passed", "violations", "detail" },
-    "no_space_percent_degree":     { "passed", "violations", "detail" },
-    "double_spaces":               { "passed", "violations", "detail" },
-    "punctuation_spacing":         { "passed", "violations", "detail" },
-    "quote_style_consistency":     { "passed", "violations", "detail" },
-    "english_spelling_consistency":{ "passed", "violations", "detail" }
+    "acronym_definition":           { "passed", "violations", "detail" },
+    "en_dash_ranges":               { "passed", "violations", "detail" },
+    "nonbreaking_space_units":      { "passed", "violations", "detail" },
+    "no_space_percent_degree":      { "passed", "violations", "detail" },
+    "double_spaces":                { "passed", "violations", "detail" },
+    "punctuation_spacing":          { "passed", "violations", "detail" },
+    "quote_style_consistency":      { "passed", "violations", "detail" },
+    "english_spelling_consistency": { "passed", "violations", "detail" }
   },
   "equation_checks": {
-    "equation_sequential_numbering": { "passed", "violations", "detail" },
-    "equation_punctuation":          { "passed", "violations", "detail" },
-    "in_text_reference_consistency": { "passed", "violations", "detail" },
-    "delimiter_balance_scaling":     { "passed", "violations", "detail" }
+    "equation_sequential_numbering":  { "passed", "violations", "detail" },
+    "equation_punctuation":           { "passed", "violations", "detail" },
+    "in_text_reference_consistency":  { "passed", "violations", "detail" }
   },
   "estimated_word_count": 11260,
   "total_pages_processed": 19,
-  "pipeline_timings": { "pymupdf_s", "structural_s", "regex_s", "typography_s", "figures_tables_s", "syntax_grammar_s", "total_s" }
+  "pipeline_timings": { "pymupdf_s", "structural_s", "equation_extraction_s", "regex_s", "typography_s", "figures_tables_s", "syntax_grammar_s", "equation_checks_s", "total_s" }
 }
 ```
-
----
-
-## Figures & Tables Validation Checks
-
-All checks run via `figures_tables_checker.py` after structural analysis. Each check returns `passed` (bool) and `detail` (human-readable verdict).
-
-| Check | Rule | Data Used |
-|---|---|---|
-| **Check 7** — Figure Sequential Numbering | Figures must be numbered 1, 2, 3 … with no gaps or duplicates | `figures[i]["number"]` |
-| **Check 8** — Table Sequential Numbering | Tables must be numbered 1, 2, 3 … with no gaps or duplicates | `tables[i]["number"]` |
-| **Check 9** — Figure Chronological Order | Figures must be first mentioned in ascending order in body text | `figures[i]["first_mention_page"]` |
-| **Check 10** — Table Chronological Order | Tables must be first mentioned in ascending order in body text | `tables[i]["first_mention_page"]` |
-| **Check 11** — Table Caption Above Table | Table caption must be positioned above the table body (y-coordinate comparison) | `tables[i]["caption_bbox"]["y1"]`, `tables[i]["table_body_y0"]` |
-| **Check 12** — Figure Caption Below Figure | Figure caption must be positioned below the image (y-coordinate comparison) | `figures[i]["caption_bbox"]["y0"]`, `figures[i]["image_bbox"]["y1"]` |
-| **Check 13** — Figure Parts Mention | Sub-part labels `(a)`, `(b)`, `(c)` … in figure captions must be consecutive starting from `(a)` | `figures[i]["caption_text"]` via regex |
-
----
-
-## Typography, Syntax & Grammar Validation Checks
-
-All checks run via `syntax_grammar_checker.py` after structural analysis. Each check returns `passed` (bool) and `detail` (human-readable verdict), along with detailed `violations`. 
-
-| Check | Rule | Data Used |
-|---|---|---|
-| **Check 17** — Acronym Definition | Any acronym (3+ capital letters) must be fully defined in parentheses at its first occurrence | `full_text` (regex + initials matching heuristic) |
-| **Check 18** — En-dash for Ranges | En-dash (`–`) must be used for number ranges instead of hyphen/double-hyphen (`10-20`) | `body_text` |
-| **Check 19** — Non-breaking Space for Units | Non-breaking space (U+00A0) must be used between numbers and standard units (`10 kg`) | `body_text` |
-| **Check 20** — No Space for Percentages/Degrees | No space should occur before `%` or degree notation (`10%`, `90°C`) | `body_text` |
-| **Check 21** — Double Spaces | No accidental double ASCII spaces between non-whitespace characters | `body_text` |
-| **Check 22** — Consistent Punctuation Spacing | Space after (but not before) commas and semicolons. Only 1 space after sentence boundaries | `body_text` |
-| **Check 23** — Quote Style Consistency | Consistent use of either straight (`"`) or typographic curly (`“”`) double quotes | `full_text` |
-| **Check 24** — English Spelling Consistency | American and British English spelling shouldn't be mixed within the document | `body_text` (via predefined Am/Br word pairs) |
-
----
-
-## Equation Validation Checks
-
-Equations are extracted using Pix2Text (which requires `cnocr` and `doclayout-yolo`) and validated in `equation_extractor.py`.
-
-| Check | Rule | Data Used |
-|---|---|---|
-| **Check 15** — Equation Sequential Numbering | Equations must be numbered sequentially (1), (2), (3) ... | `equations[i]["number"]` |
-| **Check 16** — Equation Punctuation | Equations should have proper punctuation (comma, period) if they end a sentence or clause | `equations[i]["raw_text"]` and surrounding text |
-| **Check 17** — In-text Reference Consistency | Equations must be referenced correctly in the text (e.g. "Eq. 1" or "Equation (1)") | `body_text` + `equations` |
-| **Check 18** — Delimiter Balance & Scaling | Parentheses and brackets within equations should be balanced and properly scaled | `equations[i]["raw_text"]` |
-
----
-
-## Performance (5 test papers)
-
-| Paper | Pages | Time |
-|---|---|---|
-| Fog Computing + WOA | 18 | 0.55 s |
-| GG-GSA | 16 | 0.98 s |
-| GOA | 18 | 1.17 s |
-| Giza | 19 | 0.81 s |
-| WOA + MFO image | 34 | 0.82 s |
-| **Average** | **21** | **0.87 s** |
-
-Previous pipeline (NuExtract LLM): 50–175 s per paper.
 
 ---
 
@@ -205,5 +212,28 @@ POST http://localhost:8004/extract
   → returns structured JSON (< 2s typical)
 
 GET  http://localhost:8004/health
-  → { status: "ok", version: "3.2.0" }
+  → { "status": "ok", "version": "3.2.0" }
 ```
+
+---
+
+## Performance
+
+| Paper | Pages | Time |
+|---|---|---|
+| AEO (43 pages) | 43 | ~0.6 s |
+| WOA + MFO | 34 | 0.82 s |
+| Fog Computing | 18 | 0.55 s |
+| **Average** | **~25** | **~0.7 s** |
+
+*(Times are without the optional AI verifier. With LLM: +1–3 s depending on API.)*
+
+---
+
+## For New Developers
+
+See [`docs/pipeline_architecture.md`](docs/pipeline_architecture.md) for a deep dive into each pipeline step.
+
+See [`docs/equation_checks.md`](docs/equation_checks.md) for details on how equation labels are extracted from 2-column PDFs and what each equation check does.
+
+See [`docs/checks_reference.md`](docs/checks_reference.md) for a complete quick-reference of all validation checks.

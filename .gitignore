@@ -54,9 +54,15 @@ npm-debug.log*
 /out.json
 /.agents/
 
-
+# Paper analysis outputs
 paper_outputs/
 
 # Local virtual environments
 services/extraction-pipeline/env/
 
+# Git backup (should not be committed)
+.git_backup/
+
+# One-off debug / scratch scripts
+scratch_test.py
+**/scratch_test.py
