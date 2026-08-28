@@ -192,6 +192,41 @@ RULES: Dict[str, Dict[str, Any]] = {
         "skip_verifier":        False,
         "detector_confidence":  0.65,
     },
+
+    # ── Equations ─────────────────────────────────────────────────────────────
+
+    "equation_sequential_numbering": {
+        "check_id":             "equation_sequential_numbering",
+        "check_name":           "Equation Sequential Numbering",
+        "rule":                 "Equations must be numbered consecutively without skipping or duplicating numbers.",
+        "category":             "Equations",
+        "skip_verifier":        True,  # Math logic is deterministic
+        "detector_confidence":  0.98,
+    },
+    "equation_punctuation": {
+        "check_id":             "equation_punctuation",
+        "check_name":           "Equation Punctuation",
+        "rule":                 "Display equations must end with appropriate punctuation (like a period or comma) if they conclude or pause a sentence.",
+        "category":             "Equations",
+        "skip_verifier":        False, 
+        "detector_confidence":  0.70,
+    },
+    "in_text_reference_consistency": {
+        "check_id":             "in_text_reference_consistency",
+        "check_name":           "In-text Reference Consistency",
+        "rule":                 "All equation call-outs in the text must follow a single, consistent stylistic format (e.g., all 'Eq. (1)' or all 'Equation 1').",
+        "category":             "Equations",
+        "skip_verifier":        False,
+        "detector_confidence":  0.75,
+    },
+    "delimiter_balance_scaling": {
+        "check_id":             "delimiter_balance_scaling",
+        "check_name":           "Delimiter Balance & Scaling",
+        "rule":                 "Equations must have equal opening and closing brackets, and delimiters around tall mathematical elements must be scaled (e.g. using \\left/\\right).",
+        "category":             "Equations",
+        "skip_verifier":        False,
+        "detector_confidence":  0.65,
+    },
 }
 
 

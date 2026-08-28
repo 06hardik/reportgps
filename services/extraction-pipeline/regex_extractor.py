@@ -19,7 +19,7 @@ from __future__ import annotations
 
 import re
 from typing import List, Dict, Any
-import fitz  # PyMuPDF
+import pymupdf as fitz  # PyMuPDF
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Reference extraction
@@ -526,6 +526,7 @@ _CONTEXT_WINDOW = 60   # chars each side
 def extract_in_text_citations(
     full_text: str,
     page_texts: list[str],
+    references: List[Dict[str, Any]] = None,
 ) -> List[Dict[str, Any]]:
     """
     Extract in-text citation markers from the full document text.
@@ -555,8 +556,32 @@ def extract_in_text_citations(
             "page_number":     page_num,
         })
 
+    is_numeric_style = False
+    max_ref_num = 0
+    if references:
+        ref_nums = [r.get("number") for r in references if r.get("number") is not None]
+        if ref_nums:
+            is_numeric_style = True
+            max_ref_num = max(ref_nums)
+        else:
+            is_numeric_style = False
+
     for m in _NUMERIC_BRACKET.finditer(full_text):
-        _add(m.group(1), "numeric-bracket", m.start())
+        # If we have extracted references and none of them have numbers, this document 
+        # uses author-year style. Any bracketed number like [2020] is a false positive.
+        if references and not is_numeric_style:
+            continue
+            
+        marker_text = m.group(1)
+        
+        # If it is numeric style, ensure the numbers in the bracket aren't absurdly high
+        # (e.g. capturing an array like [250, 500, 1000] when there are only 50 references)
+        if is_numeric_style and max_ref_num > 0:
+            nums = [int(n) for n in re.findall(r'\d+', marker_text)]
+            if nums and max(nums) > max_ref_num + 5:  # small buffer for missing refs
+                continue
+                
+        _add(marker_text, "numeric-bracket", m.start())
 
     for m in _AUTHOR_YEAR.finditer(full_text):
         _add(m.group(0), "author-year", m.start())

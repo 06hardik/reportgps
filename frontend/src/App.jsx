@@ -1,14 +1,11 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import axios from 'axios';
-<<<<<<< HEAD
 import * as pdfjsLib from 'pdfjs-dist';
-=======
 import {
   UploadCloud, FileText, CheckCircle, AlertCircle, Play,
   RotateCcw, BookOpen, Image, Table2, Quote,
   Type, Layers, Clock, Code2, Users, Tag, AlignLeft, Hash, Sigma
 } from 'lucide-react';
->>>>>>> origin/pix2text
 import './index.css';
 
 // Configure PDF.js worker
@@ -27,7 +24,7 @@ const parseIssues = (results) => {
   let idCounter = 1;
   const addIssue = (cat, title, desc, ev, rec, page, extra = {}) => {
     issues.push({
-      id: `${cat.substring(0,3).toUpperCase()}-${String(idCounter++).padStart(3, '0')}`,
+      id: `${cat.substring(0, 3).toUpperCase()}-${String(idCounter++).padStart(3, '0')}`,
       category: cat,
       title,
       description: desc,
@@ -68,21 +65,21 @@ const parseIssues = (results) => {
   // Parse Figures & Tables Checks
   if (results.figures_tables_checks) {
     const ft = results.figures_tables_checks;
-    
+
     if (ft.figure_sequential_numbering && !ft.figure_sequential_numbering.passed) {
       addIssue('Figures', 'Figure Numbering', 'Figures are not numbered sequentially.', ft.figure_sequential_numbering.detail, 'Ensure all figures are numbered sequentially without skipping or repeating.', null);
     }
     if (ft.table_sequential_numbering && !ft.table_sequential_numbering.passed) {
       addIssue('Tables', 'Table Numbering', 'Tables are not numbered sequentially.', ft.table_sequential_numbering.detail, 'Ensure all tables are numbered sequentially without skipping or repeating.', null);
     }
-    
+
     (ft.figure_chronological_order?.violations || []).forEach(v => {
       addIssue('Figures', 'Chronological Appearance', 'Figures are mentioned out of numerical order.', v.detail, 'Mention figures in the text in numerical order.', v.mentioned_on_page);
     });
     (ft.table_chronological_order?.violations || []).forEach(v => {
       addIssue('Tables', 'Chronological Appearance', 'Tables are mentioned out of numerical order.', v.detail, 'Mention tables in the text in numerical order.', v.mentioned_on_page);
     });
-    
+
     (ft.table_caption_above?.violations || []).forEach(v => {
       addIssue('Tables', 'Caption Positioning', 'Table caption must be positioned above the table body.', v.detail, 'Move the caption above the table.', v.page);
     });
@@ -97,7 +94,7 @@ const parseIssues = (results) => {
   // Parse Syntax & Grammar Checks
   if (results.syntax_grammar_checks) {
     const sg = results.syntax_grammar_checks;
-    
+
     (sg.acronym_definition?.violations || []).forEach(v => {
       addIssue('Structure', 'Acronym Definition', 'Acronyms must be defined at their first occurrence.', v.detail, 'Provide the full definition in parentheses.', null);
     });
@@ -131,12 +128,12 @@ const parseIssues = (results) => {
     (typo.number_unit_violations || []).forEach(v => addIssue('Formatting', 'Number-Unit Spacing', 'Missing space between number and unit.', `Found: "${v.found}"`, `Change to: "${v.correct}"`, null));
     (typo.percent_degree_violations || []).forEach(v => addIssue('Formatting', 'Percent/Degree Formatting', 'Incorrect spacing around % or °.', `Found: "${v.found}"`, `Change to: "${v.correct}"`, null));
   }
-  
+
   // Manuscript checks
   if (results.manuscript) {
-      if (!results.manuscript.keywords_section_present) {
-          addIssue('Structure', 'Missing Keywords', 'No keywords section detected in the manuscript.', 'Abstract section analyzed', 'Add a keywords section after the abstract.', null);
-      }
+    if (!results.manuscript.keywords_section_present) {
+      addIssue('Structure', 'Missing Keywords', 'No keywords section detected in the manuscript.', 'Abstract section analyzed', 'Add a keywords section after the abstract.', null);
+    }
   }
 
   // Parse Reference Checks
@@ -181,6 +178,47 @@ const parseIssues = (results) => {
     });
   }
 
+  // Parse Equation Checks
+  if (results.equation_checks) {
+    const ec = results.equation_checks;
+
+    // Check 15: Sequential Numbering
+    (ec.equation_sequential_numbering?.violations || []).forEach(v => {
+      addIssue(
+        'Equations',
+        'Equation Sequential Numbering',
+        v.detail,
+        v.evidence || v.detail,
+        'Ensure all displayed equations are numbered consecutively.',
+        v.page || null
+      );
+    });
+
+    // Check 16: Punctuation
+    (ec.equation_punctuation?.violations || []).forEach(v => {
+      addIssue(
+        'Equations',
+        `Missing comma after Equation ${v.equation || ''}`,
+        v.detail,
+        v.evidence || `On page ${v.page}, after Equation ${v.equation} the text continues with '${(v.context_after || '').substring(0, 60)}...' without a period, showing the sentence is still open.`,
+        `Add a comma at the end of Equation ${v.equation} since the sentence continues with a 'where/with' clause.`,
+        v.page || null
+      );
+    });
+
+    // Check 17: In-text Reference Consistency
+    (ec.in_text_reference_consistency?.violations || []).forEach(v => {
+      addIssue(
+        'Equations',
+        'Inconsistent Equation Call-out Style',
+        v.detail,
+        v.evidence || `Style "${v.style}" found. Example: "${(v.examples || [])[0] || ''}"`,
+        'Use one consistent style (e.g. "Eq. (N)") throughout the paper.',
+        null
+      );
+    });
+  }
+
   return issues;
 }
 
@@ -196,7 +234,7 @@ const CATEGORIES = [
 
 /* ─── Shared Components ─────────────────────────────────────────────────────── */
 function Navbar({ currentRoute, setCurrentRoute, onUploadClick }) {
-  const navLinkClass = (route) => 
+  const navLinkClass = (route) =>
     `font-label-md text-label-md cursor-pointer transition-colors ${currentRoute === route ? 'text-secondary dark:text-secondary-fixed-dim font-bold border-b-2 border-secondary pb-1' : 'text-on-surface-variant dark:text-on-tertiary-container hover:text-primary'}`;
 
   return (
@@ -246,24 +284,24 @@ function LandingView({ onFileSelect, fileInputRef, dragActive, handleDrag, handl
           </div>
           <h1 className="font-headline-lg text-headline-lg text-on-surface max-w-xl">Navigate every detail of your research paper.</h1>
           <p className="font-body-lg text-body-lg text-on-surface-variant max-w-md">ReportGPS performs high-density validation of structural integrity, citations, and formatting, delivering precise, actionable insights for technical and academic publishing.</p>
-          
+
           {/* Upload Zone */}
-          <div 
-              className={`mt-4 w-full bg-surface-container-lowest border-2 ${dragActive ? 'border-primary border-solid' : 'border-dashed border-outline-variant'} rounded-lg p-xl flex flex-col items-center justify-center gap-md text-center hover:bg-surface-container-low transition-colors cursor-pointer group relative`}
-              onDragEnter={handleDrag}
-              onDragLeave={handleDrag}
-              onDragOver={handleDrag}
-              onDrop={handleDrop}
-              onClick={() => fileInputRef.current.click()}
+          <div
+            className={`mt-4 w-full bg-surface-container-lowest border-2 ${dragActive ? 'border-primary border-solid' : 'border-dashed border-outline-variant'} rounded-lg p-xl flex flex-col items-center justify-center gap-md text-center hover:bg-surface-container-low transition-colors cursor-pointer group relative`}
+            onDragEnter={handleDrag}
+            onDragLeave={handleDrag}
+            onDragOver={handleDrag}
+            onDrop={handleDrop}
+            onClick={() => fileInputRef.current.click()}
           >
-              <div className="w-16 h-16 rounded-full bg-surface-variant flex items-center justify-center mb-sm group-hover:bg-surface-container-highest transition-colors">
-                  <span className="material-symbols-outlined text-[32px] text-on-surface-variant" style={{fontVariationSettings: "'FILL' 1"}}>cloud_upload</span>
-              </div>
-              <div>
-                  <p className="font-headline-sm text-headline-sm text-primary">Drag & drop your PDF here</p>
-                  <p className="font-body-sm text-body-sm text-on-surface-variant mt-xs">or click to browse files (Max 50MB)</p>
-              </div>
-              <button className="mt-sm px-lg py-sm bg-surface text-primary border border-outline-variant rounded-DEFAULT font-label-md text-label-md group-hover:border-primary transition-colors">Select File</button>
+            <div className="w-16 h-16 rounded-full bg-surface-variant flex items-center justify-center mb-sm group-hover:bg-surface-container-highest transition-colors">
+              <span className="material-symbols-outlined text-[32px] text-on-surface-variant" style={{ fontVariationSettings: "'FILL' 1" }}>cloud_upload</span>
+            </div>
+            <div>
+              <p className="font-headline-sm text-headline-sm text-primary">Drag & drop your PDF here</p>
+              <p className="font-body-sm text-body-sm text-on-surface-variant mt-xs">or click to browse files (Max 50MB)</p>
+            </div>
+            <button className="mt-sm px-lg py-sm bg-surface text-primary border border-outline-variant rounded-DEFAULT font-label-md text-label-md group-hover:border-primary transition-colors">Select File</button>
           </div>
         </div>
 
@@ -293,42 +331,42 @@ function LandingView({ onFileSelect, fileInputRef, dragActive, handleDrag, handl
           </div>
         </div>
       </section>
-      
+
       {/* Restored Bento Box section for What ReportGPS checks */}
       <section className="py-xl">
-          <h2 className="font-headline-md text-headline-md text-on-surface mb-lg">What ReportGPS checks</h2>
-          <div className="bento-grid">
-              <div className="bento-card flex flex-col gap-sm">
-                  <span className="material-symbols-outlined text-secondary" style={{fontVariationSettings: "'FILL' 1"}}>menu_book</span>
-                  <h3 className="font-label-md text-label-md text-on-surface font-semibold">References & Citations</h3>
-                  <p className="font-body-sm text-body-sm text-on-surface-variant">Cross-validates in-text citations against the bibliography for precise mapping and formatting.</p>
-              </div>
-              <div className="bento-card flex flex-col gap-sm">
-                  <span className="material-symbols-outlined text-secondary" style={{fontVariationSettings: "'FILL' 1"}}>image</span>
-                  <h3 className="font-label-md text-label-md text-on-surface font-semibold">Figures & Tables</h3>
-                  <p className="font-body-sm text-body-sm text-on-surface-variant">Verifies caption styling, numbering continuity, and callout presence in the main text.</p>
-              </div>
-              <div className="bento-card flex flex-col gap-sm">
-                  <span className="material-symbols-outlined text-secondary" style={{fontVariationSettings: "'FILL' 1"}}>functions</span>
-                  <h3 className="font-label-md text-label-md text-on-surface font-semibold">Equations</h3>
-                  <p className="font-body-sm text-body-sm text-on-surface-variant">Analyzes mathematical blocks for alignment, numbering, and symbol definition consistency.</p>
-              </div>
-              <div className="bento-card flex flex-col gap-sm">
-                  <span className="material-symbols-outlined text-secondary" style={{fontVariationSettings: "'FILL' 1"}}>account_tree</span>
-                  <h3 className="font-label-md text-label-md text-on-surface font-semibold">Structure</h3>
-                  <p className="font-body-sm text-body-sm text-on-surface-variant">Checks heading hierarchy, section order, and required manuscript components.</p>
-              </div>
-              <div className="bento-card flex flex-col gap-sm">
-                  <span className="material-symbols-outlined text-secondary" style={{fontVariationSettings: "'FILL' 1"}}>translate</span>
-                  <h3 className="font-label-md text-label-md text-on-surface font-semibold">Language</h3>
-                  <p className="font-body-sm text-body-sm text-on-surface-variant">Identifies passive voice overuse, tense inconsistencies, and clarity issues in technical prose.</p>
-              </div>
-              <div className="bento-card flex flex-col gap-sm">
-                  <span className="material-symbols-outlined text-secondary" style={{fontVariationSettings: "'FILL' 1"}}>format_align_left</span>
-                  <h3 className="font-label-md text-label-md text-on-surface font-semibold">Formatting</h3>
-                  <p className="font-body-sm text-body-sm text-on-surface-variant">Enforces strict margin, font, and spacing rules based on target journal templates.</p>
-              </div>
+        <h2 className="font-headline-md text-headline-md text-on-surface mb-lg">What ReportGPS checks</h2>
+        <div className="bento-grid">
+          <div className="bento-card flex flex-col gap-sm">
+            <span className="material-symbols-outlined text-secondary" style={{ fontVariationSettings: "'FILL' 1" }}>menu_book</span>
+            <h3 className="font-label-md text-label-md text-on-surface font-semibold">References & Citations</h3>
+            <p className="font-body-sm text-body-sm text-on-surface-variant">Cross-validates in-text citations against the bibliography for precise mapping and formatting.</p>
           </div>
+          <div className="bento-card flex flex-col gap-sm">
+            <span className="material-symbols-outlined text-secondary" style={{ fontVariationSettings: "'FILL' 1" }}>image</span>
+            <h3 className="font-label-md text-label-md text-on-surface font-semibold">Figures & Tables</h3>
+            <p className="font-body-sm text-body-sm text-on-surface-variant">Verifies caption styling, numbering continuity, and callout presence in the main text.</p>
+          </div>
+          <div className="bento-card flex flex-col gap-sm">
+            <span className="material-symbols-outlined text-secondary" style={{ fontVariationSettings: "'FILL' 1" }}>functions</span>
+            <h3 className="font-label-md text-label-md text-on-surface font-semibold">Equations</h3>
+            <p className="font-body-sm text-body-sm text-on-surface-variant">Analyzes mathematical blocks for alignment, numbering, and symbol definition consistency.</p>
+          </div>
+          <div className="bento-card flex flex-col gap-sm">
+            <span className="material-symbols-outlined text-secondary" style={{ fontVariationSettings: "'FILL' 1" }}>account_tree</span>
+            <h3 className="font-label-md text-label-md text-on-surface font-semibold">Structure</h3>
+            <p className="font-body-sm text-body-sm text-on-surface-variant">Checks heading hierarchy, section order, and required manuscript components.</p>
+          </div>
+          <div className="bento-card flex flex-col gap-sm">
+            <span className="material-symbols-outlined text-secondary" style={{ fontVariationSettings: "'FILL' 1" }}>translate</span>
+            <h3 className="font-label-md text-label-md text-on-surface font-semibold">Language</h3>
+            <p className="font-body-sm text-body-sm text-on-surface-variant">Identifies passive voice overuse, tense inconsistencies, and clarity issues in technical prose.</p>
+          </div>
+          <div className="bento-card flex flex-col gap-sm">
+            <span className="material-symbols-outlined text-secondary" style={{ fontVariationSettings: "'FILL' 1" }}>format_align_left</span>
+            <h3 className="font-label-md text-label-md text-on-surface font-semibold">Formatting</h3>
+            <p className="font-body-sm text-body-sm text-on-surface-variant">Enforces strict margin, font, and spacing rules based on target journal templates.</p>
+          </div>
+        </div>
       </section>
 
       <section className="py-xl border-t border-surface-variant">
@@ -438,13 +476,13 @@ function ChecksView() {
         {checkCategories.map((category, idx) => (
           <section key={idx} className="bg-surface-container-lowest border border-surface-variant rounded-lg p-lg ambient-shadow">
             <div className="flex items-center gap-sm mb-md border-b border-surface-variant pb-sm">
-              <span className="material-symbols-outlined text-secondary text-2xl" style={{fontVariationSettings: "'FILL' 1"}}>{category.icon}</span>
+              <span className="material-symbols-outlined text-secondary text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>{category.icon}</span>
               <h2 className="font-headline-md text-headline-md text-on-surface">{category.title}</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-md">
               {category.checks.map((check, cIdx) => (
                 <div key={cIdx} className="bg-surface border border-surface-variant rounded-md p-md flex items-start gap-sm hover:border-outline transition-colors">
-                  <span className="material-symbols-outlined text-primary text-sm mt-1" style={{fontVariationSettings: "'FILL' 1"}}>check_circle</span>
+                  <span className="material-symbols-outlined text-primary text-sm mt-1" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
                   <div>
                     <h3 className="font-label-md text-label-md font-bold text-on-surface mb-1">{check.name}</h3>
                     <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">{check.desc}</p>
@@ -466,10 +504,10 @@ function EquationsTab({ data }) {
   const checks = data?.equation_checks || {};
 
   const CHECK_LABELS = {
-    equation_sequential_numbering:    'Check 15 — Sequential Numbering',
-    equation_punctuation:             'Check 16 — Equation Punctuation',
-    in_text_reference_consistency:    'Check 17 — In-text Reference Consistency',
-    delimiter_balance_scaling:        'Check 18 — Delimiter Balance & Scaling',
+    equation_sequential_numbering: 'Check 15 — Sequential Numbering',
+    equation_punctuation: 'Check 16 — Equation Punctuation',
+    in_text_reference_consistency: 'Check 17 — In-text Reference Consistency',
+    delimiter_balance_scaling: 'Check 18 — Delimiter Balance & Scaling',
   };
 
   if (equations.length === 0) return (
@@ -544,14 +582,14 @@ function EquationsTab({ data }) {
 
 /* ─── Results Viewer ─────────────────────────────────────────────────────────── */
 const TABS = [
-  { id: 'manuscript', label: 'Manuscript', icon: FileText,  countKey: null },
-  { id: 'sections',   label: 'Sections',   icon: Layers,    countKey: 'sections' },
-  { id: 'figures',    label: 'Figures',    icon: Image,     countKey: 'figures' },
-  { id: 'tables',     label: 'Tables',     icon: Table2,    countKey: 'tables' },
-  { id: 'equations',  label: 'Equations',  icon: Sigma,     countKey: 'equations' },
-  { id: 'references', label: 'References', icon: BookOpen,  countKey: 'references' },
-  { id: 'typography', label: 'Typography', icon: Type,      countKey: null },
-  { id: 'raw',        label: 'Raw JSON',   icon: Code2,     countKey: null },
+  { id: 'manuscript', label: 'Manuscript', icon: FileText, countKey: null },
+  { id: 'sections', label: 'Sections', icon: Layers, countKey: 'sections' },
+  { id: 'figures', label: 'Figures', icon: Image, countKey: 'figures' },
+  { id: 'tables', label: 'Tables', icon: Table2, countKey: 'tables' },
+  { id: 'equations', label: 'Equations', icon: Sigma, countKey: 'equations' },
+  { id: 'references', label: 'References', icon: BookOpen, countKey: 'references' },
+  { id: 'typography', label: 'Typography', icon: Type, countKey: null },
+  { id: 'raw', label: 'Raw JSON', icon: Code2, countKey: null },
 ];
 
 
@@ -563,10 +601,10 @@ function LoadingView({ file }) {
           <h1 className="font-headline-lg text-headline-lg text-primary mb-xs">Analyzing your research paper</h1>
           <p className="font-body-md text-body-md text-on-surface-variant">This typically takes 1-3 seconds.</p>
         </header>
-        
+
         <div className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-lg ambient-shadow mt-lg">
           <div className="flex items-center gap-md mb-lg pb-md border-b border-outline-variant">
-            <span className="material-symbols-outlined text-secondary text-2xl" style={{fontVariationSettings: "'FILL' 1"}}>description</span>
+            <span className="material-symbols-outlined text-secondary text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>description</span>
             <div className="flex-grow">
               <h3 className="font-label-md text-label-md text-primary">{file.name}</h3>
               <p className="font-body-sm text-body-sm text-on-surface-variant mt-xs">{(file.size / 1024 / 1024).toFixed(2)} MB • Uploading & Processing...</p>
@@ -575,11 +613,11 @@ function LoadingView({ file }) {
               <div className="w-3 h-3 bg-secondary rounded-full pulse-dot"></div>
             </div>
           </div>
-          
+
           <div className="flex flex-col gap-sm">
             <div className="flex items-start gap-md">
               <div className="mt-xs">
-                <span className="material-symbols-outlined text-primary text-[18px]" style={{fontVariationSettings: "'FILL' 1"}}>check_circle</span>
+                <span className="material-symbols-outlined text-primary text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
               </div>
               <div>
                 <p className="font-label-md text-label-md text-primary">Upload received</p>
@@ -587,7 +625,7 @@ function LoadingView({ file }) {
               </div>
             </div>
             <div className="w-px h-6 bg-outline-variant ml-[9px] -mt-sm -mb-sm"></div>
-            
+
             <div className="flex items-start gap-md">
               <div className="mt-xs flex items-center justify-center w-[18px] h-[18px]">
                 <div className="w-2.5 h-2.5 bg-primary rounded-full pulse-dot"></div>
@@ -598,7 +636,7 @@ function LoadingView({ file }) {
               </div>
             </div>
             <div className="w-px h-6 bg-surface-variant ml-[9px] -mt-sm -mb-sm"></div>
-            
+
             <div className="flex items-start gap-md opacity-50">
               <div className="mt-xs">
                 <span className="material-symbols-outlined text-outline text-[18px]">radio_button_unchecked</span>
@@ -614,46 +652,23 @@ function LoadingView({ file }) {
   );
 }
 
-<<<<<<< HEAD
-/* ─── PDF Viewer with Highlight Support ─────────────────────────────────────── */
-=======
-      {/* Stats grid */}
-      <div className="stats-grid">
-        {[
-          { label: 'Pages',      value: data?.total_pages_processed },
-          { label: 'Sections',   value: arr(data?.sections).length },
-          { label: 'Figures',    value: arr(data?.figures).length },
-          { label: 'Tables',     value: arr(data?.tables).length },
-          { label: 'Equations',  value: arr(data?.equations).length },
-          { label: 'References', value: arr(data?.references).length },
-          { label: 'Citations',  value: arr(data?.in_text_citations).length },
-          { label: 'Typo flags', value: typoCount },
-          { label: '~Words',     value: data?.estimated_word_count?.toLocaleString() },
-        ].map(({ label, value }) => (
-          <div className="stat-card" key={label}>
-            <div className="stat-value">{value ?? '—'}</div>
-            <div className="stat-label">{label}</div>
-          </div>
-        ))}
-      </div>
->>>>>>> origin/pix2text
 
 /**
  * Extract the best short search string from an issue to find in the PDF text layer.
  */
 function extractSearchText(issue) {
   if (!issue) return null;
-  
+
   // 1. Look for explicit quoted text in evidence (e.g. Found: "X")
   let m = issue.evidence?.match(/(?:Found:|Change to:)?\s*["']([^"'\n]{2,80})["']/);
   if (m) return m[1];
-  
+
   // 2. Look for specific identifiers (Figure N, Table N, [N]) in any field
   for (const src of [issue.evidence, issue.title, issue.description, issue.extra?.actual_issue]) {
     if (!src) continue;
     m = src.match(/((?:Fig(?:ure)?|Table)\s+\d+(?:\.\d+)?)/i) ||
-        src.match(/\[(\d+(?:[,\s\-\u2013]\d+)*)\]/) ||
-        src.match(/((?:Reference|Citation)\s+\[?\d+\]?)/i);
+      src.match(/\[(\d+(?:[,\s\-\u2013]\d+)*)\]/) ||
+      src.match(/((?:Reference|Citation)\s+\[?\d+\]?)/i);
     if (m) return m[1] || m[0];
   }
 
@@ -662,21 +677,21 @@ function extractSearchText(issue) {
     const frag = issue.evidence.split(/[.;\n]/)[0].trim();
     if (frag.length >= 8 && /[a-zA-Z]/.test(frag)) return frag.substring(0, 60);
   }
-  
+
   return null;
 }
 
 function PDFViewer({ fileUrl, activeIssue }) {
-  const canvasRef        = useRef(null);
-  const textLayerRef     = useRef(null);
-  const highlightRef     = useRef(null);
-  const containerRef     = useRef(null);
-  const pdfDocRef        = useRef(null);
+  const canvasRef = useRef(null);
+  const textLayerRef = useRef(null);
+  const highlightRef = useRef(null);
+  const containerRef = useRef(null);
+  const pdfDocRef = useRef(null);
 
-  const [currentPage, setCurrentPage]   = useState(1);
-  const [totalPages,  setTotalPages]    = useState(0);
-  const [scale,       setScale]         = useState(1.4);
-  const [renderKey,   setRenderKey]     = useState(0); // force re-render
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [scale, setScale] = useState(1.4);
+  const [renderKey, setRenderKey] = useState(0); // force re-render
   const [highlightFound, setHighlightFound] = useState(false);
 
   // Load PDF document once when fileUrl changes
@@ -719,29 +734,29 @@ function PDFViewer({ fileUrl, activeIssue }) {
 
     (async () => {
       try {
-        const page    = await pdf.getPage(currentPage);
+        const page = await pdf.getPage(currentPage);
         const viewport = page.getViewport({ scale });
 
-        const canvas  = canvasRef.current;
-        const ctx     = canvas.getContext('2d');
-        
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+
         // High DPI rendering fix for crisp text
         const ratio = window.devicePixelRatio || 1;
-        canvas.width  = viewport.width * ratio;
+        canvas.width = viewport.width * ratio;
         canvas.height = viewport.height * ratio;
         canvas.style.width = `${viewport.width}px`;
         canvas.style.height = `${viewport.height}px`;
         ctx.scale(ratio, ratio);
 
         if (textLayerRef.current) {
-          textLayerRef.current.style.width  = `${viewport.width}px`;
+          textLayerRef.current.style.width = `${viewport.width}px`;
           textLayerRef.current.style.height = `${viewport.height}px`;
-          textLayerRef.current.innerHTML    = '';
+          textLayerRef.current.innerHTML = '';
         }
         if (highlightRef.current) {
-          highlightRef.current.style.width  = `${viewport.width}px`;
+          highlightRef.current.style.width = `${viewport.width}px`;
           highlightRef.current.style.height = `${viewport.height}px`;
-          highlightRef.current.innerHTML    = '';
+          highlightRef.current.innerHTML = '';
         }
 
         await page.render({ canvasContext: ctx, viewport }).promise;
@@ -755,10 +770,10 @@ function PDFViewer({ fileUrl, activeIssue }) {
         for (const item of textContent.items) {
           if (!item.str) continue;
           const tx = pdfjsLib.Util.transform(viewport.transform, item.transform);
-          const x  = tx[4];
-          const y  = tx[5] - item.height * scale;
-          const w  = item.width  * scale;
-          const h  = item.height * scale;
+          const x = tx[4];
+          const y = tx[5] - item.height * scale;
+          const w = item.width * scale;
+          const h = item.height * scale;
           spans.push({ str: item.str, x, y, w, h });
 
           if (textLayerRef.current) {
@@ -775,9 +790,9 @@ function PDFViewer({ fileUrl, activeIssue }) {
         if (searchText && highlightRef.current) {
           const searchLower = searchText.toLowerCase().trim();
           // Try to find the search text by scanning adjacent spans
-          const fullText  = spans.map(s => s.str).join(' ');
+          const fullText = spans.map(s => s.str).join(' ');
           const fullLower = fullText.toLowerCase();
-          const matchIdx  = fullLower.indexOf(searchLower);
+          const matchIdx = fullLower.indexOf(searchLower);
 
           if (matchIdx !== -1) {
             // Find which span(s) cover the match — highlight their bounding box
@@ -804,7 +819,7 @@ function PDFViewer({ fileUrl, activeIssue }) {
               setTimeout(() => {
                 const firstHighlight = highlightRef.current.querySelector('.pdf-highlight-target');
                 if (firstHighlight) {
-                   firstHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  firstHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
               }, 80);
             }
@@ -821,8 +836,8 @@ function PDFViewer({ fileUrl, activeIssue }) {
 
   const goToPrev = () => setCurrentPage(p => Math.max(1, p - 1));
   const goToNext = () => setCurrentPage(p => Math.min(totalPages, p + 1));
-  const zoomIn   = () => setScale(s => Math.min(3.0, +(s + 0.2).toFixed(1)));
-  const zoomOut  = () => setScale(s => Math.max(0.5, +(s - 0.2).toFixed(1)));
+  const zoomIn = () => setScale(s => Math.min(3.0, +(s + 0.2).toFixed(1)));
+  const zoomOut = () => setScale(s => Math.max(0.5, +(s - 0.2).toFixed(1)));
 
   const searchText = extractSearchText(activeIssue);
 
@@ -851,7 +866,7 @@ function PDFViewer({ fileUrl, activeIssue }) {
           <button onClick={zoomOut} className="w-7 h-7 flex items-center justify-center rounded hover:bg-surface-container-low transition-colors">
             <span className="material-symbols-outlined text-[18px] text-on-surface-variant">zoom_out</span>
           </button>
-          <span className="font-label-sm text-on-surface-variant text-xs w-10 text-center">{Math.round(scale*100)}%</span>
+          <span className="font-label-sm text-on-surface-variant text-xs w-10 text-center">{Math.round(scale * 100)}%</span>
           <button onClick={zoomIn} className="w-7 h-7 flex items-center justify-center rounded hover:bg-surface-container-low transition-colors">
             <span className="material-symbols-outlined text-[18px] text-on-surface-variant">zoom_in</span>
           </button>
@@ -897,55 +912,17 @@ function PDFViewer({ fileUrl, activeIssue }) {
           </div>
         )}
       </div>
-<<<<<<< HEAD
-=======
 
-      {/* Tabs */}
-      <div className="tabs-container">
-        <div className="tab-list" role="tablist">
-          {TABS.map(({ id, label, icon: Icon, countKey }) => {
-            const count = getCount(countKey);
-            const isBadge = id === 'typography' ? typoCount : count;
-            return (
-              <button
-                key={id}
-                className={`tab-btn ${activeTab === id ? 'active' : ''}`}
-                onClick={() => setActiveTab(id)}
-                role="tab"
-                aria-selected={activeTab === id}
-              >
-                <Icon size={14} />
-                {label}
-                {isBadge != null && (
-                  <span className="tab-badge">
-                    {id === 'typography' ? typoCount : count}
-                  </span>
-                )}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Panel content */}
-      {activeTab === 'manuscript'  && <ManuscriptTab  data={data} />}
-      {activeTab === 'sections'    && <SectionsTab    data={data} />}
-      {activeTab === 'figures'     && <FiguresTab     data={data} />}
-      {activeTab === 'tables'      && <TablesTab      data={data} />}
-      {activeTab === 'references'  && <ReferencesTab  data={data} />}
-      {activeTab === 'typography'  && <TypographyTab  data={data} />}
-      {activeTab === 'equations'   && <EquationsTab   data={data} />}
-      {activeTab === 'raw'         && <RawTab         data={data} />}
->>>>>>> origin/pix2text
     </div>
   );
 }
+
 
 function WorkspaceView({ file, fileUrl, results, onReset }) {
 
   const [activeCategory, setActiveCategory] = useState(CATEGORIES[1].id); // Default to Figures for demo
   const [activeIssue, setActiveIssue] = useState(null);
-  
+
   const issues = parseIssues(results);
 
   // Group issues by category
@@ -971,7 +948,7 @@ function WorkspaceView({ file, fileUrl, results, onReset }) {
         </div>
         <div className="flex items-center gap-lg">
           <div className="hidden md:flex items-center gap-xs bg-surface-container-low px-sm py-xs rounded-full border border-outline-variant">
-            <span className="material-symbols-outlined text-green-600 text-sm" style={{fontVariationSettings: "'FILL' 1"}}>check_circle</span>
+            <span className="material-symbols-outlined text-green-600 text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
             <span className="font-label-sm text-on-surface-variant">Analysis complete</span>
           </div>
           <button className="bg-surface-variant text-on-surface-variant font-label-md px-md py-sm rounded-lg hover:bg-surface-container-highest transition-colors flex items-center gap-xs" onClick={onReset}>
@@ -995,12 +972,12 @@ function WorkspaceView({ file, fileUrl, results, onReset }) {
             {CATEGORIES.map(cat => {
               const count = issuesByCategory[cat.id]?.length || 0;
               const isActive = activeCategory === cat.id;
-              
+
               let badgeClass = "bg-surface-variant text-on-surface-variant";
               if (count > 0) badgeClass = "bg-error-container text-on-error-container";
 
               return (
-                <div 
+                <div
                   key={cat.id}
                   onClick={() => { setActiveCategory(cat.id); setActiveIssue(null); }}
                   className={`flex items-center justify-between px-md py-sm hover:bg-surface-container-low transition-colors group cursor-pointer ${isActive ? 'bg-secondary-container/10 border-l-2 border-secondary' : 'border-l-2 border-transparent'}`}
@@ -1029,74 +1006,74 @@ function WorkspaceView({ file, fileUrl, results, onReset }) {
           </div>
           <div className="flex-1 overflow-y-auto p-md space-y-md">
             {currentIssues.length === 0 ? (
-                <div className="text-center p-xl text-on-surface-variant">
-                    <span className="material-symbols-outlined text-4xl mb-2 opacity-50">check_circle</span>
-                    <p className="font-body-sm">No issues found in {activeCategory}.</p>
-                </div>
+              <div className="text-center p-xl text-on-surface-variant">
+                <span className="material-symbols-outlined text-4xl mb-2 opacity-50">check_circle</span>
+                <p className="font-body-sm">No issues found in {activeCategory}.</p>
+              </div>
             ) : (
-                currentIssues.map((issue) => {
-                    const isActive = activeIssue?.id === issue.id;
-                    
-                    if (isActive) {
-                        return (
-                            <div key={issue.id} className="border border-outline-variant rounded-lg bg-surface shadow-sm overflow-hidden flex flex-col">
-                                <div className="border-l-4 border-error p-md bg-surface-bright border-b border-outline-variant">
-                                  <div className="flex items-center justify-between mb-xs">
-                                      <div className="flex items-center gap-sm">
-                                        <span className="bg-error-container text-on-error-container font-label-sm px-xs py-0.5 rounded uppercase tracking-wider text-[10px]">Error</span>
-                                        <span className="font-mono-sm text-on-surface-variant">{issue.id}</span>
-                                      </div>
-                                      <button className="material-symbols-outlined text-on-surface-variant text-sm hover:text-primary" onClick={() => setActiveIssue(null)}>close</button>
-                                  </div>
-                                  <h3 className="font-headline-sm text-on-surface mt-1">{issue.title}</h3>
-                                </div>
-                                <div className="p-md flex flex-col gap-md">
-                                  <div>
-                                    <h4 className="font-label-sm text-on-surface-variant uppercase tracking-wider mb-xs flex items-center gap-xs">
-                                      <span className="material-symbols-outlined text-[14px]">info</span> Why this was flagged
-                                    </h4>
-                                    <p className="font-body-sm text-on-surface leading-relaxed">{issue.description}</p>
-                                  </div>
-                                  {issue.evidence && (
-                                      <div>
-                                        <h4 className="font-label-sm text-on-surface-variant uppercase tracking-wider mb-xs flex items-center gap-xs">
-                                          <span className="material-symbols-outlined text-[14px]">find_in_page</span> Evidence
-                                        </h4>
-                                        <div className="bg-surface-container-lowest border border-outline-variant rounded p-sm font-serif text-sm text-on-surface whitespace-pre-wrap">
-                                            {issue.evidence}
-                                        </div>
-                                      </div>
-                                  )}
-                                  {issue.recommendation && (
-                                      <div>
-                                        <h4 className="font-label-sm text-on-surface-variant uppercase tracking-wider mb-xs flex items-center gap-xs">
-                                          <span className="material-symbols-outlined text-[14px]">build</span> Recommendation
-                                        </h4>
-                                        <p className="font-body-sm text-on-surface leading-relaxed">{issue.recommendation}</p>
-                                      </div>
-                                  )}
-                                </div>
+              currentIssues.map((issue) => {
+                const isActive = activeIssue?.id === issue.id;
+
+                if (isActive) {
+                  return (
+                    <div key={issue.id} className="border border-outline-variant rounded-lg bg-surface shadow-sm overflow-hidden flex flex-col">
+                      <div className="border-l-4 border-error p-md bg-surface-bright border-b border-outline-variant">
+                        <div className="flex items-center justify-between mb-xs">
+                          <div className="flex items-center gap-sm">
+                            <span className="bg-error-container text-on-error-container font-label-sm px-xs py-0.5 rounded uppercase tracking-wider text-[10px]">Error</span>
+                            <span className="font-mono-sm text-on-surface-variant">{issue.id}</span>
+                          </div>
+                          <button className="material-symbols-outlined text-on-surface-variant text-sm hover:text-primary" onClick={() => setActiveIssue(null)}>close</button>
+                        </div>
+                        <h3 className="font-headline-sm text-on-surface mt-1">{issue.title}</h3>
+                      </div>
+                      <div className="p-md flex flex-col gap-md">
+                        <div>
+                          <h4 className="font-label-sm text-on-surface-variant uppercase tracking-wider mb-xs flex items-center gap-xs">
+                            <span className="material-symbols-outlined text-[14px]">info</span> Why this was flagged
+                          </h4>
+                          <p className="font-body-sm text-on-surface leading-relaxed">{issue.description}</p>
+                        </div>
+                        {issue.evidence && (
+                          <div>
+                            <h4 className="font-label-sm text-on-surface-variant uppercase tracking-wider mb-xs flex items-center gap-xs">
+                              <span className="material-symbols-outlined text-[14px]">find_in_page</span> Evidence
+                            </h4>
+                            <div className="bg-surface-container-lowest border border-outline-variant rounded p-sm font-serif text-sm text-on-surface whitespace-pre-wrap">
+                              {issue.evidence}
                             </div>
-                        );
-                    } else {
-                        return (
-                            <div 
-                                key={issue.id}
-                                onClick={() => setActiveIssue(issue)}
-                                className="border border-outline-variant rounded-lg p-sm flex items-center justify-between cursor-pointer hover:bg-surface-container-low transition-colors"
-                            >
-                                <div className="flex items-center gap-sm">
-                                  <div className="w-1 h-8 bg-error rounded-full"></div>
-                                  <div className="flex flex-col overflow-hidden max-w-[200px]">
-                                    <span className="font-label-sm text-on-surface-variant block">{issue.id}</span>
-                                    <span className="font-body-sm text-on-surface truncate" title={issue.title}>{issue.title}</span>
-                                  </div>
-                                </div>
-                                <span className="material-symbols-outlined text-on-surface-variant shrink-0">chevron_right</span>
-                            </div>
-                        )
-                    }
-                })
+                          </div>
+                        )}
+                        {issue.recommendation && (
+                          <div>
+                            <h4 className="font-label-sm text-on-surface-variant uppercase tracking-wider mb-xs flex items-center gap-xs">
+                              <span className="material-symbols-outlined text-[14px]">build</span> Recommendation
+                            </h4>
+                            <p className="font-body-sm text-on-surface leading-relaxed">{issue.recommendation}</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div
+                      key={issue.id}
+                      onClick={() => setActiveIssue(issue)}
+                      className="border border-outline-variant rounded-lg p-sm flex items-center justify-between cursor-pointer hover:bg-surface-container-low transition-colors"
+                    >
+                      <div className="flex items-center gap-sm">
+                        <div className="w-1 h-8 bg-error rounded-full"></div>
+                        <div className="flex flex-col overflow-hidden max-w-[200px]">
+                          <span className="font-label-sm text-on-surface-variant block">{issue.id}</span>
+                          <span className="font-body-sm text-on-surface truncate" title={issue.title}>{issue.title}</span>
+                        </div>
+                      </div>
+                      <span className="material-symbols-outlined text-on-surface-variant shrink-0">chevron_right</span>
+                    </div>
+                  )
+                }
+              })
             )}
           </div>
         </aside>
@@ -1109,19 +1086,19 @@ function WorkspaceView({ file, fileUrl, results, onReset }) {
 /* ─── Main App ──────────────────────────────────────────────────────────────── */
 export default function App() {
   const [currentRoute, setCurrentRoute] = useState('home');
-  const [file, setFile]           = useState(null);
-  const [fileUrl, setFileUrl]     = useState(null);
-  const [loading, setLoading]     = useState(false);
-  const [results, setResults]     = useState(null);
-  const [error, setError]         = useState(null);
+  const [file, setFile] = useState(null);
+  const [fileUrl, setFileUrl] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [results, setResults] = useState(null);
+  const [error, setError] = useState(null);
   const [dragActive, setDragActive] = useState(false);
   const fileInputRef = useRef(null);
 
   // Clean up object URL to prevent memory leaks
   useEffect(() => {
-      return () => {
-          if (fileUrl) URL.revokeObjectURL(fileUrl);
-      };
+    return () => {
+      if (fileUrl) URL.revokeObjectURL(fileUrl);
+    };
   }, [fileUrl]);
 
   const handleDrag = (e) => {
@@ -1138,20 +1115,20 @@ export default function App() {
   };
 
   const selectFile = (f) => {
-    if (f.type !== 'application/pdf') { 
-        setError('Please upload a PDF file.'); 
-        setTimeout(() => setError(null), 3000); // Clear error after 3s
-        return; 
+    if (f.type !== 'application/pdf') {
+      setError('Please upload a PDF file.');
+      setTimeout(() => setError(null), 3000); // Clear error after 3s
+      return;
     }
-    
+
     // Create object URL for iframe PDF viewer
     if (fileUrl) URL.revokeObjectURL(fileUrl);
     setFileUrl(URL.createObjectURL(f));
     setFile(f);
-    
+
     setError(null);
     setResults(null);
-    
+
     // Automatically process file upon selection to match typical modern flows
     processFile(f);
   };
@@ -1173,60 +1150,60 @@ export default function App() {
     }
   };
 
-  const reset = () => { 
-      setResults(null); 
-      setFile(null); 
-      if (fileUrl) URL.revokeObjectURL(fileUrl);
-      setFileUrl(null);
-      setError(null); 
+  const reset = () => {
+    setResults(null);
+    setFile(null);
+    if (fileUrl) URL.revokeObjectURL(fileUrl);
+    setFileUrl(null);
+    setError(null);
   };
 
   // If there are results, the app stays in the workspace mode regardless of routing, 
   // or we can allow navigating away? We'll just show Workspace if results exist.
   if (results && !loading) {
-      return <WorkspaceView file={file} fileUrl={fileUrl} results={results} onReset={reset} />;
+    return <WorkspaceView file={file} fileUrl={fileUrl} results={results} onReset={reset} />;
   }
 
   return (
     <div className="bg-background text-on-surface font-body-md antialiased min-h-screen flex flex-col">
-        {/* Error Toast */}
-        {error && (
-            <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-[100] bg-error-container text-on-error-container px-lg py-sm rounded shadow-lg border border-error font-body-sm font-bold flex items-center gap-2">
-                <span className="material-symbols-outlined text-[18px]">error</span>
-                {error}
-            </div>
-        )}
+      {/* Error Toast */}
+      {error && (
+        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-[100] bg-error-container text-on-error-container px-lg py-sm rounded shadow-lg border border-error font-body-sm font-bold flex items-center gap-2">
+          <span className="material-symbols-outlined text-[18px]">error</span>
+          {error}
+        </div>
+      )}
 
-        {/* Hidden file input for LandingView click handlers */}
-        <input
-            ref={fileInputRef}
-            id="pdf-file-input"
-            type="file"
-            className="hidden"
-            accept="application/pdf"
-            onChange={(e) => e.target.files?.[0] && selectFile(e.target.files[0])}
-        />
+      {/* Hidden file input for LandingView click handlers */}
+      <input
+        ref={fileInputRef}
+        id="pdf-file-input"
+        type="file"
+        className="hidden"
+        accept="application/pdf"
+        onChange={(e) => e.target.files?.[0] && selectFile(e.target.files[0])}
+      />
 
-        <Navbar currentRoute={currentRoute} setCurrentRoute={setCurrentRoute} onUploadClick={() => fileInputRef.current.click()} />
+      <Navbar currentRoute={currentRoute} setCurrentRoute={setCurrentRoute} onUploadClick={() => fileInputRef.current.click()} />
 
-        {loading ? (
-            <LoadingView file={file} />
-        ) : (
-            <>
-                {currentRoute === 'home' && (
-                    <LandingView 
-                        onFileSelect={selectFile} 
-                        fileInputRef={fileInputRef} 
-                        dragActive={dragActive} 
-                        handleDrag={handleDrag} 
-                        handleDrop={handleDrop} 
-                    />
-                )}
-                {currentRoute === 'checks' && <ChecksView />}
-            </>
-        )}
+      {loading ? (
+        <LoadingView file={file} />
+      ) : (
+        <>
+          {currentRoute === 'home' && (
+            <LandingView
+              onFileSelect={selectFile}
+              fileInputRef={fileInputRef}
+              dragActive={dragActive}
+              handleDrag={handleDrag}
+              handleDrop={handleDrop}
+            />
+          )}
+          {currentRoute === 'checks' && <ChecksView />}
+        </>
+      )}
 
-        <Footer />
+      <Footer />
     </div>
   );
 }

@@ -42,16 +42,10 @@ from fastapi.responses import JSONResponse
 from contextlib import asynccontextmanager
 
 from orchestrator import extract_document
-from equation_extractor import _get_p2t
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    print("[ExtractionPipeline] Warming up Pix2Text equation model...")
-    try:
-        _get_p2t()
-        print("[ExtractionPipeline] Pix2Text model is ready!")
-    except Exception as e:
-        print(f"[ExtractionPipeline] Failed to load Pix2Text: {e}")
+    # Equation extraction now uses PyMuPDF text layer — no model warmup needed.
+    print("[ExtractionPipeline] Ready (PyMuPDF fast equation extraction).")
     yield
 
 app = FastAPI(

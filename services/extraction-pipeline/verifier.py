@@ -321,7 +321,7 @@ def build_candidates(raw_result: Dict) -> List[ErrorCandidate]:
                 check_name=          rule["check_name"],
                 rule=                rule["rule"],
                 category=            rule["category"],
-                page=                None,
+                page=                v.get("page"),
                 document_context=    doc_ctx,
                 evidence=            ev_builder(v),
                 detector_raw=        v,
@@ -351,6 +351,49 @@ def build_candidates(raw_result: Dict) -> List[ErrorCandidate]:
                 detector_confidence= rule["detector_confidence"],
                 skip_verifier=       rule["skip_verifier"],
             ))
+
+    # ── Equation checks ───────────────────────────────────────────────────────
+
+    eqc = raw_result.get("equation_checks", {})
+    _eq_keys = [
+        "equation_sequential_numbering", "equation_punctuation",
+        "in_text_reference_consistency", "delimiter_balance_scaling"
+    ]
+    for check_id in _eq_keys:
+        rule = get_rule(check_id)
+        # Note: check 15 (sequential numbering) is deterministic, so skip_verifier=True
+        # However, it returns violations if there are missing/duplicate numbers
+        chk = eqc.get(check_id) or {}
+        # if the check didn't pass but there are no explicit violations, fallback
+        if not chk.get("passed", True) and not chk.get("violations", []):
+             candidates.append(ErrorCandidate(
+                candidate_id=        _next_candidate_id(check_id),
+                check_id=            check_id,
+                check_name=          rule["check_name"],
+                rule=                rule["rule"],
+                category=            rule["category"],
+                page=                None,
+                document_context=    doc_ctx,
+                evidence=            chk.get("detail", ""),
+                detector_raw=        {"detail": chk.get("detail", "")},
+                detector_confidence= rule["detector_confidence"],
+                skip_verifier=       rule["skip_verifier"],
+            ))
+        else:
+            for v in chk.get("violations", []):
+                candidates.append(ErrorCandidate(
+                    candidate_id=        _next_candidate_id(check_id),
+                    check_id=            check_id,
+                    check_name=          rule["check_name"],
+                    rule=                rule["rule"],
+                    category=            rule["category"],
+                    page=                v.get("page"),
+                    document_context=    doc_ctx,
+                    evidence=            _evidence_generic(v),
+                    detector_raw=        v,
+                    detector_confidence= rule["detector_confidence"],
+                    skip_verifier=       rule["skip_verifier"],
+                ))
 
     return candidates
 
@@ -771,7 +814,13 @@ class VerifierService:
 
     def _build_deterministic_finding(self, candidate: ErrorCandidate) -> Optional[ValidatedFinding]:
         verifier_resp = {"decision": "VALID", "reason": "Deterministic check — skipped LLM."}
-        return self._build_finding(candidate, verifier_resp, "VALID", candidate.detector_confidence, candidate.detector_raw.get("detail", ""), 0.0)
+        finding = self._build_finding(candidate, verifier_resp, "VALID", candidate.detector_confidence, candidate.detector_raw.get("detail", ""), 0.0)
+        if finding:
+            finding.title = candidate.check_name
+            finding.why_flagged = candidate.detector_raw.get("detail", "")
+            finding.evidence_summary = candidate.detector_raw.get("context", "")
+            finding.recommendation = candidate.detector_raw.get("suggestion", "Review and correct this issue.")
+        return finding
 
     def _build_llm_finding(self, candidate: ErrorCandidate, verifier_resp: Dict, latency: float) -> Optional[ValidatedFinding]:
         decision     = verifier_resp.get("decision", "VERIFIER_FAILED")
@@ -812,7 +861,7 @@ class VerifierService:
         if not finding.title:
             finding.title          = candidate.check_name
             finding.why_flagged    = actual_issue or candidate.detector_raw.get("detail", "")
-            finding.evidence_summary = ""
+            finding.evidence_summary = candidate.detector_raw.get("context", "")
             finding.recommendation = candidate.detector_raw.get("suggestion", "Review and correct this issue.")
 
         _log_verifier_call(candidate, verifier_resp, latency)

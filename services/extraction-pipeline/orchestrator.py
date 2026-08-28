@@ -1,20 +1,23 @@
 """
 orchestrator.py
 ===============
-Lean, 3-step extraction pipeline — no LLM, no ML models, no heavy table grids.
+6-step extraction and validation pipeline.
 
 Architecture:
   PDF
-   ├─► Step 1: PyMuPDF          → raw page text + font metadata + image bboxes
-   ├─► Step 2: structural_analyzer → headings, metadata, figures, tables
-   ├─► Step 3a: regex_extractor → references + in-text citations
-   └─► Step 3b: typography_checker → en-dash, unit-space, percent, latin abbrevs
+   ├─► Step 1:   PyMuPDF              → raw page text + font metadata + image bboxes
+   ├─► Step 2:   structural_analyzer  → headings, metadata, figures, tables
+   ├─► Step 2.5: equation_extractor   → right-margin label scan (PyMuPDF, fast)
+   ├─► Step 3a:  regex_extractor       → references + in-text citations
+   ├─► Step 3b:  typography_checker    → en-dash, unit-space, percent, latin abbrevs
+   ├─► Step 3c:  figures_tables_checker → checks 7–13
+   ├─► Step 3d:  syntax_grammar_checker → checks 17–24
+   ├─► Step 3e:  equation_checker      → checks 15–17
+   └─► Step 4:   verifier              → AI false-positive filter (optional)
 
-NOTE: Equations are now processed using Pix2Text.
+Target time: < 2 seconds per paper (< 0.5s without AI verifier).
 
-Target time: < 2 seconds for a 20-page paper (was 50–175s with NuExtract).
-
-Output JSON schema: see docs/extraction_pipeline_architecture.md
+Output JSON schema: see docs/pipeline_architecture.md
 """
 
 from __future__ import annotations
@@ -343,9 +346,9 @@ def extract_document(pdf_path: str) -> dict:
     )
     timings["structural_s"] = round(time.monotonic() - t2, 2)
 
-    # ── Step 2.5: Equation extraction (Pix2Text) ─────────────────────────────
+    # ── Step 2.5: Equation extraction (PyMuPDF right-margin scan) ───────────────
     t_eq = time.monotonic()
-    print("[Orchestrator] Step 2.5/3 — Equation extraction (Pix2Text) …")
+    print("[Orchestrator] Step 2.5/3 — Equation extraction (PyMuPDF) …")
     try:
         equations = extract_equations(pdf_path)
     except Exception as exc:
@@ -367,7 +370,7 @@ def extract_document(pdf_path: str) -> dict:
         references = []
 
     try:
-        citations = extract_in_text_citations(full_text, page_texts)
+        citations = extract_in_text_citations(full_text, page_texts, references)
     except Exception as exc:
         print(f"[Orchestrator] Citation extraction error (non-fatal): {exc}")
         citations = []
@@ -471,7 +474,11 @@ def extract_document(pdf_path: str) -> dict:
     t_eq_check = time.monotonic()
     print("[Orchestrator] Step 3f/3 — Equation checks …")
     try:
-        equation_checks = run_all_checks(equations=equations, full_text=full_text)
+        equation_checks = run_all_checks(
+            equations=equations, 
+            full_text=full_text,
+            page_offsets=page_offsets,
+        )
     except Exception as exc:
         traceback.print_exc()
         print(f"[Orchestrator] Equation checks error (non-fatal): {exc}")

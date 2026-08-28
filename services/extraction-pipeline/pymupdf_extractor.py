@@ -21,7 +21,7 @@ import re
 from dataclasses import dataclass, field
 from typing import Dict, Iterator, List, Optional, Tuple
 
-import fitz  # PyMuPDF
+import pymupdf as fitz  # PyMuPDF
 
 
 # ─────────────────────────────────────────────────────────────────────────────
