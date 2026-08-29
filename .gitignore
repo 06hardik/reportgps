@@ -1,12 +1,39 @@
-# Dependency and build output
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyw
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+*.egg
+pip-log.txt
+
+# Virtual environments
+.venv/
+venv/
+env/
+**/env/
+
+# ── Node.js ───────────────────────────────────────────────────────────────────
 node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Build outputs
 dist/
 frontend/dist/
 frontend/.vite/
 coverage/
 *.tsbuildinfo
+.next/
+out/
 
-# Environment files
+# ── Environment files ─────────────────────────────────────────────────────────
+# Never commit actual secrets — use .env.example as the template
 .env
 .env.local
 .env.development.local
@@ -14,55 +41,46 @@ coverage/
 .env.production.local
 **/.env
 **/.env.local
-**/.env.development.local
-**/.env.test.local
-**/.env.production.local
 
-# Generated uploads and local test artifacts
+# ── Test artifacts & uploads ──────────────────────────────────────────────────
 uploads/
 backend/uploads/
 backend/test_sample.pdf
 research-papers/
-*.jar
+paper_outputs/
 
-# Python caches
-__pycache__/
-**/__pycache__/
-*.pyc
-*.pyo
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-.venv/
-venv/
-env/
-**/env/
-*.egg-info/
-*.egg
-pip-log.txt
+# Never commit PDFs to the repo
+*.pdf
 
-# OS and editor noise
+# ── OS & editor noise ─────────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
 *.log
-npm-debug.log*
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
 
-# Large test assets and outputs
-*.pdf
-/out.json
-/.agents/
-
-# Paper analysis outputs
-paper_outputs/
-
-# Local virtual environments
+# ── Project-specific ──────────────────────────────────────────────────────────
+# Local virtual environment inside service folder
 services/extraction-pipeline/env/
 
-# Git backup (should not be committed)
+# Git backup directory (should not be committed)
 .git_backup/
 
 # One-off debug / scratch scripts
 scratch_test.py
 **/scratch_test.py
+
+# Verifier debug log (generated at runtime if VERIFIER_LOG_PATH is set)
+verifier_log.jsonl
+
+# Output JSON from one-off test runs
+/out.json
+
+# Internal agent config
+/.agents/
+
+# Jar files (GROBID etc.)
+*.jar
