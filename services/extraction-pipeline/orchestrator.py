@@ -28,13 +28,6 @@ import time
 import traceback
 from typing import Any, Dict, List
 
-try:
-    import httpx as _http_client
-    _USE_HTTPX = True
-except ImportError:
-    import urllib.request as _urllib_req
-    import json as _json
-    _USE_HTTPX = False
 
 from modules.extractors.pymupdf_extractor import PyMuPDFExtractor
 from modules.extractors.structural_analyzer import analyze_structure
