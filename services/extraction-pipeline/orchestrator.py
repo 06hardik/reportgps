@@ -36,17 +36,17 @@ except ImportError:
     import json as _json
     _USE_HTTPX = False
 
-from pymupdf_extractor import PyMuPDFExtractor
-from structural_analyzer import analyze_structure
-from regex_extractor import extract_references, extract_in_text_citations
-from typography_checker import check_typography
-from figures_tables_checker import check_figures_and_tables
-from syntax_grammar_checker import check_syntax_grammar
+from modules.extractors.pymupdf_extractor import PyMuPDFExtractor
+from modules.extractors.structural_analyzer import analyze_structure
+from modules.extractors.regex_extractor import extract_references, extract_in_text_citations
+from modules.checkers.typography_checker import check_typography
+from modules.checkers.figures_tables_checker import check_figures_and_tables
+from modules.checkers.syntax_grammar_checker import check_syntax_grammar
 
-from verifier_config import VERIFIER_ENABLED
-from verifier import verify_candidates
+from modules.verifier.verifier_config import VERIFIER_ENABLED
+from modules.verifier.verifier import verify_candidates
 
-REFERENCE_ANALYSER_URL = os.environ.get("REFERENCE_ANALYSER_URL", "http://localhost:8002")
+from modules.reference_analyser.analyser import referenceErrorParser
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -55,41 +55,20 @@ REFERENCE_ANALYSER_URL = os.environ.get("REFERENCE_ANALYSER_URL", "http://localh
 
 def _call_reference_analyser(raw_ref_strings: List[str]) -> List[Dict]:
     """
-    POST raw reference strings to the reference-analyser microservice.
-    Returns the enriched reference list with quality_issues populated,
-    or an empty list if the service is unavailable.
+    Directly call the local reference analyser function instead of using HTTP.
+    Returns the enriched reference list with quality_issues populated.
     """
     if not raw_ref_strings:
         return []
 
-    import json as _json_mod
-    import urllib.request, urllib.error
-
-    payload = {
-        "bibtex_string":   "",
-        "coordinate_str":  "{}",
-        "raw_ref_strings": raw_ref_strings,
-    }
-
     try:
-        if _USE_HTTPX:
-            resp = _http_client.post(
-                f"{REFERENCE_ANALYSER_URL}/analyze",
-                json=payload,
-                timeout=30.0,
-            )
-            resp.raise_for_status()
-            return resp.json()
-        else:
-            data = _json_mod.dumps(payload).encode()
-            req  = urllib.request.Request(
-                f"{REFERENCE_ANALYSER_URL}/analyze",
-                data=data,
-                headers={"Content-Type": "application/json"},
-            )
-            with urllib.request.urlopen(req, timeout=30) as r:
-                return _json_mod.loads(r.read().decode())
+        return referenceErrorParser(
+            bibtex_string="",
+            coordinate_str="{}",
+            raw_ref_strings=raw_ref_strings
+        )
     except Exception as exc:
+        traceback.print_exc()
         print(f"[Orchestrator] Reference-analyser call failed (non-fatal): {exc}")
         return []
 
@@ -284,8 +263,8 @@ def _build_reference_checks(
             "violations": consistency_violations,
         },
     }
-from equation_extractor import extract_equations
-from equation_checker import run_all_checks
+from modules.extractors.equation_extractor import extract_equations
+from modules.checkers.equation_checker import run_all_checks
 
 
 # ─────────────────────────────────────────────────────────────────────────────
