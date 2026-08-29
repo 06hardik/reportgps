@@ -105,8 +105,8 @@ Detects document structure using font-size heuristics:
 Scans word-level PDF data for right-margin equation labels `(N)`, `(A.1)`, etc.
 
 Key filters to avoid false positives:
-- Right-margin threshold: `x0 > 65% of page_width` (covers both 1-column and 2-column)
-- Skips years `(1900)–(2099)` and numbers > 999
+- Right-margin threshold: `x0 > 35% of page_width` (`_LABEL_X_THRESHOLD = 0.35`, covers both 1-column and 2-column)
+- Skips years `(1900)–(2099)` and numbers > 200 (`_MAX_EQ_NUMBER = 200`)
 - Skips labels with small gap from preceding word (in-text citations have normal spacing)
 - Global deduplication: first occurrence of each integer wins
 
@@ -213,7 +213,7 @@ See `.env.example` for full documentation with comments.
 
 | Variable | Required | Description |
 |---|---|---|
-| `VERIFIER_ENABLED` | No (default: `true`) | Set `false` to skip LLM verification |
+| `VERIFIER_ENABLED` | No (default: `false`) | Set `true` to enable LLM verification |
 | `GROQ_API_KEY` | If verifier on | Primary Groq API key |
 | `GROQ_API_KEY_2`–`_4` | No | Additional Groq keys for load balancing |
 | `CEREBRAS_API_KEY` | No | Cerebras fallback |
@@ -246,7 +246,7 @@ curl -X POST http://localhost:8004/extract \
 
 ## Dependencies
 
-See `requirements.txt` for pinned versions. Key packages:
+See `requirements.txt` for version constraints. Key packages:
 
 | Package | Purpose |
 |---|---|

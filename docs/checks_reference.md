@@ -21,7 +21,7 @@ This document is the authoritative specification for all 30 validation checks in
 | 3 | **Metadata Completeness** | All required metadata fields (authors, year, title, journal/publisher) must be present and non-empty in each reference | ✅ | `check_completeness.py` |
 | 4 | **DOI / URL Liveness** | DOIs and URLs in the reference list must be properly formatted (regex check) and return a valid HTTP 200 response (liveness probe) | ⚠️ Format check active; live HTTP probe disabled by default (too slow for all papers) | `check_doi.py` |
 | 5 | **Sequential Ordering** | For numbered styles (IEEE, Vancouver), references must appear in the reference list in ascending numeric order | ✅ | `check_ordering.py` |
-| 6 | **Consistency in References** | References of the same type (journal, conference, book) must use a consistent set of fields (e.g. all journal articles include volume and issue) | ✅ | `check_journal_casing.py` |
+| 6 | **Consistency in References** | References of the same type (journal, conference, book) must use a consistent set of fields (e.g. all journal articles include volume and issue) | ✅ | `ConsistencyHandler` in `analyser.py` (BibTeX field consistency) + `check_journal_casing.py` (journal title casing) |
 
 **Data consumed:**
 - `references[i]["raw_string"]` — plain text reference string extracted by regex

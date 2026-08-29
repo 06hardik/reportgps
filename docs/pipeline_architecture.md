@@ -63,9 +63,9 @@ Scans every page's word-level data (from `page.get_text("words")` in PyMuPDF) to
 Also handles alternate PDF encodings: `\xf0...\xde` → `(N)`.
 
 #### False-Positive Filters (in order)
-1. **Right-margin threshold:** `x0 > 65% of page_width`. Covers right-column labels (~90% of page) and left-column labels in 2-column layouts (~46% of page).
+1. **Right-margin threshold:** `x0 > 35% of page_width` (`_LABEL_X_THRESHOLD = 0.35`). Covers right-column labels (~90% of page) and left-column labels in 2-column layouts (~46% of page).
 2. **Year filter:** Labels matching `(1900)–(2099)` are skipped.
-3. **Large number filter:** Labels with integer > 999 are skipped (bibliography citation numbers).
+3. **Large number filter:** Labels with integer > 200 (`_MAX_EQ_NUMBER`) are skipped (bibliography citation numbers).
 4. **Gap filter:** A real equation label has a large gap from the preceding word (`> 10pt`). In-text citations like `"as shown in (3)"` have normal word spacing and are rejected.
 5. **Header/footer zone filter:** Ignores text in the top and bottom 50pt of the page.
 6. **Global deduplication:** First occurrence of each integer equation number is kept; subsequent occurrences (running headers, caption repetitions) are discarded.
@@ -196,10 +196,12 @@ All per-check LLM instructions are declared in `modules/verifier/verifier_rules.
 
 ```python
 {
-    "check_id": "acronym_definition",
-    "prompt": "Decide if this is a genuine acronym-without-definition violation...",
-    "severity": "warning",
-    "skip_verifier": False,  # True = return as-is without LLM
+    "check_id":            "acronym_definition",
+    "check_name":          "Acronym Definition",
+    "rule":                "Every acronym must be spelled out in full at its first occurrence...",
+    "category":            "Structure",
+    "skip_verifier":       False,   # True = bypass LLM, return as-is
+    "detector_confidence": 0.68,    # used by skip threshold routing
 }
 ```
 

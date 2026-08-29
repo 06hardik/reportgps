@@ -88,7 +88,7 @@ RULES: Dict[str, Dict[str, Any]] = {
     "en_dash_ranges": {
         "check_id":             "en_dash_ranges",
         "check_name":           "En-dash for Ranges",
-        "rule":                 "Numeric ranges must use an en-dash (--) not a hyphen (-). Example: pages 10-20 is incorrect; pages 10--20 is correct.",
+        "rule":                 "Numeric ranges must use an en-dash (–) not a hyphen (-). Example: pages 10-20 is incorrect; pages 10–20 is correct.",
         "category":             "Formatting",
         "skip_verifier":        True,   # Pattern is deterministic
         "detector_confidence":  0.95,

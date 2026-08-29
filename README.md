@@ -306,7 +306,7 @@ Copy `services/extraction-pipeline/.env.example` to `services/extraction-pipelin
 
 | Variable | Required | Default | Description |
 |---|---|---|---|
-| `VERIFIER_ENABLED` | No | `true` | Set `false` to skip AI verification — returns raw deterministic violations (~0.5 s faster) |
+| `VERIFIER_ENABLED` | No | `false` | Set `true` to enable AI-powered false-positive filtering via LLM |
 | `GROQ_API_KEY` | If verifier on | — | Primary Groq API key. Sign up free at https://console.groq.com |
 | `GROQ_API_KEY_2` | No | — | Second Groq key — enables load balancing (+30 RPM) |
 | `GROQ_API_KEY_3` | No | — | Third Groq key (+30 RPM) |
@@ -317,8 +317,6 @@ Copy `services/extraction-pipeline/.env.example` to `services/extraction-pipelin
 | `VERIFIER_TIMEOUT` | No | `60` | Timeout per LLM request in seconds |
 | `VERIFIER_MAX_RETRIES` | No | `3` | Retries on LLM timeout or 500 error |
 | `PHRASING_ENABLED` | No | `true` | When true, rewrites violations into human-readable language |
-| `VERIFIER_MODEL` | No | provider default | Override LLM model (e.g. `llama-3.3-70b-versatile`) |
-| `VERIFIER_LOG_PATH` | No | — | Write a JSONL audit log of all verifier calls (blank = disabled) |
 
 **The pipeline works without any API keys.** Set `VERIFIER_ENABLED=false` to run in pure deterministic mode.
 
