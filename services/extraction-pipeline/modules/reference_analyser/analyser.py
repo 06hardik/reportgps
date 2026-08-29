@@ -324,7 +324,7 @@ def referenceErrorParser(
             for iss in check_doi(enriched, deep_check=False).issues:
                 if len(quality_issues) >= MAX_QUALITY_ISSUES:
                     break
-                if getattr(iss, "issue_type", "") == "suggestion":
+                if getattr(iss, "issue_type", "") not in ("missing", "crossref_no_match"):
                     continue
                 er = _by_id(iss.ref_id)
                 quality_issues.append(_issue(er,
