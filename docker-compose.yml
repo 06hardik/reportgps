@@ -1,0 +1,123 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# ReportGPS — docker-compose.yml
+#
+# Services:
+#   pipeline  — Python FastAPI extraction engine (port 8004, internal only)
+#   backend   — Node.js Express API proxy (port 5001, internal only)
+#   frontend  — React app served by Nginx (port 80, internal only)
+#   nginx     — Reverse proxy + SSL termination (ports 80 + 443, public)
+#   certbot   — Let's Encrypt certificate manager (runs once then exits)
+#
+# Usage:
+#   First run (get SSL certificate):  docker compose up certbot
+#   Normal start:                      docker compose up -d
+#   View logs:                         docker compose logs -f
+#   Restart one service:               docker compose restart pipeline
+#   Stop everything:                   docker compose down
+# ─────────────────────────────────────────────────────────────────────────────
+
+services:
+
+  # ── Python Extraction Pipeline ─────────────────────────────────────────────
+  pipeline:
+    build:
+      context: ./services/extraction-pipeline
+      dockerfile: Dockerfile
+    container_name: reportgps-pipeline
+    restart: unless-stopped
+    # Port 8004 is NOT exposed publicly — only reachable by other containers
+    expose:
+      - "8004"
+    # Inject API keys from the .env file (never baked into the image)
+    env_file:
+      - ./services/extraction-pipeline/.env
+    # Write temp PDF files to a Docker volume (not container filesystem)
+    volumes:
+      - pipeline-tmp:/tmp
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8004/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    networks:
+      - internal
+
+  # ── Node.js Backend Proxy ──────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: reportgps-backend
+    restart: unless-stopped
+    expose:
+      - "5001"
+    environment:
+      - PORT=5001
+      # Use Docker container name as hostname — Docker DNS resolves this
+      - EXTRACTION_SERVICE_URL=http://pipeline:8004
+    depends_on:
+      pipeline:
+        condition: service_healthy
+    networks:
+      - internal
+
+  # ── React Frontend ─────────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: reportgps-frontend
+    restart: unless-stopped
+    expose:
+      - "80"
+    networks:
+      - internal
+
+  # ── Nginx Reverse Proxy + SSL ──────────────────────────────────────────────
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: reportgps-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"    # Public HTTP (redirects to HTTPS)
+      - "443:443"  # Public HTTPS
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - certbot-webroot:/var/www/certbot:ro
+      - certbot-certs:/etc/letsencrypt:ro
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - internal
+
+  # ── Certbot (Let's Encrypt SSL — runs once then exits) ─────────────────────
+  certbot:
+    image: certbot/certbot:latest
+    container_name: reportgps-certbot
+    volumes:
+      - certbot-webroot:/var/www/certbot
+      - certbot-certs:/etc/letsencrypt
+    # Replace the email with your email address
+    command: >
+      certonly --webroot
+      --webroot-path=/var/www/certbot
+      --email your-email@example.com
+      --agree-tos
+      --no-eff-email
+      -d reportgps.com
+      -d www.reportgps.com
+    networks:
+      - internal
+
+# ── Volumes ────────────────────────────────────────────────────────────────
+volumes:
+  pipeline-tmp:     # Temporary PDF files processed by the pipeline
+  certbot-webroot:  # ACME challenge files for Let's Encrypt
+  certbot-certs:    # SSL certificates and keys
+
+# ── Network ────────────────────────────────────────────────────────────────
+networks:
+  internal:
+    driver: bridge

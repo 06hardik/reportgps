@@ -1,0 +1,25 @@
+# Exclude the virtual environment — Docker installs its own deps from requirements.txt
+env/
+.venv/
+venv/
+
+# Exclude pycache and compiled Python files
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+
+# Exclude dev/test files
+*.log
+verifier_log.jsonl
+scratch_test.py
+
+# Exclude git history
+.git/
+.gitignore
+
+# Exclude local env file — it will be injected by docker-compose at runtime
+.env
+
+# Exclude docs (not needed in the container)
+README.md

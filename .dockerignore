@@ -1,0 +1,33 @@
+# Root .dockerignore
+# Prevents large/unnecessary files from being sent to the Docker build context
+
+# Python virtual environments
+**/env/
+**/.venv/
+**/venv/
+**/__pycache__/
+**/*.pyc
+
+# Node
+**/node_modules/
+**/dist/
+**/.vite/
+
+# Git history
+.git/
+.gitignore
+
+# Environment files (injected at runtime, never baked into images)
+**/.env
+**/.env.local
+
+# Documentation
+README.md
+docs/
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Agent config
+.agents/
