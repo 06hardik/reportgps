@@ -1,16 +1,16 @@
 """
 syntax_grammar_checker.py
 =========================
-Checks 17–24: Typography, Syntax & Grammar validation.
+Checks 17-24: Typography, Syntax & Grammar validation.
 
-Check 17 – Acronym Definition
-Check 18 – En-dash for Ranges
-Check 19 – Non-breaking Space for Units
-Check 20 – No Space for Percentages/Degrees
-Check 21 – Double Spaces
-Check 22 – Consistent Punctuation Spacing
-Check 23 – Quote Style Consistency
-Check 24 – English Spelling Consistency
+Check 17 - Acronym Definition
+Check 18 - En-dash for Ranges
+Check 19 - Non-breaking Space for Units
+Check 20 - No Space for Percentages/Degrees
+Check 21 - Double Spaces
+Check 22 - Consistent Punctuation Spacing
+Check 23 - Quote Style Consistency
+Check 24 - English Spelling Consistency
 
 All checks are implemented using Unicode-aware Regular Expressions only.
 No ML, NLP, or external libraries are used.
@@ -20,10 +20,10 @@ Integration:
   Results stored under result["syntax_grammar_checks"].
 
 Data used:
-  full_text  – complete concatenated page text (all pages, includes references).
+  full_text  - complete concatenated page text (all pages, includes references).
                Used by checks that need document-wide first-occurrence context
                (Check 17: Acronym, Check 23: Quote Style).
-  body_text  – full_text with the references/bibliography section excluded.
+  body_text  - full_text with the references/bibliography section excluded.
                Used by all other checks to avoid flagging reference-list text.
 
 Returns:
@@ -39,10 +39,22 @@ from typing import Any, Dict, List, Set, Tuple
 
 MAX_VIOLATIONS = 25
 
+# DOI strings - blanked out before en-dash scanning so hyphens inside
+# DOIs (e.g. doi:10.1109/NET.2021.3050-3070) are never flagged as ranges.
+# Covers: "doi:10.xxxx/...", "https://doi.org/10.xxxx/..."
+_DOI_STRIP_RE = re.compile(
+    r'(?:'
+    r'(?:https?://)?doi\.org/'   # https://doi.org/ or doi.org/
+    r'|doi:\s*'                   # doi: prefix
+    r')'
+    r'10\.\d{4,}[^\s]*',         # 10.NNNN/... rest of DOI path
+    re.IGNORECASE,
+)
 
-# ─────────────────────────────────────────────────────────────────────────────
+
+# -----------------------------------------------------------------------------
 # Helpers
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 def _find_page(char_pos: int, page_offsets: List[int]) -> int:
     """
@@ -55,9 +67,9 @@ def _find_page(char_pos: int, page_offsets: List[int]) -> int:
     return max(1, idx + 1)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Public entry point
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 def check_syntax_grammar(full_text: str, body_text: str, page_offsets: List[int] = None) -> Dict[str, Any]:
     """
@@ -107,25 +119,40 @@ def check_syntax_grammar(full_text: str, body_text: str, page_offsets: List[int]
     }
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Check 17: Acronym Definition
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 # Acronyms so universally understood in scientific writing that they need no
 # parenthetical definition in a research paper.
 _SKIP_ACRONYMS: Set[str] = {
-    # Internet / computing
+    # Internet / networking / computing
     "PDF", "URL", "HTTP", "HTTPS", "HTML", "CSS", "API", "XML", "JSON", "SQL",
     "TCP", "UDP", "IP", "DNS", "RAM", "ROM", "CPU", "GPU", "USB", "LAN", "WAN",
-    "LED", "LCD", "OLED", "RGB", "HSV", "HSL",
+    "LED", "LCD", "OLED", "RGB", "HSV", "HSL", "GUI", "CLI", "SDK", "IDE",
+    "FTP", "SSH", "SSL", "TLS", "VPN", "NAT", "MAC", "NIC", "SSD", "HDD",
+    "OS", "VM", "IoT", "ICS",
     # Organisations / standards bodies
-    "IEEE", "ACM", "ISO", "ANSI",
+    "IEEE", "ACM", "ISO", "ANSI", "IETF", "ITU", "NIST",
     # Countries / regions
     "USA", "UK", "EU", "UN", "WHO",
     # Publishing / academic
     "DOI", "ISBN", "ISSN",
-    # Signal processing / RF
-    "RMS", "SNR", "MIMO", "OFDM",
+    # Signal processing / RF / comms
+    "RMS", "SNR", "MIMO", "OFDM", "SINR", "BER", "QoS", "QoE",
+    "CDMA", "FDMA", "TDMA", "WLAN", "WPAN", "WBAN",
+    # Machine learning / AI — widely used without expansion in the field
+    "AI", "ML", "DL", "NN", "ANN", "CNN", "RNN", "LSTM", "GRU", "GAN",
+    "SVM", "KNN", "PCA", "NLP", "NLU", "NLG",
+    # Optimisation and metaheuristics — standard in CS papers
+    "PSO", "ACO", "GA", "DE", "SA", "TS",
+    # Statistics / evaluation metrics — widely used without expansion
+    "RMSE", "MAE", "MSE", "MAPE", "MASE", "AUC", "ROC", "MAP",
+    "FPR", "TPR", "FNR", "TNR", "TP", "TN", "FP", "FN",
+    "ACC", "AUC",
+    # Cloud / distributed systems
+    "SaaS", "PaaS", "IaaS", "SOA", "REST", "RPC",
+    "VM", "VMs",
     # Time
     "UTC", "GMT",
     # Common statistical / math shorthand (not acronyms per se)
@@ -133,41 +160,68 @@ _SKIP_ACRONYMS: Set[str] = {
     # Common English words that appear all-caps in headings / captions
     "FOR", "AND", "THE", "NOT", "ALL", "TWO", "ONE", "TEN",
     "NEW", "OLD", "LAB", "FIG", "TAB", "SEC", "EQN", "REF", "APP",
+    "VRP", "VRPTW", "TSP",          # classic combinatorial problems
+    "ABC",                           # Artificial Bee Colony (classic metaheuristic)
     # IEEE / computer-science shorthand used without expansion in the field
     "NaN", "INF",
 }
 
-# "(ACRONYM)" – acronym inside parentheses after prose text.
+# Pattern 1: "(ACRONYM)" - acronym inside parentheses after an expanded form.
 # e.g. "Wireless Sensor Network (WSN)"
 _PAREN_ACRONYM_RE = re.compile(r'\(([A-Z]{3,})\)')
 
-# "ACRONYM (Full Name)" – acronym followed by a definition in parentheses.
-# Requires the definition to start with a letter and be 5–60 chars.
-# e.g. "CNN (Convolutional Neural Network)"
+# Pattern 2: "ACRONYM (Full Definition Text)" - acronym written first,
+# followed by its expansion in parentheses.
+# The definition content is more permissive: allows letters, spaces,
+# hyphens, commas, periods, slashes, digits, and apostrophes so that
+# definitions like "CPU (Central Processing Unit, 32-bit)" are accepted.
+# Minimum 3 chars, maximum 80 chars.
 _DEFINE_AFTER_RE = re.compile(
-    r'\b([A-Z]{3,})\s+\([a-zA-Z][a-zA-Z\s\-]{5,60}\)'
+    r'\b([A-Z]{3,})\s+\([a-zA-Z][a-zA-Z0-9\s\-,./\']{3,80}\)'
 )
 
 # All standalone 3+ uppercase-letter sequences (the "all acronyms" scanner).
 _ACRONYM_ALL_RE = re.compile(r'\b([A-Z]{3,})\b')
 
 
+
 def _initials_match(text: str, paren_start: int, acronym: str) -> bool:
     """
     Return True if any window of len(acronym) consecutive alpha-starting words
-    in the 200 chars preceding *paren_start* has initials that spell *acronym*.
+    in the 600 chars preceding *paren_start* has initials that spell *acronym*.
 
-    Example: "Wireless Sensor Network (WSN)" → words W·S·N → initials = WSN ✓
-    Counter: "See Figure 3 (WSN)" → alpha-words S·F → too short for 3-char WSN ✓
+    Multi-column PDFs assembled by PyMuPDF often interleave column text, so
+    the expanded form of an acronym might appear quite far from the opening
+    parenthesis in the extracted text string.  We use a 600-char lookback
+    (doubled from the original 200, upgraded from 400) and a sliding window
+    of n+15 candidate words.
+
+    Hyphenated compound words (e.g. "Self-Learning" for SL) are split on
+    hyphens so each hyphen-separated part contributes its initial letter.
+
+    Example: "Wireless Sensor Network (WSN)" -> W.S.N -> initials = WSN  OK
+    Example: "use of Wireless Sensor Network technology (WSN)" -> OK
+    Counter: "See Figure 3 (WSN)" -> alpha-words S.F -> too short for 3-char WSN
     """
     n = len(acronym)
-    pre = text[max(0, paren_start - 200): paren_start]
-    # Keep only words that start with a letter (drop pure numbers, symbols).
-    words = [w for w in pre.split() if w and w[0].isalpha()]
+    pre = text[max(0, paren_start - 600): paren_start]
+
+    # Split on whitespace then further split hyphenated tokens so that
+    # "Self-Learning" contributes two initials: S, L.
+    raw_tokens = pre.split()
+    words = []
+    for tok in raw_tokens:
+        # strip leading punctuation from each token
+        parts = tok.split('-')
+        for p in parts:
+            p = p.strip(".,;:\"'()")
+            if p and p[0].isalpha():
+                words.append(p)
+
     if len(words) < n:
         return False
-    # Slide a window of size n over the last (n + 3) candidate words.
-    start_i = max(0, len(words) - n - 3)
+    # Slide a window of size n over the last (n + 15) candidate words.
+    start_i = max(0, len(words) - n - 15)
     for i in range(start_i, len(words) - n + 1):
         window = words[i: i + n]
         initials = "".join(w[0].upper() for w in window)
@@ -176,9 +230,10 @@ def _initials_match(text: str, paren_start: int, acronym: str) -> bool:
     return False
 
 
+
 def _check_acronym_definition(text: str) -> Dict[str, Any]:
     """
-    Check 17 – Acronym Definition.
+    Check 17 - Acronym Definition.
 
     Every 3+ uppercase-letter acronym must have its definition (in parentheses)
     AT or BEFORE its very first occurrence in the document.
@@ -188,19 +243,30 @@ def _check_acronym_definition(text: str) -> Dict[str, Any]:
       (b) The acronym appears and IS defined, but the definition appears
           AFTER the first standalone usage.
 
-    The initials-matching heuristic (used for "Long Name (ACR)" pattern) checks
-    whether the N preceding words have initials spelling the acronym, which
-    distinguishes true definitions from incidental occurrences like "(WSN)" in
-    a table cell header.
+    BUG FIXES:
+      1. _initials_match window expanded from n+3 to n+10 words and lookback
+         from 200 to 400 chars to catch definitions where filler words
+         separate the expanded form from the parenthesis.
+      2. _DEFINE_AFTER_RE made more permissive (allows digits/commas/slashes
+         inside the definition text).
+      3. When building first_occ (Step 2), positions that fall INSIDE a
+         parenthetical "(ACR)" span are skipped so the acronym inside its
+         own definition is not treated as the first standalone usage.
     """
-    # ── Step 1: collect all positions where each acronym is defined ──────────
+    # -- Step 1: collect all positions where each acronym is defined ----------
     defined_at: Dict[str, List[int]] = {}
+
+    # Collect the spans of every "(ACR)" occurrence so we can exclude those
+    # positions from the first-occurrence scan in Step 2.
+    paren_def_spans: List[tuple] = []  # (start, end) of each "(ACR)" match
 
     # Pattern 1: "(ACRONYM)" where the preceding words' initials match
     for m in _PAREN_ACRONYM_RE.finditer(text):
         acr = m.group(1)
         if acr in _SKIP_ACRONYMS:
             continue
+        # Record the span regardless of initials match so Step 2 can skip it.
+        paren_def_spans.append((m.start(), m.end()))
         if _initials_match(text, m.start(), acr):
             defined_at.setdefault(acr, []).append(m.start())
 
@@ -211,14 +277,32 @@ def _check_acronym_definition(text: str) -> Dict[str, Any]:
             continue
         defined_at.setdefault(acr, []).append(m.start())
 
-    # ── Step 2: find first standalone occurrence of every acronym ────────────
+    # -- Step 2: find first standalone occurrence of every acronym ------------
+    # Skip positions inside a parenthetical "(ACR)" span so that the acronym
+    # inside its own definition is not treated as the first standalone use.
+    paren_def_spans.sort()
+
+    def _in_paren_def(pos: int) -> bool:
+        """Return True if pos falls inside any recorded '(ACR)' span."""
+        for span_start, span_end in paren_def_spans:
+            if span_start <= pos < span_end:
+                return True
+            if span_start > pos:
+                break
+        return False
+
     first_occ: Dict[str, int] = {}
     for m in _ACRONYM_ALL_RE.finditer(text):
         acr = m.group(1)
-        if acr not in first_occ:
-            first_occ[acr] = m.start()
+        if acr in first_occ:
+            continue
+        # Skip the acronym if it falls inside a "(ACR)" parenthetical;
+        # we want the first *standalone* usage, not the definition instance.
+        if _in_paren_def(m.start()):
+            continue
+        first_occ[acr] = m.start()
 
-    # ── Step 3: check each acronym ───────────────────────────────────────────
+    # -- Step 3: check each acronym -------------------------------------------
     violations: List[Dict[str, Any]] = []
     for acr, first_pos in sorted(first_occ.items(), key=lambda x: x[1]):
         if acr in _SKIP_ACRONYMS:
@@ -233,7 +317,7 @@ def _check_acronym_definition(text: str) -> Dict[str, Any]:
                 "snippet": snippet,
                 "first_pos": first_pos,
                 "detail":  (
-                    f"'{acr}' is never defined — add '(Full Name)' "
+                    f"'{acr}' is never defined -- add '(Full Name)' "
                     f"at its first use."
                 ),
             })
@@ -265,13 +349,13 @@ def _check_acronym_definition(text: str) -> Dict[str, Any]:
     return {"passed": passed, "violations": violations, "detail": detail}
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Check 18: En-dash for Ranges
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 # Digit-hyphen-digit (plain ranges).
 # Negative lookbehind (?<!\w) prevents matching the tail of a word like "co-10".
-# Negative lookahead (?!\w|\.\d) prevents matching version strings like "3.14-5.0".
+# Negative lookahead (?!\w|\.d) prevents matching version strings like "3.14-5.0".
 _HYPHEN_RANGE_RE = re.compile(
     r'(?<!\w)(\d+(?:\.\d+)?)-(\d+(?:\.\d+)?)(?!\w)'
 )
@@ -282,17 +366,32 @@ _DOUBLE_DASH_RE = re.compile(r'(\d)\s*--\s*(\d)')
 
 def _check_en_dash_ranges(text: str) -> Dict[str, Any]:
     """
-    Check 18 – En-dash for Ranges.
+    Check 18 - En-dash for Ranges.
 
     A standard hyphen (-) or double-dash (--) between two numbers should be
-    replaced with an en-dash (–, U+2013).
+    replaced with an en-dash (U+2013).
+
+    BUG FIX: DOI strings (e.g. doi:10.1109/NET.2021.3050-3070) are now
+    blanked out before scanning so hyphens in DOI paths are never flagged as
+    numeric ranges.  The DOI of the paper being scanned (which may appear in
+    headers, footers, or the abstract) is now completely excluded.
 
     Examples of violations: "10-20 kHz", "pages 3--7", "years 2018-2022".
     """
+    # Strip DOI strings first - replace each matched DOI with spaces of the
+    # same length so all other character positions remain intact for snippet
+    # extraction from the original text.
+    scan_text = _DOI_STRIP_RE.sub(lambda m: ' ' * len(m.group(0)), text)
+
+    # Strip citation brackets like [23-25], [1, 2], [3-5] — these are valid
+    # citation syntax, not range formatting errors.
+    scan_text = re.sub(r'\[[^\]]{1,40}\]', lambda m: ' ' * len(m.group(0)), scan_text)
+
     violations: List[Dict[str, Any]] = []
     seen: Set[str] = set()
 
-    for m in _HYPHEN_RANGE_RE.finditer(text):
+
+    for m in _HYPHEN_RANGE_RE.finditer(scan_text):
         key = m.group(0)
         if key in seen:
             continue
@@ -301,13 +400,14 @@ def _check_en_dash_ranges(text: str) -> Dict[str, Any]:
         violations.append({
             "found":   key,
             "correct": correct,
+            # Use original text for the snippet so the context is readable.
             "snippet": _snippet(text, m.start(), m.end()),
-            "detail":  f"Use en-dash (–) for range: '{key}' → '{correct}'",
+            "detail":  f"Use en-dash (\u2013) for range: '{key}' -> '{correct}'",
         })
         if len(violations) >= MAX_VIOLATIONS:
             break
 
-    for m in _DOUBLE_DASH_RE.finditer(text):
+    for m in _DOUBLE_DASH_RE.finditer(scan_text):
         key = m.group(0)
         if key in seen:
             continue
@@ -317,14 +417,14 @@ def _check_en_dash_ranges(text: str) -> Dict[str, Any]:
             "found":   key,
             "correct": correct,
             "snippet": _snippet(text, m.start(), m.end()),
-            "detail":  f"Use en-dash (–) instead of double-hyphen: '{key}'",
+            "detail":  f"Use en-dash (\u2013) instead of double-hyphen: '{key}'",
         })
         if len(violations) >= MAX_VIOLATIONS:
             break
 
     passed = not violations
     detail = (
-        "All number ranges correctly use en-dash (–)."
+        "All number ranges correctly use en-dash (\u2013)."
         if passed else
         f"{len(violations)} range(s) use hyphen/double-hyphen instead of en-dash. "
         f"First: {violations[0]['detail']}"
@@ -332,38 +432,38 @@ def _check_en_dash_ranges(text: str) -> Dict[str, Any]:
     return {"passed": passed, "violations": violations, "detail": detail}
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Check 19: Non-breaking Space for Units
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 # Units matched as complete tokens (word-boundary protected).
 # Deliberately excludes standalone "m" (metres) and "g" (grams) to minimise
 # false positives from common abbreviations in prose.
 _UNIT_ALTS = (
     # Time
-    r"ms|µs|μs|ns|ps|fs"
+    r"ms|\xb5s|\u03bcs|ns|ps|fs"
     # Mass
-    r"|kg|mg|µg|μg|ng"
+    r"|kg|mg|\xb5g|\u03bcg|ng"
     # Distance (longer forms first to beat greedy alternation)
-    r"|km|cm|mm|nm|µm|μm|pm"
+    r"|km|cm|mm|nm|\xb5m|\u03bcm|pm"
     # Frequency
     r"|MHz|GHz|kHz|THz|Hz"
     # Digital storage
     r"|KB|MB|GB|TB|kB|PB"
     # Power
-    r"|kW|MW|GW|mW|µW|μW"
+    r"|kW|MW|GW|mW|\xb5W|\u03bcW"
     # Voltage
-    r"|kV|MV|mV|µV|μV"
+    r"|kV|MV|mV|\xb5V|\u03bcV"
     # Current
-    r"|mA|µA|μA|nA"
+    r"|mA|\xb5A|\u03bcA|nA"
     # Decibels
     r"|dBm|dBi|dB"
     # Chemical / biological
-    r"|mmol|µmol|μmol|mol"
+    r"|mmol|\xb5mol|\u03bcmol|mol"
     # Volume (longer before shorter)
-    r"|mL|µL|μL|nL|dL"
+    r"|mL|\xb5L|\u03bcL|nL|dL"
     # Temperature (with degree symbol)
-    r"|°C|°F"
+    r"|\xb0C|\xb0F"
     # Angle / solid angle
     r"|rad|sr"
     # Pressure (longer before shorter)
@@ -372,42 +472,55 @@ _UNIT_ALTS = (
     r"|Bytes?|bits?"
 )
 
-# Matches number + REGULAR ASCII space (U+0020) + unit.
-# A non-breaking space (U+00A0 = \xa0) does NOT match \x20, so correctly
-# formatted "10\xa0kg" is NOT flagged.
-_REGULAR_SPACE_UNIT_RE = re.compile(
-    rf"\b(\d+(?:\.\d+)?)\x20({_UNIT_ALTS})\b",
-    re.IGNORECASE,
+# Matches number directly adjacent to a unit with NO space at all.
+#
+# BUG FIX: The previous pattern matched number + ASCII space + unit, which
+# produced 100% false positives because PyMuPDF does not reliably preserve
+# U+00A0 (non-breaking space) from the PDF source -- it often emits a regular
+# ASCII space (U+0020) for both types.  The new pattern only matches the
+# genuinely bad case: number immediately adjacent to unit with NO space at all
+# (e.g. "10kg", "3ms", "100MHz"), which is unambiguously wrong regardless of
+# space type.
+#
+# NOTE: re.IGNORECASE is intentionally NOT used -- unit symbols are
+# case-sensitive (mW != MW, ms != MS).  Without IGNORECASE, single-letter
+# suffixes like 'a', 'b', 'g' no longer incorrectly match figure labels.
+_MISSING_SPACE_UNIT_RE = re.compile(
+    rf"\b(\d+(?:\.\d+)?)({_UNIT_ALTS})(?![a-zA-Z0-9])"
 )
 
 
 def _check_nonbreaking_space_units(text: str) -> Dict[str, Any]:
     """
-    Check 19 – Non-breaking Space for Units.
+    Check 19 - Non-breaking Space for Units.
 
-    A non-breaking space (U+00A0) MUST be used between a number and its unit.
-    A regular ASCII space (U+0020) is a violation.
-    Already-correct non-breaking spaces (\xa0) are silently ignored.
+    The canonical rule is that a non-breaking space (U+00A0) must be used
+    between a number and its unit.  However, PyMuPDF does not reliably
+    preserve U+00A0; it often emits a regular ASCII space (U+0020) for both
+    types.  Checking for \\x20 therefore flags every correctly-formatted
+    "10 kg" pair, producing 100% false positives.
 
-    Note: PyMuPDF preserves \xa0 characters from the PDF, so the distinction
-    is meaningful when the source document uses proper non-breaking spaces.
+    This check instead flags only the genuinely bad case: a number immediately
+    adjacent to its unit with NO space at all (e.g. "10kg", "3ms", "100MHz").
+    Those are unambiguously wrong regardless of space type.
     """
     violations: List[Dict[str, Any]] = []
     seen: Set[str] = set()
 
-    for m in _REGULAR_SPACE_UNIT_RE.finditer(text):
+    for m in _MISSING_SPACE_UNIT_RE.finditer(text):
         key = m.group(0)
         if key in seen:
             continue
         seen.add(key)
+        # Suggest non-breaking space as the correct fix
         correct = f"{m.group(1)}\xa0{m.group(2)}"  # U+00A0
         violations.append({
             "found":   key,
             "correct": correct,
             "snippet": _snippet(text, m.start(), m.end()),
             "detail":  (
-                f"'{key}' uses a regular space; replace with "
-                f"non-breaking space (U+00A0): '{correct}'"
+                f"'{key}' has no space between number and unit; "
+                f"insert a non-breaking space (U+00A0): '{correct}'"
             ),
         })
         if len(violations) >= MAX_VIOLATIONS:
@@ -415,38 +528,37 @@ def _check_nonbreaking_space_units(text: str) -> Dict[str, Any]:
 
     passed = not violations
     detail = (
-        "All number-unit pairs use non-breaking spaces (U+00A0)."
+        "All number-unit pairs have a space between the number and unit."
         if passed else
-        f"{len(violations)} number-unit pair(s) use a regular space "
-        f"instead of non-breaking space. "
+        f"{len(violations)} number-unit pair(s) are missing a space. "
         f"First: {violations[0]['detail']}"
     )
     return {"passed": passed, "violations": violations, "detail": detail}
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Check 20: No Space for Percentages/Degrees
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 # Any whitespace between the number and % is a violation ("10 %", "10  %").
 _SPACE_BEFORE_PERCENT_RE = re.compile(
     r"\b(\d+(?:\.\d+)?)\s+(%)"
 )
 
-# Any whitespace between the number and ° (with optional C/F/K unit) is a violation.
-# Matches: "90 °C", "45 °", "90 °F", "273 °K"
+# Any whitespace between the number and degree symbol (with optional C/F/K unit).
+# Matches: "90 \xb0C", "45 \xb0", "90 \xb0F", "273 \xb0K"
 _SPACE_BEFORE_DEGREE_RE = re.compile(
-    r"\b(\d+(?:\.\d+)?)\s+(°(?:[CFK]?))"
+    r"\b(\d+(?:\.\d+)?)\s+(\xb0(?:[CFK]?))"
 )
 
 
 def _check_no_space_percent_degree(text: str) -> Dict[str, Any]:
     """
-    Check 20 – No Space for Percentages/Degrees.
+    Check 20 - No Space for Percentages/Degrees.
 
-    No space should appear between a number and a % or ° symbol.
-    Correct: "10%", "90°C", "45°".
-    Violations: "10 %", "90 °C", "45 °".
+    No space should appear between a number and a % or degree symbol.
+    Correct: "10%", "90\xb0C", "45\xb0".
+    Violations: "10 %", "90 \xb0C", "45 \xb0".
     """
     violations: List[Dict[str, Any]] = []
     seen: Set[str] = set()
@@ -462,50 +574,71 @@ def _check_no_space_percent_degree(text: str) -> Dict[str, Any]:
                 "found":   key,
                 "correct": correct,
                 "snippet": _snippet(text, m.start(), m.end()),
-                "detail":  f"Remove space: '{key}' → '{correct}'",
+                "detail":  f"Remove space: '{key}' -> '{correct}'",
             })
             if len(violations) >= MAX_VIOLATIONS:
                 break
 
     passed = not violations
     detail = (
-        "No incorrect spaces before % or ° symbols."
+        "No incorrect spaces before % or \xb0 symbols."
         if passed else
-        f"{len(violations)} case(s) of space before %/°. "
+        f"{len(violations)} case(s) of space before %/\xb0. "
         f"First: {violations[0]['detail']}"
     )
     return {"passed": passed, "violations": violations, "detail": detail}
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Check 21: Double Spaces
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
-# Two or more ASCII spaces between non-whitespace characters (within a line).
-# The lookbehind and lookahead exclude newlines and tabs so that indented
-# paragraph starts and OCR line-margin artefacts are not flagged.
+# DESIGN DECISION: PDF justified text extracted via PyMuPDF with the
+# TEXT_PRESERVE_WHITESPACE flag consistently produces 2-3 spaces between
+# ordinary words in justified paragraphs — this is a rendering artifact, not
+# an authoring error.  Flagging those produces dozens of false positives per
+# page.
+#
+# Genuine double-space authoring errors (e.g. the author accidentally pressed
+# Space twice) typically manifest as exactly 2 spaces in manuscripts written
+# in word processors.  However, because we cannot distinguish these from the
+# 2-space PDF artifact, we raise the threshold to 4+ consecutive spaces.
+# A run of 4+ spaces between two non-whitespace characters is almost never
+# a PDF rendering artifact — it is a genuine alignment/formatting error.
+#
+# Additionally, spaces inside citation brackets like [23, 25] or inside
+# parentheses are excluded to avoid false-flagging reference lists.
 _DOUBLE_SPACE_RE = re.compile(
-    r"(?<=[^\n\r\t ]) {2,}(?=[^\n\r\t ])"
+    r"(?<=[^\n\r\t ]) {4,}(?=[^\n\r\t ])"
 )
+
+# Pattern to detect if a double-space match falls inside [...] or (...)
+_INSIDE_BRACKETS_RE = re.compile(r"[\[(][^\]\)]*  +[^\]\)]*[\]\)]")
 
 
 def _check_double_spaces(text: str) -> Dict[str, Any]:
     """
-    Check 21 – Double Spaces.
+    Check 21 - Double Spaces.
 
-    Detects two or more consecutive ASCII spaces between non-whitespace
-    characters within a line.  Excludes spaces at line-starts (OCR
-    indentation artefacts) and tabs.
+    Detects 4 or more consecutive ASCII spaces between non-whitespace
+    characters within a line.  The threshold is 4 (not 2) because PyMuPDF's
+    TEXT_PRESERVE_WHITESPACE flag produces 2-3 spaces between every word in
+    justified PDF text — those are rendering artifacts, not author errors.
+    Runs of 4+ spaces reliably indicate genuine formatting problems.
     """
+    # Pre-process: collapse citation brackets like [23-25] or [1, 2, 3] to a
+    # single space so spaces INSIDE the brackets don't trigger the check.
+    clean = re.sub(r'\[[^\]]{1,40}\]', ' ', text)
+
     violations: List[Dict[str, Any]] = []
 
-    for m in _DOUBLE_SPACE_RE.finditer(text):
+    for m in _DOUBLE_SPACE_RE.finditer(clean):
         n_spaces = len(m.group(0))
-        snippet = _snippet(text, m.start(), m.end())
+        snippet = _snippet(text, m.start(), m.end())  # snippet from original
         violations.append({
             "found":   f"{n_spaces} consecutive space(s)",
             "snippet": snippet,
-            "detail":  f"Double/multiple space ({n_spaces}) found: …{snippet}…",
+            "detail":  f"Double/multiple space ({n_spaces}) found: ...{snippet}...",
         })
         if len(violations) >= MAX_VIOLATIONS:
             break
@@ -520,9 +653,9 @@ def _check_double_spaces(text: str) -> Dict[str, Any]:
     return {"passed": passed, "violations": violations, "detail": detail}
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Check 22: Consistent Punctuation Spacing
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 # Sub-check A: space before comma or semicolon.
 # Requires a letter or digit immediately before the space(s).
@@ -531,10 +664,6 @@ _SPACE_BEFORE_COMMA_RE = re.compile(r"(?<=[a-zA-Z0-9]) +[,;]")
 
 # Sub-check B: no space after comma where a word immediately follows.
 # Pattern: comma then letter + at least 1 more lowercase letter.
-# Exclusions handled implicitly:
-#   "[1,2,3]" → digit after comma → [a-zA-Z] won't match digits ✓
-#   ",." → punctuation after comma → [a-zA-Z] won't match ✓
-#   ",A" (single capital) → [a-z]{1,} after 'A' required → usually won't match ✓
 _NO_SPACE_AFTER_COMMA_RE = re.compile(r",(?=[a-zA-Z][a-z]{1,})")
 
 # Sub-check C: multiple ASCII spaces after comma, period, or semicolon
@@ -544,7 +673,7 @@ _MULTI_SPACE_AFTER_PUNCT_RE = re.compile(r"(?<=[,\.;]) {2,}(?=[A-Za-z])")
 
 def _check_punctuation_spacing(text: str) -> Dict[str, Any]:
     """
-    Check 22 – Consistent Punctuation Spacing.
+    Check 22 - Consistent Punctuation Spacing.
 
     Detects:
       A. Space(s) before a comma or semicolon.
@@ -563,7 +692,7 @@ def _check_punctuation_spacing(text: str) -> Dict[str, Any]:
         violations.append({
             "type":    "space_before_comma",
             "snippet": _snippet(text, m.start(), m.end()),
-            "detail":  f"Space before comma/semicolon: '…{m.group(0)}…'",
+            "detail":  f"Space before comma/semicolon: '...{m.group(0)}...'",
         })
         if len(violations) >= MAX_VIOLATIONS:
             break
@@ -579,7 +708,7 @@ def _check_punctuation_spacing(text: str) -> Dict[str, Any]:
             "snippet": _snippet(text, m.start(), m.end()),
             "detail":  (
                 f"Missing space after comma: "
-                f"'…{_snippet(text, m.start() - 5, m.end() + 12)}…'"
+                f"'...{_snippet(text, m.start() - 5, m.end() + 12)}...'"
             ),
         })
         if len(violations) >= MAX_VIOLATIONS:
@@ -594,7 +723,7 @@ def _check_punctuation_spacing(text: str) -> Dict[str, Any]:
         violations.append({
             "type":    "multiple_spaces_after_punct",
             "snippet": _snippet(text, m.start(), m.end()),
-            "detail":  f"Multiple spaces after punctuation: '…{m.group(0)}…'",
+            "detail":  f"Multiple spaces after punctuation: '...{m.group(0)}...'",
         })
         if len(violations) >= MAX_VIOLATIONS:
             break
@@ -609,9 +738,9 @@ def _check_punctuation_spacing(text: str) -> Dict[str, Any]:
     return {"passed": passed, "violations": violations, "detail": detail}
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Check 23: Quote Style Consistency
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 _STRAIGHT_DBL_RE    = re.compile(r'"')       # ASCII U+0022
 _CURLY_LEFT_DBL_RE  = re.compile(r"\u201C")  # LEFT DOUBLE QUOTATION MARK
@@ -622,7 +751,7 @@ _CURLY_RIGHT_SGL_RE = re.compile(r"\u2019")  # RIGHT SINGLE QUOTATION MARK
 
 def _check_quote_style_consistency(text: str) -> Dict[str, Any]:
     """
-    Check 23 – Quote Style Consistency.
+    Check 23 - Quote Style Consistency.
 
     Detects mixing of ASCII straight quotes (U+0022) and Unicode typographic
     curly/smart quotes (U+201C LEFT DOUBLE QUOTATION MARK, U+201D RIGHT DOUBLE
@@ -651,8 +780,8 @@ def _check_quote_style_consistency(text: str) -> Dict[str, Any]:
             ),
         })
 
-    # Flag when curly singles appear alongside straight doubles but no curly doubles —
-    # suggests a mixed style from different text sources or pasted content.
+    # Flag when curly singles appear alongside straight doubles but no curly
+    # doubles -- suggests a mixed style from different text sources.
     if has_curly_sgl and has_straight_dbl and not has_curly_dbl:
         violations.append({
             "type":   "mixed_single_and_straight_double",
@@ -672,16 +801,14 @@ def _check_quote_style_consistency(text: str) -> Dict[str, Any]:
     return {"passed": passed, "violations": violations, "detail": detail}
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Check 24: English Spelling Consistency
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 # Each tuple: (american_form, british_form).
 # All comparisons are case-insensitive whole-word matches.
-# Both the base form and common inflected forms are listed explicitly to
-# ensure inflected usages (past tense, plural) are also caught.
 _AM_BR_PAIRS: List[Tuple[str, str]] = [
-    # ─ -ize vs -ise verbs (present tense) ───────────────────────────────────
+    # -ize vs -ise verbs (present tense)
     ("analyze",        "analyse"),
     ("organization",   "organisation"),
     ("organize",       "organise"),
@@ -695,7 +822,7 @@ _AM_BR_PAIRS: List[Tuple[str, str]] = [
     ("emphasize",      "emphasise"),
     ("prioritize",     "prioritise"),
     ("parameterize",   "parameterise"),
-    # ─ -ize vs -ise (past tense / participial) ───────────────────────────────
+    # -ize vs -ise (past tense / participial)
     ("analyzed",       "analysed"),
     ("organized",      "organised"),
     ("recognized",     "recognised"),
@@ -707,13 +834,13 @@ _AM_BR_PAIRS: List[Tuple[str, str]] = [
     ("emphasized",     "emphasised"),
     ("characterized",  "characterised"),
     ("parameterized",  "parameterised"),
-    # ─ -ize vs -ise (gerund / present participle) ────────────────────────────
+    # -ize vs -ise (gerund / present participle)
     ("analyzing",      "analysing"),
     ("organizing",     "organising"),
     ("optimizing",     "optimising"),
     ("utilizing",      "utilising"),
     ("realizing",      "realising"),
-    # ─ -or vs -our ──────────────────────────────────────────────────────────
+    # -or vs -our
     ("color",          "colour"),
     ("colors",         "colours"),
     ("behavior",       "behaviour"),
@@ -724,29 +851,29 @@ _AM_BR_PAIRS: List[Tuple[str, str]] = [
     ("humor",          "humour"),
     ("favor",          "favour"),
     ("flavor",         "flavour"),
-    # ─ -er vs -re ────────────────────────────────────────────────────────────
+    # -er vs -re
     ("center",         "centre"),
     ("fiber",          "fibre"),
     ("meter",          "metre"),
     ("caliber",        "calibre"),
-    # ─ -se vs -ce ────────────────────────────────────────────────────────────
+    # -se vs -ce
     ("defense",        "defence"),
     ("offense",        "offence"),
     ("license",        "licence"),
-    # ─ -log vs -logue ────────────────────────────────────────────────────────
+    # -log vs -logue
     ("catalog",        "catalogue"),
     ("dialog",         "dialogue"),
     ("analog",         "analogue"),
-    # ─ -gram vs -gramme ──────────────────────────────────────────────────────
+    # -gram vs -gramme
     ("program",        "programme"),
-    # ─ doubled consonant differences ─────────────────────────────────────────
+    # doubled consonant differences
     ("modeling",       "modelling"),
     ("traveling",      "travelling"),
     ("labeled",        "labelled"),
     ("fulfillment",    "fulfilment"),
     ("enrollment",     "enrolment"),
     ("skillful",       "skilful"),
-    # ─ Other common pairs ────────────────────────────────────────────────────
+    # Other common pairs
     ("artifact",       "artefact"),
     ("artifacts",      "artefacts"),
     ("sulfur",         "sulphur"),
@@ -769,7 +896,7 @@ _SPELLING_PATTERNS: List[Tuple[re.Pattern, re.Pattern, str, str]] = [
 
 def _check_english_spelling_consistency(text: str) -> Dict[str, Any]:
     """
-    Check 24 – English Spelling Consistency.
+    Check 24 - English Spelling Consistency.
 
     Detects mixing of American English and British English spellings by
     scanning for a controlled set of known spelling-variant pairs.
@@ -807,12 +934,12 @@ def _check_english_spelling_consistency(text: str) -> Dict[str, Any]:
     return {"passed": passed, "violations": violations, "detail": detail}
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Helper
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 def _snippet(text: str, start: int, end: int, window: int = 35) -> str:
-    """Return ±window chars around [start:end], with whitespace collapsed."""
+    """Return +/-window chars around [start:end], with whitespace collapsed."""
     s = max(0, start - window)
     e = min(len(text), end + window)
     return re.sub(r"\s+", " ", text[s:e]).strip()

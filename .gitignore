@@ -84,3 +84,4 @@ verifier_log.jsonl
 
 # Jar files (GROBID etc.)
 *.jar
+final_pipeline_output.json

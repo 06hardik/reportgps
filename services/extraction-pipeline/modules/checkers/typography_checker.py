@@ -147,8 +147,14 @@ def check_typography(body_text: str) -> Dict[str, List[Dict[str, Any]]]:
 # ─────────────────────────────────────────────────────────────────────────────
 
 def _check_en_dash(text: str) -> List[Dict[str, Any]]:
-    # Strip DOI strings first so hyphens inside DOIs are never flagged.
+    # Step 1: Strip DOI strings — replace with spaces of same length so all
+    # other character positions remain intact.
     scan_text = _DOI_STRIP_RE.sub(lambda m: ' ' * len(m.group(0)), text)
+
+    # Step 2: Strip citation brackets like [23-25], [1, 2], [3–5] — these are
+    # valid citation syntax, not numeric range formatting errors.  Replace the
+    # entire bracket content (up to 40 chars) with spaces.
+    scan_text = re.sub(r'\[[^\]]{1,40}\]', lambda m: ' ' * len(m.group(0)), scan_text)
 
     violations: List[Dict] = []
     seen: set = set()

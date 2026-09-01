@@ -485,6 +485,12 @@ Add up to 4 Groq API keys (`GROQ_API_KEY` through `GROQ_API_KEY_4`). The verifie
 - **Check 18** (Delimiter Balance): Requires LaTeX or MathML; the PDF text layer does not expose raw math symbols reliably.
 - **Check 30** (Section Heading Style): Requires a journal-specific style guide as ground truth.
 
+### Recent Fixes & Improvements
+
+- **Typography Checks (Double Spaces):** Mitigated a major source of false positives from PyMuPDF `TEXT_PRESERVE_WHITESPACE` (which natively extracts justified PDF text with 2-3 spaces between words). The double-space check now explicitly ignores standard justification artifacts and only flags 4+ consecutive spaces, which strongly indicate genuine authoring/formatting errors.
+- **En-dash Ranges:** Fixed issues where citation brackets (e.g. `[23-25]`) and DOI links containing hyphens were incorrectly flagged as numerical range errors. The pipeline now cleanly strips brackets and DOIs prior to running the en-dash scanner.
+- **Acronym Definitions:** Greatly expanded the domain skip-list (`RMSE`, `CNN`, `PSO`, `NIC`, `AUC`, etc.) to prevent common academic terminology from being flagged as undefined. Increased the lookback window to 600 characters to better support multi-column PDF layouts where expansions appear far from the parenthesis in the extracted text stream.
+
 ---
 
 *For detailed pipeline internals, see [`docs/pipeline_architecture.md`](docs/pipeline_architecture.md).*  
