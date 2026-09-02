@@ -8,11 +8,11 @@ import {
 } from 'lucide-react';
 import './index.css';
 
-// Configure PDF.js worker
-pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.min.mjs',
-  import.meta.url
-).toString();
+// Configure PDF.js worker — load from CDN to avoid server MIME type issues.
+// The local `new URL(...)` approach bundles the worker into /assets/ and
+// requires the server to serve .mjs files with application/javascript.
+// CDN approach (unpkg) always serves with the correct MIME type.
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 
 
 /* ─── helpers ───────────────────────────────────────────────────────────────── */
