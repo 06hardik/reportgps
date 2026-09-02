@@ -4,4 +4,3 @@ dist/
 .env
 README.md
 .gitignore
-nginx-spa.conf
